@@ -1,0 +1,7 @@
+@layer rf.components {
+  .rf-tooltip { position: relative; display: inline-flex; }
+  .rf-tooltip__content { position: absolute; inset-block-end: calc(100% + .5rem); inset-inline-start: 50%; transform: translateX(-50%); z-index: 20; inline-size: max-content; max-inline-size: min(16rem, 80vw); padding: .45rem .65rem; border-radius: var(--rf-radius-sm); background: var(--rf-text); color: var(--rf-surface); font: 400 .75rem/1.5 var(--rf-font); opacity: 0; visibility: hidden; }
+  [dir="rtl"] .rf-tooltip__content { transform: translateX(50%); }
+  .rf-tooltip:is(:hover, :focus-within):not([data-rf-tooltip-dismissed]) .rf-tooltip__content { visibility: visible; opacity: 1; }
+  .rf-tooltip__content::after { content: ""; position: absolute; inset-block-start: 100%; inset-inline: 0; block-size: .5rem; }
+}

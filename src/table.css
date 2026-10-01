@@ -1,0 +1,8 @@
+@layer rf.components {
+  .rf-table-wrap { overflow-x: auto; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); }
+  .rf-table { inline-size: 100%; border-collapse: collapse; background: var(--rf-surface); color: var(--rf-text); text-align: start; font: 400 .875rem/1.6 var(--rf-font); }
+  .rf-table caption { padding: .875rem 1rem; text-align: start; color: var(--rf-muted); }
+  .rf-table :is(th, td) { padding: .875rem 1rem; border-block-start: 1px solid var(--rf-border); text-align: start; white-space: nowrap; }
+  .rf-table thead th { background: var(--rf-subtle); color: var(--rf-muted); font-size: .75rem; font-weight: 600; }
+  .rf-table tbody tr:hover { background: var(--rf-subtle); } .rf-table tfoot { font-weight: 600; }
+}

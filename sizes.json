@@ -1,0 +1,29 @@
+{
+  "coreGzip": 8121,
+  "files": {
+    "rofin.css": {
+      "bytes": 20390,
+      "gzip": 4456
+    },
+    "rofin.js": {
+      "bytes": 9130,
+      "gzip": 3391
+    },
+    "rofin.auto.js": {
+      "bytes": 9712,
+      "gzip": 3665
+    },
+    "effects.css": {
+      "bytes": 1633,
+      "gzip": 676
+    },
+    "effects.js": {
+      "bytes": 1333,
+      "gzip": 643
+    },
+    "sections.css": {
+      "bytes": 1646,
+      "gzip": 650
+    }
+  }
+}

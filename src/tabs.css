@@ -1,0 +1,11 @@
+@layer rf.components {
+  .rf-tabs { font-family: var(--rf-font); color: var(--rf-text); }
+  .rf-tabs [role="tablist"] { display: flex; gap: .25rem; padding: .25rem; border-radius: var(--rf-radius-sm); background: var(--rf-subtle); overflow-x: auto; }
+  .rf-tabs [role="tab"] { flex-shrink: 0; border: 0; border-radius: calc(var(--rf-radius-sm) - 2px); padding: .625rem 1rem; background: transparent; color: var(--rf-muted); font: 600 .875rem/1.5 var(--rf-font); cursor: pointer; }
+  .rf-tabs [role="tab"][aria-selected="true"] { background: var(--rf-surface); color: var(--rf-text); box-shadow: 0 1px 4px rgb(0 0 0 / .08); }
+  .rf-tabs [role="tab"]:focus-visible { outline: 2px solid var(--rf-focus); outline-offset: -2px; }
+  .rf-tabs [role="tab"]:is(:disabled, [aria-disabled="true"]) { opacity: .5; cursor: not-allowed; }
+  .rf-tabs [role="tabpanel"] { padding-block: 1.25rem; }
+  .rf-tabs [role="tabpanel"][hidden] { display: none; }
+  .rf-tabs [aria-orientation="vertical"] { flex-direction: column; }
+}

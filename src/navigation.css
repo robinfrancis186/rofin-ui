@@ -1,0 +1,7 @@
+@layer rf.components {
+  .rf-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font-family: var(--rf-font); }
+  .rf-nav a { display: inline-flex; align-items: center; gap: .5rem; min-block-size: 2.75rem; padding: .6rem .875rem; border-radius: var(--rf-radius-sm); color: var(--rf-muted); text-decoration: none; font-size: .875rem; }
+  .rf-nav a:is(:hover, [aria-current="page"]) { background: var(--rf-subtle); color: var(--rf-text); }
+  .rf-nav--vertical { flex-direction: column; align-items: stretch; }
+  .rf-nav--vertical a[aria-current="page"] { color: var(--rf-primary); font-weight: 600; }
+}

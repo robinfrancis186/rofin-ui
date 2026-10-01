@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-rf-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Beautiful components. Minimal footprint. Rofin UI is a modular HTML, CSS, and vanilla JavaScript library with zero runtime dependencies.">
+  <meta name="theme-color" content="#f9f9fc">
+  <title>Rofin UI — Beautiful components. Minimal footprint.</title>
+  <link rel="icon" type="image/svg+xml" href="./mark.svg">
+  <script>try { const saved = localStorage.getItem('rofin-theme'); document.documentElement.dataset.rfTheme = saved === 'dark' || saved === 'light' ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch {}</script>
+  <link rel="stylesheet" href="./src/rofin.css">
+  <link rel="stylesheet" href="./src/effects.css">
+  <link rel="stylesheet" href="./src/sections.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body class="rf-scope">
+  <a class="rf-skip-link" href="#main">Skip to content</a>
+  <header class="docs-header">
+    <a class="brand" href="#home" aria-label="Rofin UI home"><img src="./mark.svg" alt="" width="32" height="32"><span>rofin<span class="brand-ui">ui</span></span></a>
+    <span class="version">v0.1.0</span>
+    <div class="header-search"><label class="rf-sr-only" for="docs-search">Search components, effects, and sections</label><span aria-hidden="true">⌕</span><input id="docs-search" type="search" placeholder="Search components…" autocomplete="off"><kbd aria-hidden="true">/</kbd></div>
+    <button class="theme-button" id="theme-toggle" type="button" aria-label="Switch to dark theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.5 14A8.5 8.5 0 0 1 10 3.5 8.5 8.5 0 1 0 20.5 14Z"/></svg></button>
+    <a class="header-github" href="https://github.com/robinfrancis186/rofin-ui">GitHub <span aria-hidden="true">→</span></a>
+    <button class="theme-button mobile-menu-button" type="button" data-rf-dialog-open="mobile-menu" aria-label="Open documentation navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  </header>
+  <div class="docs-shell">
+    <aside class="docs-sidebar"><nav id="sidebar-nav" aria-label="Documentation"></nav><div class="sidebar-footer"><span class="status-dot" aria-hidden="true"></span> Small by design.<br><span class="rf-muted">Made by Robin Francis.</span></div></aside>
+    <main id="main" tabindex="-1">
+      <div class="home-hero"><p class="rf-eyebrow">Plain HTML. A little magic.</p><h1>Beautiful components.<br><span class="hero-muted">Minimal footprint.</span></h1><p class="home-intro">Thoughtful building blocks for the web. No framework required. Just the pieces you need, and room to make them yours.</p><a class="rf-button rf-button--large" href="././examples/index.html">Explore the example</a></div>
+      <noscript><section class="rf-card"><h2>Build with plain HTML</h2><p>The interactive gallery uses JavaScript. The library’s CSS components and native HTML controls do not require it.</p><p>Download the <a href="https://github.com/robinfrancis186/rofin-ui">source</a> or open the <a href="./examples/landing.html">landing-page example</a>.</p><pre><code>&lt;link rel="stylesheet" href="./src/rofin.css"&gt;
+&lt;body class="rf-scope"&gt;
+  &lt;button class="rf-button" type="button"&gt;Get started&lt;/button&gt;
+&lt;/body&gt;</code></pre></section></noscript>
+    </main>
+  </div>
+  <dialog class="rf-dialog rf-dialog--drawer docs-mobile-menu" id="mobile-menu" aria-labelledby="mobile-menu-title"><div class="mobile-menu-head"><h2 id="mobile-menu-title">Explore Rofin UI</h2><button class="rf-button rf-button--ghost rf-button--icon" type="button" data-rf-dialog-close aria-label="Close navigation">×</button></div><nav id="mobile-nav" aria-label="Mobile documentation"></nav></dialog>
+  <div class="rf-sr-only" id="search-status" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

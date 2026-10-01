@@ -1,0 +1,11 @@
+@layer rf.components {
+  .rf-card { box-sizing: border-box; min-inline-size: 0; padding: calc(var(--rf-space) * 1.5); border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); font-family: var(--rf-font); line-height: 1.6; }
+  .rf-card > :first-child { margin-block-start: 0; } .rf-card > :last-child { margin-block-end: 0; }
+  .rf-card__title { margin: 0 0 .5rem; font-size: 1.125rem; font-weight: 650; }
+  .rf-card__description { margin: 0; color: var(--rf-muted); }
+  .rf-card__footer { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-start: 1.5rem; }
+  .rf-card--elevated { box-shadow: var(--rf-shadow); }
+  .rf-card--interactive { transition: border-color var(--rf-duration), box-shadow var(--rf-duration); }
+  .rf-card--interactive:focus-within, .rf-card--interactive:hover { border-color: var(--rf-primary); box-shadow: var(--rf-shadow); }
+  @media (prefers-reduced-motion: reduce) { .rf-card--interactive { transition: none; } }
+}

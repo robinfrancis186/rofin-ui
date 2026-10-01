@@ -1,0 +1,163 @@
+import catalog from './catalog.js';
+import { init, toast } from './src/js/index.js';
+import { initEffects } from './src/js/effects.js';
+
+const main = document.querySelector('#main');
+const search = document.querySelector('#docs-search');
+const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+const counts = Object.fromEntries(['Components', 'Effects', 'Sections'].map(category => [category, catalog.filter(item => item.category === category).length]));
+let filter = 'All';
+let stopEffects = () => {};
+let sizeReport;
+init();
+
+function footer() {
+  return `<footer class="docs-footer"><span>Built with care by <a href="https://github.com/robinfrancis186">Robin Francis</a>.</span><span>Open source. MIT licensed. Yours to make your own.</span></footer>`;
+}
+function navigation() {
+  const current = location.hash || '#home';
+  let html = '<p class="nav-label">Start here</p>';
+  for (const [id, title] of [['home', 'Introduction'], ['start', 'Installation'], ['theming', 'Make it yours'], ['api', 'JavaScript API'], ['principles', 'Principles & support']]) {
+    html += `<a class="docs-link" href="#${id}" ${current === `#${id}` ? 'aria-current="page"' : ''}>${title}</a>`;
+  }
+  for (const category of ['Components', 'Effects', 'Sections']) {
+    html += `<p class="nav-label">${category} <span class="rf-muted">/ ${counts[category]}</span></p>`;
+    for (const item of catalog.filter(item => item.category === category)) {
+      html += `<a class="docs-link" href="#component/${item.id}" ${current === `#component/${item.id}` ? 'aria-current="page"' : ''}>${item.title}${item.js.length ? '<span class="nav-tag">JS</span>' : ''}</a>`;
+    }
+  }
+  document.querySelector('#sidebar-nav').innerHTML = html;
+  document.querySelector('#mobile-nav').innerHTML = html;
+}
+function art(item) {
+  if (item.id === 'button' || item.id === 'shimmer') return '<span class="art-button">Get started →</span>';
+  if (['switch', 'checkbox', 'radio'].includes(item.id)) return '<span class="rf-badge" data-variant="success">✓ All set</span>';
+  if (item.id === 'badge') return '<span class="rf-badge" data-variant="success">● Published</span>';
+  if (item.id === 'avatar') return '<span class="rf-avatar" aria-hidden="true">RF</span>';
+  if (['tabs', 'navigation', 'pagination'].includes(item.id)) return '<div class="art-tabs"><span>Overview</span><span>Activity</span><span>Settings</span></div>';
+  if (['input', 'select', 'textarea', 'contact', 'upload'].includes(item.id)) return '<div class="art-field"><span>Your next idea</span><div>Something wonderful…</div></div>';
+  if (['bento', 'features', 'layout', 'pricing', 'stats'].includes(item.id)) return '<div class="art-bento"><span></span><span></span><span></span><span></span></div>';
+  if (['gradient-text', 'hero', 'cta', 'testimonials', 'dot-grid', 'spotlight'].includes(item.id)) return '<div class="art-quote">Make something<br>worth opening.</div>';
+  return '<div class="art-lines"><span></span><span></span><span></span></div>';
+}
+function cards(items) {
+  return `<div class="catalog-grid">${items.map(item => `<a class="catalog-card" href="#component/${item.id}"><div class="catalog-art" aria-hidden="true">${art(item)}</div><div class="catalog-copy"><div class="catalog-title"><h3>${item.title}</h3><span>${item.js.length ? 'JS' : 'CSS'}</span></div><p>${item.description}</p></div></a>`).join('')}</div>`;
+}
+function home() {
+  const featured = ['button', 'card', 'tabs', 'input', 'bento', 'gradient-text'].map(id => catalog.find(item => item.id === id));
+  return `<section class="home-hero"><p class="rf-eyebrow">Plain HTML. A little magic.</p><h1>Beautiful components.<br><span class="hero-muted">Minimal footprint.</span></h1><p class="home-intro">Thoughtful building blocks for the web. No framework required. Just the pieces you need, and room to make them yours.</p><div class="home-actions"><a class="rf-button" href="#catalog">Explore components <span aria-hidden="true">→</span></a><a class="rf-button rf-button--outline" href="#start">Start building</a></div><div class="hero-facts"><span>Zero runtime dependencies</span><span>Framework independent</span><span>MIT licensed</span></div></section>
+  <div class="showcase" aria-label="Rofin component preview">
+    <div class="showcase-panel showcase-panel--main"><div class="showcase-head"><span class="tiny-label">A little of what’s possible</span><span class="rf-badge" data-variant="success">Live preview</span></div><div class="mini-workspace"><h2>Your next chapter.</h2><p>A workspace for the things you want to make.</p><div class="mini-project"><span class="mini-icon" aria-hidden="true">→</span><div><strong>Website launch</strong><p>Design something worth opening.</p></div><span class="rf-badge" data-variant="warning">In progress</span></div><div class="mini-progress"><label for="home-progress">72%</label><progress class="rf-progress" id="home-progress" value="72" max="100">72%</progress></div><div class="showcase-bottom"><div class="rf-avatar-group" aria-label="Sample project team"><span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span><span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span><span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span></div><button class="rf-button rf-button--outline" type="button" data-demo-toast>Save project →</button></div></div></div>
+    <div class="showcase-right"><div class="showcase-panel"><span class="tiny-label">Clear next steps</span><div class="showcase-buttons"><a class="rf-button" href="#start">Get started</a><a class="rf-button rf-button--outline" href="#component/button">Learn more</a><button class="rf-button rf-button--ghost" type="button" data-demo-toast>Save draft</button></div></div><div class="showcase-panel"><span class="tiny-label">Small, thoughtful details</span><div class="showcase-toggle"><label class="rf-check"><input type="checkbox" class="rf-switch" role="switch" checked> Keep me in the loop</label></div><div class="showcase-toggle"><span class="rf-muted">Your changes are safe.</span><span class="rf-badge" data-variant="success">✓ Saved</span></div></div></div>
+  </div><div class="showcase-caption"><span>REAL HTML. REAL COMPONENTS. NOTHING EXTRA.</span><span>Make it yours →</span></div>
+  <div class="metrics"><div class="metric"><strong>${counts.Components}</strong><span>Core components</span></div><div class="metric"><strong>${counts.Sections}</strong><span>Copyable sections</span></div><div class="metric"><strong>0</strong><span>Runtime dependencies</span></div><div class="metric"><strong data-core-size>—</strong><span>Core CSS + JS, gzip</span></div></div>
+  <section><div class="section-top"><div><h2>A good place to start.</h2><p>Small pieces. Plenty of possibility.</p></div><a href="#catalog">View all ${catalog.length} entries <span aria-hidden="true">→</span></a></div>${cards(featured)}</section>
+  <section class="doc-section"><div class="section-top"><div><h2>From small pieces to a whole page.</h2><p>Original layouts you can copy, adapt, and ship.</p></div><a href="./examples/landing.html">Open example →</a></div>${cards(['hero', 'pricing', 'testimonials'].map(id => catalog.find(item => item.id === id)))}</section>${footer()}`;
+}
+function gallery() {
+  const query = search.value.trim().toLocaleLowerCase();
+  const items = catalog.filter(item => (filter === 'All' || item.category === filter) && `${item.title} ${item.category} ${item.description}`.toLocaleLowerCase().includes(query));
+  document.querySelector('#search-status').textContent = `${items.length} results`;
+  return `<div class="page-heading"><p class="rf-eyebrow">Your building blocks</p><h1>${query ? 'Find a good fit.' : filter === 'All' ? 'A little of everything.' : filter}</h1><p>${items.length} ${items.length === 1 ? 'entry' : 'entries'}${query ? ` matching “${escape(search.value)}”` : '. Original designs. Native foundations. Pick what you need.'}</p></div><div class="category-filters" aria-label="Filter gallery">${['All', 'Components', 'Effects', 'Sections'].map(category => `<button type="button" data-category="${category}" aria-pressed="${filter === category}">${category}${category !== 'All' ? ` · ${counts[category]}` : ` · ${catalog.length}`}</button>`).join('')}</div>${items.length ? cards(items) : '<div class="empty-results"><h2>No matching components.</h2><p>Try “card”, “form”, or “hero”, or choose another category.</p></div>'}${footer()}`;
+}
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast' };
+function setup(item) {
+  const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
+  let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
+  if (item.js.length) {
+    code += '\n\n<script type="module">\n';
+    const core = item.js.filter(name => name !== 'effects');
+    if (core.length) {
+      for (const name of core) code += `  import { ${functions[name]} } from './src/js/${name}.js';\n`;
+      for (const name of core.filter(name => name !== 'toast')) code += `  ${functions[name]}();\n`;
+    }
+    if (item.js.includes('effects')) code += "  import { initEffects } from './src/js/effects.js';\n  initEffects();\n";
+    if (item.sampleJS) code += '\n' + item.sampleJS.split('\n').map(line => '  ' + line).join('\n') + '\n';
+    code += '</script>';
+  }
+  code += '\n\n<!-- Put the example inside a .rf-scope container. -->';
+  return code;
+}
+function codePanel(title, code) {
+  return `<div class="code-panel"><div class="code-toolbar"><strong>${title}</strong><button class="rf-button rf-button--ghost" type="button" data-copy>Copy code</button></div><pre tabindex="0" aria-label="${title}"><code>${escape(code)}</code></pre></div>`;
+}
+function detail(item) {
+  return `<div class="page-heading"><p class="rf-eyebrow">${item.category} / ${item.js.length ? 'Optional JavaScript' : 'HTML + CSS'}</p><h1>${item.title}</h1><p>${item.description}</p><div class="detail-bits"><span>${item.cssBytes.toLocaleString()} bytes of minified component CSS*</span><span>${item.js.length ? 'Vanilla JavaScript' : 'No JavaScript needed'}</span></div></div><div class="preview-shell"><div class="preview-toolbar"><h2>INTERACTIVE PREVIEW</h2><button class="rf-button rf-button--ghost" type="button" id="preview-width" aria-pressed="false">Narrow preview</button></div><div class="preview rf-scope">${item.html}</div></div><p class="rf-help">*Sum of minified component modules; excludes shared tokens, base, and layout. This is not a gzip transfer measurement.</p><section class="doc-section"><h2>Make it yours.</h2><p>Copy the HTML, include the styles, and add the optional behavior below.</p>${codePanel('HTML', item.html)}${codePanel('Styles & setup', setup(item))}</section><section class="doc-section"><h2>Good to know.</h2><ul>${item.notes.map(note => `<li>${escape(note)}</li>`).join('')}</ul></section><section class="doc-section"><h2>Source files</h2><p>${[item.file, ...item.css.map(name => `src/${name}.css`), ...item.js.map(name => `src/js/${name}.js`)].map(path => `<a href="https://github.com/robinfrancis186/rofin-ui/blob/main/${path}">${path}</a>`).join(' · ')}</p></section>${footer()}`;
+}
+function installation() {
+  const simple = `<link rel="stylesheet" href="./src/rofin.css">\n\n<div class="rf-scope">\n  <button class="rf-button" type="button">Get started</button>\n</div>\n\n<!-- Only needed for JavaScript interactions. -->\n<script type="module">\n  import { init } from './src/js/index.js';\n  const destroy = init();\n  // Call destroy() when removing this app root.\n</script>`;
+  const subset = `<link rel="stylesheet" href="./src/tokens.css">\n<link rel="stylesheet" href="./src/button.css">\n\n<button class="rf-button" type="button">Just one component</button>`;
+  return `<div class="page-heading"><p class="rf-eyebrow">A small beginning</p><h1>Start with the web.</h1><p>No framework to learn. No runtime dependencies to install. A few files, then your own ideas.</p></div><p class="install-note">The npm package has not been published yet. Use the repository source or build the downloadable files locally.</p><section class="doc-section"><h2>1. Get the source</h2><p><a href="https://github.com/robinfrancis186/rofin-ui/archive/refs/heads/main.zip">Download the repository ZIP</a> or clone it:</p>${codePanel('Terminal', 'git clone https://github.com/robinfrancis186/rofin-ui.git')}</section><section class="doc-section"><h2>2. Include the styles</h2><p>The source files work directly in a browser. The .rf-scope class enables scoped typography and base styles without resetting your entire app.</p>${codePanel('HTML', simple)}</section><section class="doc-section"><h2>3. Pick just what you need</h2><p>Tokens plus an individual CSS module are enough for standalone component styles. Add base.css and layout.css if your example uses scoped typography or layout utilities.</p>${codePanel('Individual styles', subset)}</section><section class="doc-section"><h2>Prefer bundled files?</h2><p>Run npm ci and npm run build to produce minified standalone files in dist. Development tools are not runtime dependencies.</p>${codePanel('Built assets', '<link rel="stylesheet" href="./dist/rofin.css">\n<script src="./dist/rofin.auto.js" defer></script>\n<!-- Auto-initializes; APIs are available as window.Rofin. -->')}<p><a href="./downloads/rofin.css" download>Download built CSS</a> · <a href="./downloads/rofin.auto.js" download>Download auto JavaScript</a></p></section><section class="doc-section"><h2>Try a full page</h2><p><a href="./examples/landing.html">Landing page</a> · <a href="./examples/dashboard.html">Dashboard</a> · <a href="./examples/index.html">Component playground</a></p></section>${footer()}`;
+}
+function theming() {
+  const tokens = [['--rf-primary', 'Primary actions and accents'], ['--rf-on-primary', 'Text on the primary color'], ['--rf-surface', 'Cards, inputs, dialogs'], ['--rf-bg', 'Page background'], ['--rf-text', 'Primary text'], ['--rf-muted', 'Secondary text'], ['--rf-border', 'Borders and separators'], ['--rf-focus', 'Keyboard focus ring'], ['--rf-radius', 'Default corner radius'], ['--rf-font', 'System font stack']];
+  return `<div class="page-heading"><p class="rf-eyebrow">Your own character</p><h1>Make it feel like you.</h1><p>A small set of CSS variables gives every component a shared visual language.</p></div><section class="doc-section"><h2>Change the essentials</h2><p>Place overrides after the Rofin stylesheet. Unlayered application styles take precedence over the library’s CSS layers.</p>${codePanel('CSS', ':root {\n  --rf-primary: #176844;\n  --rf-primary-hover: #105132;\n  --rf-on-primary: #ffffff;\n  --rf-focus: #176844;\n  --rf-radius: 1rem;\n}')}</section><section class="doc-section"><h2>Light and dark</h2><p>Without an explicit setting, tokens follow the operating system. Set data-rf-theme="light" or "dark" on the html element to choose a theme. The documentation’s preference persistence is separate from the library.</p>${codePanel('HTML', '<html lang="en" data-rf-theme="dark">')}</section><section class="doc-section"><h2>Design tokens</h2><div class="rf-table-wrap"><table class="rf-table token-table"><caption>Frequently used variables</caption><thead><tr><th scope="col">Token</th><th scope="col">Purpose</th></tr></thead><tbody>${tokens.map(([token, purpose]) => `<tr><td><code>${token}</code></td><td>${purpose}</td></tr>`).join('')}</tbody></table></div></section><section class="doc-section"><h2>Keep the basics readable</h2><p>After customizing, check text contrast, keyboard focus visibility, and both color themes. The tested defaults do not guarantee the accessibility of your overrides.</p></section>${footer()}`;
+}
+function api() {
+  return `<div class="page-heading"><p class="rf-eyebrow">A little behavior</p><h1>Small scripts. Clear APIs.</h1><p>Importing the main module does not touch the DOM. Initialize only when and where you need interactions.</p></div><section class="doc-section"><h2>Initialize and clean up</h2>${codePanel('JavaScript', "import { init } from './src/js/index.js';\n\nconst destroy = init(document, { observe: true });\n// New component subtrees are initialized automatically.\n// Removed subtrees have their listeners cleaned up.\n\n// Before unmounting your app:\ndestroy();")}<p>Initialization is idempotent for the same root. Avoid overlapping roots. Observation watches insertion and removal of complete component subtrees, not configuration attribute changes. When changing a tabset’s internal structure, tear down and initialize again.</p></section><section class="doc-section"><h2>Individual components</h2>${codePanel('JavaScript', "import { initTabs } from './src/js/tabs.js';\n\nconst destroyTabs = initTabs(document.querySelector('#my-widget'));\n// Individual initializers do not observe future insertions.\ndestroyTabs();")}<p>Other exports: initDropdowns, initDialogs, initTooltips, and initUploads. These return teardown functions too.</p></section><section class="doc-section"><h2>Notifications</h2>${codePanel('JavaScript', "import { toast, clearToasts } from './src/js/toast.js';\n\nconst notification = toast('Your changes are saved.', {\n  title: 'All set',\n  variant: 'success',\n  duration: 5000\n});\n\nnotification.dismiss();\nclearToasts();")}<p>Variants: info, success, warning, danger. Set duration: 0 to persist. Notifications are text-only and do not support raw HTML.</p></section><section class="doc-section"><h2>Optional effects</h2>${codePanel('JavaScript', "import { initEffects } from './src/js/effects.js';\n\nconst stopEffects = initEffects(document);\n// Call again for new content, and stop before removing it.\nstopEffects();")}<p>Include effects.css separately. Effects honor prefers-reduced-motion. They are not bundled into the core.</p></section><section class="doc-section"><h2>Events and native methods</h2><p>Tabs emit rf:tab-change with detail.index and detail.tab. Dialogs expose native showModal(), close(), and close/cancel events. Menus expose native showPopover(), hidePopover(), and toggle events. File selection uses the native change event.</p></section>${footer()}`;
+}
+function principles() {
+  return `<div class="page-heading"><p class="rf-eyebrow">Small by design</p><h1>Enough, thoughtfully made.</h1><p>A useful foundation, without asking you to adopt an entire frontend stack.</p></div><section class="doc-section"><h2>Native where it matters</h2><p>HTML owns form semantics, validation, checkbox and radio behavior, expandable details, and modal focus handling. JavaScript fills a small number of interaction gaps. The core does not register custom elements or rewrite your existing controls.</p></section><section class="doc-section"><h2>A library, not a speed guarantee</h2><p>The current minified core CSS and auto JavaScript total <strong data-core-size>—</strong> when gzipped separately at level 9. This excludes documentation, effects, sections, media, and your application. A 14 KiB combined gzip ceiling is enforced during builds.</p><p>Small assets reduce some overhead. Image size, fonts, application scripts, rendering effects, and server response time still determine page performance. We have not established field Core Web Vitals for your website.</p></section><section class="doc-section"><h2>Browser support</h2><p>Target current Chrome/Edge, Firefox, and Safari. Native popovers require Chrome/Edge 114+, Firefox 125+, or Safari 17+. The library also uses CSS layers and modern logical properties. There is no bundled legacy browser polyfill. The automated browser suite currently runs in Chromium; Firefox, Safari, touch hardware, and screen-reader testing remain release follow-ups.</p></section><section class="doc-section"><h2>Accessibility is part of the implementation</h2><p>Labelled controls, visible focus, keyboard navigation, native modal behavior, and reduced-motion fallbacks are included. Automated accessibility checks cover the gallery examples in light and dark themes. These checks do not replace assistive-technology testing or validate your customizations.</p></section><section class="doc-section"><h2>What’s included, and what isn’t</h2><p>${counts.Components} component examples, ${counts.Effects} optional effects, ${counts.Sections} sections, and two composed page examples. Advanced data grids, rich-text editing, complex comboboxes, payment processing, and server integrations are outside this release.</p></section><section class="doc-section"><h2>Open source, with room to grow</h2><p>MIT licensed. Original source inspired by the minimal approach of Oat, without including source code from Oat, Aura, or Aceternity. Pre-1.0 APIs can change; pin versions when integrating. <a href="https://github.com/robinfrancis186/rofin-ui/issues">Report a problem or request a component</a>.</p></section>${footer()}`;
+}
+function updateSize() {
+  if (!sizeReport) return;
+  document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = `${(sizeReport.coreGzip / 1024).toFixed(1)} KiB`; });
+}
+function render({ focus = false } = {}) {
+  stopEffects();
+  const route = location.hash.slice(1) || 'home';
+  const item = route.startsWith('component/') ? catalog.find(entry => entry.id === route.slice(10)) : null;
+  let html;
+  if (search.value.trim() || route.startsWith('catalog')) html = gallery();
+  else if (item) html = detail(item);
+  else if (route === 'start') html = installation();
+  else if (route === 'theming') html = theming();
+  else if (route === 'api') html = api();
+  else if (route === 'principles') html = principles();
+  else html = home();
+  main.innerHTML = html;
+  stopEffects = initEffects(main);
+  navigation(); updateSize();
+  document.title = `${item?.title || ({ start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
+  if (focus) { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }
+}
+
+window.addEventListener('hashchange', () => { search.value = ''; render({ focus: true }); });
+search.addEventListener('input', () => render());
+document.addEventListener('keydown', event => {
+  if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input, textarea, select, [contenteditable]')) { event.preventDefault(); search.focus(); }
+});
+document.addEventListener('click', async event => {
+  const category = event.target.closest('[data-category]');
+  if (category) { filter = category.dataset.category; render(); document.querySelector(`[data-category="${filter}"]`)?.focus(); }
+  const copy = event.target.closest('[data-copy]');
+  if (copy) {
+    const code = copy.closest('.code-panel').querySelector('code');
+    try { await navigator.clipboard.writeText(code.textContent); copy.textContent = 'Copied'; setTimeout(() => { if (copy.isConnected) copy.textContent = 'Copy code'; }, 1800); }
+    catch { const range = document.createRange(); range.selectNodeContents(code); const selection = getSelection(); selection.removeAllRanges(); selection.addRange(range); toast('Clipboard access is unavailable. The code is selected so you can copy it manually.', { duration: 0 }); }
+  }
+  if (event.target.closest('[data-demo-toast]')) toast('Your changes are saved.', { title: 'All set', variant: 'success' });
+  const previewWidth = event.target.closest('#preview-width');
+  if (previewWidth) {
+    const narrow = document.querySelector('.preview').classList.toggle('narrow');
+    previewWidth.setAttribute('aria-pressed', String(narrow)); previewWidth.textContent = narrow ? 'Full preview' : 'Narrow preview';
+  }
+  const previewLink = event.target.closest('.preview a');
+  if (previewLink) { event.preventDefault(); toast('Example link. Connect this to your own destination.', { duration: 3000 }); }
+  if (event.target.closest('#mobile-nav a')) document.querySelector('#mobile-menu').close();
+});
+document.addEventListener('submit', event => {
+  if (event.target.matches('[data-demo-form]')) { event.preventDefault(); toast('Demo only. No data was sent.', { title: 'Form preview', duration: 5000 }); }
+});
+const themeButton = document.querySelector('#theme-toggle');
+function themeLabel() { themeButton.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.rfTheme === 'dark' ? 'light' : 'dark'} theme`); }
+themeButton.addEventListener('click', () => {
+  const theme = document.documentElement.dataset.rfTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.rfTheme = theme;
+  try { localStorage.setItem('rofin-theme', theme); } catch {}
+  themeLabel();
+});
+themeLabel(); render();
+fetch('./sizes.json').then(response => { if (!response.ok) throw new Error('No size report'); return response.json(); }).then(report => { sizeReport = report; updateSize(); }).catch(() => {
+  document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = 'See build'; });
+});

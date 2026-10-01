@@ -1,0 +1,9 @@
+@layer rf.components {
+  .rf-toast-region { position: fixed; inset-inline-end: 1rem; inset-block-end: 1rem; z-index: 100; display: grid; gap: .75rem; inline-size: min(24rem, calc(100vw - 2rem)); font-family: var(--rf-font); }
+  .rf-toast { display: grid; grid-template-columns: 1fr auto; gap: .75rem; padding: 1rem 1.125rem; border: 1px solid var(--rf-border); border-inline-start: 3px solid var(--rf-primary); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); box-shadow: var(--rf-shadow); font-size: .875rem; line-height: 1.5; }
+  .rf-toast[data-variant="success"] { border-inline-start-color: var(--rf-success); }
+  .rf-toast[data-variant="danger"] { border-inline-start-color: var(--rf-danger); }
+  .rf-toast__title { display: block; margin-block-end: .25rem; font-weight: 650; }
+  .rf-toast__close { align-self: start; border: 0; border-radius: var(--rf-radius-sm); background: transparent; color: var(--rf-muted); inline-size: 2rem; block-size: 2rem; font-size: 1.25rem; cursor: pointer; }
+  .rf-toast__close:focus-visible { outline: 3px solid var(--rf-focus); }
+}

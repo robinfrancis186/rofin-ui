@@ -1,0 +1,6 @@
+@layer rf.components {
+  .rf-avatar { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; inline-size: var(--rf-avatar-size, 2.75rem); block-size: var(--rf-avatar-size, 2.75rem); border: 1px solid var(--rf-border); border-radius: 50%; background: var(--rf-subtle); color: var(--rf-primary); overflow: hidden; font: 650 .875rem/1 var(--rf-font); }
+  .rf-avatar > img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .rf-avatar-group { display: flex; padding-inline-start: .5rem; }
+  .rf-avatar-group > .rf-avatar { margin-inline-start: -.5rem; border: 3px solid var(--rf-surface); }
+}

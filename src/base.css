@@ -1,0 +1,12 @@
+@layer rf.base {
+  :where(.rf-scope) { background: var(--rf-bg); color: var(--rf-text); font-family: var(--rf-font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  :where(.rf-scope *, .rf-scope *::before, .rf-scope *::after) { box-sizing: border-box; }
+  :where(.rf-scope [hidden]) { display: none !important; }
+  :where(.rf-scope img, .rf-scope svg, .rf-scope video) { max-inline-size: 100%; }
+  :where(.rf-scope button, .rf-scope input, .rf-scope select, .rf-scope textarea) { font: inherit; }
+  :where(.rf-scope h1, .rf-scope h2, .rf-scope h3, .rf-scope h4) { line-height: 1.2; letter-spacing: -.025em; text-wrap: balance; }
+  :where(.rf-scope p) { text-wrap: pretty; }
+  :where(.rf-scope a:not([class])) { color: var(--rf-primary); text-underline-offset: .2em; }
+  :where(.rf-scope :focus-visible) { outline: 3px solid var(--rf-focus); outline-offset: 3px; }
+  :where(.rf-scope code) { font-family: var(--rf-mono); font-size: .875em; }
+}
