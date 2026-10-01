@@ -1,0 +1,7 @@
+@layer rf.components {
+  .rf-breadcrumb { font: 400 .8125rem/1.6 var(--rf-font); }
+  .rf-breadcrumb ol { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 0; padding: 0; list-style: none; }
+  .rf-breadcrumb li + li::before { content: "/"; color: var(--rf-muted); margin-inline-end: .6rem; }
+  .rf-breadcrumb a { color: var(--rf-muted); text-underline-offset: .2em; }
+  .rf-breadcrumb [aria-current="page"] { color: var(--rf-text); text-decoration: none; }
+}

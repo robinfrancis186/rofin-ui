@@ -1,0 +1,7 @@
+@layer rf.components {
+  .rf-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; font-family: var(--rf-font); }
+  .rf-pagination a, .rf-pagination > span { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 2.5rem; min-block-size: 2.5rem; padding-inline: .65rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); color: var(--rf-text); font-size: .875rem; text-decoration: none; }
+  .rf-pagination [aria-current="page"] { border-color: var(--rf-primary); background: var(--rf-primary); color: var(--rf-on-primary); }
+  .rf-pagination a:hover:not([aria-current]) { background: var(--rf-subtle); }
+  .rf-pagination .rf-pagination__ellipsis { border-color: transparent; }
+}

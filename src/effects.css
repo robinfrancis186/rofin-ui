@@ -1,0 +1,20 @@
+@layer rf.effects {
+  .rf-dot-grid { background-image: radial-gradient(var(--rf-border) 1px, transparent 1px); background-size: 18px 18px; }
+  .rf-gradient-text { background: linear-gradient(110deg, var(--rf-primary), var(--rf-info)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+  .rf-glow { position: relative; isolation: isolate; }
+  .rf-glow::before { content: ""; position: absolute; inset: 20%; z-index: -1; background: var(--rf-primary); opacity: .12; filter: blur(50px); border-radius: 50%; pointer-events: none; }
+  .rf-hover-lift { transition: transform 200ms ease, box-shadow 200ms ease; }
+  .rf-hover-lift:hover { transform: translateY(-4px); box-shadow: var(--rf-shadow); }
+  .rf-shimmer { position: relative; overflow: hidden; }
+  .rf-shimmer::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, transparent 20%, rgb(255 255 255 / .15) 50%, transparent 80%); transform: translateX(-100%); }
+  .rf-shimmer:is(:hover, :focus-visible)::after { animation: rf-shimmer 650ms ease; }
+  @keyframes rf-shimmer { to { transform: translateX(100%); } }
+  [data-rf-reveal][data-rf-reveal-ready]:not([data-rf-revealed]) { opacity: 0; transform: translateY(12px); }
+  [data-rf-reveal][data-rf-reveal-ready] { transition: opacity 450ms ease, transform 450ms ease; }
+  [data-rf-spotlight] { background: radial-gradient(240px circle at var(--rf-pointer-x, 50%) var(--rf-pointer-y, 50%), var(--rf-subtle), var(--rf-surface)); }
+  @media (prefers-reduced-motion: reduce) {
+    .rf-hover-lift, [data-rf-reveal][data-rf-reveal-ready] { transition: none; transform: none; opacity: 1; }
+    .rf-hover-lift:hover { transform: none; } .rf-shimmer::after { animation: none !important; }
+  }
+  @media (forced-colors: active) { .rf-gradient-text { background: none; color: CanvasText; } }
+}

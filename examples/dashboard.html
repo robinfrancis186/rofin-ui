@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"><link rel="stylesheet" href="../src/effects.css"><style>body{margin:0} main{padding-block:2rem} .demo-section{margin-block:2rem} .demo-stage{padding:1.5rem;border:1px solid var(--rf-border);border-radius:var(--rf-radius);background:var(--rf-surface)} .example-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;padding-block:1rem;border-bottom:1px solid var(--rf-border)} .dashboard-layout{display:grid;grid-template-columns:160px minmax(0,1fr);gap:2rem}.dashboard-layout h1{font-size:clamp(2rem,4vw,3rem)}@media(max-width:650px){.dashboard-layout{grid-template-columns:1fr}.dashboard-layout aside .rf-nav{flex-direction:row}}</style></head><body class="rf-scope"><a class="rf-skip-link" href="#main">Skip to content</a><header class="example-header rf-container"><strong>Studio / Dashboard example</strong><div class="rf-cluster"><button class="rf-button rf-button--outline" type="button" data-rf-dialog-open="settings-drawer">Settings</button><a class="rf-button rf-button--ghost" href="../docs/index.html">Documentation →</a></div></header>
+<main class="rf-container" id="main"><div class="dashboard-layout"><aside><nav class="rf-nav rf-nav--vertical" aria-label="Workspace"><a href="#overview" aria-current="page">Overview</a><a href="#projects">Projects</a><a href="#team">Team</a></nav></aside><div class="rf-stack"><section id="overview"><p class="rf-eyebrow">Your workspace</p><h1>A little progress, every day.</h1><p class="rf-muted">A composed example. Project data is illustrative.</p><div class="rf-grid"><article class="rf-card"><p class="rf-help">Active projects</p><p class="rf-stat">24</p><span class="rf-badge" data-variant="success">3 launched this week</span></article><article class="rf-card"><p class="rf-help">Team members</p><p class="rf-stat">8</p><p class="rf-muted rf-text-sm">Building something together.</p></article><article class="rf-card"><label class="rf-help" for="dashboard-progress">Milestone progress</label><p class="rf-stat">72%</p><progress class="rf-progress" id="dashboard-progress" value="72" max="100">72%</progress></article></div></section>
+<section id="projects" class="rf-stack"><div class="rf-cluster" style="justify-content:space-between"><h2>Your projects</h2><div class="rf-field"><label class="rf-sr-only" for="project-search">Filter projects</label><input class="rf-input" id="project-search" type="search" placeholder="Filter projects…"></div></div><div class="rf-table-wrap" tabindex="0" role="region" aria-label="Projects table">
+  <table class="rf-table"><caption>Your latest projects</caption>
+    <thead><tr><th scope="col">Project</th><th scope="col">Status</th><th scope="col">Updated</th></tr></thead>
+    <tbody><tr><th scope="row">Studio website</th><td><span class="rf-badge" data-variant="success">Published</span></td><td>Today</td></tr>
+    <tr><th scope="row">Component library</th><td><span class="rf-badge" data-variant="warning">In progress</span></td><td>Yesterday</td></tr></tbody>
+  </table>
+</div>
+<p class="rf-help" id="filter-status" role="status"></p></section><section class="rf-grid"><div class="rf-stack"><h2>Quick actions</h2><div data-rf-dropdown>
+  <button class="rf-button rf-button--outline" type="button" popovertarget="actions-menu">Project actions <span aria-hidden="true">⌄</span></button>
+  <div class="rf-menu" id="actions-menu" popover role="menu" aria-label="Project actions">
+    <button type="button" role="menuitem">Edit project</button>
+    <button type="button" role="menuitem">Duplicate</button>
+    <hr class="rf-menu__separator" role="separator">
+    <button type="button" role="menuitem">Archive project</button>
+  </div>
+</div>
+<div class="rf-upload" data-rf-upload>
+  <label class="rf-label" for="project-files">Add files to your project</label>
+  <p class="rf-help" id="files-help">Choose one or more files. This demo lists them locally; it does not upload them.</p>
+  <input id="project-files" type="file" multiple aria-describedby="files-help">
+  <ul class="rf-upload__files" data-rf-file-list aria-live="polite"></ul>
+</div>
+</div><div class="rf-stack" id="team"><h2>Your team</h2><div class="rf-cluster">
+  <span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span>
+  <div class="rf-avatar-group" aria-label="Project team">
+    <span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span>
+    <span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span>
+    <span class="rf-avatar" role="img" aria-label="Three more teammates">+3</span>
+  </div>
+</div>
+<div class="rf-alert" data-variant="success">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+  <div><strong class="rf-alert__title">You’re ready to go.</strong><p>Your workspace has been created. Time to make something great.</p></div>
+</div>
+</div></section></div></div>
+<dialog class="rf-dialog rf-dialog--drawer" id="settings-drawer" aria-labelledby="drawer-title">
+  <h2 class="rf-dialog__title" id="drawer-title">Workspace settings</h2>
+  <p class="rf-muted">Give your workspace a name that feels like you.</p>
+  <div class="rf-field"><label class="rf-label" for="drawer-name">Workspace name</label><input class="rf-input" id="drawer-name" value="Studio" autofocus></div>
+  <div class="rf-dialog__actions"><button class="rf-button" type="button" data-rf-dialog-close>Done</button></div>
+</dialog>
+</main><script type="module" src="./demo.js"></script></body></html>

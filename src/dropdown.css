@@ -1,0 +1,8 @@
+@layer rf.components {
+  .rf-menu { box-sizing: border-box; position: fixed; inset: auto; margin: 0; min-inline-size: 12rem; max-inline-size: calc(100vw - 1rem); max-block-size: calc(100dvh - 1rem); overflow: auto; padding: .375rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); box-shadow: var(--rf-shadow); font-family: var(--rf-font); }
+  .rf-menu [role="menuitem"] { display: flex; align-items: center; gap: .75rem; inline-size: 100%; min-block-size: 2.5rem; padding: .5rem .75rem; border: 0; border-radius: var(--rf-radius-sm); background: transparent; color: inherit; text-align: start; text-decoration: none; font: 400 .875rem/1.5 var(--rf-font); cursor: pointer; }
+  .rf-menu [role="menuitem"]:is(:hover, :focus) { background: var(--rf-subtle); }
+  .rf-menu [role="menuitem"]:focus-visible { outline: 2px solid var(--rf-focus); outline-offset: -2px; }
+  .rf-menu [role="menuitem"]:disabled { opacity: .5; cursor: not-allowed; }
+  .rf-menu__separator { margin: .375rem; border: 0; border-block-start: 1px solid var(--rf-border); }
+}

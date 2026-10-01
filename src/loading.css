@@ -1,0 +1,7 @@
+@layer rf.components {
+  .rf-spinner { display: inline-block; inline-size: 1.25rem; block-size: 1.25rem; border: 2px solid var(--rf-border); border-block-start-color: currentColor; border-radius: 50%; animation: rf-spin .8s linear infinite; }
+  .rf-skeleton { display: block; block-size: 1rem; border-radius: var(--rf-radius-sm); background: var(--rf-subtle); animation: rf-pulse 1.8s ease-in-out infinite; }
+  .rf-skeleton--circle { inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; }
+  @keyframes rf-spin { to { transform: rotate(360deg); } } @keyframes rf-pulse { 50% { opacity: .45; } }
+  @media (prefers-reduced-motion: reduce) { .rf-spinner, .rf-skeleton { animation: none; } }
+}

@@ -1,0 +1,25 @@
+@layer rf.components {
+  .rf-field { display: grid; gap: .45rem; min-inline-size: 0; font-family: var(--rf-font); }
+  .rf-label { color: var(--rf-text); font-size: .875rem; font-weight: 600; }
+  .rf-input, .rf-select, .rf-textarea { box-sizing: border-box; inline-size: 100%; min-block-size: 2.75rem; padding: .65rem .85rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); color: var(--rf-text); font: 400 .9375rem/1.5 var(--rf-font); }
+  .rf-input::placeholder, .rf-textarea::placeholder { color: var(--rf-muted); opacity: 1; }
+  .rf-textarea { min-block-size: 7rem; resize: vertical; }
+  :is(.rf-input, .rf-select, .rf-textarea):focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 2px; }
+  :is(.rf-input, .rf-select, .rf-textarea)[aria-invalid="true"] { border-color: var(--rf-danger); }
+  :is(.rf-input, .rf-select, .rf-textarea):disabled { opacity: .6; cursor: not-allowed; }
+  .rf-help { margin: 0; font-size: .8125rem; color: var(--rf-muted); }
+  .rf-error { margin: 0; font-size: .8125rem; color: var(--rf-danger); }
+  .rf-check { display: inline-flex; align-items: center; gap: .65rem; min-block-size: 2.75rem; cursor: pointer; color: var(--rf-text); font-family: var(--rf-font); }
+  .rf-check > input { inline-size: 1.125rem; block-size: 1.125rem; accent-color: var(--rf-primary); flex-shrink: 0; }
+  .rf-fieldset { border: 1px solid var(--rf-border); border-radius: var(--rf-radius); padding: 1rem 1.25rem; min-inline-size: 0; }
+  .rf-fieldset > legend { padding-inline: .4rem; font-weight: 600; }
+  .rf-switch { position: relative; appearance: none; inline-size: 2.75rem; block-size: 1.5rem; margin: 0; border: 1px solid var(--rf-border); border-radius: 2rem; background: var(--rf-subtle); cursor: pointer; flex-shrink: 0; }
+  .rf-check > .rf-switch { inline-size: 2.75rem; block-size: 1.5rem; }
+  .rf-switch::before { content: ""; position: absolute; inset-block-start: .1875rem; inset-inline-start: .1875rem; inline-size: 1rem; block-size: 1rem; border-radius: 50%; background: var(--rf-muted); transition: inset-inline-start var(--rf-duration); }
+  .rf-switch:checked { background: var(--rf-primary); border-color: var(--rf-primary); }
+  .rf-switch:checked::before { inset-inline-start: 1.4375rem; background: var(--rf-on-primary); }
+  .rf-switch:disabled { opacity: .5; cursor: not-allowed; }
+  .rf-range { inline-size: 100%; min-block-size: 2.75rem; accent-color: var(--rf-primary); }
+  @media (forced-colors: active) { .rf-switch:checked { border: 2px solid Highlight; } .rf-switch::before { background: CanvasText; } }
+  @media (prefers-reduced-motion: reduce) { .rf-switch::before { transition: none; } }
+}

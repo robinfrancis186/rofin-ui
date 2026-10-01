@@ -1,0 +1,8 @@
+@layer rf.components {
+  .rf-badge { display: inline-flex; align-items: center; gap: .375rem; padding: .2rem .625rem; border: 1px solid var(--rf-border); border-radius: 2rem; background: var(--rf-subtle); color: var(--rf-text); font: 600 .75rem/1.5 var(--rf-font); white-space: nowrap; }
+  .rf-badge[data-variant="success"] { background: var(--rf-success-bg); color: var(--rf-success); border-color: transparent; }
+  .rf-badge[data-variant="warning"] { background: var(--rf-warning-bg); color: var(--rf-warning); border-color: transparent; }
+  .rf-badge[data-variant="danger"] { background: var(--rf-danger-bg); color: var(--rf-danger); border-color: transparent; }
+  .rf-badge[data-variant="info"] { background: var(--rf-info-bg); color: var(--rf-info); border-color: transparent; }
+  .rf-badge__dot { inline-size: .375rem; block-size: .375rem; background: currentColor; border-radius: 50%; }
+}

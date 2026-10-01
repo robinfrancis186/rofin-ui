@@ -1,0 +1,9 @@
+@layer rf.components {
+  .rf-accordion { border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); font-family: var(--rf-font); }
+  .rf-accordion > details + details { border-block-start: 1px solid var(--rf-border); }
+  .rf-accordion summary { padding: 1.125rem 1.25rem; cursor: pointer; font-weight: 600; }
+  .rf-accordion summary::marker { color: var(--rf-primary); }
+  .rf-accordion summary:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: -4px; border-radius: var(--rf-radius-sm); }
+  .rf-accordion__content { padding: 0 1.25rem 1.25rem; color: var(--rf-muted); line-height: 1.65; }
+  .rf-accordion__content > :first-child { margin-block-start: 0; } .rf-accordion__content > :last-child { margin-block-end: 0; }
+}

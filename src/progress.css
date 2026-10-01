@@ -1,0 +1,9 @@
+@layer rf.components {
+  .rf-progress { display: block; inline-size: 100%; block-size: .5rem; appearance: none; border: 0; border-radius: 1rem; overflow: hidden; background: var(--rf-subtle); accent-color: var(--rf-primary); }
+  .rf-progress::-webkit-progress-bar { background: var(--rf-subtle); border-radius: 1rem; }
+  .rf-progress::-webkit-progress-value { background: var(--rf-primary); border-radius: 1rem; }
+  .rf-progress::-moz-progress-bar { background: var(--rf-primary); border-radius: 1rem; }
+  .rf-meter { inline-size: 100%; block-size: .75rem; accent-color: var(--rf-success); }
+  .rf-meter::-webkit-meter-bar { border: 0; background: var(--rf-subtle); border-radius: 1rem; }
+  .rf-meter::-webkit-meter-optimum-value { background: var(--rf-success); }
+}

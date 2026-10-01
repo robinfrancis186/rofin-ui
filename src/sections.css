@@ -1,0 +1,19 @@
+@layer rf.components {
+  .rf-section { padding-block: clamp(3rem, 8vw, 6rem); }
+  .rf-section__heading { max-inline-size: 42rem; margin-block: 0 1rem; font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.12; letter-spacing: -.045em; }
+  .rf-section__intro { max-inline-size: 38rem; margin-block: 0 2rem; color: var(--rf-muted); font-size: 1.0625rem; }
+  .rf-hero { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: 3rem; }
+  .rf-hero h1 { margin-block: 1rem 1.5rem; font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -.055em; }
+  .rf-hero__visual { padding: 2rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-lg); background: var(--rf-subtle); }
+  .rf-price { margin-block: 1.5rem .5rem; font-size: 2.75rem; font-weight: 700; letter-spacing: -.05em; }
+  .rf-price small { font-size: .875rem; font-weight: 400; letter-spacing: normal; color: var(--rf-muted); }
+  .rf-pricing__featured { border: 2px solid var(--rf-primary); position: relative; }
+  .rf-pricing ul { padding-inline-start: 1.25rem; font-size: .875rem; line-height: 2; }
+  .rf-testimonial blockquote { margin: 0 0 1.5rem; font-size: 1.0625rem; }
+  .rf-testimonial figcaption { display: flex; align-items: center; gap: .75rem; font-size: .875rem; }
+  .rf-stat { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -.05em; margin: 0; }
+  .rf-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .rf-bento > :first-child { grid-column: span 2; }
+  .rf-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 2rem; border-block-start: 1px solid var(--rf-border); color: var(--rf-muted); font-size: .875rem; }
+  @media (max-width: 44rem) { .rf-hero { grid-template-columns: 1fr; gap: 2rem; } .rf-bento { grid-template-columns: 1fr; } .rf-bento > :first-child { grid-column: auto; } }
+}

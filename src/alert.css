@@ -1,0 +1,9 @@
+@layer rf.components {
+  .rf-alert { display: flex; align-items: flex-start; gap: .875rem; padding: 1rem 1.125rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-info-bg); color: var(--rf-info); font-family: var(--rf-font); line-height: 1.6; }
+  .rf-alert[data-variant="success"] { background: var(--rf-success-bg); color: var(--rf-success); }
+  .rf-alert[data-variant="warning"] { background: var(--rf-warning-bg); color: var(--rf-warning); }
+  .rf-alert[data-variant="danger"] { background: var(--rf-danger-bg); color: var(--rf-danger); }
+  .rf-alert__title { display: block; margin-block-end: .2rem; font-weight: 650; }
+  .rf-alert p { margin: 0; font-size: .875rem; }
+  .rf-alert > svg { inline-size: 1.25rem; block-size: 1.25rem; flex-shrink: 0; margin-block-start: .15rem; }
+}

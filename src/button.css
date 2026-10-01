@@ -1,31 +1,18 @@
-.rf-button {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-block-size: 2.75rem;
-  padding: 0.625rem 1rem;
-  border: 1px solid transparent;
-  border-radius: var(--rf-radius);
-  background: var(--rf-primary);
-  color: var(--rf-on-primary);
-  font: 600 1rem/1.5 var(--rf-font);
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.rf-button:focus-visible {
-  outline: 3px solid var(--rf-focus);
-  outline-offset: 3px;
-}
-
-.rf-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.rf-button--outline {
-  border-color: var(--rf-border);
-  background: var(--rf-surface);
-  color: var(--rf-text);
+@layer rf.components {
+  .rf-button { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-block-size: 2.75rem; padding: .65rem 1.125rem; border: 1px solid transparent; border-radius: var(--rf-radius-sm); background: var(--rf-primary); color: var(--rf-on-primary); font: 600 .875rem/1.4 var(--rf-font); text-decoration: none; cursor: pointer; transition: background var(--rf-duration), transform var(--rf-duration); }
+  .rf-button:hover:not(:disabled):not([aria-disabled="true"]) { background: var(--rf-primary-hover); }
+  .rf-button:active:not(:disabled):not([aria-disabled="true"]) { transform: translateY(1px); }
+  .rf-button:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 3px; }
+  .rf-button:is(:disabled, [aria-disabled="true"]) { opacity: .55; cursor: not-allowed; }
+  .rf-button--outline { border-color: var(--rf-border); background: var(--rf-surface); color: var(--rf-text); }
+  .rf-button--ghost { background: transparent; color: var(--rf-text); }
+  .rf-button:is(.rf-button--outline, .rf-button--ghost):hover:not(:disabled):not([aria-disabled="true"]) { background: var(--rf-subtle); }
+  .rf-button--danger { background: var(--rf-danger); color: var(--rf-surface); }
+  .rf-button--danger:hover:not(:disabled) { background: var(--rf-danger); filter: brightness(.9); }
+  .rf-button--small { min-block-size: 2.25rem; padding: .45rem .8rem; font-size: .8rem; }
+  .rf-button--large { min-block-size: 3.25rem; padding: .9rem 1.5rem; font-size: 1rem; }
+  .rf-button--icon { inline-size: 2.75rem; padding: .5rem; }
+  .rf-button-group { display: inline-flex; flex-wrap: wrap; gap: .5rem; }
+  .rf-button > svg { inline-size: 1.125rem; block-size: 1.125rem; flex-shrink: 0; }
+  @media (prefers-reduced-motion: reduce) { .rf-button { transition: none; } }
 }

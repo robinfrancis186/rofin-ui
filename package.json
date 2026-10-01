@@ -1,7 +1,7 @@
 {
   "name": "rofin-ui",
-  "version": "0.0.1",
-  "description": "An experimental HTML and CSS UI foundation with zero runtime dependencies.",
+  "version": "0.1.0",
+  "description": "Modular HTML, CSS, and vanilla JavaScript components with zero runtime dependencies.",
   "license": "MIT",
   "author": "Robin Francis",
   "repository": {
@@ -12,13 +12,65 @@
   "bugs": {
     "url": "https://github.com/robinfrancis186/rofin-ui/issues"
   },
-  "style": "./src/rofin.css",
+  "style": "./dist/rofin.css",
   "exports": {
-    "./style.css": "./src/rofin.css",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/rofin.js",
+      "require": "./dist/rofin.cjs"
+    },
+    "./auto": "./src/js/auto.js",
+    "./effects": "./src/js/effects.js",
+    "./style.css": "./dist/rofin.css",
+    "./effects.css": "./dist/effects.css",
+    "./sections.css": "./dist/sections.css",
+    "./css/*": "./src/*.css",
+    "./js/*": "./src/js/*.js",
     "./tokens.css": "./src/tokens.css",
     "./button.css": "./src/button.css",
-    "./card.css": "./src/card.css"
+    "./card.css": "./src/card.css",
+    "./package.json": "./package.json"
   },
-  "files": ["src", "examples"],
-  "keywords": ["ui", "css", "html", "components", "zero-dependencies"]
+  "files": [
+    "dist/*.css",
+    "dist/*.js",
+    "dist/*.cjs",
+    "dist/*.json",
+    "dist/*.ts",
+    "src",
+    "examples",
+    "sections"
+  ],
+  "keywords": [
+    "ui",
+    "css",
+    "html",
+    "components",
+    "zero-dependencies"
+  ],
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "esbuild": "^0.28.2"
+  },
+  "type": "module",
+  "main": "./dist/rofin.cjs",
+  "module": "./dist/rofin.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css",
+    "./src/js/auto.js",
+    "./dist/rofin.auto.js"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "playwright test",
+    "test:package": "node scripts/check-package.mjs",
+    "check": "npm run build && npm test && npm run test:package",
+    "prepack": "npm run build"
+  }
 }

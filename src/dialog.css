@@ -1,0 +1,8 @@
+@layer rf.components {
+  .rf-dialog { box-sizing: border-box; inline-size: min(32rem, calc(100% - 2rem)); max-block-size: calc(100dvh - 2rem); margin: auto; padding: 1.5rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-lg); background: var(--rf-surface); color: var(--rf-text); box-shadow: var(--rf-shadow); font-family: var(--rf-font); overflow: auto; }
+  .rf-dialog::backdrop { background: rgb(15 12 30 / .55); }
+  .rf-dialog__title { margin-block: 0 .5rem; font-size: 1.375rem; }
+  .rf-dialog__actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .75rem; margin-block-start: 1.5rem; }
+  .rf-dialog--drawer { inset: 0 0 0 auto; inline-size: min(26rem, 100%); block-size: 100dvh; max-block-size: 100dvh; margin: 0; border-radius: 0; border-block: 0; border-inline-end: 0; }
+  [dir="rtl"] .rf-dialog--drawer { inset: 0 auto 0 0; }
+}

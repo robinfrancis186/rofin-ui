@@ -1,0 +1,757 @@
+[
+  {
+    "id": "button",
+    "title": "Button",
+    "category": "Components",
+    "description": "A clear next step, with four styles and three sizes.",
+    "css": [
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/button.html",
+    "notes": [
+      "Use buttons for actions and links for navigation.",
+      "Use the native disabled attribute on buttons. aria-disabled alone does not suppress link navigation.",
+      "Icon-only buttons need an accessible name."
+    ]
+  },
+  {
+    "id": "card",
+    "title": "Card",
+    "category": "Components",
+    "description": "A quiet surface for content, actions, and everything between.",
+    "css": [
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/card.html",
+    "notes": [
+      "The card is a container, not an interactive element. Put real links or buttons inside it.",
+      "Use rf-card--interactive for a visual hover treatment."
+    ]
+  },
+  {
+    "id": "input",
+    "title": "Input",
+    "category": "Components",
+    "description": "Native text fields with labels, help text, and error states.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/input.html",
+    "notes": [
+      "Always associate a visible label with the input.",
+      "Set aria-invalid=\"true\" and aria-describedby to your error text when validation fails.",
+      "Validation and submission remain your application\u2019s responsibility."
+    ]
+  },
+  {
+    "id": "select",
+    "title": "Select",
+    "category": "Components",
+    "description": "A native select that keeps platform keyboard and touch behavior.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/select.html",
+    "notes": [
+      "Native select styling varies slightly by browser and operating system.",
+      "For simple autocomplete, consider native input with datalist before building a custom combobox."
+    ]
+  },
+  {
+    "id": "textarea",
+    "title": "Textarea",
+    "category": "Components",
+    "description": "Room for a longer thought. Native resizing included.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/textarea.html",
+    "notes": [
+      "The field resizes vertically so its width stays inside the layout."
+    ]
+  },
+  {
+    "id": "checkbox",
+    "title": "Checkbox",
+    "category": "Components",
+    "description": "A native checkbox with a generous clickable label.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/checkbox.html",
+    "notes": [
+      "The wrapping label makes both the text and checkbox clickable."
+    ]
+  },
+  {
+    "id": "radio",
+    "title": "Radio group",
+    "category": "Components",
+    "description": "Mutually exclusive choices, grouped with native semantics.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/radio.html",
+    "notes": [
+      "Use the same name on the radio inputs.",
+      "A fieldset and legend communicate the group\u2019s purpose."
+    ]
+  },
+  {
+    "id": "switch",
+    "title": "Switch",
+    "category": "Components",
+    "description": "A small on/off control built from a real checkbox.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/switch.html",
+    "notes": [
+      "The browser owns checked state and Space key behavior.",
+      "Keep the label stable when toggled; it names the setting, not the current state."
+    ]
+  },
+  {
+    "id": "range",
+    "title": "Range",
+    "category": "Components",
+    "description": "A slider that works with keyboard, mouse, and touch.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/range.html",
+    "notes": [
+      "Arrow keys adjust the value. Home and End are provided by the browser.",
+      "If you display the value separately, keep that display synchronized in your app."
+    ]
+  },
+  {
+    "id": "accordion",
+    "title": "Accordion",
+    "category": "Components",
+    "description": "Expandable content using native details and summary.",
+    "css": [
+      "accordion"
+    ],
+    "js": [],
+    "file": "examples/components/accordion.html",
+    "notes": [
+      "No JavaScript is required.",
+      "Use details name=\"your-group\" for exclusive opening in browsers supporting grouped details."
+    ]
+  },
+  {
+    "id": "tabs",
+    "title": "Tabs",
+    "category": "Components",
+    "description": "Organize nearby content with keyboard navigation and native buttons.",
+    "css": [
+      "tabs"
+    ],
+    "js": [
+      "tabs"
+    ],
+    "file": "examples/components/tabs.html",
+    "notes": [
+      "Left/Right, Home, and End move between tabs. Vertical tablists use Up/Down.",
+      "Set data-rf-activation=\"manual\" to activate only on Enter, Space, or click.",
+      "Use equal numbers of tabs and panels. aria-controls can map them explicitly.",
+      "Without JS, all panels remain visible. After changing a tabset\u2019s internal structure, destroy and initialize that root again."
+    ]
+  },
+  {
+    "id": "dropdown",
+    "title": "Dropdown menu",
+    "category": "Components",
+    "description": "A native popover enhanced with focus, arrows, and typeahead.",
+    "css": [
+      "dropdown",
+      "button"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/dropdown.html",
+    "notes": [
+      "Requires native Popover API support.",
+      "Arrow keys, Home/End, and typing move focus. Escape closes the menu.",
+      "Use menu roles for application actions. For ordinary website navigation, use nav and links instead.",
+      "Attach your application behavior to the menu item buttons."
+    ]
+  },
+  {
+    "id": "dialog",
+    "title": "Dialog",
+    "category": "Components",
+    "description": "A modal with browser-managed focus trapping and Escape behavior.",
+    "css": [
+      "dialog",
+      "button"
+    ],
+    "js": [
+      "dialog"
+    ],
+    "file": "examples/components/dialog.html",
+    "notes": [
+      "Label every dialog with aria-labelledby or aria-label.",
+      "The browser traps focus and closes on Escape.",
+      "Backdrop clicks dismiss only when data-rf-backdrop-close is present.",
+      "You can call showModal() directly instead of using the data attributes."
+    ]
+  },
+  {
+    "id": "drawer",
+    "title": "Drawer",
+    "category": "Components",
+    "description": "The native dialog, arranged as a full-height side panel.",
+    "css": [
+      "dialog",
+      "form",
+      "button"
+    ],
+    "js": [
+      "dialog"
+    ],
+    "file": "examples/components/drawer.html",
+    "notes": [
+      "Uses the same native dialog behavior and API.",
+      "This panel is a modal. For a persistent sidebar, use the Navigation component."
+    ]
+  },
+  {
+    "id": "tooltip",
+    "title": "Tooltip",
+    "category": "Components",
+    "description": "A short hint on hover or focus, dismissible with Escape.",
+    "css": [
+      "tooltip",
+      "button"
+    ],
+    "js": [
+      "tooltip"
+    ],
+    "file": "examples/components/tooltip.html",
+    "notes": [
+      "Use aria-describedby to connect the hint to its trigger.",
+      "Never put essential instructions or interactive controls only inside a tooltip.",
+      "Tooltip positioning is local to its wrapper; avoid clipped containers and viewport edges.",
+      "JS adds Escape dismissal; hover and focus display work with CSS alone."
+    ]
+  },
+  {
+    "id": "toast",
+    "title": "Toast",
+    "category": "Components",
+    "description": "Text-only notifications with a dismiss button and paused timers.",
+    "css": [
+      "toast",
+      "button"
+    ],
+    "js": [
+      "toast"
+    ],
+    "file": "examples/components/toast.html",
+    "notes": [
+      "Messages are treated as text, never HTML.",
+      "duration: 0 keeps the notification until dismissed. Default: 5000 ms.",
+      "Hover, keyboard focus, and hidden browser tabs pause the timer.",
+      "Do not rely on a timed toast as the only source of critical information.",
+      "Toasts are outside modal dialogs; put important modal feedback inside the dialog."
+    ],
+    "sampleJS": "document.querySelector('[data-demo-toast]').addEventListener('click', () => {\n  toast('Your changes are saved.', { title: 'All set', variant: 'success', duration: 5000 });\n});"
+  },
+  {
+    "id": "badge",
+    "title": "Badge",
+    "category": "Components",
+    "description": "Compact labels for status, metadata, and little milestones.",
+    "css": [
+      "badge"
+    ],
+    "js": [],
+    "file": "examples/components/badge.html",
+    "notes": [
+      "Always communicate status with text; color alone isn\u2019t enough."
+    ]
+  },
+  {
+    "id": "avatar",
+    "title": "Avatar",
+    "category": "Components",
+    "description": "Initials or images, alone or in a small team.",
+    "css": [
+      "avatar"
+    ],
+    "js": [],
+    "file": "examples/components/avatar.html",
+    "notes": [
+      "Give standalone initials a name using role=\"img\" and aria-label.",
+      "For an image, use meaningful alt text or alt=\"\" when the adjacent text already identifies the person."
+    ]
+  },
+  {
+    "id": "alert",
+    "title": "Alert",
+    "category": "Components",
+    "description": "Persistent feedback with a title, message, and semantic color.",
+    "css": [
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/alert.html",
+    "notes": [
+      "Use role=\"status\" when inserting a nonurgent update dynamically.",
+      "Use role=\"alert\" for urgent errors, not for every static message."
+    ]
+  },
+  {
+    "id": "breadcrumb",
+    "title": "Breadcrumb",
+    "category": "Components",
+    "description": "Show the route back using ordinary navigation links.",
+    "css": [
+      "breadcrumb"
+    ],
+    "js": [],
+    "file": "examples/components/breadcrumb.html",
+    "notes": [
+      "Replace the example fragment links with your application\u2019s real URLs.",
+      "aria-current=\"page\" marks the current location."
+    ]
+  },
+  {
+    "id": "pagination",
+    "title": "Pagination",
+    "category": "Components",
+    "description": "A clear way through a longer list. Navigation stays native.",
+    "css": [
+      "pagination"
+    ],
+    "js": [],
+    "file": "examples/components/pagination.html",
+    "notes": [
+      "Your server or app owns page selection and result loading.",
+      "Give previous/next controls meaningful accessible names."
+    ]
+  },
+  {
+    "id": "table",
+    "title": "Table",
+    "category": "Components",
+    "description": "Readable native tables in a horizontal scroll container.",
+    "css": [
+      "table",
+      "badge"
+    ],
+    "js": [],
+    "file": "examples/components/table.html",
+    "notes": [
+      "Native table semantics are retained. Use caption, th, and scope.",
+      "The focusable wrapper makes horizontal scrolling available by keyboard.",
+      "Sorting, filtering, and virtualization are not part of this component."
+    ]
+  },
+  {
+    "id": "progress",
+    "title": "Progress",
+    "category": "Components",
+    "description": "A native progress bar for an operation with a known total.",
+    "css": [
+      "progress"
+    ],
+    "js": [],
+    "file": "examples/components/progress.html",
+    "notes": [
+      "Update the native value attribute as work progresses.",
+      "Omit value for indeterminate progress; its appearance is browser-dependent."
+    ]
+  },
+  {
+    "id": "meter",
+    "title": "Meter",
+    "category": "Components",
+    "description": "A native measurement inside a known range.",
+    "css": [
+      "progress"
+    ],
+    "js": [],
+    "file": "examples/components/meter.html",
+    "notes": [
+      "Meter represents a measurement such as storage usage. Progress represents completion of work.",
+      "Meter colors and rendering may vary by browser."
+    ]
+  },
+  {
+    "id": "spinner",
+    "title": "Spinner",
+    "category": "Components",
+    "description": "A small loading indicator with a text alternative.",
+    "css": [
+      "loading"
+    ],
+    "js": [],
+    "file": "examples/components/spinner.html",
+    "notes": [
+      "Include meaningful status text; the spinning shape is decorative.",
+      "Reduced-motion preferences stop the animation."
+    ]
+  },
+  {
+    "id": "skeleton",
+    "title": "Skeleton",
+    "category": "Components",
+    "description": "A quiet placeholder while content is on its way.",
+    "css": [
+      "loading"
+    ],
+    "js": [],
+    "file": "examples/components/skeleton.html",
+    "notes": [
+      "Hide decorative placeholders from assistive technology and provide one loading status.",
+      "Remove the status when your content arrives."
+    ]
+  },
+  {
+    "id": "upload",
+    "title": "File input",
+    "category": "Components",
+    "description": "A real file picker with optional selected-file details.",
+    "css": [
+      "upload",
+      "form"
+    ],
+    "js": [
+      "upload"
+    ],
+    "file": "examples/components/upload.html",
+    "notes": [
+      "JS only lists selected file names and sizes.",
+      "Uploads, MIME checks, limits, and server-side validation belong to your application.",
+      "File names are inserted as text, not HTML."
+    ]
+  },
+  {
+    "id": "navigation",
+    "title": "Navigation",
+    "category": "Components",
+    "description": "Simple horizontal or vertical navigation using real links.",
+    "css": [
+      "navigation"
+    ],
+    "js": [],
+    "file": "examples/components/navigation.html",
+    "notes": [
+      "Add rf-nav--vertical for sidebar navigation.",
+      "Use aria-current=\"page\" only on the current destination."
+    ]
+  },
+  {
+    "id": "empty-state",
+    "title": "Empty state",
+    "category": "Components",
+    "description": "Give an empty view a useful next step.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/empty-state.html",
+    "notes": [
+      "Explain why the view is empty and offer a relevant next action."
+    ]
+  },
+  {
+    "id": "layout",
+    "title": "Layout",
+    "category": "Components",
+    "description": "Responsive grids, stacks, and clusters without a utility framework.",
+    "css": [
+      "layout",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/layout.html",
+    "notes": [
+      "rf-grid adapts to its container. --rf-column sets the preferred minimum column width.",
+      "rf-stack arranges content vertically; rf-cluster wraps a horizontal row.",
+      "Override --rf-gap locally for consistent spacing."
+    ]
+  },
+  {
+    "id": "dot-grid",
+    "title": "Dot grid",
+    "category": "Effects",
+    "description": "A repeating background drawn entirely in CSS.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/dot-grid.html",
+    "notes": [
+      "Decorative background only. Keep text contrast readable over it."
+    ]
+  },
+  {
+    "id": "gradient-text",
+    "title": "Gradient text",
+    "category": "Effects",
+    "description": "A restrained two-color treatment for a headline.",
+    "css": [
+      "effects"
+    ],
+    "js": [],
+    "file": "examples/components/gradient-text.html",
+    "notes": [
+      "Use sparingly and check contrast across the full gradient.",
+      "Forced-color mode falls back to normal text."
+    ]
+  },
+  {
+    "id": "hover-lift",
+    "title": "Hover lift",
+    "category": "Effects",
+    "description": "A small lift for interactive cards, with reduced-motion support.",
+    "css": [
+      "effects",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/hover-lift.html",
+    "notes": [
+      "Hover styling is decorative. Put a real interactive control inside the card.",
+      "Reduced-motion mode disables movement."
+    ]
+  },
+  {
+    "id": "spotlight",
+    "title": "Spotlight",
+    "category": "Effects",
+    "description": "A subtle pointer-following highlight, updated once per animation frame.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/spotlight.html",
+    "notes": [
+      "Opt-in: import initEffects from the separate effects module.",
+      "No pointer tracking on touch devices or in reduced-motion mode.",
+      "The card stays usable without JavaScript."
+    ]
+  },
+  {
+    "id": "reveal",
+    "title": "Reveal",
+    "category": "Effects",
+    "description": "A one-time entrance as content comes into view.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/reveal.html",
+    "notes": [
+      "Content is visible without JS.",
+      "IntersectionObserver reveals each element once. Reduced-motion mode shows content immediately.",
+      "Call initEffects for each new subtree and its returned teardown before removing it."
+    ]
+  },
+  {
+    "id": "shimmer",
+    "title": "Shimmer",
+    "category": "Effects",
+    "description": "A single sheen on hover or focus, not a continuous animation.",
+    "css": [
+      "effects",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/shimmer.html",
+    "notes": [
+      "Runs only on interaction. Reduced-motion mode disables the effect."
+    ]
+  },
+  {
+    "id": "hero",
+    "title": "Split hero",
+    "category": "Sections",
+    "description": "An introduction with a clear promise and a small product preview.",
+    "css": [
+      "sections",
+      "card",
+      "button",
+      "badge",
+      "progress"
+    ],
+    "js": [],
+    "file": "sections/hero.html",
+    "notes": [
+      "Replace placeholder copy and links with your product\u2019s real content.",
+      "Include the core stylesheet and the optional sections stylesheet."
+    ]
+  },
+  {
+    "id": "features",
+    "title": "Feature grid",
+    "category": "Sections",
+    "description": "Three simple benefits with room for real explanations.",
+    "css": [
+      "sections",
+      "card"
+    ],
+    "js": [],
+    "file": "sections/features.html",
+    "notes": [
+      "This responsive layout uses the shared rf-grid utility."
+    ]
+  },
+  {
+    "id": "bento",
+    "title": "Bento grid",
+    "category": "Sections",
+    "description": "An asymmetric feature layout that becomes a stack on small screens.",
+    "css": [
+      "sections",
+      "card",
+      "badge",
+      "progress"
+    ],
+    "js": [],
+    "file": "sections/bento.html",
+    "notes": [
+      "The first item spans two columns on larger screens.",
+      "The reading order stays the same as the DOM order."
+    ]
+  },
+  {
+    "id": "pricing",
+    "title": "Pricing",
+    "category": "Sections",
+    "description": "Three transparent plans, with one clearly highlighted.",
+    "css": [
+      "sections",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [],
+    "file": "sections/pricing.html",
+    "notes": [
+      "Prices and features are sample content. Replace them before publishing.",
+      "Use real purchase or contact destinations. This section does not process payments."
+    ]
+  },
+  {
+    "id": "testimonials",
+    "title": "Testimonials",
+    "category": "Sections",
+    "description": "A compact quote layout with clear attribution.",
+    "css": [
+      "sections",
+      "card",
+      "avatar"
+    ],
+    "js": [],
+    "file": "sections/testimonials.html",
+    "notes": [
+      "These are fictional demonstration quotes, not endorsements.",
+      "Use figure, blockquote, and figcaption for quote attribution."
+    ]
+  },
+  {
+    "id": "stats",
+    "title": "Stats",
+    "category": "Sections",
+    "description": "A tidy row of numbers with the context to make them useful.",
+    "css": [
+      "sections",
+      "card"
+    ],
+    "js": [],
+    "file": "sections/stats.html",
+    "notes": [
+      "Numbers are sample workspace data, not measured Rofin performance claims."
+    ]
+  },
+  {
+    "id": "faq",
+    "title": "FAQ",
+    "category": "Sections",
+    "description": "A complete frequently asked questions section without JavaScript.",
+    "css": [
+      "sections",
+      "accordion"
+    ],
+    "js": [],
+    "file": "sections/faq.html",
+    "notes": [
+      "Built entirely from the native accordion and section styles."
+    ]
+  },
+  {
+    "id": "cta",
+    "title": "Call to action",
+    "category": "Sections",
+    "description": "One promise and one clear next step.",
+    "css": [
+      "sections",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/cta.html",
+    "notes": [
+      "Connect the link to your product\u2019s actual signup or contact destination."
+    ]
+  },
+  {
+    "id": "footer",
+    "title": "Footer",
+    "category": "Sections",
+    "description": "A compact footer with a brand, useful links, and a copyright line.",
+    "css": [
+      "sections",
+      "navigation"
+    ],
+    "js": [],
+    "file": "sections/footer.html",
+    "notes": [
+      "Replace the brand, year, and links with your own content."
+    ]
+  },
+  {
+    "id": "contact",
+    "title": "Contact form",
+    "category": "Sections",
+    "description": "A labelled native form layout, ready for your submission handler.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/contact.html",
+    "notes": [
+      "The gallery intercepts submissions and sends no data.",
+      "Replace data-demo-form with your own action, method, and handler.",
+      "Validate all submitted data on the server."
+    ]
+  }
+]

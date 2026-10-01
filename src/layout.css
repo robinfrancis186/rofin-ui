@@ -1,0 +1,12 @@
+@layer rf.utilities {
+  .rf-container { inline-size: min(100% - 2.5rem, 72rem); margin-inline: auto; }
+  .rf-stack { display: flex; flex-direction: column; min-inline-size: 0; gap: var(--rf-gap, 1rem); }
+  .rf-cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--rf-gap, .75rem); }
+  .rf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--rf-column, 16rem)), 1fr)); gap: var(--rf-gap, 1.25rem); }
+  .rf-center { text-align: center; } .rf-muted { color: var(--rf-muted); } .rf-text-sm { font-size: .875rem; }
+  .rf-eyebrow { font: 650 .75rem/1.5 var(--rf-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--rf-primary); }
+  .rf-sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  .rf-divider { border: 0; border-block-start: 1px solid var(--rf-border); margin-block: 1.5rem; }
+  .rf-skip-link { position: fixed; inset-block-start: .75rem; inset-inline-start: .75rem; z-index: 200; padding: .75rem 1rem; background: var(--rf-surface); color: var(--rf-text); transform: translateY(-150%); }
+  .rf-skip-link:focus { transform: none; }
+}

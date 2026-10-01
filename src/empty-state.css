@@ -1,0 +1,6 @@
+@layer rf.components {
+  .rf-empty { display: grid; justify-items: center; gap: .75rem; padding: 3rem 1.5rem; border: 1px dashed var(--rf-border); border-radius: var(--rf-radius); text-align: center; font-family: var(--rf-font); color: var(--rf-text); }
+  .rf-empty > svg { inline-size: 2.5rem; block-size: 2.5rem; color: var(--rf-muted); }
+  .rf-empty > :is(h2, h3, p) { margin: 0; }
+  .rf-empty > p { max-inline-size: 30rem; color: var(--rf-muted); font-size: .875rem; }
+}
