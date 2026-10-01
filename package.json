@@ -1,0 +1,24 @@
+{
+  "name": "rofin-ui",
+  "version": "0.0.1",
+  "description": "An experimental HTML and CSS UI foundation with zero runtime dependencies.",
+  "license": "MIT",
+  "author": "Robin Francis",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robinfrancis186/rofin-ui.git"
+  },
+  "homepage": "https://github.com/robinfrancis186/rofin-ui#readme",
+  "bugs": {
+    "url": "https://github.com/robinfrancis186/rofin-ui/issues"
+  },
+  "style": "./src/rofin.css",
+  "exports": {
+    "./style.css": "./src/rofin.css",
+    "./tokens.css": "./src/tokens.css",
+    "./button.css": "./src/button.css",
+    "./card.css": "./src/card.css"
+  },
+  "files": ["src", "examples"],
+  "keywords": ["ui", "css", "html", "components", "zero-dependencies"]
+}

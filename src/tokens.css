@@ -1,0 +1,24 @@
+:root {
+  --rf-font: system-ui, sans-serif;
+  --rf-surface: #ffffff;
+  --rf-text: #172033;
+  --rf-muted: #526079;
+  --rf-border: #cbd5e1;
+  --rf-primary: #4338ca;
+  --rf-on-primary: #ffffff;
+  --rf-focus: #2563eb;
+  --rf-radius: 0.75rem;
+  --rf-space: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rf-surface: #111827;
+    --rf-text: #f3f4f6;
+    --rf-muted: #cbd5e1;
+    --rf-border: #64748b;
+    --rf-primary: #c7d2fe;
+    --rf-on-primary: #1e1b4b;
+    --rf-focus: #93c5fd;
+  }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Rofin UI — Starter</title>
+    <link rel="stylesheet" href="../src/rofin.css">
+    <style>
+      body { margin: 0; background: var(--rf-surface); color: var(--rf-text); font-family: var(--rf-font); line-height: 1.6; }
+      main { max-width: 46rem; margin-inline: auto; padding: 3rem 1.25rem; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+      .muted { color: var(--rf-muted); }
+      summary { cursor: pointer; }
+      summary:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Rofin UI</h1>
+      <p class="muted">Beautiful components. Minimal footprint.</p>
+      <article class="rf-card">
+        <h2>A small beginning</h2>
+        <p>Original HTML and CSS. No framework, JavaScript, or build step required for this example.</p>
+        <div class="actions">
+          <a class="rf-button" href="#principles">Explore the principles</a>
+          <a class="rf-button rf-button--outline" href="https://github.com/robinfrancis186/rofin-ui">View source</a>
+          <button class="rf-button" type="button" disabled>Coming soon</button>
+        </div>
+      </article>
+      <h2 id="principles">Built on browser fundamentals</h2>
+      <details class="rf-card">
+        <summary>What does zero runtime dependencies mean?</summary>
+        <p>These components use browser features directly. Development tools may be used later for testing and packaging, without becoming dependencies of your website.</p>
+      </details>
+    </main>
+  </body>
+</html>

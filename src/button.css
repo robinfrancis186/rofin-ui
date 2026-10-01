@@ -1,0 +1,31 @@
+.rf-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 2.75rem;
+  padding: 0.625rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--rf-radius);
+  background: var(--rf-primary);
+  color: var(--rf-on-primary);
+  font: 600 1rem/1.5 var(--rf-font);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rf-button:focus-visible {
+  outline: 3px solid var(--rf-focus);
+  outline-offset: 3px;
+}
+
+.rf-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.rf-button--outline {
+  border-color: var(--rf-border);
+  background: var(--rf-surface);
+  color: var(--rf-text);
+}
