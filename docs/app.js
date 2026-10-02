@@ -1,13 +1,17 @@
 import catalog from './catalog.js';
+import references from './references.js';
 import { init, toast } from '../src/js/index.js';
 import { initEffects } from '../src/js/effects.js';
+import { initPatterns } from '../src/js/patterns.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const counts = Object.fromEntries(['Components', 'Effects', 'Sections'].map(category => [category, catalog.filter(item => item.category === category).length]));
 let filter = 'All';
+let libraryFilter = 'All';
 let stopEffects = () => {};
+let stopPatterns = () => {};
 let sizeReport;
 init();
 
@@ -17,7 +21,7 @@ function footer() {
 function navigation() {
   const current = location.hash || '#home';
   let html = '<p class="nav-label">Start here</p>';
-  for (const [id, title] of [['home', 'Introduction'], ['start', 'Installation'], ['theming', 'Make it yours'], ['api', 'JavaScript API'], ['principles', 'Principles & support']]) {
+  for (const [id, title] of [['home', 'Introduction'], ['start', 'Installation'], ['theming', 'Make it yours'], ['api', 'JavaScript API'], ['principles', 'Principles & support'], ['references', 'Reference library']]) {
     html += `<a class="docs-link" href="#${id}" ${current === `#${id}` ? 'aria-current="page"' : ''}>${title}</a>`;
   }
   for (const category of ['Components', 'Effects', 'Sections']) {
@@ -30,6 +34,11 @@ function navigation() {
   document.querySelector('#mobile-nav').innerHTML = html;
 }
 function art(item) {
+  if (item.id === 'image-compare') return '<div class="art-compare"><span>Before</span><span>After</span></div>';
+  if (['aurora', 'mesh-background', 'lamp', 'grid-background', 'stars'].includes(item.id)) return `<div class="art-atmosphere rf-${item.id}"><span>Make room<br>for possibility.</span></div>`;
+  if (['border-beam', 'gradient-border', 'glass-card', 'tilt-card', 'glare-card', 'card-stack', 'expandable-card'].includes(item.id)) return `<div class="art-lines ${item.id === 'border-beam' ? 'rf-border-beam' : 'rf-gradient-border'}"><span></span><span></span><span></span></div>`;
+  if (['carousel', 'image-accordion', 'focus-cards', 'blog-grid', 'team'].includes(item.id)) return '<div class="art-rail"><span>01</span><span>02</span><span>03</span></div>';
+  if (item.id === 'command-palette') return '<div class="art-command"><span>⌕ What’s next?</span><small>Create project ↗</small><small>Open settings ↗</small></div>';
   if (item.id === 'button' || item.id === 'shimmer') return '<span class="art-button">Get started →</span>';
   if (['switch', 'checkbox', 'radio'].includes(item.id)) return '<span class="rf-badge" data-variant="success">✓ All set</span>';
   if (item.id === 'badge') return '<span class="rf-badge" data-variant="success">● Published</span>';
@@ -44,13 +53,13 @@ function cards(items) {
   return `<div class="catalog-grid">${items.map(item => `<a class="catalog-card" href="#component/${item.id}"><div class="catalog-art" aria-hidden="true">${art(item)}</div><div class="catalog-copy"><div class="catalog-title"><h3>${item.title}</h3><span>${item.js.length ? 'JS' : 'CSS'}</span></div><p>${item.description}</p></div></a>`).join('')}</div>`;
 }
 function home() {
-  const featured = ['button', 'card', 'tabs', 'input', 'bento', 'gradient-text'].map(id => catalog.find(item => item.id === id));
+  const featured = ['image-compare', 'command-palette', 'carousel', 'border-beam', 'aurora', 'dock'].map(id => catalog.find(item => item.id === id));
   return `<section class="home-hero"><p class="rf-eyebrow">Plain HTML. A little magic.</p><h1>Beautiful components.<br><span class="hero-muted">Minimal footprint.</span></h1><p class="home-intro">Thoughtful building blocks for the web. No framework required. Just the pieces you need, and room to make them yours.</p><div class="home-actions"><a class="rf-button" href="#catalog">Explore components <span aria-hidden="true">→</span></a><a class="rf-button rf-button--outline" href="#start">Start building</a></div><div class="hero-facts"><span>Zero runtime dependencies</span><span>Framework independent</span><span>MIT licensed</span></div></section>
   <div class="showcase" aria-label="Rofin component preview">
     <div class="showcase-panel showcase-panel--main"><div class="showcase-head"><span class="tiny-label">A little of what’s possible</span><span class="rf-badge" data-variant="success">Live preview</span></div><div class="mini-workspace"><h2>Your next chapter.</h2><p>A workspace for the things you want to make.</p><div class="mini-project"><span class="mini-icon" aria-hidden="true">→</span><div><strong>Website launch</strong><p>Design something worth opening.</p></div><span class="rf-badge" data-variant="warning">In progress</span></div><div class="mini-progress"><label for="home-progress">72%</label><progress class="rf-progress" id="home-progress" value="72" max="100">72%</progress></div><div class="showcase-bottom"><div class="rf-avatar-group" aria-label="Sample project team"><span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span><span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span><span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span></div><button class="rf-button rf-button--outline" type="button" data-demo-toast>Save project →</button></div></div></div>
     <div class="showcase-right"><div class="showcase-panel"><span class="tiny-label">Clear next steps</span><div class="showcase-buttons"><a class="rf-button" href="#start">Get started</a><a class="rf-button rf-button--outline" href="#component/button">Learn more</a><button class="rf-button rf-button--ghost" type="button" data-demo-toast>Save draft</button></div></div><div class="showcase-panel"><span class="tiny-label">Small, thoughtful details</span><div class="showcase-toggle"><label class="rf-check"><input type="checkbox" class="rf-switch" role="switch" checked> Keep me in the loop</label></div><div class="showcase-toggle"><span class="rf-muted">Your changes are safe.</span><span class="rf-badge" data-variant="success">✓ Saved</span></div></div></div>
   </div><div class="showcase-caption"><span>REAL HTML. REAL COMPONENTS. NOTHING EXTRA.</span><span>Make it yours →</span></div>
-  <div class="metrics"><div class="metric"><strong>${counts.Components}</strong><span>Core components</span></div><div class="metric"><strong>${counts.Sections}</strong><span>Copyable sections</span></div><div class="metric"><strong>0</strong><span>Runtime dependencies</span></div><div class="metric"><strong data-core-size>—</strong><span>Core CSS + JS, gzip</span></div></div>
+  <div class="metrics"><div class="metric"><strong>${counts.Components}</strong><span>UI components</span></div><div class="metric"><strong>${counts.Sections}</strong><span>Copyable sections</span></div><div class="metric"><strong>0</strong><span>Runtime dependencies</span></div><div class="metric"><strong data-core-size>—</strong><span>Core CSS + JS, gzip</span></div></div>
   <section><div class="section-top"><div><h2>A good place to start.</h2><p>Small pieces. Plenty of possibility.</p></div><a href="#catalog">View all ${catalog.length} entries <span aria-hidden="true">→</span></a></div>${cards(featured)}</section>
   <section class="doc-section"><div class="section-top"><div><h2>From small pieces to a whole page.</h2><p>Original layouts you can copy, adapt, and ship.</p></div><a href="../examples/landing.html">Open example →</a></div>${cards(['hero', 'pricing', 'testimonials'].map(id => catalog.find(item => item.id === id)))}</section>${footer()}`;
 }
@@ -60,7 +69,14 @@ function gallery() {
   document.querySelector('#search-status').textContent = `${items.length} results`;
   return `<div class="page-heading"><p class="rf-eyebrow">Your building blocks</p><h1>${query ? 'Find a good fit.' : filter === 'All' ? 'A little of everything.' : filter}</h1><p>${items.length} ${items.length === 1 ? 'entry' : 'entries'}${query ? ` matching “${escape(search.value)}”` : '. Original designs. Native foundations. Pick what you need.'}</p></div><div class="category-filters" aria-label="Filter gallery">${['All', 'Components', 'Effects', 'Sections'].map(category => `<button type="button" data-category="${category}" aria-pressed="${filter === category}">${category}${category !== 'All' ? ` · ${counts[category]}` : ` · ${catalog.length}`}</button>`).join('')}</div>${items.length ? cards(items) : '<div class="empty-results"><h2>No matching components.</h2><p>Try “card”, “form”, or “hero”, or choose another category.</p></div>'}${footer()}`;
 }
-const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast' };
+function referenceLibrary() {
+  const query = search.value.trim().toLocaleLowerCase();
+  const libraries = references.libraries.filter(library => libraryFilter === 'All' || library.name === libraryFilter);
+  const entries = libraries.flatMap(library => library.entries.map(item => ({ ...item, library: library.name }))).filter(item => `${item.title} ${item.library}`.toLocaleLowerCase().includes(query));
+  document.querySelector('#search-status').textContent = `${entries.length} reference entries`;
+  return `<div class="page-heading"><p class="rf-eyebrow">Collected ${references.date}</p><h1>A wider world of UI.</h1><p>Explore all 11 source libraries. Related Rofin patterns are original alternatives; they do not reproduce every effect or behavior.</p></div><div class="reference-summary rf-card"><strong>${references.libraries.reduce((sum, library) => sum + library.entries.length, 0).toLocaleString()} indexed references · ${catalog.length} runnable Rofin examples</strong><p class="rf-muted">Catalog coverage is partial, especially Aura’s 2,495 free entries. Catalogued names and URLs do not mean each individual demo was reviewed or implemented.</p><a href="./reference-review.md" download>Download coverage notes →</a></div><div class="category-filters" aria-label="Filter reference libraries">${['All', ...references.libraries.map(library => library.name)].map(name => `<button type="button" data-library="${escape(name)}" aria-pressed="${libraryFilter === name}">${escape(name)}</button>`).join('')}</div>${libraries.length === 1 ? `<p class="rf-help">${escape(libraries[0].coverage)} <a href="${libraries[0].url}" target="_blank" rel="noopener">Open source catalog ↗</a></p>` : ''}<p class="rf-help">${entries.length} matching references. Search by name or library.</p><div class="reference-list">${entries.map(item => `<article class="reference-row"><div><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.title)} ↗</a><p>${escape(item.library)} · ${escape(item.review)}</p></div>${item.related ? `<a class="reference-pattern" href="#component/${item.related}">Related: ${escape(catalog.find(entry => entry.id === item.related)?.title || item.related)} →</a>` : '<span class="rf-help">Reference only</span>'}</article>`).join('') || '<p>No references match this search.</p>'}</div>${footer()}`;
+}
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns' };
 function setup(item) {
   const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
   let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
@@ -105,10 +121,13 @@ function updateSize() {
 }
 function render({ focus = false } = {}) {
   stopEffects();
+  stopPatterns();
   const route = location.hash.slice(1) || 'home';
+  search.setAttribute('aria-label', route === 'references' ? 'Search reference components and libraries' : 'Search components, effects, and sections');
   const item = route.startsWith('component/') ? catalog.find(entry => entry.id === route.slice(10)) : null;
   let html;
-  if (search.value.trim() || route.startsWith('catalog')) html = gallery();
+  if (route === 'references') html = referenceLibrary();
+  else if (search.value.trim() || route.startsWith('catalog')) html = gallery();
   else if (item) html = detail(item);
   else if (route === 'start') html = installation();
   else if (route === 'theming') html = theming();
@@ -117,8 +136,9 @@ function render({ focus = false } = {}) {
   else html = home();
   main.innerHTML = html;
   stopEffects = initEffects(main);
+  stopPatterns = initPatterns(main);
   navigation(); updateSize();
-  document.title = `${item?.title || ({ start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
+  document.title = `${item?.title || ({ start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery', references: 'Reference library' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
   if (focus) { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }
 }
 
@@ -130,6 +150,8 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', async event => {
   const category = event.target.closest('[data-category]');
   if (category) { filter = category.dataset.category; render(); document.querySelector(`[data-category="${filter}"]`)?.focus(); }
+  const library = event.target.closest('[data-library]');
+  if (library) { libraryFilter = library.dataset.library; render(); [...document.querySelectorAll('[data-library]')].find(button => button.dataset.library === libraryFilter)?.focus(); }
   const copy = event.target.closest('[data-copy]');
   if (copy) {
     const code = copy.closest('.code-panel').querySelector('code');
@@ -147,7 +169,11 @@ document.addEventListener('click', async event => {
   if (event.target.closest('#mobile-nav a')) document.querySelector('#mobile-menu').close();
 });
 document.addEventListener('submit', event => {
+  if (event.defaultPrevented) return;
   if (event.target.matches('[data-demo-form]')) { event.preventDefault(); toast('Demo only. No data was sent.', { title: 'Form preview', duration: 5000 }); }
+});
+document.addEventListener('rf:command', event => {
+  toast(`Demo command selected: ${event.detail.value}`, { title: 'Command preview' });
 });
 const themeButton = document.querySelector('#theme-toggle');
 function themeLabel() { themeButton.setAttribute('aria-label', `Switch to ${document.documentElement.dataset.rfTheme === 'dark' ? 'light' : 'dark'} theme`); }

@@ -753,5 +753,645 @@
       "Replace data-demo-form with your own action, method, and handler.",
       "Validate all submitted data on the server."
     ]
+  },
+  {
+    "id": "image-compare",
+    "title": "Image comparison",
+    "category": "Components",
+    "description": "Slide between two versions with a keyboard-accessible native range.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/image-compare.html",
+    "notes": [
+      "Replace the two panels with your own images and useful alt text. Both images stay visible side by side at the initial split without JavaScript.",
+      "The native range supports arrows, Home/End, touch, and keyboard."
+    ]
+  },
+  {
+    "id": "carousel",
+    "title": "Scroll-snap carousel",
+    "category": "Components",
+    "description": "Swipe, scroll, or use buttons to browse a native horizontal rail.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/carousel.html",
+    "notes": [
+      "Scrolling and CSS snapping work without JavaScript. Optional buttons scroll one card at a time.",
+      "No autoplay or hidden slides. Respects reduced motion and right-to-left direction."
+    ]
+  },
+  {
+    "id": "command-palette",
+    "title": "Command palette",
+    "category": "Components",
+    "description": "A searchable command list inside a native modal.",
+    "css": [
+      "patterns",
+      "dialog",
+      "button",
+      "form"
+    ],
+    "js": [
+      "dialog",
+      "patterns"
+    ],
+    "file": "examples/components/command-palette.html",
+    "notes": [
+      "Uses native dialog focus management. Arrow keys browse the filtered list; Enter selects.",
+      "Listen for rf:command; detail.value contains the chosen command. Connect that event to application behavior.",
+      "The preview reports the choice locally and performs no application action."
+    ]
+  },
+  {
+    "id": "like-button",
+    "title": "Like button",
+    "category": "Components",
+    "description": "A reversible pressed state with an optional local count.",
+    "css": [
+      "button",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/like-button.html",
+    "notes": [
+      "aria-pressed communicates the toggle state. The label remains stable.",
+      "Counts are demo data in memory. Your app owns persistence and authorization."
+    ]
+  },
+  {
+    "id": "number-stepper",
+    "title": "Number stepper",
+    "category": "Components",
+    "description": "Native number validation, with convenient plus and minus buttons.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/number-stepper.html",
+    "notes": [
+      "Uses native stepUp/stepDown, min, max, and step. The number input stays usable without JavaScript.",
+      "Emits ordinary input and change events. Disabled and read-only inputs are not changed."
+    ]
+  },
+  {
+    "id": "segmented-control",
+    "title": "Segmented control",
+    "category": "Components",
+    "description": "A pill selector powered by a native radio group.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/segmented-control.html",
+    "notes": [
+      "A native radio group supports arrow keys and form submission. No JavaScript is needed."
+    ]
+  },
+  {
+    "id": "date-picker",
+    "title": "Date picker",
+    "category": "Components",
+    "description": "A styled native date field, with browser-owned calendar and validation.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/date-picker.html",
+    "notes": [
+      "Native browser calendar, locale, touch behavior, and validation are retained.",
+      "Use min/max for date limits. Validate submitted dates on the server."
+    ]
+  },
+  {
+    "id": "one-time-code",
+    "title": "One-time code",
+    "category": "Components",
+    "description": "One labelled field with paste, autofill, and native six-digit validation.",
+    "css": [
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/one-time-code.html",
+    "notes": [
+      "One input avoids fragmented paste and screen-reader navigation. Leading zeroes are retained.",
+      "Your server must check expiry, attempt limits, and validity. This component does not authenticate."
+    ]
+  },
+  {
+    "id": "timeline",
+    "title": "Timeline",
+    "category": "Components",
+    "description": "A readable sequence with real dates and a quiet connecting line.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/timeline.html",
+    "notes": [
+      "DOM order remains the reading order. Dates are sample content."
+    ]
+  },
+  {
+    "id": "dock",
+    "title": "Floating dock",
+    "category": "Components",
+    "description": "A compact set of real navigation links, with hover and focus feedback.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/dock.html",
+    "notes": [
+      "Replace fragment destinations with your real routes. Labels are always visible.",
+      "CSS handles focus and hover. Movement is disabled for reduced motion. Position the dock in your app as needed."
+    ]
+  },
+  {
+    "id": "expandable-card",
+    "title": "Expandable card",
+    "category": "Components",
+    "description": "A content card that opens with native details.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/expandable-card.html",
+    "notes": [
+      "Native details supports keyboard toggling and stays useful without JavaScript.",
+      "Place links and buttons in the expanded content, outside summary."
+    ]
+  },
+  {
+    "id": "image-accordion",
+    "title": "Image accordion",
+    "category": "Components",
+    "description": "An expanding content rail using native details, without hover-only access.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/image-accordion.html",
+    "notes": [
+      "Replace decorative art with your own images. Multiple panels may remain open.",
+      "Keyboard and touch users can expand each panel. Content remains accessible without hover or JavaScript."
+    ]
+  },
+  {
+    "id": "card-stack",
+    "title": "Card stack",
+    "category": "Components",
+    "description": "Layered decorative depth around one readable content card.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/card-stack.html",
+    "notes": [
+      "The backing layers are decorative CSS. One real card remains in the accessibility tree.",
+      "This is a static stack, not a swipe deck or auto-rotating carousel."
+    ]
+  },
+  {
+    "id": "checklist",
+    "title": "Checklist",
+    "category": "Components",
+    "description": "Real checkboxes for a clear, satisfying sequence of tasks.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/checklist.html",
+    "notes": [
+      "Native checkbox state and submission. Persistence belongs to your application.",
+      "The checked treatment retains the task label and text contrast."
+    ]
+  },
+  {
+    "id": "rating",
+    "title": "Rating",
+    "category": "Components",
+    "description": "A five-choice rating with visible numbers and native radio semantics.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/rating.html",
+    "notes": [
+      "Arrow keys move between values. Numeric labels communicate meaning without relying on star color."
+    ]
+  },
+  {
+    "id": "interest-picker",
+    "title": "Interest picker",
+    "category": "Components",
+    "description": "A wrapping set of selectable chips using native checkboxes.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/interest-picker.html",
+    "notes": [
+      "Each chip is a labelled checkbox. Works with keyboard, touch, and forms without JavaScript."
+    ]
+  },
+  {
+    "id": "multi-step-form",
+    "title": "Multistep form",
+    "category": "Components",
+    "description": "A short, validated sequence that stays a complete form without JavaScript.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/multi-step-form.html",
+    "notes": [
+      "Next validates the current step. Final submission validates every step and reveals invalid fields.",
+      "Without JavaScript, all steps and the native submit button remain visible. Teardown restores this state.",
+      "Replace the demo handler with your app submission and server-side validation."
+    ]
+  },
+  {
+    "id": "copy-button",
+    "title": "Copy button",
+    "category": "Components",
+    "description": "Copy a text value with persistent success or failure feedback.",
+    "css": [
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/copy-button.html",
+    "notes": [
+      "Clipboard requires a secure context and permission. Failure keeps the text visible for manual copying.",
+      "The copied value is text. This component never executes the command."
+    ]
+  },
+  {
+    "id": "marquee",
+    "title": "Pausable marquee",
+    "category": "Components",
+    "description": "A CSS content loop with an always-visible pause control.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/marquee.html",
+    "notes": [
+      "Pause using the checkbox. Hover and focus also pause movement. Reduced-motion mode shows a static wrapping group.",
+      "The repeated group is decorative and must not contain focusable controls. Studio names are fictional."
+    ]
+  },
+  {
+    "id": "grid-background",
+    "title": "Grid background",
+    "category": "Effects",
+    "description": "A crisp repeating line grid, drawn in CSS.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/grid-background.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "mesh-background",
+    "title": "Mesh background",
+    "category": "Effects",
+    "description": "Two soft color fields using theme-aware gradients.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/mesh-background.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "aurora",
+    "title": "Aurora background",
+    "category": "Effects",
+    "description": "A slowly moving wash of color behind readable content.",
+    "css": [
+      "effects",
+      "card",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/aurora.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
+      "The native pause checkbox stops the animation without JavaScript."
+    ]
+  },
+  {
+    "id": "gradient-border",
+    "title": "Gradient border",
+    "category": "Effects",
+    "description": "A two-color border around a solid, readable surface.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/gradient-border.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "border-beam",
+    "title": "Border beam",
+    "category": "Effects",
+    "description": "A moving accent that follows the edge of a card.",
+    "css": [
+      "effects",
+      "card",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/border-beam.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
+      "The native pause checkbox stops the animation without JavaScript."
+    ]
+  },
+  {
+    "id": "glass-card",
+    "title": "Glass card",
+    "category": "Effects",
+    "description": "A translucent surface with a solid-color fallback.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/glass-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "tilt-card",
+    "title": "Tilt card",
+    "category": "Effects",
+    "description": "A restrained perspective tilt that follows a mouse pointer.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/tilt-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "glare-card",
+    "title": "Glare card",
+    "category": "Effects",
+    "description": "A pointer-following sheen over a readable card.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/glare-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "lamp",
+    "title": "Lamp highlight",
+    "category": "Effects",
+    "description": "A soft cone of light above a headline, using one gradient.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/lamp.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "stars",
+    "title": "Star field",
+    "category": "Effects",
+    "description": "A static decorative star texture, with no particle loop.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/stars.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "magnetic-button",
+    "title": "Magnetic button",
+    "category": "Effects",
+    "description": "A small pointer attraction with an unchanged keyboard target.",
+    "css": [
+      "effects",
+      "button"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/magnetic-button.html",
+    "notes": [
+      "Movement is bounded to five pixels in each direction. Touch and reduced-motion users receive a static button."
+    ]
+  },
+  {
+    "id": "text-highlight",
+    "title": "Text highlight",
+    "category": "Effects",
+    "description": "A theme-aware mark that wraps naturally across lines.",
+    "css": [
+      "effects"
+    ],
+    "js": [],
+    "file": "examples/components/text-highlight.html",
+    "notes": [
+      "Real mark semantics. The highlight is static and does not depend on scroll or hover."
+    ]
+  },
+  {
+    "id": "text-entrance",
+    "title": "Text entrance",
+    "category": "Effects",
+    "description": "A single gentle entrance for a complete, readable heading.",
+    "css": [
+      "effects"
+    ],
+    "js": [],
+    "file": "examples/components/text-entrance.html",
+    "notes": [
+      "Uses one real text node, with no duplicated words for assistive technology. Reduced-motion mode disables animation."
+    ]
+  },
+  {
+    "id": "focus-cards",
+    "title": "Focus cards",
+    "category": "Effects",
+    "description": "A subtle group emphasis on pointer hover or keyboard focus.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/focus-cards.html",
+    "notes": [
+      "Focus-within receives the same emphasis as hover. Reduced-motion mode removes movement."
+    ]
+  },
+  {
+    "id": "logo-cloud",
+    "title": "Logo cloud",
+    "category": "Sections",
+    "description": "A responsive strip of sample brand names.",
+    "css": [
+      "sections"
+    ],
+    "js": [],
+    "file": "sections/logo-cloud.html",
+    "notes": [
+      "Fictional demonstration names, not endorsements. Replace with your real partners and accessible logos."
+    ]
+  },
+  {
+    "id": "newsletter",
+    "title": "Newsletter",
+    "category": "Sections",
+    "description": "An inline email capture layout with native validation.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/newsletter.html",
+    "notes": [
+      "Replace the demo handler with your consent, email service, and server validation."
+    ]
+  },
+  {
+    "id": "team",
+    "title": "Team grid",
+    "category": "Sections",
+    "description": "People and roles on simple, responsive profile cards.",
+    "css": [
+      "sections",
+      "card",
+      "avatar"
+    ],
+    "js": [],
+    "file": "sections/team.html",
+    "notes": [
+      "Demo profiles are fictional. Use meaningful alt text for standalone profile images."
+    ]
+  },
+  {
+    "id": "blog-grid",
+    "title": "Article grid",
+    "category": "Sections",
+    "description": "A responsive editorial collection with real links.",
+    "css": [
+      "sections",
+      "card"
+    ],
+    "js": [],
+    "file": "sections/blog-grid.html",
+    "notes": [
+      "Replace sample article text and fragment links with real content and destinations."
+    ]
+  },
+  {
+    "id": "sign-in",
+    "title": "Sign-in form",
+    "category": "Sections",
+    "description": "A focussed account form with native autocomplete and validation.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/sign-in.html",
+    "notes": [
+      "This is an interface, not authentication. Wire your own trusted authentication backend and error handling.",
+      "The preview prevents submission and sends no data."
+    ]
+  },
+  {
+    "id": "integration-map",
+    "title": "Integration map",
+    "category": "Sections",
+    "description": "A semantic hub-and-spoke layout for connected tools.",
+    "css": [
+      "sections",
+      "card",
+      "effects"
+    ],
+    "js": [],
+    "file": "sections/integration-map.html",
+    "notes": [
+      "A visual diagram only. It makes no network connections or claims about integration availability."
+    ]
   }
 ]

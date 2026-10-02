@@ -1,29 +1,37 @@
 {
-  "coreGzip": 8121,
+  "coreGzip": 8135,
   "files": {
     "rofin.css": {
       "bytes": 20390,
-      "gzip": 4456
+      "gzip": 4468
     },
     "rofin.js": {
       "bytes": 9130,
-      "gzip": 3391
+      "gzip": 3401
     },
     "rofin.auto.js": {
       "bytes": 9712,
-      "gzip": 3665
+      "gzip": 3667
     },
     "effects.css": {
-      "bytes": 1633,
-      "gzip": 676
+      "bytes": 5516,
+      "gzip": 1605
     },
     "effects.js": {
-      "bytes": 1333,
-      "gzip": 643
+      "bytes": 1771,
+      "gzip": 776
     },
     "sections.css": {
-      "bytes": 1646,
-      "gzip": 650
+      "bytes": 2302,
+      "gzip": 801
+    },
+    "patterns.css": {
+      "bytes": 6332,
+      "gzip": 1746
+    },
+    "patterns.js": {
+      "bytes": 3931,
+      "gzip": 1644
     }
   }
 }

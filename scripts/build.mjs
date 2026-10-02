@@ -8,13 +8,16 @@ const shared = { bundle: true, minify: true, target: ['es2022'], logLevel: 'warn
 await build({ ...shared, entryPoints: ['src/rofin.css'], outfile: 'dist/rofin.css' });
 await build({ ...shared, entryPoints: ['src/effects.css'], outfile: 'dist/effects.css' });
 await build({ ...shared, entryPoints: ['src/sections.css'], outfile: 'dist/sections.css' });
+await build({ ...shared, entryPoints: ['src/patterns.css'], outfile: 'dist/patterns.css' });
 await build({ ...shared, entryPoints: ['src/js/index.js'], outfile: 'dist/rofin.js', format: 'esm' });
 await build({ ...shared, entryPoints: ['src/js/index.js'], outfile: 'dist/rofin.cjs', format: 'cjs' });
 await build({ ...shared, entryPoints: ['src/js/auto.js'], outfile: 'dist/rofin.auto.js', format: 'iife', globalName: 'Rofin' });
 await build({ ...shared, entryPoints: ['src/js/effects.js'], outfile: 'dist/effects.js', format: 'esm' });
+await build({ ...shared, entryPoints: ['src/js/patterns.js'], outfile: 'dist/patterns.js', format: 'esm' });
+await cp('src/js/patterns.d.ts', 'dist/patterns.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);
@@ -37,13 +40,15 @@ for (const item of metadata) {
   catalog.push({ ...item, html: html.trim(), cssBytes });
 }
 await writeFile('docs/catalog.js', `// Generated from catalog.json and the source examples by npm run build.\nexport default ${JSON.stringify(catalog, null, 2)};\n`);
+const references = JSON.parse(await readFile('docs/reference-catalog.json', 'utf8'));
+await writeFile('docs/references.js', `// Catalog snapshot; related patterns are not feature parity claims.\nexport default ${JSON.stringify(references)};\n`);
 await writeFile('docs/sizes.json', JSON.stringify({ coreGzip, files: sizes }, null, 2) + '\n');
 
 // Self-contained static documentation, ready for any static host. No deployment required.
 await rm('dist/site', { recursive: true, force: true });
 await mkdir('dist/site', { recursive: true });
 for (const name of await readdir('docs')) {
-  if (name === 'catalog.json') continue;
+  if (name === 'catalog.json' || name === 'reference-catalog.json') continue;
   await cp(join('docs', name), join('dist/site', name), { recursive: true });
 }
 for (const name of ['index.html', 'app.js']) {

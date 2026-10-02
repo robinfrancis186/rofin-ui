@@ -12,9 +12,36 @@
   [data-rf-reveal][data-rf-reveal-ready]:not([data-rf-revealed]) { opacity: 0; transform: translateY(12px); }
   [data-rf-reveal][data-rf-reveal-ready] { transition: opacity 450ms ease, transform 450ms ease; }
   [data-rf-spotlight] { background: radial-gradient(240px circle at var(--rf-pointer-x, 50%) var(--rf-pointer-y, 50%), var(--rf-subtle), var(--rf-surface)); }
+  .rf-grid-background { background-image: linear-gradient(var(--rf-border) 1px, transparent 1px), linear-gradient(90deg, var(--rf-border) 1px, transparent 1px); background-size: 32px 32px; }
+  .rf-mesh-background { background: radial-gradient(ellipse at 15% 20%, color-mix(in srgb, var(--rf-primary) 18%, transparent), transparent 65%), radial-gradient(ellipse at 90% 80%, color-mix(in srgb, var(--rf-info) 20%, transparent), transparent 65%), var(--rf-surface); }
+  .rf-aurora { position: relative; isolation: isolate; overflow: hidden; background: var(--rf-surface); }
+  .rf-aurora::before { content: ""; position: absolute; inset: -50%; z-index: -1; pointer-events: none; background: conic-gradient(from 45deg, transparent, color-mix(in srgb, var(--rf-primary) 22%, transparent), transparent, color-mix(in srgb, var(--rf-info) 20%, transparent), transparent); filter: blur(35px); animation: rf-orbit 24s linear infinite; }
+  .rf-gradient-border { border: 2px solid transparent; background: linear-gradient(var(--rf-surface), var(--rf-surface)) padding-box, linear-gradient(135deg, var(--rf-primary), var(--rf-info), var(--rf-primary)) border-box; }
+  .rf-border-beam { position: relative; isolation: isolate; }
+  .rf-border-beam::after { content: ""; position: absolute; inset: -2px; padding: 2px; border-radius: inherit; pointer-events: none; background: conic-gradient(from var(--rf-beam-angle, 0deg), transparent 60%, var(--rf-primary), var(--rf-info), transparent); mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0); animation: rf-beam 6s linear infinite; }
+  .rf-glass { background: color-mix(in srgb, var(--rf-surface) 85%, transparent); backdrop-filter: blur(12px); border: 1px solid var(--rf-border); }
+  [data-rf-tilt] { transform: perspective(800px) rotateX(var(--rf-tilt-x, 0deg)) rotateY(var(--rf-tilt-y, 0deg)); transition: transform 150ms; }
+  [data-rf-magnetic] { transform: translate(var(--rf-magnetic-x, 0px), var(--rf-magnetic-y, 0px)); transition: transform 150ms; }
+  .rf-glare { position: relative; overflow: hidden; }
+  .rf-glare::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at var(--rf-pointer-x, 50%) var(--rf-pointer-y, 50%), rgb(255 255 255 / .15), transparent 65%); }
+  .rf-focus-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
+  .rf-focus-cards > * { transition: opacity 180ms, transform 180ms; }
+  .rf-focus-cards:has(> :hover) > :not(:hover), .rf-focus-cards:has(> :focus-within) > :not(:focus-within) { background: var(--rf-subtle); }
+  .rf-focus-cards > :is(:hover, :focus-within) { transform: translateY(-4px); }
+  .rf-text-highlight { color: var(--rf-text); background: color-mix(in srgb, var(--rf-primary) 16%, var(--rf-surface)); border-radius: .25rem; padding-inline: .15em; box-decoration-break: clone; }
+  .rf-text-entrance { animation: rf-text-entrance 600ms both; }
+  .rf-lamp { background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--rf-primary) 24%, transparent), transparent 65%), var(--rf-surface); border-block-start: 2px solid var(--rf-primary); }
+  .rf-stars { background-color: var(--rf-surface); background-image: radial-gradient(var(--rf-border) 1.5px, transparent 2px), radial-gradient(var(--rf-primary) 1px, transparent 2px); background-size: 31px 37px, 67px 61px; background-position: 0 0, 13px 17px; }
+  @property --rf-beam-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+  @keyframes rf-beam { to { --rf-beam-angle: 360deg; } }
+  @keyframes rf-orbit { to { transform: rotate(360deg); } }
+  @keyframes rf-text-entrance { from { opacity: 0; transform: translateY(.35em); } to { opacity: 1; transform: none; } }
+  .rf-motion-control:has([data-rf-pause-motion]:checked) *, .rf-motion-control:has([data-rf-pause-motion]:checked) *::before, .rf-motion-control:has([data-rf-pause-motion]:checked) *::after { animation-play-state: paused; }
   @media (prefers-reduced-motion: reduce) {
     .rf-hover-lift, [data-rf-reveal][data-rf-reveal-ready] { transition: none; transform: none; opacity: 1; }
     .rf-hover-lift:hover { transform: none; } .rf-shimmer::after { animation: none !important; }
+    .rf-aurora::before, .rf-border-beam::after, .rf-text-entrance { animation: none; }
+    [data-rf-tilt], [data-rf-magnetic], .rf-focus-cards > * { transform: none !important; transition: none; }
   }
-  @media (forced-colors: active) { .rf-gradient-text { background: none; color: CanvasText; } }
+  @media (forced-colors: active) { .rf-gradient-text { background: none; color: CanvasText; } .rf-gradient-border { border-color: CanvasText; } .rf-border-beam::after, .rf-aurora::before, .rf-glare::after { display: none; } }
 }

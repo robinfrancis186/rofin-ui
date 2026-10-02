@@ -21,6 +21,11 @@
     },
     "./auto": "./src/js/auto.js",
     "./effects": "./src/js/effects.js",
+    "./patterns": {
+      "types": "./dist/patterns.d.ts",
+      "import": "./dist/patterns.js"
+    },
+    "./patterns.css": "./dist/patterns.css",
     "./style.css": "./dist/rofin.css",
     "./effects.css": "./dist/effects.css",
     "./sections.css": "./dist/sections.css",

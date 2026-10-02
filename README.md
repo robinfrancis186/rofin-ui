@@ -6,8 +6,8 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The first release includes **30 component examples**, **6 optional effects**,
-**10 copyable sections**, a searchable documentation gallery, and composed
+The library includes **49 component examples**, **20 optional effects**,
+**16 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
 > Pre-1.0: APIs and styles may change. The npm package has not been published
@@ -89,6 +89,42 @@ spotlight, scroll reveal, and interactive shimmer. Include `src/effects.css`;
 spotlight and reveal also use `initEffects()` from `src/js/effects.js`.
 Reduced-motion preferences are respected, and content remains visible without
 JavaScript.
+
+The optional effects collection also includes grid and mesh backgrounds,
+aurora, gradient borders, border beams, glass, tilt, glare, a lamp highlight,
+stars, magnetic buttons, text treatments, and focus cards. Tilt, glare, and
+magnetic buttons use the existing `initEffects()` initializer.
+
+## Optional interaction patterns
+
+Comparison sliders, carousels, command palettes, like buttons, number steppers,
+multistep forms, and copy buttons use a separate module. Native segmented
+controls, dates, one-time codes, timelines, docks, details cards, checklists,
+ratings, chips, and the pausable marquee share its optional stylesheet.
+These are excluded from the core bundle and the auto initializer.
+
+```html
+<link rel="stylesheet" href="./src/rofin.css">
+<link rel="stylesheet" href="./src/patterns.css">
+<script type="module">
+  import { init } from './src/js/index.js';
+  import { initPatterns } from './src/js/patterns.js';
+  const stopCore = init();
+  const stopPatterns = initPatterns();
+  // Before removing this app root: stopPatterns(); stopCore();
+</script>
+```
+
+Initialize each patterns root once; call the returned cleanup before removal.
+Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
+palettes emit `rf:command` with `detail.value`; your app owns the actual action.
+Forms, counters, authentication, subscriptions, and integrations are interface
+examples; connect application behavior and server validation yourself.
+
+The documentation's **Reference library** indexes 11 source catalogs with
+related original Rofin patterns and explicit coverage notes. Catalog metadata
+is not proof of individual demo review or feature parity. See
+[the source review](docs/reference-review.md).
 
 Include `src/sections.css` for the hero, feature grid, bento layout, pricing,
 testimonials, statistics, FAQ, call to action, footer, and contact sections.
@@ -183,7 +219,9 @@ reserve the npm name. The domain is intentionally deferred.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md).
 
-Inspired by Oat's minimal approach. This repository contains original code;
-it does not include source code from Oat, Aura, or Aceternity.
+Inspired by Oat's minimal approach and the pattern families in the linked
+catalogs. This repository contains original component code; it does not
+include source code from the referenced libraries. Reference names and URLs
+are a dated research snapshot, separate from the runnable Rofin gallery.
 
 MIT — Copyright © 2026 Robin Francis.

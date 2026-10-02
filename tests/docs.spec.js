@@ -33,9 +33,9 @@ test('dark theme persists and mobile navigation uses a labelled modal', async ({
 
 test('gallery category filter and empty-state search keep focus usable', async ({ page }) => {
   await page.goto('/docs/index.html#catalog');
-  await page.getByRole('button', { name: 'Effects · 6' }).click();
-  await expect(page.locator('.catalog-card')).toHaveCount(6);
-  await expect(page.getByRole('button', { name: 'Effects · 6' })).toBeFocused();
+  await page.getByRole('button', { name: `Effects · ${catalog.filter(item => item.category === 'Effects').length}` }).click();
+  await expect(page.locator('.catalog-card')).toHaveCount(catalog.filter(item => item.category === 'Effects').length);
+  await expect(page.getByRole('button', { name: `Effects · ${catalog.filter(item => item.category === 'Effects').length}` })).toBeFocused();
   await page.locator('#docs-search').fill('not-a-component-123');
   await expect(page.locator('.empty-results')).toBeVisible();
   await expect(page.locator('#docs-search')).toBeFocused();
@@ -71,7 +71,7 @@ test('composed dashboard filters data and form demos send no request', async ({ 
 
 for (const theme of ['light', 'dark']) {
   test(`all gallery examples pass automated WCAG checks in ${theme} theme`, async ({ page }) => {
-    test.setTimeout(180000);
+    test.setTimeout(300000);
     for (const item of catalog) {
       await page.goto(`/docs/index.html#component/${item.id}`);
       await expect(page.locator('.page-heading h1')).toHaveText(item.title);

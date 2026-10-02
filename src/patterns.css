@@ -1,0 +1,65 @@
+/* Optional interaction patterns. Include tokens and the core styles first. */
+@layer rf.components {
+  .rf-compare { position: relative; overflow: hidden; border-radius: var(--rf-radius-lg); aspect-ratio: 16 / 10; background: var(--rf-subtle); }
+  .rf-compare__before, .rf-compare__after { position: absolute; inset: 0; display: grid; place-content: center; padding: 1rem; text-align: center; }
+  .rf-compare img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .rf-compare__before { background: var(--rf-subtle); color: var(--rf-text); }
+  .rf-compare__after { background: var(--rf-primary); color: var(--rf-on-primary); clip-path: inset(0 0 0 var(--rf-compare, 50%)); }
+  .rf-compare::after { content: ""; position: absolute; inset-block: 0; inset-inline-start: var(--rf-compare, 50%); border-inline-start: 2px solid var(--rf-text); pointer-events: none; }
+  .rf-compare__label { position: absolute; inset-block-start: 1rem; inset-inline-start: 1rem; padding: .25rem .6rem; background: var(--rf-surface); color: var(--rf-text); border-radius: var(--rf-radius-sm); font-size: .75rem; z-index: 1; }
+  .rf-compare__label--after { inset-inline-start: auto; inset-inline-end: 1rem; }
+  .rf-carousel__track { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: .25rem; padding: .25rem .25rem 1rem; }
+  .rf-carousel__track > * { flex: 0 0 min(85%, 24rem); scroll-snap-align: start; }
+  .rf-carousel__controls { display: flex; justify-content: space-between; align-items: center; gap: .75rem; margin-block-start: 1rem; }
+  .rf-pattern-art { display: grid; place-items: center; min-block-size: 10rem; background: linear-gradient(145deg, var(--rf-subtle), var(--rf-surface)); border-radius: var(--rf-radius); color: var(--rf-primary); font-size: clamp(2rem, 8vw, 4rem); font-weight: 700; margin-block-end: 1rem; }
+  .rf-command { inline-size: min(36rem, calc(100% - 2rem)); }
+  .rf-command__list { display: grid; gap: .25rem; max-block-size: 18rem; overflow-y: auto; margin-block: 1rem; }
+  .rf-command__list > button { justify-content: space-between; }
+  .rf-stepper { display: inline-flex; align-items: center; gap: .5rem; }
+  .rf-stepper input { inline-size: 6rem; text-align: center; }
+  .rf-segmented { display: flex; flex-wrap: wrap; gap: .25rem; border: 0; padding: .25rem; border-radius: var(--rf-radius); background: var(--rf-subtle); }
+  .rf-segmented legend, .rf-rating legend, .rf-chips legend { margin-block-end: .5rem; font-weight: 600; }
+  .rf-segmented label, .rf-chips label { position: relative; display: flex; align-items: center; cursor: pointer; }
+  .rf-segmented input, .rf-chips input, .rf-rating input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+  .rf-segmented span, .rf-chips span { display: block; padding: .7rem 1rem; border: 1px solid transparent; border-radius: var(--rf-radius-sm); color: var(--rf-muted); }
+  .rf-segmented input:checked + span, .rf-chips input:checked + span { background: var(--rf-surface); color: var(--rf-primary); border-color: var(--rf-border); box-shadow: var(--rf-shadow); }
+  :is(.rf-segmented, .rf-chips, .rf-rating) input:focus-visible + span { outline: 3px solid var(--rf-focus); outline-offset: 2px; }
+  .rf-chips { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .rf-chips span { border-color: var(--rf-border); border-radius: 2rem; }
+  .rf-rating { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .rf-rating label { position: relative; cursor: pointer; }
+  .rf-rating span { display: block; padding: .6rem .8rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); }
+  .rf-rating input:checked + span { background: var(--rf-primary); color: var(--rf-on-primary); }
+  .rf-timeline { list-style: none; padding: 0; }
+  .rf-timeline li { position: relative; border-inline-start: 2px solid var(--rf-border); padding: 0 0 2rem 1.75rem; }
+  .rf-timeline li:last-child { padding-block-end: 0; }
+  .rf-timeline li::before { content: ""; position: absolute; inset-inline-start: -.45rem; inset-block-start: .4rem; inline-size: .75rem; block-size: .75rem; background: var(--rf-primary); border-radius: 50%; box-shadow: 0 0 0 4px var(--rf-surface); }
+  .rf-timeline time { font-size: .8125rem; color: var(--rf-muted); }
+  .rf-dock { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; padding: .75rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-lg); background: var(--rf-surface); box-shadow: var(--rf-shadow); }
+  .rf-dock a { display: grid; place-items: center; min-inline-size: 3rem; min-block-size: 3rem; padding: .5rem; border-radius: var(--rf-radius); background: var(--rf-subtle); color: var(--rf-text); text-decoration: none; transition: transform 180ms; }
+  .rf-dock a:is(:hover, :focus-visible) { transform: translateY(-.35rem) scale(1.08); background: var(--rf-primary); color: var(--rf-on-primary); }
+  .rf-expandable { padding: 0; overflow: hidden; }
+  .rf-expandable summary { padding: 1.5rem; cursor: pointer; font-weight: 600; }
+  .rf-expandable__content { padding: 0 1.5rem 1.5rem; }
+  .rf-image-accordion { display: flex; flex-wrap: wrap; gap: .75rem; }
+  .rf-image-accordion details { flex: 1 1 8rem; background: var(--rf-subtle); border: 1px solid var(--rf-border); border-radius: var(--rf-radius); }
+  .rf-image-accordion details[open] { flex-grow: 3; }
+  .rf-image-accordion summary { padding: 1.5rem; cursor: pointer; font-weight: 600; }
+  .rf-image-accordion p { padding-inline: 1.5rem; }
+  .rf-card-stack { display: grid; padding: .75rem .75rem 0 0; }
+  .rf-card-stack > * { grid-area: 1 / 1; }
+  .rf-card-stack::before, .rf-card-stack::after { content: ""; grid-area: 1 / 1; background: var(--rf-subtle); border: 1px solid var(--rf-border); border-radius: var(--rf-radius); transform: translate(.6rem, -.6rem); }
+  .rf-card-stack::before { transform: translate(.3rem, -.3rem); z-index: 1; }
+  .rf-card-stack > * { z-index: 2; }
+  .rf-checklist { list-style: none; padding: 0; display: grid; gap: .25rem; }
+  .rf-checklist li { padding: .25rem .75rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); }
+  .rf-checklist label:has(input:checked) span { text-decoration: line-through; color: var(--rf-muted); }
+  [data-rf-step][hidden], [data-rf-command-item][hidden] { display: none; }
+  .rf-marquee { overflow: hidden; padding-block: 1rem; }
+  .rf-marquee__track { display: flex; inline-size: max-content; animation: rf-marquee 24s linear infinite; }
+  .rf-marquee__group { display: flex; flex-shrink: 0; align-items: center; gap: 2rem; padding-inline-end: 2rem; }
+  .rf-marquee__group span { border: 1px solid var(--rf-border); border-radius: var(--rf-radius); padding: 1rem 2rem; font-weight: 600; white-space: nowrap; }
+  .rf-marquee:is(:hover, :focus-within) .rf-marquee__track, .rf-marquee:has(input:checked) .rf-marquee__track { animation-play-state: paused; }
+  @keyframes rf-marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .rf-dock a { transition: none; transform: none !important; } .rf-marquee__track { animation: none; } .rf-marquee__group[aria-hidden] { display: none; } .rf-marquee__track, .rf-marquee__group { inline-size: auto; flex-wrap: wrap; } }
+}

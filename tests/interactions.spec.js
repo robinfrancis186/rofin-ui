@@ -183,12 +183,15 @@ test('reduced-motion effects stay visible and avoid pointer tracking', async ({ 
   await page.evaluate(async () => {
     const node = document.createElement('div');
     node.id = 'effect-test'; node.className = 'rf-card'; node.dataset.rfReveal = ''; node.dataset.rfSpotlight = ''; node.textContent = 'Visible content';
+    node.dataset.rfTilt = ''; node.dataset.rfMagnetic = '';
     document.body.append(node);
     const { initEffects } = await import('/src/js/effects.js'); window.stopEffects = initEffects(node);
   });
   await expect(page.locator('#effect-test')).toHaveCSS('opacity', '1');
   await page.locator('#effect-test').hover();
   expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-pointer-x'))).toBe('');
+  expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-tilt-x'))).toBe('');
+  expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-magnetic-x'))).toBe('');
   await page.evaluate(() => window.stopEffects());
   await expect(page.locator('#effect-test')).toBeVisible();
 });

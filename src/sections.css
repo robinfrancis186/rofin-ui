@@ -15,5 +15,13 @@
   .rf-bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .rf-bento > :first-child { grid-column: span 2; }
   .rf-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 2rem; border-block-start: 1px solid var(--rf-border); color: var(--rf-muted); font-size: .875rem; }
+  .rf-logo-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 3rem; padding-block: 2rem; color: var(--rf-muted); font-weight: 700; font-size: 1.25rem; }
+  .rf-newsletter { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; }
+  .rf-newsletter .rf-field { flex: 1 1 14rem; }
+  .rf-auth { inline-size: min(100%, 26rem); margin-inline: auto; }
+  .rf-auth form { display: grid; gap: 1rem; }
+  .rf-integration-map { display: grid; gap: 1rem; text-align: center; }
+  .rf-integration-map ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+  .rf-integration-map li { padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); }
   @media (max-width: 44rem) { .rf-hero { grid-template-columns: 1fr; gap: 2rem; } .rf-bento { grid-template-columns: 1fr; } .rf-bento > :first-child { grid-column: auto; } }
 }
