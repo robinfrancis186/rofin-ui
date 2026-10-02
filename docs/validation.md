@@ -39,10 +39,13 @@ on `9930af9`, Chromium and Firefox pass all 122 tests and the 252-file package
 check. The initial WebKit runner was cancelled during slow Ubuntu dependency
 downloads. Its fresh runner passes 121 tests and finds a 320-pixel permission
 state overflow. A focused diagnostic in run 37056543885 locates the excess
-width in the native resource field's implicit grid track, rather than the
-error section. The shared field now uses `minmax(0, 1fr)` to constrain that track;
-CI checks narrow recovery before the full suite and reports element dimensions
-when its unchanged no-overflow assertion fails.
+width in the native selected value: the resource field is 214 pixels wide but
+its overflow spans 304 pixels. A bounded grid track does not change that result.
+The shared single-select uses CSS appearance and a directional chevron while
+retaining its native chooser and complete option labels; multi-row lists keep
+their platform appearance. Forced-colors styling uses system colors. CI checks
+narrow recovery before the full suite and reports element dimensions when its
+unchanged no-overflow assertion fails.
 
 The full local Chromium run passes all 122 tests and the 252-file package check.
 The package contains the native templates and original snapshot asset; it still

@@ -134,6 +134,14 @@ test('error sections, recovery and native fallbacks work at narrow widths in bot
       expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
     }
   }
+  await page.setViewportSize({width:320,height:900});
+  for(const direction of ['ltr','rtl']) for(const forcedColors of ['none','active']) {
+    await page.locator('html').evaluate((html,value)=>{html.dir=value;},direction); await page.emulateMedia({forcedColors});
+    await load(page,'permission'); await expect(error(page)).toBeVisible();
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),`${direction}/${forcedColors}/320`).toBe(false);
+    await expect(page.getByRole('combobox',{name:'Read-only resource'})).toHaveValue('permission');
+  }
+  await page.locator('html').evaluate(html=>html.removeAttribute('dir')); await page.emulateMedia({forcedColors:'none'});
   expect(errors).toEqual([]);
   const context=await browser.newContext({javaScriptEnabled:false}), native=await context.newPage();
   try {
