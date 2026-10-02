@@ -4,6 +4,7 @@ import { initFormPatterns } from '../src/js/form-patterns.js';
 import { createTeamManager, applyTeamChange } from '../src/js/team-management.js';
 import { sampleTeam } from './team-demo.js';
 import { initEditors } from '../src/js/editors.js';
+import { createFileBrowser } from '../src/js/file-browser.js';
 
 init();
 const projects = document.querySelector('#projects');
@@ -29,6 +30,15 @@ const workspaces = new Map([
 ]);
 for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, workspace.name, workspace.members);
 for (const [id, workspace] of workspaces) workspace.notes = ({ studio: '### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful', personal: '### A little room of your own\n\nKeep a thought worth coming back to.', lab: '### An experiment worth trying\n\n- [ ] Test the next prototype' })[id];
+for (const [id, name, contents] of [['personal', 'Reading list.txt', 'A few good pages.\n'], ['lab', 'Experiment.txt', 'Try a new perspective.\n']]) workspaces.get(id).files = [{ id: `${id}-file`, parentId: null, kind: 'file', name, file: new File([contents], name, { type: 'text/plain' }) }];
+const filesHost = document.querySelector('[data-workspace-files-host]'), filesTemplate = filesHost.firstElementChild.cloneNode(true);
+let fileBrowser;
+function renderFiles() {
+  fileBrowser?.destroy(); const workspace = workspaces.get(activeWorkspace), browser = filesTemplate.cloneNode(true);
+  filesHost.replaceChildren(browser);
+  fileBrowser = createFileBrowser(browser, { entries: workspace.files, onChange: entries => { workspace.files = entries; } });
+  workspace.files = fileBrowser.getEntries();
+}
 const notesHost = document.querySelector('[data-workspace-notes-host]'), notesTemplate = notesHost.firstElementChild.cloneNode(true);
 let stopNotes = () => {};
 function renderNotes() {
@@ -107,7 +117,7 @@ function renderWorkspaceData() {
   const percent = Math.round(workspace.completed / workspace.total * 1000) / 10, remaining = Math.round((100 - percent) * 10) / 10;
   document.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${remaining}`); document.querySelector('.rf-chart__ring text').textContent = `${percent}%`;
   document.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => { value.textContent = [`${workspace.completed} tasks · ${percent}%`, `${workspace.total - workspace.completed} tasks · ${remaining}%`, `${workspace.total} tasks`][index]; });
-  renderTeamMembers(); renderNotes();
+  renderTeamMembers(); renderNotes(); renderFiles();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
     const item = document.createElement('li'), time = document.createElement('time'), text = document.createElement('p'), heading = document.createElement('strong'), note = document.createElement('span');
@@ -139,7 +149,7 @@ function switchWorkspace(id, navigate = false) {
     projects.querySelector('tbody').replaceChildren(...workspace.rows); inbox.querySelector('.rf-notifications__list').replaceChildren(...workspace.notices); inbox.querySelector('[role="status"]').textContent = '';
     const owners = createForm.querySelector('select[name="owner"]'); owners.replaceChildren(...workspace.owners.map((name, index) => { const option = document.createElement('option'); option.textContent = name; option.defaultSelected = index === 0; return option; }));
     stopOwner = initFormPatterns(createForm); stopInbox = initPatterns(inbox); stopTable = initPatterns(projects);
-    const files = document.querySelector('#project-files'); files.value = ''; files.dispatchEvent(new Event('change', { bubbles: true })); renderBoard();
+    renderBoard();
   }
   if (changed) { renderWorkspaceData(); initWorkspaceTeam(); } else updateContextLabels(); document.querySelector('[data-project-count]').textContent = String(projects.querySelectorAll('tbody tr:not([data-rf-status="Archived"])').length);
   document.querySelector('[data-workspace-status]').textContent = `${workspaces.get(id).name} workspace loaded.${changed ? ' Filters, selections and unsaved forms cleared.' : ''}`;
@@ -148,6 +158,7 @@ function switchWorkspace(id, navigate = false) {
 }
 renderBoard();
 renderNotes();
+renderFiles();
 initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
   const row = selectedRows([event.detail.value])[0];

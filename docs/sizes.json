@@ -72,6 +72,14 @@
     "editors.js": {
       "bytes": 14144,
       "gzip": 5381
+    },
+    "file-browser.css": {
+      "bytes": 1500,
+      "gzip": 571
+    },
+    "file-browser.js": {
+      "bytes": 15160,
+      "gzip": 5963
     }
   }
 }

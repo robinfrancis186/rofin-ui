@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 124-example gallery covers common website and dashboard UI. Use the
+The 125-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -12,7 +12,7 @@ each example. This is a UI library, not an application backend.
 | Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu, team management, invitation acceptance, permissions matrix |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
-| Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters and saved views |
+| Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters, saved views, file browser/tree |
 | Actions and overlays | Buttons, dropdown, native dialog/drawer, tooltip, command palette |
 | Feedback and states | Alert, toast, notification inbox, empty state, spinner, skeleton |
 | Activity and onboarding | Task board, sortable priorities, timeline, checklist/progress, multistep form, calendar, time picker, daily event scheduler, tabs |
@@ -33,7 +33,7 @@ the corresponding table status. The board shows every active project regardless
 of table filters. It supports local draft creation, confirmed archiving,
 CSV download, and settings changes for three public workspaces during the current
 page session. Switching updates projects, boards, inboxes, preferences, charts,
-team/activity data and saved notes; it clears selections, filters and unsaved forms. Account
+team/activity data, saved notes and browser-copy files/Trash; it clears selections, filters and unsaved forms. Account
 links preserve the current workspace and session edits. Reload restores the samples. Charts are explicitly fixed sample data; date filters affect projects.
 
 Native forms preserve validation and reset behavior. Charts expose their values
@@ -44,7 +44,7 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
-server validation. File/browser/media workflows,
+server validation. Media/document workflows,
 billing flows, and deeper sorting/panel/chart interactions remain in
 `completion-ledger.md`.
 
@@ -99,3 +99,12 @@ reset and teardown. Restricted rich paste and the Markdown DOM preview remove
 active content and do not load pasted images. Native editing/undo support varies;
 Markdown is an explicit subset. Full document engines and application persistence
 remain outside these bounded note examples.
+
+The optional file browser reuses native file inputs, fields, buttons and dialogs.
+Its single-select tree supports arrow keys, Home/End, typeahead, path search and
+folder controls. Actual File bytes survive imports, new text files, rename,
+move, exact-byte downloads and recoverable Trash. Directory import preserves
+paths where supported. Atomic validation and failed/cancelled callbacks retain
+existing files. Each public dashboard workspace keeps its own browser copies
+and Trash for the page session; original disk files stay intact. Durable
+authorized file storage remains A02/A03.

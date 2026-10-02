@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" data-rf-theme="light">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"><link rel="stylesheet" href="../src/patterns.css"><link rel="stylesheet" href="../src/form-patterns.css"><link rel="stylesheet" href="../src/account-menu.css"><link rel="stylesheet" href="../src/team-management.css"><link rel="stylesheet" href="../src/editors.css"><style>body{margin:0} .dashboard-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem} .dashboard-heading h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.045em;margin:.5rem 0} .dashboard-charts{--rf-column:22rem} .rf-app-main{--rf-gap:1.75rem} .dashboard-range{padding:.875rem 1rem} .dashboard-range .rf-input{min-inline-size:0} .dashboard-range .rf-field{flex:1 1 10rem} .dashboard-range fieldset{border:0;padding:0;margin:0;min-inline-size:0} .dashboard-range legend{font-size:.75rem;color:var(--rf-muted);margin-bottom:.5rem} .dashboard-support{--rf-column:22rem} .dashboard-footer{padding-inline:1.5rem} .dashboard-chart-label{margin:0}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"><link rel="stylesheet" href="../src/patterns.css"><link rel="stylesheet" href="../src/form-patterns.css"><link rel="stylesheet" href="../src/account-menu.css"><link rel="stylesheet" href="../src/team-management.css"><link rel="stylesheet" href="../src/editors.css"><link rel="stylesheet" href="../src/file-browser.css"><style>body{margin:0} .dashboard-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem} .dashboard-heading h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.045em;margin:.5rem 0} .dashboard-charts{--rf-column:22rem} .rf-app-main{--rf-gap:1.75rem} .dashboard-range{padding:.875rem 1rem} .dashboard-range .rf-input{min-inline-size:0} .dashboard-range .rf-field{flex:1 1 10rem} .dashboard-range fieldset{border:0;padding:0;margin:0;min-inline-size:0} .dashboard-range legend{font-size:.75rem;color:var(--rf-muted);margin-bottom:.5rem} .dashboard-support{--rf-column:22rem} .dashboard-footer{padding-inline:1.5rem} .dashboard-chart-label{margin:0}</style></head>
 <body class="rf-scope"><noscript><p class="rf-alert" data-variant="info">The static Studio sample remains readable. Interactive workspace switching and account panels require the dashboard application script.</p></noscript><a class="rf-skip-link" href="#main">Skip to content</a>
 <div class="rf-app-frame"><div class="rf-app-shell">
   <details class="rf-app-sidebar" open><summary><span data-workspace-name>Studio</span> workspace</summary><div class="rf-workspace-switcher" data-rf-dropdown data-demo-navigation>
@@ -117,7 +117,47 @@
   <dialog class="rf-dialog" data-rf-team-confirm><h3 class="rf-dialog__title">Confirm access change</h3><p data-rf-team-confirm-text></p><p class="rf-alert" data-variant="danger" role="alert" data-rf-team-confirm-error hidden></p><form method="dialog" class="rf-dialog__actions"><button class="rf-button rf-button--outline" type="button" data-rf-team-cancel>Keep current access</button><button class="rf-button" type="submit">Confirm change</button></form></dialog>
 </section>
 </article>
-    <section class="rf-grid dashboard-support" id="team-activity"><article class="rf-card"><div class="rf-cluster" style="justify-content:space-between"><h2 style="margin:0">Small wins, together.</h2><div class="rf-avatar-group" aria-label="Sample team" data-workspace-team><span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span><span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span><span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span></div></div><ol class="rf-timeline" data-workspace-activity><li><time datetime="2026-09-29">September 29</time><p><strong>Studio website launched</strong><br><span class="rf-muted">Robin shared the team's latest work.</span></p></li><li><time datetime="2026-09-24">September 24</time><p><strong>A fresh perspective</strong><br><span class="rf-muted">Jamie opened the mobile journal for review.</span></p></li><li><time datetime="2026-09-20">September 20</time><p><strong>A foundation to build on</strong><br><span class="rf-muted">The component library reached its next milestone.</span></p></li></ol></article><article class="rf-card rf-stack" id="resources"><div><h2 style="margin:0">Room for your resources.</h2><p class="rf-muted">Choose files to preview their names locally.</p></div><div class="rf-upload" data-rf-upload><label class="rf-label" for="project-files">Project files</label><p class="rf-help" id="files-help">Nothing is uploaded or sent from this example.</p><input id="project-files" type="file" multiple aria-describedby="files-help"><ul class="rf-upload__files" data-rf-file-list aria-live="polite"></ul></div><div class="rf-alert" data-variant="info"><div><strong class="rf-alert__title">Start with the pieces you need.</strong><p>Every UI block here comes from the library.</p><a href="../docs/index.html#catalog">Explore the component gallery →</a></div></div></article></section>
+    <section class="rf-grid dashboard-support" id="team-activity"><article class="rf-card"><div class="rf-cluster" style="justify-content:space-between"><h2 style="margin:0">Small wins, together.</h2><div class="rf-avatar-group" aria-label="Sample team" data-workspace-team><span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span><span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span><span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span></div></div><ol class="rf-timeline" data-workspace-activity><li><time datetime="2026-09-29">September 29</time><p><strong>Studio website launched</strong><br><span class="rf-muted">Robin shared the team's latest work.</span></p></li><li><time datetime="2026-09-24">September 24</time><p><strong>A fresh perspective</strong><br><span class="rf-muted">Jamie opened the mobile journal for review.</span></p></li><li><time datetime="2026-09-20">September 20</time><p><strong>A foundation to build on</strong><br><span class="rf-muted">The component library reached its next milestone.</span></p></li></ol></article><div data-workspace-files-host>
+<section class="rf-card rf-stack rf-file-browser" data-rf-file-browser data-demo-navigation id="resources">
+  <div><h3>A little room for your files.</h3><p class="rf-muted">Organize a browser copy. Download files to keep them; reload restores the sample.</p></div>
+  <p class="rf-help">Original disk files stay intact. No files are uploaded. Up to 200 items, 8 MB per file, 32 MB total and 12 levels, including recoverable Trash.</p>
+  <ul class="rf-file-fallback" data-rf-file-fallback>
+    <li><details><summary>Ideas</summary><ul><li><a href="data:text/plain;charset=utf-8,Make%20room%20for%20a%20good%20idea.%0A" download="Roadmap.txt">Roadmap.txt</a></li><li><details><summary>Research</summary><ul><li><a href="data:text/plain;charset=utf-8,Start%20with%20the%20people%20using%20it.%0A" download="Notes.txt">Notes.txt</a></li></ul></details></li></ul></details></li>
+    <li><a href="data:text/plain;charset=utf-8,Made%20with%20Rofin%20UI.%0A" download="Readme.txt">Readme.txt</a></li>
+  </ul>
+  <div class="rf-stack" data-rf-file-enhanced hidden>
+    <div class="rf-file-inputs rf-upload">
+      <label class="rf-field"><span class="rf-label">Project files</span><input type="file" multiple id="project-files" data-rf-file-import></label>
+      <label class="rf-field"><span class="rf-label">Import folder</span><input type="file" multiple webkitdirectory data-rf-folder-import></label>
+    </div>
+    <p class="rf-help">Imports go into the selected folder, or beside the selected file. Folder import preserves paths where the browser supports it.</p>
+    <div class="rf-file-toolbar" role="group" aria-label="File actions">
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="folder">New folder</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="file">New text file</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="rename">Rename item</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="move">Move item</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="download">Download file</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="trash">Trash item</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-action="restore">Restore trash</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-file-cancel-pending hidden>Cancel pending file change</button>
+    </div>
+    <label class="rf-field"><span class="rf-label">Search files and folders</span><input class="rf-input" type="search" maxlength="200" data-rf-file-search></label>
+    <p class="rf-error" role="alert" data-rf-file-error hidden></p>
+    <ul class="rf-file-tree" role="tree" aria-label="Files and folders" data-rf-file-tree></ul>
+    <p class="rf-help" data-rf-file-empty hidden></p>
+    <div class="rf-file-details" data-rf-file-details></div>
+    <p class="rf-help" role="status" data-rf-file-status></p>
+    <dialog class="rf-dialog" data-rf-file-dialog>
+      <h4 class="rf-dialog__title">Change a file.</h4><p class="rf-help" data-rf-file-dialog-note></p>
+      <form class="rf-stack" method="dialog">
+        <fieldset class="rf-stack"><label class="rf-field"><span class="rf-label">Item name</span><input class="rf-input" name="name" maxlength="120"></label><label class="rf-field"><span class="rf-label">Text contents</span><textarea class="rf-textarea" name="contents" maxlength="20000" rows="6"></textarea></label><label class="rf-field"><span class="rf-label">Destination folder</span><select class="rf-select" name="destination"><option value="">Top level</option></select></label></fieldset>
+        <p class="rf-error" role="alert" data-rf-file-dialog-error hidden></p>
+        <div class="rf-dialog__actions"><button class="rf-button rf-button--outline" type="button" data-rf-file-cancel>Cancel file change</button><button class="rf-button" type="submit">Save file change</button></div>
+      </form>
+    </dialog>
+  </div>
+</section>
+</div></section>
     <div data-workspace-notes-host>
 <section class="rf-card rf-stack rf-editor" data-rf-markdown-editor data-demo-navigation id="workspace-notes">
   <div><h3>Notes for your next chapter.</h3><p class="rf-muted">Save a useful thought for this workspace. Notes last for this page session.</p></div>

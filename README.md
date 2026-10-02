@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **81 component examples**, **20 optional effects**,
+The library includes **82 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -72,7 +72,7 @@ reinitialization.
 | Foundations | Button, card, layout, navigation, avatar, badge |
 | Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, rich-text/Markdown editors, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
-| Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
+| Feedback and content | Toast, alert, table, file browser/tree, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
 | Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
@@ -434,3 +434,50 @@ include source code from the referenced libraries. Reference names and URLs
 are a dated research snapshot, separate from the runnable Rofin gallery.
 
 MIT — Copyright © 2026 Robin Francis.
+
+## Optional file browser
+
+Include `src/file-browser.css` with the shared styles listed in the example and
+use `initFileBrowsers(root)` for the copyable plain-text sample. For application
+files, provide actual File objects to `createFileBrowser(root, { entries, onChange })`.
+The component sends no requests and never modifies original disk files.
+
+```js
+import { createFileBrowser } from 'rofin-ui/file-browser';
+const browser = createFileBrowser(document.querySelector('[data-rf-file-browser]'), {
+  entries: [{ id: 'brief', parentId: null, kind: 'file', name: file.name, file }],
+  onChange: async (nextEntries, { operation, signal }) => {
+    // Your application confirms authorized persistence here; throw to retain the draft.
+  }
+});
+// Before unmounting: retain browser.getEntries(), then browser.destroy().
+```
+
+The tree uses the [WAI-ARIA single-select keyboard pattern](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/)
+with selection following focus, arrow navigation, Home/End and typeahead.
+Folder controls and native fields provide pointer/touch alternatives. Search
+shows matching paths and ancestors; clearing it restores the expansion state.
+Imports preserve directory paths where the native folder chooser is supported.
+Create plain-text files, rename, move, download exact bytes, or move items into
+recoverable Trash. Names are normalized to NFC and compared in lowercase for
+duplicates, and stay reserved while in Trash; Restore trash returns all
+of them without collisions. There is no permanent-delete control.
+
+Limits include Trash: 200 entries, 8 MB per file, 32 MB total, 12 folder levels
+and 120 characters per name. New text files allow 20,000 characters. Entries
+have unique IDs, a folder parent or null, kind/name, optional `trashed`, and an
+actual File for file entries. Imports and mutations validate before calling
+`onChange`; failed callbacks preserve existing entries and dialog drafts.
+Cancel/Escape, Cancel pending file change and teardown abort pending callbacks
+and ignore late completion. Applications must honor the signal in their service
+and authorize/validate every server operation. Client cancellation cannot undo
+a server operation that already committed.
+
+`rf:file-change` emits copied next entries and the operation; `rf:file-select`
+emits a copied selected entry. `getEntries()` returns entry copies; File bytes
+are immutable. `data-rf-readonly` blocks new mutations; `aria-disabled="true"`
+blocks all interaction. Call `destroy()` before unmounting, retaining entries
+first: teardown restores the original details/download fallback, not subsequent
+session data. The dashboard retains separate browser files/Trash for each public
+workspace during the page session. Reload restores samples. These examples do
+not supply durable storage, multi-user authorization or operating-system writes.

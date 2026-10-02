@@ -53,7 +53,9 @@
       "types": "./dist/editors.d.ts",
       "import": "./dist/editors.js"
     },
-    "./editors.css": "./dist/editors.css"
+    "./editors.css": "./dist/editors.css",
+    "./file-browser": { "types": "./dist/file-browser.d.ts", "import": "./dist/file-browser.js" },
+    "./file-browser.css": "./dist/file-browser.css"
   },
   "files": [
     "dist/*.css",

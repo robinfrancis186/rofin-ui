@@ -1,10 +1,44 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 124 runnable entries, including rich-text/Markdown notes, team management, invitation and
+Current gallery: 125 runnable entries, including the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## File browser and workspace files
+
+Eight focused checks pass in Chromium, Firefox and macOS WebKit. The full
+Chromium suite passes all 104 tests and the 227-file package check. These cover
+single-select arrow/Home/End/typeahead navigation, visible folder expansion,
+selection/path search, composition, read-only and disabled controls. Actual
+directory imports preserve nested paths; enumeration order varies by browser,
+so the check finds a nested file through path search before downloading it.
+
+Imported binary bytes survive rename, moves, exact-byte downloads, recursive
+recoverable Trash and restoration. Created text files preserve Unicode contents.
+Duplicate names, traversal/control names, oversize files, excess items/bytes,
+cycles, missing parents and excessive depth leave existing files intact. Callback
+failure retains the dialog draft; Cancel, Escape, import cancellation and teardown
+abort pending callbacks and ignore late completion. Copied callback entries cannot
+change the committed metadata. Download object URLs are revoked on teardown.
+
+The dashboard composes the same component markup and keeps separate File objects
+and recoverable Trash for each public workspace. Switching clears selection;
+returning restores the correct files, and reload restores samples. Original
+disk files stay intact. Both themes fit 320/390/1440 pixels, long names wrap,
+tree rows have 44-pixel targets, native dialogs pass automated WCAG checks, and
+reduced-motion checks report no page errors. Scripts-off folders and sample
+downloads remain usable through native details and links.
+
+A separate rendered native in-app check covered keyboard navigation, folder and
+Unicode text-file creation, and a real native chooser import of a disposable
+28-byte fixture, followed by rename, move, recoverable Trash and restore at
+390 pixels in the dark theme. The browser displayed a download request; the automation did
+not return a download artifact, so exact-content evidence comes from completed
+Chromium, Firefox and WebKit downloads above. This bounded browser-copy store
+does not supply authorized durable storage, operating-system writes, physical
+device or screen-reader evidence. Those requirements remain A02/A03/V02/V03.
 
 ## Rich-text and Markdown notes
 
@@ -21,7 +55,7 @@ Markdown textarea to discard stale undo commands. Scope, reset and syntax limits
 are documented; native editing uses deprecated execCommand and Markdown is an
 explicit subset rather than a CommonMark/GFM implementation.
 
-The full current Chromium suite passes all 96 tests and the 220-file package
+The full Chromium suite at the editor checkpoint passes all 96 tests and the 220-file package
 check. Core CSS plus auto JavaScript remains 8,161 bytes gzip; optional editors
 add 5,381 bytes of JavaScript and 497 bytes of CSS gzip. Both themes fit
 320/390/1440 pixels, opened link dialogs pass WCAG-tagged checks, and reduced
