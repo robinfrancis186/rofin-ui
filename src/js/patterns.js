@@ -1,4 +1,4 @@
-import { matches, onFormReset } from './utils.js';
+import { matches, onFormReset, uid } from './utils.js';
 
 /** Optional patterns; initialize each root once and tear down before removing it. */
 export function initPatterns(root = document) {
@@ -113,17 +113,91 @@ export function initPatterns(root = document) {
     cleanups.push(() => { clearDrag(); items.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); controls.forEach(({ control, hidden }) => { control.hidden = hidden; }); });
   }
   for (const element of matches(root, '[data-rf-resizable]')) {
-    const range = element.querySelector('input[type="range"]'), panels = element.querySelector('.rf-resizable__panels'), output = element.querySelector('[data-rf-panel-size]');
-    if (!range || !panels) continue;
-    const first = panels.style.getPropertyValue('--rf-panel-first'), second = panels.style.getPropertyValue('--rf-panel-second'), valueText = range.getAttribute('aria-valuetext');
+    const own = selector => [...element.querySelectorAll(selector)].find(node => node.closest('[data-rf-resizable]') === element);
+    const range = own('input[type="range"]'), panels = own('.rf-resizable__panels'), output = own('[data-rf-panel-size]'), status = own('[data-rf-panel-status]'), reset = own('[data-rf-panel-reset]');
+    if (!range || !panels || panels.children.length !== 2) continue;
+    const minimum = Number(range.min || 0), maximum = Number(range.max || 100), step = range.step === 'any' ? 1 : Number(range.step || 1);
+    if (![minimum, maximum, step].every(Number.isFinite) || minimum < 0 || maximum > 100 || minimum >= maximum || step <= 0 || step > maximum - minimum) continue;
+    const axis = element.dataset.rfPanelAxis === 'y' ? 'y' : 'x', [primary, secondary] = panels.children;
+    const divider = document.createElement('button'); divider.type = 'button'; divider.className = 'rf-resizable__divider'; divider.dataset.rfPanelDivider = '';
+    const attributes = [[panels, 'data-rf-panel-enhanced'], [panels, 'data-rf-panel-axis'], [primary, 'data-rf-panel-first'], [secondary, 'data-rf-panel-second'], [range, 'aria-valuetext']].map(([node, name]) => [node, name, node.getAttribute(name)]);
+    const first = panels.style.getPropertyValue('--rf-panel-first'), second = panels.style.getPropertyValue('--rf-panel-second'), originalId = primary.id, hidden = [primary.hidden, secondary.hidden], resetDisabled = reset?.disabled;
+    primary.id ||= uid('rf-split-pane'); primary.dataset.rfPanelFirst = ''; secondary.dataset.rfPanelSecond = '';
+    divider.setAttribute('role', 'separator'); divider.setAttribute('aria-label', primary.getAttribute('aria-label') || primary.querySelector('h1,h2,h3,h4,h5,h6')?.textContent.trim() || 'First panel');
+    divider.setAttribute('aria-controls', primary.id); divider.setAttribute('aria-orientation', axis === 'x' ? 'vertical' : 'horizontal'); divider.setAttribute('aria-valuemin', minimum); divider.setAttribute('aria-valuemax', maximum);
+    panels.dataset.rfPanelEnhanced = ''; panels.dataset.rfPanelAxis = axis; primary.after(divider);
+    const key = element.dataset.rfPanelStorage?.trim(), storageKey = key && key.length <= 200 ? `rf-panel:${key}` : '';
+    const announce = text => { if (status) status.textContent = text; };
+    if (storageKey) try {
+      const stored = localStorage.getItem(storageKey); let value;
+      try { value = JSON.parse(stored); } catch { /* Invalid preferences leave the native default intact. */ }
+      if (typeof value === 'number' && Number.isFinite(value) && value >= minimum && value <= maximum) { range.value = String(value); announce('Saved layout restored in this browser.'); }
+    } catch { announce('Browser storage is unavailable. Layout changes stay on this page.'); }
+    let drag, committed = range.valueAsNumber, expanded = committed > 0 ? committed : Number(range.defaultValue) || (minimum + maximum) / 2;
+    const stacked = () => axis === 'x' && getComputedStyle(divider).display === 'none';
     const update = () => {
-      const value = Math.max(0, Math.min(100, range.valueAsNumber));
+      const value = range.valueAsNumber, narrow = stacked();
       panels.style.setProperty('--rf-panel-first', `${value}fr`); panels.style.setProperty('--rf-panel-second', `${100 - value}fr`);
       const text = `${value}% first panel, ${100 - value}% second panel`;
-      range.setAttribute('aria-valuetext', text); if (output) output.textContent = text;
+      primary.hidden = !narrow && value === 0; secondary.hidden = !narrow && value === 100;
+      range.setAttribute('aria-valuetext', narrow ? `${text}; stacked on this screen` : text); if (output) output.textContent = narrow ? `Panels stack here. Remembered split: ${text}.` : text;
+      divider.setAttribute('aria-valuenow', value); divider.setAttribute('aria-valuetext', text); divider.disabled = range.matches(':disabled') || narrow; divider.setAttribute('aria-disabled', String(divider.disabled));
+      if (reset) reset.disabled = range.matches(':disabled');
     };
-    listen(range, 'input', update); afterReset(range.form, update); update();
-    cleanups.push(() => { for (const [name, value] of [['--rf-panel-first', first], ['--rf-panel-second', second]]) { if (value) panels.style.setProperty(name, value); else panels.style.removeProperty(name); } if (valueText === null) range.removeAttribute('aria-valuetext'); else range.setAttribute('aria-valuetext', valueText); });
+    const assign = value => { const previous = range.value; range.value = String(value); if (range.value !== previous) range.dispatchEvent(new Event('input', { bubbles: true })); };
+    const commit = (source, persist = true) => {
+      const value = range.valueAsNumber, previousValue = committed; committed = value;
+      if (persist && value === previousValue) return;
+      if (storageKey) try { if (persist) { localStorage.setItem(storageKey, JSON.stringify(value)); announce('Layout saved in this browser.'); } else { localStorage.removeItem(storageKey); announce('Default layout restored.'); } } catch { announce('Browser storage is unavailable. Layout changes stay on this page.'); }
+      if (value !== previousValue) element.dispatchEvent(new CustomEvent('rf:panel-resize', { bubbles: true, detail: { value, previousValue, axis, source } }));
+    };
+    const extent = () => { const rect = panels.getBoundingClientRect(); return (axis === 'x' ? rect.width : rect.height) - (axis === 'x' ? divider.offsetWidth : divider.offsetHeight); };
+    const finish = (save = false, restore = true) => {
+      if (!drag) return;
+      if (save && (stacked() || range.matches(':disabled') || Math.abs(extent() - drag.extent) > 1)) save = false;
+      const previous = drag; drag = undefined; panels.removeAttribute('data-rf-resizing');
+      if (divider.hasPointerCapture(previous.id)) divider.releasePointerCapture(previous.id);
+      if (save) { commit('pointer'); range.dispatchEvent(new Event('change', { bubbles: true })); }
+      else if (restore) { assign(previous.value); update(); announce('Resize cancelled. Previous layout retained.'); }
+      if (stacked() && range.getClientRects().length) range.focus({ preventScroll: true });
+    };
+    listen(range, 'input', () => { if (!range.matches(':disabled')) update(); });
+    listen(range, 'change', () => { if (!range.matches(':disabled')) { update(); commit('range'); } });
+    listen(divider, 'keydown', event => {
+      if (divider.disabled || range.matches(':disabled') || drag || event.altKey || event.ctrlKey || event.metaKey) return;
+      const rtl = axis === 'x' && getComputedStyle(panels).direction === 'rtl';
+      let value;
+      if (event.key === 'Home') value = minimum;
+      else if (event.key === 'End') value = maximum;
+      else if (axis === 'x' && ['ArrowLeft', 'ArrowRight'].includes(event.key)) value = range.valueAsNumber + (event.key === 'ArrowRight' !== rtl ? 1 : -1) * step * (event.shiftKey ? 10 : 1);
+      else if (axis === 'y' && ['ArrowUp', 'ArrowDown'].includes(event.key)) value = range.valueAsNumber + (event.key === 'ArrowDown' ? 1 : -1) * step * (event.shiftKey ? 10 : 1);
+      else if (event.key === 'Enter' && minimum === 0) { if (range.valueAsNumber > 0) { expanded = range.valueAsNumber; value = 0; } else value = expanded; }
+      else return;
+      event.preventDefault(); assign(value); update(); commit('keyboard'); range.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    listen(divider, 'blur', () => { if (stacked() && !range.matches(':disabled') && range.getClientRects().length) range.focus({ preventScroll: true }); });
+    listen(divider, 'pointerdown', event => {
+      if (event.button !== 0 || drag || divider.disabled || range.matches(':disabled') || stacked()) return;
+      const size = extent(); if (size <= 0) return;
+      event.preventDefault(); divider.focus({ preventScroll: true });
+      drag = { id: event.pointerId, value: range.valueAsNumber, position: axis === 'x' ? event.clientX : event.clientY, extent: size, rtl: axis === 'x' && getComputedStyle(panels).direction === 'rtl' };
+      try { divider.setPointerCapture(event.pointerId); } catch { drag = undefined; return; }
+      panels.dataset.rfResizing = '';
+    });
+    listen(divider, 'pointermove', event => { if (drag?.id === event.pointerId) { if (range.matches(':disabled')) { finish(); return; } assign(drag.value + ((axis === 'x' ? event.clientX : event.clientY) - drag.position) / drag.extent * 100 * (drag.rtl ? -1 : 1)); } });
+    listen(divider, 'pointerup', event => { if (drag?.id === event.pointerId) finish(true); });
+    for (const type of ['pointercancel', 'lostpointercapture']) listen(divider, type, event => { if (drag?.id === event.pointerId) finish(); });
+    listen(document, 'keydown', event => { if (drag && event.key === 'Escape') { event.preventDefault(); finish(); divider.focus({ preventScroll: true }); } });
+    listen(window, 'pagehide', () => finish());
+    const restore = () => { finish(false, false); range.value = range.defaultValue; update(); commit('reset', false); };
+    if (reset) listen(reset, 'click', () => { if (!reset.disabled) restore(); });
+    afterReset(range.form, restore);
+    const resized = () => { if (drag && (stacked() || Math.abs(extent() - drag.extent) > 1)) finish(); update(); if (stacked() && document.activeElement === divider && range.getClientRects().length) range.focus({ preventScroll: true }); };
+    const observer = new ResizeObserver(resized); observer.observe(panels);
+    const disabledObserver = new MutationObserver(() => { if (range.matches(':disabled')) finish(); update(); }); disabledObserver.observe(range, { attributes: true, attributeFilter: ['disabled'] });
+    for (let parent = range.parentElement; parent; parent = parent.parentElement) if (parent instanceof HTMLFieldSetElement) disabledObserver.observe(parent, { attributes: true, attributeFilter: ['disabled'] });
+    update();
+    cleanups.push(() => { observer.disconnect(); disabledObserver.disconnect(); finish(); divider.remove(); primary.hidden = hidden[0]; secondary.hidden = hidden[1]; if (!originalId) primary.removeAttribute('id'); if (reset) reset.disabled = resetDisabled; for (const [node, name, value] of attributes) { if (value === null) node.removeAttribute(name); else node.setAttribute(name, value); } for (const [name, value] of [['--rf-panel-first', first], ['--rf-panel-second', second]]) { if (value) panels.style.setProperty(name, value); else panels.style.removeProperty(name); } });
   }
   for (const element of matches(root, '[data-rf-line-chart]')) {
     const table = element.querySelector('table'), plot = element.querySelector('[data-rf-line-plot]'), range = element.querySelector('[data-rf-line-range]'), output = element.querySelector('[data-rf-line-readout]'), controls = element.querySelector('[data-rf-line-controls]');

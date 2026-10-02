@@ -1,10 +1,52 @@
 # Validation evidence — 2–3 October 2026
 
-Current gallery: 132 runnable entries, including error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 132 runnable entries, including nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Shared resizable workspace desk
+
+The existing optional panel component now generates a named, focusable separator
+between its two panes. Captured pointer movement and axis-aware keyboard controls
+adjust the same native range. Shift uses ten steps, Home/End respect native
+bounds, and Enter collapses/restores only a zero-bound primary pane. Escape,
+pointer cancellation/lost capture, disabling, pagehide, changed geometry and
+teardown cancel an unfinished drag without committing or saving it. The release
+handler also checks geometry, so a resize arriving before ResizeObserver cannot
+save a draft. Native form reset respects cancellation and restores both nested
+splits; layout-only reset preserves note/file data.
+
+The gallery nests a vertical preview/note split inside the horizontal workspace.
+The dashboard uses that same component for its activity, Markdown editor and file
+browser; it does not implement a second divider. Each public workspace uses
+separate browser-local layout keys. Reload retains percentages while restoring
+sample application data. Invalid preferences are ignored; blocked storage keeps
+controls usable. Horizontal panes stack below 36rem. Vertical panes scroll, and
+text-only scroll regions have a name and keyboard focus. Plain HTML retains
+readable content and labelled sliders; resizing/saving requires enhancement.
+
+All 129 local Chromium checks pass, plus the 252-file package check. The final
+19 focused panel/workspace/file checks pass in Chromium, Firefox and macOS WebKit.
+They cover real pointer/keyboard commits, RTL, two-axis isolation, zero-bound
+collapse, interrupted drafts, ancestor fieldsets, native/cancelled reset,
+invalid/blocked storage, teardown/reinitialization, pagehide, workspace switching,
+reload boundaries, exact imported-file retention and native scripts-off content.
+Both themes fit 320/390/1440 pixels, reduced motion is checked, and the exposed
+panels pass automated WCAG checks. The drag test keeps simulated releases inside
+the viewport: Firefox does not deliver an off-viewport simulated pointerup; the
+minimum-bound and persistence assertions remain unchanged. No runtime dependencies
+were added. Core CSS plus auto JavaScript remains 8,424 bytes gzip locally.
+
+Installed Safari separately passed divider keyboard adjustment, nested vertical
+adjustment, persisted layout reload and layout-reset preservation of a typed
+unsaved note. Its owned tab was closed and the original Start Page restored.
+This is partial installed Safari evidence; full Safari, actual screen-reader and
+physical-touch checks remain outstanding. In the earlier metadata-only CI run
+37058774238 on 0e475b1, Chromium/Firefox passed while WebKit timed out during
+native folder import. The unchanged folder-import check passes in all three
+local engines at this panel checkpoint; no assertions were removed or relaxed.
 
 ## Error pages and read recovery
 

@@ -57,6 +57,16 @@ function renderNotes() {
 }
 const teamElement = document.querySelector('[data-rf-team-manager]');
 let activeWorkspace = 'studio', refreshTimer, teamManager;
+const panelsHost = document.querySelector('#team-activity');
+let stopPanels = () => {};
+function renderPanels() {
+  stopPanels();
+  for (const panel of [panelsHost, ...panelsHost.querySelectorAll('[data-workspace-layout]')]) {
+    panel.dataset.rfPanelStorage = `rofin-dashboard:${activeWorkspace}:${panel.dataset.workspaceLayout}`;
+    const input = panel.querySelector('input[type="range"]'); input.value = input.defaultValue;
+  }
+  stopPanels = initPatterns(panelsHost);
+}
 function renderTeamMembers() {
   const workspace = workspaces.get(activeWorkspace), members = document.querySelector('[data-workspace-team]'); members.replaceChildren();
   for (const member of workspace.team.members) { const avatar = document.createElement('span'); avatar.className = 'rf-avatar'; avatar.setAttribute('role', 'img'); avatar.setAttribute('aria-label', member.name); avatar.textContent = initials(member.name); members.append(avatar); }
@@ -135,6 +145,7 @@ function renderWorkspaceData() {
   preferences.elements.timezone.value = workspace.prefs.timezone;
   for (const option of preferences.elements.timezone.options) option.defaultSelected = option.value === workspace.prefs.timezone;
   updateContextLabels();
+  renderPanels();
 }
 function syncSection() {
   const links = [...document.querySelectorAll('[aria-label="Workspace"] a')], current = links.find(link => link.hash === (location.hash || '#overview')) || links[0];
@@ -145,6 +156,7 @@ function switchWorkspace(id, navigate = false) {
   if (!workspaces.has(id)) return false;
   const changed = id !== activeWorkspace;
   if (changed) {
+    stopPanels(); stopPanels = () => {};
     teamManager?.destroy();
     for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
     clearToasts(); clearTimeout(refreshTimer); const refresh = document.querySelector('#refresh-dashboard'); refresh.disabled = false; refresh.querySelector('.rf-spinner').hidden = true; projects.removeAttribute('aria-busy');
@@ -166,6 +178,7 @@ renderBoard();
 renderNotes();
 renderFiles();
 renderViewers();
+renderPanels();
 initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
   const row = selectedRows([event.detail.value])[0];

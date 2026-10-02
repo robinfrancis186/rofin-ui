@@ -90,10 +90,10 @@ test('panel ratios and chart exploration follow native range controls and preser
   const range = page.getByRole('slider', { name: 'First panel width', exact: true });
   await range.focus(); await page.keyboard.press('End');
   await expect(range).toHaveValue('75'); await expect(range).toHaveAttribute('aria-valuetext', '75% first panel, 25% second panel');
-  const ratio = () => page.locator('.rf-resizable__panels').evaluate(element => element.children[0].getBoundingClientRect().width / element.children[1].getBoundingClientRect().width);
+  const ratio = () => page.locator('#workspace-panels').evaluate(element => element.querySelector(':scope > [data-rf-panel-first]').getBoundingClientRect().width / element.querySelector(':scope > [data-rf-panel-second]').getBoundingClientRect().width);
   expect(await ratio()).toBeCloseTo(3, 1);
   await page.setViewportSize({ width: 320, height: 900 });
-  expect(await page.locator('.rf-resizable__panels').evaluate(element => element.children[1].getBoundingClientRect().top > element.children[0].getBoundingClientRect().bottom)).toBe(true);
+  expect(await page.locator('#workspace-panels').evaluate(element => element.querySelector(':scope > [data-rf-panel-second]').getBoundingClientRect().top > element.querySelector(':scope > [data-rf-panel-first]').getBoundingClientRect().bottom)).toBe(true);
   await expect(range).toHaveValue('75');
   await page.setViewportSize({ width: 1440, height: 1000 }); expect(await ratio()).toBeCloseTo(3, 1);
   await page.getByRole('textbox', { name: 'Your next step' }).fill('An unsaved thought');

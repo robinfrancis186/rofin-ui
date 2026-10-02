@@ -46,13 +46,18 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
 server validation. Billing flows, advanced visuals,
-and deeper sorting/panel/chart interactions remain in
+and deeper sorting/chart interactions remain in
 `completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
 resizable panels, and line chart. Desktop drag operations commit on drop;
 keyboard/touch users have native move buttons and selects. Form reset restores
-initial list/board order. Panel sizing and chart exploration use native ranges.
+initial list/board order. Panel sizing retains native ranges and adds pointer/
+keyboard dividers, nested vertical splits, cancellation and optional browser-local
+layout preferences. The dashboard composes these shared panels around its real
+activity, notes and file-browser components, with separate layouts per workspace.
+Layout-only reset preserves note drafts and file contents. Horizontal panels stack
+on narrow screens; vertical panes remain scrollable. Chart exploration uses native ranges.
 Charts provide exact table values and distinguish series using solid/dashed lines.
 The shared core remains unchanged. There are no new runtime dependencies.
 

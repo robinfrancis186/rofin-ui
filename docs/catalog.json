@@ -534,7 +534,7 @@
     "id": "resizable-panels",
     "title": "Resizable panels",
     "category": "Components",
-    "description": "Make room for the task in front of you, with a native width slider.",
+    "description": "Make room for your work with draggable dividers, native sliders and nested splits.",
     "css": [
       "patterns",
       "card",
@@ -546,9 +546,10 @@
     ],
     "file": "examples/components/resizable-panels.html",
     "notes": [
-      "The labelled native range adjusts the first/second panel ratio. Arrow keys, Home, End, mouse, and touch use browser behavior; a text readout and aria-valuetext describe the split.",
-      "Panels stack below 36rem of container width. The saved ratio applies again when the container grows. This is a two-panel layout; divider dragging, nested splits, and persistence are not included.",
-      "Native form reset restores the default slider and textarea. Teardown restores the original inline grid variables and slider accessible value."
+      "The plain HTML exposes readable panes and labelled native ranges; resizing and saving require enhancement. Enhancement adds a named separator controlling the first pane: arrows, Shift plus arrows, Home and End resize; Enter collapses/restores only when min is zero. Pointer dragging commits on release; Escape, pointer cancellation, disabling, geometry changes and teardown restore the prior split.",
+      "Each root has exactly two direct panes. Nested roots own separate sliders and dividers. data-rf-panel-axis=\"y\" creates a height split; set --rf-panel-height on its panel container. Vertical panes scroll; horizontal panes stack below 36rem and retain their ratio for wider screens. Keep bounds, axis and pane markup fixed until cleanup/reinitialization.",
+      "Optional data-rf-panel-storage saves only the numeric percentage in browser localStorage under rf-panel:<key>. Use distinct application/workspace keys. Invalid preferences are ignored; blocked storage leaves resizing usable. This does not persist notes, files or authorized application data.",
+      "The optional data-rf-panel-reset button clears only that split. Native form reset restores both sliders and the textarea, unless cancelled. rf:panel-resize emits one committed value/previousValue/axis/source change; cancelled drags emit none. Cleanup removes generated handles, IDs and attributes and restores original inline grid variables."
     ]
   },
   {

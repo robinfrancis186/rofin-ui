@@ -37,8 +37,10 @@ Their documentation highlights column movement, order commits, workspace sizing,
 and accessible chart exploration. Rofin supplies original small HTML/vanilla
 patterns with native move buttons, selects, and sliders. These samples were
 read as documentation; their vendor demos were not manually interaction-tested.
-Nested sorting, reorderable columns, divider dragging, and exact animation
-behavior are not parity claims.
+Rofin's panel component now has pointer/keyboard dividers, nested splits and
+optional browser-local layout preferences, composed in the dashboard. Nested
+sorting, reorderable columns and exact vendor animation behavior remain unimplemented;
+the panel additions do not establish vendor-demo parity.
 
 ## How to use the additions
 

@@ -129,6 +129,24 @@ These are excluded from the core bundle and the auto initializer.
 Initialize each patterns root once; call the returned cleanup before removal.
 List/board moves retain committed DOM state on teardown. Native form reset
 restores their initial arrangement.
+Resizable panels retain a labelled native range. `initPatterns` adds a draggable,
+focusable separator: arrows resize, Shift uses ten steps, Home/End reach the
+range bounds, and Escape cancels an active drag. Enter collapses/restores the
+first pane only when the range minimum is zero. Use `data-rf-panel-axis="y"`
+for a vertical split, set `--rf-panel-height` on its `.rf-resizable__panels`,
+and nest independent `data-rf-resizable` roots for another split. Horizontal
+panels stack below 36rem; vertical panes remain scrollable.
+Resizing and saving require enhancement; the plain HTML still exposes the content and sliders.
+Give a scrollable pane without interactive content `tabindex="0"` and an accessible name.
+An optional `data-rf-panel-storage="unique-layout-key"` saves only the percentage
+under `rf-panel:unique-layout-key` in localStorage. Scope keys by account/workspace
+in an application; this is a browser preference, not authorization or data storage.
+Invalid preferences are ignored and unavailable storage leaves resizing usable.
+An optional `data-rf-panel-reset` button restores only that split and clears its
+preference; native form reset restores all splits belonging to the form.
+`rf:panel-resize` emits committed `value`, `previousValue`, `axis`, and `source`
+(`range`, `keyboard`, `pointer`, or `reset`); cancelled drags emit no commit.
+Keep bounds, axis and pane markup fixed until teardown/reinitialization.
 `rf:sort-change` emits `detail.value`, zero-based `from`/`to`, `values`, and
 `previousValues`; `rf:kanban-change` emits `value`, `from`, and `to` column values.
 The application owns persistence and rollback. Move buttons and native selects

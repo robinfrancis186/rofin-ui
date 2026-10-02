@@ -26,12 +26,12 @@
       "gzip": 1212
     },
     "patterns.css": {
-      "bytes": 12539,
-      "gzip": 3007
+      "bytes": 14570,
+      "gzip": 3350
     },
     "patterns.js": {
-      "bytes": 20094,
-      "gzip": 6211
+      "bytes": 25398,
+      "gzip": 8071
     },
     "form-patterns.css": {
       "bytes": 2197,
