@@ -47,12 +47,22 @@ their platform appearance. Forced-colors styling uses system colors. CI checks
 narrow recovery before the full suite and reports element dimensions when its
 unchanged no-overflow assertion fails.
 
-The full local Chromium run passes all 122 tests and the 252-file package check.
+[Run 37057531098](https://github.com/robinfrancis186/rofin-ui/actions/runs/37057531098)
+on `512d589` passes native media, narrow recovery, all 122 tests and the 252-file
+package check in Chromium, Firefox and WebKit. All three completed job logs
+were inspected. No overflow, decoder, timeout or transport assertion is skipped.
+Core gzip is 8,408 bytes on Linux and 8,424 locally on macOS.
+
+The initial full local Chromium checkpoint (`9930af9`) passes all 122 tests and
+the 252-file package check. After the select fix, all eight focused checks pass
+again in Chromium, Firefox and macOS WebKit, including narrow right-to-left and
+forced-colors emulation.
 The package contains the native templates and original snapshot asset; it still
 has zero runtime/peer dependencies. Core CSS plus auto JavaScript remains about
-8.1 KiB gzip, below the enforced 14 KiB budget.
+8.2 KiB gzip, below the enforced 14 KiB budget.
 
-Installed Safari also passed native chooser/keyboard, failed-read/retry, focus,
+Installed Safari also passed the styled select's native chooser/keyboard,
+permission read/retry, failed-read/retry, focus,
 exact snapshot and draft-preservation smoke checks. Its owned test tab was closed
 and its original Start Page restored. This is partial Safari evidence, not a full
 Safari, screen-reader or physical-touch run. The browser-connection test is an
@@ -60,7 +70,7 @@ already-loaded page; first-visit offline still needs application caching.
 Permission fixtures do not create accounts; server authorization, durable notes
 and production services remain outstanding.
 
-The production deployment of `9930af9` is Ready at
+The production deployment of `512d589` is Ready at
 [rofin-ui.vercel.app](https://rofin-ui.vercel.app). All 254 built website files
 match, including the recovery templates and original snapshot. A genuine missing
 static URL returns the custom HTTP 404; its HEAD response has no body. Snapshot
@@ -69,7 +79,7 @@ bytes and JSON content type are correct.
 Rendered production checks cover actual missing-resource reads and retry,
 returning to the exact 72/100 snapshot, retained unsent notes, unknown component
 navigation to the 132-entry gallery and the native error-page dashboard link.
-The recovery page fits 390 pixels in both themes; production permission/server
+The recovery page fits 320 and 390 pixels in both themes; production permission/server
 fixtures remain disabled. The proof image is
 `output/playwright/production-recovery-2026-10-03.png`.
 
