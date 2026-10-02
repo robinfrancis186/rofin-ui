@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **73 component examples**, **20 optional effects**,
+The library includes **74 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
