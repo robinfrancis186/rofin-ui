@@ -13,6 +13,11 @@ let libraryFilter = 'All';
 let stopEffects = () => {};
 let stopPatterns = () => {};
 let sizeReport;
+let saved = new Set();
+try {
+  const stored = JSON.parse(localStorage.getItem('rofin-saved') || '[]');
+  if (Array.isArray(stored)) saved = new Set(stored.filter(id => catalog.some(item => item.id === id)));
+} catch {}
 init();
 
 function footer() {
@@ -21,7 +26,7 @@ function footer() {
 function navigation() {
   const current = location.hash || '#home';
   let html = '<p class="nav-label">Start here</p>';
-  for (const [id, title] of [['home', 'Introduction'], ['catalog', 'All components'], ['start', 'Installation'], ['theming', 'Make it yours'], ['api', 'JavaScript API'], ['principles', 'Principles & support'], ['references', 'Reference library']]) {
+  for (const [id, title] of [['home', 'Introduction'], ['catalog', 'All components'], ['saved', `Saved collection · ${saved.size}`], ['start', 'Installation'], ['theming', 'Make it yours'], ['api', 'JavaScript API'], ['principles', 'Principles & support'], ['references', 'Reference library']]) {
     html += `<a class="docs-link" href="#${id}" ${current === `#${id}` ? 'aria-current="page"' : ''}>${title}</a>`;
   }
   for (const category of ['Components', 'Effects', 'Sections']) {
@@ -34,6 +39,12 @@ function navigation() {
   document.querySelector('#mobile-nav').innerHTML = html;
 }
 function art(item) {
+  if (item.id === 'tag-input') return '<div class="art-tags"><span class="rf-badge">Design ×</span><span class="rf-badge">Ideas ×</span><span class="rf-badge" data-variant="success">Your next thing +</span></div>';
+  if (item.id === 'password-field') return '<div class="art-field"><span>A little less friction.</span><div class="rf-input">••••••••　 Show</div></div>';
+  if (item.id === 'character-counter') return '<div class="rf-card art-command"><span>I make things<br>that make a difference.</span><small>36 / 160 characters</small></div>';
+  if (item.id === 'launch-checklist') return '<div class="rf-card art-command"><span>✓ Give it a name</span><span>✓ Make it real</span><small>○ Share your next chapter</small></div>';
+  if (item.id === 'billing-switch') return '<div class="art-price"><span class="rf-badge">Yearly · save 20%</span><strong>$20<small> / month</small></strong></div>';
+  if (item.id === 'data-table') return '<div class="rf-card art-command"><span>Project　　　 Tasks ↕</span><small>Studio website　 12</small><small>Mobile journal　 3</small></div>';
   if (item.id === 'image-compare') return '<div class="art-compare"><span>Before</span><span>After</span></div>';
   if (['aurora', 'mesh-background', 'lamp', 'grid-background', 'stars'].includes(item.id)) return `<div class="art-atmosphere rf-${item.id}"><span>Make room<br>for possibility.</span></div>`;
   if (['border-beam', 'gradient-border', 'glass-card', 'tilt-card', 'glare-card', 'card-stack', 'expandable-card'].includes(item.id)) return `<div class="rf-card art-lines ${item.id === 'border-beam' ? 'rf-border-beam' : 'rf-gradient-border'}"><span></span><span></span><span></span></div>`;
@@ -49,18 +60,29 @@ function art(item) {
   if (['gradient-text', 'hero', 'cta', 'testimonials', 'dot-grid', 'spotlight'].includes(item.id)) return '<div class="art-quote">Make something<br>worth opening.</div>';
   return '<div class="rf-card art-lines"><span></span><span></span><span></span></div>';
 }
+function saveButton(item, compact = false) {
+  return `<button class="rf-button rf-button--outline rf-button--small ${compact ? 'rf-button--icon catalog-save' : ''}" type="button" data-save="${item.id}" aria-pressed="${saved.has(item.id)}" aria-label="Save ${escape(item.title)}" title="Save ${escape(item.title)}"><span aria-hidden="true">${saved.has(item.id) ? '★' : '☆'}</span>${compact ? '' : 'Save to collection'}</button>`;
+}
 function cards(items) {
-  return `<div class="rf-grid catalog-grid">${items.map(item => `<a class="rf-card rf-card--interactive catalog-card" href="#component/${item.id}"><div class="catalog-art" aria-hidden="true">${art(item)}</div><div class="catalog-copy"><div class="catalog-title"><h3>${item.title}</h3><span>${item.js.length ? 'JS' : 'CSS'}</span></div><p>${item.description}</p></div></a>`).join('')}</div>`;
+  return `<div class="rf-grid catalog-grid">${items.map(item => `<div class="catalog-item"><a class="rf-card rf-card--interactive catalog-card" href="#component/${item.id}"><div class="catalog-art" aria-hidden="true">${art(item)}</div><div class="catalog-copy"><div class="catalog-title"><h3>${item.title}</h3><span>${item.js.length ? 'JS' : 'CSS'}</span></div><p>${item.description}</p></div></a>${saveButton(item, true)}</div>`).join('')}</div>`;
+}
+function collection() {
+  const items = catalog.filter(item => saved.has(item.id));
+  const query = search.value.trim().toLocaleLowerCase();
+  const matches = items.filter(item => `${item.title} ${item.description}`.toLocaleLowerCase().includes(query));
+  document.querySelector('#search-status').textContent = `${matches.length} saved components shown`;
+  return `<div class="page-heading"><p class="rf-eyebrow">Your next build, collected.</p><h1>A few good pieces.</h1><p>${items.length} saved ${items.length === 1 ? 'component' : 'components'}. Keep a shortlist as you explore, then copy the shared styles and setup in one go. Saved in this browser.</p></div>${matches.length ? cards(matches) : `<div class="rf-empty"><h2>${query ? 'No saved components match.' : 'Make room for a good idea.'}</h2><p>${query ? 'Try another search.' : 'Tap the star on a component to collect it here.'}</p><a class="rf-button" href="#catalog">Explore components →</a></div>`}${items.length ? `<section class="doc-section"><h2>One setup for your collection.</h2><p>Shared modules are included once. Copy the individual HTML examples above and connect your own application behavior.</p>${codePanel('Shared styles & setup', setup({ css: [...new Set(items.flatMap(item => item.css))], js: [...new Set(items.flatMap(item => item.js))] }))}</section>` : ''}${footer()}`;
 }
 function home() {
-  const featured = ['image-compare', 'command-palette', 'carousel', 'border-beam', 'aurora', 'dock'].map(id => catalog.find(item => item.id === id));
+  const featured = ['tag-input', 'data-table', 'launch-checklist', 'billing-switch', 'password-field', 'character-counter'].map(id => catalog.find(item => item.id === id));
   return `<section class="home-hero"><p class="rf-eyebrow">Plain HTML. A little magic.</p><h1>Beautiful components.<br><span class="hero-muted">Minimal footprint.</span></h1><p class="home-intro">Thoughtful building blocks for the web. No framework required. Just the pieces you need, and room to make them yours.</p><div class="rf-cluster home-actions"><a class="rf-button" href="#catalog">Explore components <span aria-hidden="true">→</span></a><a class="rf-button rf-button--outline" href="#start">Start building</a></div><div class="hero-facts"><span>Zero runtime dependencies</span><span>Framework independent</span><span>MIT licensed</span></div></section>
   <div class="showcase" aria-label="Rofin component preview">
     <div class="rf-card showcase-panel showcase-panel--main"><div class="showcase-head"><span class="tiny-label">A little of what’s possible</span><span class="rf-badge" data-variant="success">Live preview</span></div><div class="rf-card mini-workspace"><h2>Your next chapter.</h2><p>A workspace for the things you want to make.</p><div class="mini-project"><span class="mini-icon" aria-hidden="true">→</span><div><strong>Website launch</strong><p>Design something worth opening.</p></div><span class="rf-badge" data-variant="warning">In progress</span></div><div class="mini-progress"><label for="home-progress">72%</label><progress class="rf-progress" id="home-progress" value="72" max="100">72%</progress></div><div class="showcase-bottom"><div class="rf-avatar-group" aria-label="Sample project team"><span class="rf-avatar" role="img" aria-label="Robin Francis">RF</span><span class="rf-avatar" role="img" aria-label="Alex Morgan">AM</span><span class="rf-avatar" role="img" aria-label="Jamie Lee">JL</span></div><button class="rf-button rf-button--outline" type="button" data-demo-toast>Save project →</button></div></div></div>
     <div class="showcase-right"><div class="rf-card showcase-panel"><span class="tiny-label">Clear next steps</span><div class="rf-cluster showcase-buttons"><a class="rf-button" href="#start">Get started</a><a class="rf-button rf-button--outline" href="#component/button">Learn more</a><button class="rf-button rf-button--ghost" type="button" data-demo-toast>Save draft</button></div></div><div class="rf-card showcase-panel"><span class="tiny-label">Small, thoughtful details</span><div class="showcase-toggle"><label class="rf-check"><input type="checkbox" class="rf-switch" role="switch" checked> Keep me in the loop</label></div><div class="showcase-toggle"><span class="rf-muted">Your changes are safe.</span><span class="rf-badge" data-variant="success">✓ Saved</span></div></div></div>
   </div><div class="showcase-caption"><span>REAL HTML. REAL COMPONENTS. NOTHING EXTRA.</span><span>Make it yours →</span></div>
   <div class="rf-grid metrics"><div class="metric"><strong class="rf-stat">${counts.Components}</strong><span>UI components</span></div><div class="metric"><strong class="rf-stat">${counts.Sections}</strong><span>Copyable sections</span></div><div class="metric"><strong class="rf-stat">0</strong><span>Runtime dependencies</span></div><div class="metric"><strong class="rf-stat" data-core-size>—</strong><span>Core CSS + JS, gzip</span></div></div>
-  <section><div class="section-top"><div><h2>A good place to start.</h2><p>Small pieces. Plenty of possibility.</p></div><a href="#catalog">View all ${catalog.length} entries <span aria-hidden="true">→</span></a></div>${cards(featured)}</section>
+  <section><div class="section-top"><div><h2>Made for the moments that matter.</h2><p>Useful little details that make a product feel considered.</p></div><a href="#catalog">View all ${catalog.length} entries <span aria-hidden="true">→</span></a></div>${cards(featured)}</section>
+  <section class="rf-card rf-cluster collection-callout"><div><p class="rf-eyebrow">Your next build, collected.</p><h2 class="rf-card__title">Keep the pieces you love.</h2><p class="rf-card__description">Star a few components. Come back to your shortlist. Copy one shared setup.</p></div><a class="rf-button rf-button--outline" href="#saved">Open your collection →</a></section>
   <section class="doc-section"><div class="section-top"><div><h2>From small pieces to a whole page.</h2><p>Original layouts you can copy, adapt, and ship.</p></div><a href="../examples/landing.html">Open example →</a></div>${cards(['hero', 'pricing', 'testimonials'].map(id => catalog.find(item => item.id === id)))}</section>${footer()}`;
 }
 function gallery() {
@@ -98,7 +120,7 @@ function codePanel(title, code) {
   return `<div class="rf-card code-panel"><div class="code-toolbar"><strong>${title}</strong><button class="rf-button rf-button--ghost" type="button" data-copy>Copy code</button></div><pre tabindex="0" aria-label="${title}"><code>${escape(code)}</code></pre></div>`;
 }
 function detail(item) {
-  return `<div class="page-heading"><p class="rf-eyebrow">${item.category} / ${item.js.length ? 'Optional JavaScript' : 'HTML + CSS'}</p><h1>${item.title}</h1><p>${item.description}</p><div class="detail-bits"><span class="rf-badge">${item.cssBytes.toLocaleString()} bytes of minified component CSS*</span><span class="rf-badge">${item.js.length ? 'Vanilla JavaScript' : 'No JavaScript needed'}</span></div></div><div class="rf-card preview-shell"><div class="preview-toolbar"><h2>INTERACTIVE PREVIEW</h2><button class="rf-button rf-button--ghost" type="button" id="preview-width" aria-pressed="false">Narrow preview</button></div><div class="preview rf-scope">${item.html}</div></div><p class="rf-help">*Sum of minified component modules; excludes shared tokens, base, and layout. This is not a gzip transfer measurement.</p><section class="doc-section"><h2>Make it yours.</h2><p>Copy the HTML, include the styles, and add the optional behavior below.</p>${codePanel('HTML', item.html)}${codePanel('Styles & setup', setup(item))}</section><section class="doc-section"><h2>Good to know.</h2><ul>${item.notes.map(note => `<li>${escape(note)}</li>`).join('')}</ul></section><section class="doc-section"><h2>Source files</h2><p>${[item.file, ...item.css.map(name => `src/${name}.css`), ...item.js.map(name => `src/js/${name}.js`)].map(path => `<a href="https://github.com/robinfrancis186/rofin-ui/blob/main/${path}">${path}</a>`).join(' · ')}</p></section>${footer()}`;
+  return `<div class="page-heading"><p class="rf-eyebrow">${item.category} / ${item.js.length ? 'Optional JavaScript' : 'HTML + CSS'}</p><h1>${item.title}</h1><p>${item.description}</p><div class="detail-bits"><span class="rf-badge">${item.cssBytes.toLocaleString()} bytes of minified component CSS*</span><span class="rf-badge">${item.js.length ? 'Vanilla JavaScript' : 'No JavaScript needed'}</span>${saveButton(item)}</div></div><div class="rf-card preview-shell"><div class="preview-toolbar"><h2>INTERACTIVE PREVIEW</h2><button class="rf-button rf-button--ghost" type="button" id="preview-width" aria-pressed="false">Narrow preview</button></div><div class="preview rf-scope">${item.html}</div></div><p class="rf-help">*Sum of minified component modules; excludes shared tokens, base, and layout. This is not a gzip transfer measurement.</p><section class="doc-section"><h2>Make it yours.</h2><p>Copy the HTML, include the styles, and add the optional behavior below.</p>${codePanel('HTML', item.html)}${codePanel('Styles & setup', setup(item))}</section><section class="doc-section"><h2>Good to know.</h2><ul>${item.notes.map(note => `<li>${escape(note)}</li>`).join('')}</ul></section><section class="doc-section"><h2>Source files</h2><p>${[item.file, ...item.css.map(name => `src/${name}.css`), ...item.js.map(name => `src/js/${name}.js`)].map(path => `<a href="https://github.com/robinfrancis186/rofin-ui/blob/main/${path}">${path}</a>`).join(' · ')}</p></section>${footer()}`;
 }
 function installation() {
   const simple = `<link rel="stylesheet" href="./src/rofin.css">\n\n<div class="rf-scope">\n  <button class="rf-button" type="button">Get started</button>\n</div>\n\n<!-- Only needed for JavaScript interactions. -->\n<script type="module">\n  import { init } from './src/js/index.js';\n  const destroy = init();\n  // Call destroy() when removing this app root.\n</script>`;
@@ -127,6 +149,7 @@ function render({ focus = false } = {}) {
   const item = route.startsWith('component/') ? catalog.find(entry => entry.id === route.slice(10)) : null;
   let html;
   if (route === 'references') html = referenceLibrary();
+  else if (route === 'saved') html = collection();
   else if (search.value.trim() || route.startsWith('catalog')) html = gallery();
   else if (item) html = detail(item);
   else if (route === 'start') html = installation();
@@ -138,7 +161,7 @@ function render({ focus = false } = {}) {
   stopEffects = initEffects(main);
   stopPatterns = initPatterns(main);
   navigation(); updateSize();
-  document.title = `${item?.title || ({ start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery', references: 'Reference library' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
+  document.title = `${item?.title || ({ start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery', saved: 'Saved collection', references: 'Reference library' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
   if (focus) { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }
 }
 
@@ -148,6 +171,21 @@ document.addEventListener('keydown', event => {
   if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input, textarea, select, [contenteditable]')) { event.preventDefault(); search.focus(); }
 });
 document.addEventListener('click', async event => {
+  const save = event.target.closest('[data-save]');
+  if (save) {
+    const id = save.dataset.save;
+    if (saved.has(id)) saved.delete(id); else saved.add(id);
+    try { localStorage.setItem('rofin-saved', JSON.stringify([...saved])); } catch { toast('Browser storage is unavailable. Your collection will last for this page session.', { duration: 5000 }); }
+    if (location.hash === '#saved') { render(); (main.querySelector('[data-save]') || main).focus({ preventScroll: true }); }
+    else {
+      for (const button of document.querySelectorAll('[data-save]')) {
+        button.setAttribute('aria-pressed', String(saved.has(button.dataset.save)));
+        button.querySelector('span').textContent = saved.has(button.dataset.save) ? '★' : '☆';
+      }
+      navigation();
+    }
+    document.querySelector('#search-status').textContent = `${saved.size} components in your saved collection`;
+  }
   const category = event.target.closest('[data-category]');
   if (category) { filter = category.dataset.category; render(); document.querySelector(`[data-category="${filter}"]`)?.focus(); }
   const library = event.target.closest('[data-library]');

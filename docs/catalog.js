@@ -549,6 +549,152 @@ export default [
     "cssBytes": 1958
   },
   {
+    "id": "password-field",
+    "title": "Password reveal",
+    "category": "Components",
+    "description": "A native password field with an explicit reveal toggle and reset protection.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/password-field.html",
+    "notes": [
+      "Reveal is opt-in. The native password input works before JavaScript initializes.",
+      "The toggle has a stable accessible name and aria-pressed state. Reset and teardown conceal the password.",
+      "This interface is not authentication or a password-strength policy. Use sample text in the preview."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:30rem\">\n  <p class=\"rf-eyebrow\">A small detail. A little less friction.</p>\n  <h3 class=\"rf-card__title\">See what you’re typing.</h3>\n  <div class=\"rf-field\" data-rf-password>\n    <label class=\"rf-label\" for=\"reveal-password\">Password</label>\n    <div class=\"rf-input-action\">\n      <input class=\"rf-input\" id=\"reveal-password\" name=\"password\" type=\"password\" autocomplete=\"new-password\" minlength=\"8\" required aria-describedby=\"reveal-help\">\n      <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"reveal-password\" aria-pressed=\"false\" hidden>Show</button>\n    </div>\n    <p class=\"rf-help\" id=\"reveal-help\">Use a sample password of at least 8 characters. This demo sends nothing.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Try the form</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset</button></div>\n</form>",
+    "cssBytes": 12860
+  },
+  {
+    "id": "character-counter",
+    "title": "Character counter",
+    "category": "Components",
+    "description": "A compact profile composer with a native limit and a live count.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/character-counter.html",
+    "notes": [
+      "The counter follows native maxlength, which counts UTF-16 code units. Some emoji use more than one unit.",
+      "The count is descriptive help rather than a live-region announcement for every keystroke.",
+      "Values remain local. Native form reset updates the count."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:34rem\">\n  <p class=\"rf-eyebrow\">Make every word count.</p>\n  <h3 class=\"rf-card__title\">A little introduction.</h3>\n  <div class=\"rf-field\" data-rf-counter>\n    <label class=\"rf-label\" for=\"profile-bio\">Your bio</label>\n    <textarea class=\"rf-textarea\" id=\"profile-bio\" name=\"bio\" maxlength=\"160\" rows=\"3\" placeholder=\"What do you love making?\" aria-describedby=\"bio-help bio-count\"></textarea>\n    <div class=\"rf-cluster\" style=\"justify-content:space-between\"><p class=\"rf-help\" id=\"bio-help\">Keep it short. Make it you.</p><p class=\"rf-help rf-count\" id=\"bio-count\" data-rf-count>Up to 160 characters.</p></div>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview profile</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Start over</button></div>\n</form>",
+    "cssBytes": 12860
+  },
+  {
+    "id": "tag-input",
+    "title": "Tag input",
+    "category": "Components",
+    "description": "Add and remove tags with keyboard entry, removable chips, and native form values.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/tag-input.html",
+    "notes": [
+      "Enter adds a tag without submitting the form; IME composition is preserved.",
+      "Duplicate tags are compared without case. The example allows five tags of 32 characters.",
+      "Hidden inputs submit repeated values under data-rf-tags-name. Read them with FormData.getAll().",
+      "Emits rf:tags-change with detail.values when adding or removing. Reset restores the initial tags. Validate values again on your server."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:34rem\">\n  <p class=\"rf-eyebrow\">A few words. A clearer picture.</p>\n  <h3 class=\"rf-card__title\">What are you making?</h3>\n  <div class=\"rf-stack\" data-rf-tags data-rf-tags-name=\"topics\" data-rf-tags-max=\"5\">\n    <div class=\"rf-field\">\n      <label class=\"rf-label\" for=\"project-tag\">Project topics</label>\n      <div class=\"rf-input-action\"><input class=\"rf-input\" id=\"project-tag\" data-rf-tag-input maxlength=\"32\" placeholder=\"Add a topic…\" aria-describedby=\"tags-help\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-tag-add>Add tag</button></div>\n      <p class=\"rf-help\" id=\"tags-help\">Press Enter or Add tag. Choose up to five topics, 32 characters each.</p>\n    </div>\n    <ul class=\"rf-tag-list\" data-rf-tag-list aria-label=\"Selected topics\">\n      <li class=\"rf-tag\"><span>Design</span><input type=\"hidden\" name=\"topics\" value=\"Design\"></li>\n      <li class=\"rf-tag\"><span>Accessibility</span><input type=\"hidden\" name=\"topics\" value=\"Accessibility\"></li>\n    </ul>\n    <p class=\"rf-help\" role=\"status\"></p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview topics</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset topics</button></div>\n</form>",
+    "cssBytes": 12860
+  },
+  {
+    "id": "data-table",
+    "title": "Searchable table",
+    "category": "Components",
+    "description": "Find the right row, sort by name or number, and keep native table semantics.",
+    "css": [
+      "patterns",
+      "table",
+      "form",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/data-table.html",
+    "notes": [
+      "Column buttons toggle ascending and descending order; aria-sort belongs to the active header.",
+      "Set data-rf-sort to number for numeric columns. A cell may provide data-rf-sort-value for formatted values.",
+      "Filters and sorting run on the current in-memory rows. Reinitialize after structural changes; use server queries for large or paginated datasets.",
+      "The table remains readable without JavaScript. The scrollable region supports narrow screens.",
+      "Accessibility reference: https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/"
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-data-table aria-labelledby=\"work-table-title\">\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\">\n    <div><p class=\"rf-eyebrow\">Less searching. More doing.</p><h3 id=\"work-table-title\" style=\"margin:0\">The work ahead.</h3></div>\n    <div class=\"rf-field\"><label class=\"rf-label\" for=\"work-search\">Find a project</label><input class=\"rf-input\" id=\"work-search\" type=\"search\" placeholder=\"Name, owner, or status…\" data-rf-table-search></div>\n  </div>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Project list\">\n    <table class=\"rf-table\">\n      <caption>Sample projects. Use column buttons to sort; click again to reverse.</caption>\n      <thead><tr>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Project <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Owner <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n        <th scope=\"col\">Status</th>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"number\">Tasks <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n      </tr></thead>\n      <tbody>\n        <tr><th scope=\"row\">Studio website</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>12</td></tr>\n        <tr><th scope=\"row\">Mobile journal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>3</td></tr>\n        <tr><th scope=\"row\">Brand refresh</th><td>Alex</td><td><span class=\"rf-badge\">Draft</span></td><td>20</td></tr>\n        <tr><th scope=\"row\">Component library</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>8</td></tr>\n      </tbody>\n    </table>\n  </div>\n  <p class=\"rf-help\" role=\"status\" data-rf-table-status>Four sample projects.</p>\n</section>",
+    "cssBytes": 13428
+  },
+  {
+    "id": "launch-checklist",
+    "title": "Launch checklist",
+    "category": "Components",
+    "description": "Turn onboarding into a clear path with native checkboxes and honest progress.",
+    "css": [
+      "patterns",
+      "form",
+      "progress",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/launch-checklist.html",
+    "notes": [
+      "Checkbox state stays in the current page and is not persisted by the library.",
+      "The native progress element and status update together. Reset restores the original checklist.",
+      "Works with keyboard and touch; no motion is required to understand completion."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-rf-check-progress style=\"max-width:34rem\">\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\"><p class=\"rf-eyebrow\">Small steps. Something real.</p><span class=\"rf-badge\">Your launch plan</span></div>\n  <h3 class=\"rf-card__title\">Bring your idea into the world.</h3>\n  <label class=\"rf-help\" for=\"launch-progress\">Launch preparation</label>\n  <progress class=\"rf-progress\" id=\"launch-progress\" value=\"1\" max=\"3\">1 of 3 steps complete</progress>\n  <ul class=\"rf-launch-list\">\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"idea\" checked><span><strong>Give your idea a name</strong><small>A good beginning is a clear direction.</small></span></label></li>\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"build\"><span><strong>Make your first version</strong><small>Pick your components. Build one useful thing.</small></span></label></li>\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"share\"><span><strong>Share it with someone</strong><small>A little feedback goes a long way.</small></span></label></li>\n  </ul>\n  <p class=\"rf-help\" role=\"status\" data-rf-check-status>1 of 3 steps complete</p>\n  <button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset checklist</button>\n</form>",
+    "cssBytes": 14337
+  },
+  {
+    "id": "billing-switch",
+    "title": "Billing switch",
+    "category": "Components",
+    "description": "A monthly/yearly plan comparison that keeps rates and billing language together.",
+    "css": [
+      "patterns",
+      "sections",
+      "form",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/billing-switch.html",
+    "notes": [
+      "Prices are supplied as display strings in data-rf-monthly and data-rf-yearly. The component performs no currency conversion or calculations.",
+      "Yearly examples show a monthly equivalent with the annual amount stated below. Replace all figures and policies with your own.",
+      "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-billing aria-labelledby=\"billing-title\">\n  <div><p class=\"rf-eyebrow\">A clear choice, at your pace.</p><h3 id=\"billing-title\">A little room to grow.</h3><p class=\"rf-muted\">Illustrative plans for a fictional workspace.</p></div>\n  <fieldset class=\"rf-segmented\"><legend>Billing interval</legend><label><input type=\"radio\" name=\"example-billing\" value=\"monthly\" checked><span>Monthly</span></label><label><input type=\"radio\" name=\"example-billing\" value=\"yearly\"><span>Yearly · save 20%</span></label></fieldset>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\">Personal</h4><p class=\"rf-muted\">A home for your own ideas.</p><p class=\"rf-price\"><span data-rf-monthly=\"$10\" data-rf-yearly=\"$8\">$10</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button rf-button--outline\" href=\"#personal-plan\">Choose Personal</a></article>\n    <article class=\"rf-card rf-stack rf-pricing__featured\"><span class=\"rf-badge\" data-variant=\"success\">For building together</span><h4 class=\"rf-card__title\">Studio</h4><p class=\"rf-muted\">More space for your next chapter.</p><p class=\"rf-price\"><span data-rf-monthly=\"$25\" data-rf-yearly=\"$20\">$25</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button\" href=\"#studio-plan\">Choose Studio</a></article>\n  </div>\n  <p class=\"rf-help\">A pricing interface demo. No payment is collected. Yearly examples represent $96 and $240 per year.</p>\n</section>",
+    "cssBytes": 15960
+  },
+  {
     "id": "dot-grid",
     "title": "Dot grid",
     "category": "Effects",
@@ -865,7 +1011,7 @@ export default [
       "The native range supports arrows, Home/End, touch, and keyboard."
     ],
     "html": "<div data-rf-compare class=\"rf-stack\">\n  <div class=\"rf-compare\" role=\"img\" aria-label=\"Before and after design comparison\">\n    <div class=\"rf-compare__before\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        A blank canvas.\n      </strong>\n    </div>\n    <div class=\"rf-compare__after\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        Brought to life.\n      </strong>\n    </div>\n    <span class=\"rf-compare__label\">\n      Before\n    </span>\n    <span class=\"rf-compare__label rf-compare__label--after\">\n      After\n    </span>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Comparison position\n    </span>\n    <input class=\"rf-range\" type=\"range\" min=\"0\" max=\"100\" value=\"50\">\n  </label>\n</div>",
-    "cssBytes": 8692
+    "cssBytes": 10343
   },
   {
     "id": "carousel",
@@ -886,7 +1032,7 @@ export default [
       "No autoplay or hidden slides. Respects reduced motion and right-to-left direction."
     ],
     "html": "<section data-rf-carousel aria-label=\"Project ideas\">\n  <div class=\"rf-carousel__track\" tabindex=\"0\" aria-label=\"Scrollable project cards\">\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        01\n      </div>\n      <h3>\n        Start somewhere\n      </h3>\n      <p class=\"rf-muted\">\n        A small sketch becomes a real direction.\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        02\n      </div>\n      <h3>\n        Find your rhythm\n      </h3>\n      <p class=\"rf-muted\">\n        Make space for the work that matters.\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        03\n      </div>\n      <h3>\n        Keep going\n      </h3>\n      <p class=\"rf-muted\">\n        Build the next chapter, one piece at a time.\n      </p>\n    </article>\n  </div>\n  <div class=\"rf-carousel__controls\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"-1\" aria-label=\"Previous cards\">\n      ← Previous\n    </button>\n    <span class=\"rf-help\">\n      3 project ideas\n    </span>\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"1\" aria-label=\"Next cards\">\n      Next →\n    </button>\n  </div>\n</section>",
-    "cssBytes": 8849
+    "cssBytes": 10500
   },
   {
     "id": "command-palette",
@@ -910,7 +1056,7 @@ export default [
       "The preview reports the choice locally and performs no application action."
     ],
     "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-dialog-open=\"example-command\">\n  Open commands\n  <kbd>\n    ↓\n  </kbd>\n</button>\n<dialog class=\"rf-dialog rf-command\" id=\"example-command\" aria-labelledby=\"command-title\" data-rf-command>\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\">\n    <h2 id=\"command-title\">\n      What would you like to do?\n    </h2>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-dialog-close aria-label=\"Close commands\">\n      ×\n    </button>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Search commands\n    </span>\n    <input class=\"rf-input\" type=\"search\" placeholder=\"Try settings…\" autofocus>\n  </label>\n  <div class=\"rf-command__list\">\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"new-project\">\n      Create project\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"settings\">\n      Open settings\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"help\">\n      Get help\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n  </div>\n  <p class=\"rf-help\" role=\"status\">\n  </p>\n  <p class=\"rf-help\">\n    Arrow keys to browse. Enter to choose. Escape to close.\n  </p>\n</dialog>",
-    "cssBytes": 11082
+    "cssBytes": 12733
   },
   {
     "id": "like-button",
@@ -930,7 +1076,7 @@ export default [
       "Counts are demo data in memory. Your app owns persistence and authorization."
     ],
     "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-like aria-pressed=\"false\">\n  <span aria-hidden=\"true\">\n    ♡\n  </span>\n  Like\n  <span data-rf-like-count>\n    128\n  </span>\n</button>",
-    "cssBytes": 7956
+    "cssBytes": 9607
   },
   {
     "id": "number-stepper",
@@ -951,7 +1097,7 @@ export default [
       "Emits ordinary input and change events. Disabled and read-only inputs are not changed."
     ],
     "html": "<div class=\"rf-stack\">\n  <label class=\"rf-label\" for=\"quantity\">\n    Quantity\n  </label>\n  <div class=\"rf-stepper\" data-rf-stepper>\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"-1\" aria-label=\"Decrease quantity\">\n      −\n    </button>\n    <input class=\"rf-input\" id=\"quantity\" type=\"number\" min=\"1\" max=\"10\" step=\"1\" value=\"2\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"1\" aria-label=\"Increase quantity\">\n      +\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Between 1 and 10. You can also type a quantity.\n  </p>\n</div>",
-    "cssBytes": 10316
+    "cssBytes": 11967
   },
   {
     "id": "segmented-control",
@@ -967,7 +1113,7 @@ export default [
       "A native radio group supports arrow keys and form submission. No JavaScript is needed."
     ],
     "html": "<fieldset class=\"rf-segmented\">\n  <legend>\n    View density\n  </legend>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"comfortable\" checked>\n    <span>\n      Comfortable\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"compact\" >\n    <span>\n      Compact\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"minimal\" >\n    <span>\n      Minimal\n    </span>\n  </label>\n</fieldset>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "date-picker",
@@ -1018,7 +1164,7 @@ export default [
       "DOM order remains the reading order. Dates are sample content."
     ],
     "html": "<ol class=\"rf-timeline\">\n  <li>\n    <time datetime=\"2026-10-01\">\n      October 1, 2026\n    </time>\n    <h3>\n      The first sketch\n    </h3>\n    <p class=\"rf-muted\">\n      Find a direction worth exploring.\n    </p>\n  </li>\n  <li>\n    <time datetime=\"2026-10-02\">\n      October 2, 2026\n    </time>\n    <h3>\n      Build together\n    </h3>\n    <p class=\"rf-muted\">\n      Turn the idea into something useful.\n    </p>\n  </li>\n  <li>\n    <time datetime=\"2026-10-03\">\n      October 3, 2026\n    </time>\n    <h3>\n      Ready to share\n    </h3>\n    <p class=\"rf-muted\">\n      Check the details, then open the doors.\n    </p>\n  </li>\n</ol>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "dock",
@@ -1035,7 +1181,7 @@ export default [
       "CSS handles focus and hover. Movement is disabled for reduced motion. Position the dock in your app as needed."
     ],
     "html": "<nav class=\"rf-dock\" aria-label=\"Workspace shortcuts\">\n  <a href=\"#projects\">\n    Projects\n  </a>\n  <a href=\"#activity\">\n    Activity\n  </a>\n  <a href=\"#team\">\n    Team\n  </a>\n  <a href=\"#settings\">\n    Settings\n  </a>\n</nav>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "expandable-card",
@@ -1054,7 +1200,7 @@ export default [
       "Place links and buttons in the expanded content, outside summary."
     ],
     "html": "<details class=\"rf-card rf-expandable\">\n  <summary>\n    A little more about this project\n  </summary>\n  <div class=\"rf-expandable__content\">\n    <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n      ↗\n    </div>\n    <h3>\n      Make room for your next idea.\n    </h3>\n    <p>\n      Start with the simplest version that helps someone. Keep refining it together.\n    </p>\n    <a class=\"rf-button rf-button--outline\" href=\"#project\">\n      Open project\n    </a>\n  </div>\n</details>",
-    "cssBytes": 8849
+    "cssBytes": 10500
   },
   {
     "id": "image-accordion",
@@ -1071,7 +1217,7 @@ export default [
       "Keyboard and touch users can expand each panel. Content remains accessible without hover or JavaScript."
     ],
     "html": "<div class=\"rf-image-accordion\">\n  <details open>\n    <summary>\n      Explore\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        ○\n      </div>\n    </div>\n    <p>\n      Find a fresh perspective.\n    </p>\n  </details>\n  <details >\n    <summary>\n      Create\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        △\n      </div>\n    </div>\n    <p>\n      Give your idea a shape.\n    </p>\n  </details>\n  <details >\n    <summary>\n      Share\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        □\n      </div>\n    </div>\n    <p>\n      Make something useful together.\n    </p>\n  </details>\n</div>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "card-stack",
@@ -1090,7 +1236,7 @@ export default [
       "This is a static stack, not a swipe deck or auto-rotating carousel."
     ],
     "html": "<div class=\"rf-card-stack\">\n  <article class=\"rf-card\">\n    <p class=\"rf-eyebrow\">\n      Next in your collection\n    </p>\n    <h3>\n      Small details. Lasting impressions.\n    </h3>\n    <p class=\"rf-muted\">\n      A layered surface for a project, testimonial, or next step.\n    </p>\n    <a class=\"rf-button\" href=\"#collection\">\n      Explore collection →\n    </a>\n  </article>\n</div>",
-    "cssBytes": 8849
+    "cssBytes": 10500
   },
   {
     "id": "checklist",
@@ -1108,7 +1254,7 @@ export default [
       "The checked treatment retains the task label and text contrast."
     ],
     "html": "<ul class=\"rf-checklist\">\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"0\" checked>\n      <span>\n        Sketch the first idea\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"1\" >\n      <span>\n        Build a small prototype\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"2\" >\n      <span>\n        Check the keyboard flow\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"3\" >\n      <span>\n        Share it with someone\n      </span>\n    </label>\n  </li>\n</ul>",
-    "cssBytes": 8692
+    "cssBytes": 10343
   },
   {
     "id": "rating",
@@ -1124,7 +1270,7 @@ export default [
       "Arrow keys move between values. Numeric labels communicate meaning without relying on star color."
     ],
     "html": "<fieldset class=\"rf-rating\">\n  <legend>\n    How was your experience?\n  </legend>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"1\" aria-label=\"1 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      1\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"2\" aria-label=\"2 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      2\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"3\" aria-label=\"3 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      3\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"4\" aria-label=\"4 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      4\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"5\" aria-label=\"5 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      5\n    </span>\n  </label>\n</fieldset>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "interest-picker",
@@ -1140,7 +1286,7 @@ export default [
       "Each chip is a labelled checkbox. Works with keyboard, touch, and forms without JavaScript."
     ],
     "html": "<fieldset class=\"rf-chips\">\n  <legend>\n    What would you like to explore?\n  </legend>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"design\" checked>\n    <span>\n      Design\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"engineering\" >\n    <span>\n      Engineering\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"motion\" >\n    <span>\n      Motion\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"accessibility\" >\n    <span>\n      Accessibility\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"open source\" >\n    <span>\n      Open source\n    </span>\n  </label>\n</fieldset>",
-    "cssBytes": 6332
+    "cssBytes": 7983
   },
   {
     "id": "multi-step-form",
@@ -1162,7 +1308,7 @@ export default [
       "Replace the demo handler with your app submission and server-side validation."
     ],
     "html": "<form class=\"rf-stack\" data-rf-step-form data-demo-form>\n  <p class=\"rf-help\" role=\"status\">\n    Complete your project details\n  </p>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      1. Your project\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Project name\n      </span>\n      <input class=\"rf-input\" name=\"project\" required autocomplete=\"off\">\n    </label>\n  </fieldset>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      2. Your contact\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Contact email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" required autocomplete=\"email\">\n    </label>\n  </fieldset>\n  <div class=\"rf-cluster\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-step-previous hidden>\n      Previous\n    </button>\n    <button class=\"rf-button\" type=\"button\" data-rf-step-next hidden>\n      Continue\n    </button>\n    <button class=\"rf-button\" type=\"submit\" data-rf-step-submit>\n      Finish demo\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Demo only. No data is submitted or stored.\n  </p>\n</form>",
-    "cssBytes": 10316
+    "cssBytes": 11967
   },
   {
     "id": "copy-button",
@@ -1199,7 +1345,7 @@ export default [
       "The repeated group is decorative and must not contain focusable controls. Studio names are fictional."
     ],
     "html": "<section class=\"rf-marquee\" aria-label=\"Sample studio names\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\">\n    Pause animation\n  </label>\n  <div class=\"rf-marquee__track\">\n    <div class=\"rf-marquee__group\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n    <div class=\"rf-marquee__group\" aria-hidden=\"true\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n  </div>\n</section>",
-    "cssBytes": 8692
+    "cssBytes": 10343
   },
   {
     "id": "grid-background",
@@ -1536,16 +1682,19 @@ export default [
       "sections",
       "card",
       "form",
-      "button"
+      "button",
+      "patterns"
     ],
-    "js": [],
+    "js": [
+      "patterns"
+    ],
     "file": "sections/sign-in.html",
     "notes": [
       "This is an interface, not authentication. Wire your own trusted authentication backend and error handling.",
       "The preview prevents submission and sends no data."
     ],
-    "html": "<section class=\"rf-card rf-auth\">\n  <h3>\n    Welcome back.\n  </h3>\n  <p class=\"rf-muted\">\n    A little closer to your next idea.\n  </p>\n  <form data-demo-form>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required>\n    </label>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Password\n      </span>\n      <input class=\"rf-input\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required>\n    </label>\n    <button class=\"rf-button\" type=\"submit\">\n      Sign in\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Preview only. Do not enter a real password.\n  </p>\n</section>",
-    "cssBytes": 7179
+    "html": "<section class=\"rf-card rf-auth\">\n  <h3>\n    Welcome back.\n  </h3>\n  <p class=\"rf-muted\">\n    A little closer to your next idea.\n  </p>\n  <form data-demo-form>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required>\n    </label>\n    <div class=\"rf-field\" data-rf-password>\n      <label class=\"rf-label\" for=\"signin-password\">Password</label>\n      <div class=\"rf-input-action\">\n        <input class=\"rf-input\" id=\"signin-password\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"signin-password\" aria-pressed=\"false\" hidden>Show</button>\n      </div>\n    </div>\n    <button class=\"rf-button\" type=\"submit\">\n      Sign in\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Preview only. Do not enter a real password.\n  </p>\n</section>",
+    "cssBytes": 15162
   },
   {
     "id": "integration-map",

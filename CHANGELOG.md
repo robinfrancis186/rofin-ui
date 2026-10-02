@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- 39 original examples added: 19 UI patterns, 14 optional effects, and six page sections.
+- 45 original examples added: 25 UI patterns, 14 optional effects, and six page sections.
 - Opt-in patterns stylesheet, ESM initializer, cleanup API, and type declaration.
 - Keyboard comparison and command search, scroll-snap carousel, bounded native
   steppers, reversible likes, validated multistep forms, and clipboard feedback.
@@ -14,6 +14,12 @@
 - Documentation chrome now uses Rofin inputs, buttons, navigation, badges,
   cards, grids, empty states, statistics, and footer styles.
 - Command-palette Arrow Up starts at the last available command and wraps correctly.
+
+- Added password reveal, tag input, character counter, searchable sortable table,
+  launch checklist, and monthly/yearly billing examples.
+- Browser-local saved collections with search and deduplicated setup copying.
+- Sign-in and dashboard examples now reuse the password and table patterns.
+- Form reset enhancements run after native reset and respect cancelled resets.
 
 ## 0.1.0
 

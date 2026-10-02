@@ -59,7 +59,7 @@ test('documentation uses shared components across desktop and mobile routes', as
     await page.getByRole('button', { name: 'All · ' + catalog.length }).click();
     await expect(page.locator('.category-filters button:not(.rf-button)')).toHaveCount(0);
     await expect(page.locator('.catalog-card')).toHaveCount(catalog.length);
-    for (const route of ['home', 'catalog', 'start', 'theming', 'api', 'principles', 'references']) {
+    for (const route of ['home', 'catalog', 'saved', 'start', 'theming', 'api', 'principles', 'references']) {
       await page.goto(`/dist/site/index.html#${route}`);
       await expect(page.locator('#sidebar-nav [aria-current="page"]')).toHaveAttribute('href', `#${route}`);
       await expect(page.locator('main h1')).toBeVisible();
@@ -93,7 +93,7 @@ test('CSS and native controls remain useful with JavaScript disabled', async ({ 
 test('composed dashboard filters data and form demos send no request', async ({ page }) => {
   await page.goto('/examples/dashboard.html');
   await page.getByRole('searchbox', { name: 'Filter projects' }).fill('website');
-  await expect(page.locator('#filter-status')).toHaveText('1 projects shown');
+  await expect(page.locator('#filter-status')).toHaveText('1 of 2 rows');
   await expect(page.locator('#projects tbody tr:visible')).toHaveCount(1);
   await page.goto('/docs/index.html#component/contact');
   let posts = 0; page.on('request', request => { if (request.method() === 'POST') posts++; });

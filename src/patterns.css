@@ -1,5 +1,23 @@
 /* Optional interaction patterns. Include tokens and the core styles first. */
 @layer rf.components {
+  .rf-input-action { display: flex; gap: .5rem; align-items: center; }
+  .rf-input-action > input { min-inline-size: 0; flex: 1; }
+  .rf-input-action > button { flex-shrink: 0; }
+  .rf-input-action [aria-pressed="true"] { background: var(--rf-subtle); color: var(--rf-primary); }
+  .rf-count { text-align: end; font-variant-numeric: tabular-nums; }
+  .rf-tag-list { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; margin: 0; padding: 0; }
+  .rf-tag { display: inline-flex; align-items: center; gap: .25rem; max-inline-size: 100%; padding-inline-start: .75rem; border: 1px solid var(--rf-border); border-radius: 2rem; background: var(--rf-subtle); color: var(--rf-text); font-size: .875rem; }
+  .rf-tag > span { overflow-wrap: anywhere; min-inline-size: 0; }
+  .rf-tag > button { flex-shrink: 0; min-inline-size: 2rem; min-block-size: 2rem; border: 0; border-radius: 50%; background: transparent; color: var(--rf-muted); font: inherit; cursor: pointer; }
+  .rf-tag > button:hover { color: var(--rf-danger); }
+  .rf-table [data-rf-sort] { min-block-size: 2rem; padding: .25rem .5rem; font-size: inherit; }
+  .rf-launch-list { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+  .rf-launch-list label { display: flex; align-items: flex-start; gap: .875rem; padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); cursor: pointer; }
+  .rf-launch-list input { margin-block-start: .3rem; accent-color: var(--rf-primary); inline-size: 1.125rem; block-size: 1.125rem; flex-shrink: 0; }
+  .rf-launch-list strong, .rf-launch-list small { display: block; }
+  .rf-launch-list small { margin-block-start: .25rem; color: var(--rf-muted); }
+  .rf-launch-list label:has(input:checked) { background: var(--rf-success-bg); border-color: var(--rf-success); }
+  .rf-launch-list input:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 3px; }
   .rf-compare { position: relative; overflow: hidden; border-radius: var(--rf-radius-lg); aspect-ratio: 16 / 10; background: var(--rf-subtle); }
   .rf-compare__before, .rf-compare__after { position: absolute; inset: 0; display: grid; place-content: center; padding: 1rem; text-align: center; }
   .rf-compare img { inline-size: 100%; block-size: 100%; object-fit: cover; }

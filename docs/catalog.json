@@ -44,7 +44,7 @@
     "notes": [
       "Always associate a visible label with the input.",
       "Set aria-invalid=\"true\" and aria-describedby to your error text when validation fails.",
-      "Validation and submission remain your application\u2019s responsibility."
+      "Validation and submission remain your application’s responsibility."
     ]
   },
   {
@@ -102,7 +102,7 @@
     "file": "examples/components/radio.html",
     "notes": [
       "Use the same name on the radio inputs.",
-      "A fieldset and legend communicate the group\u2019s purpose."
+      "A fieldset and legend communicate the group’s purpose."
     ]
   },
   {
@@ -166,7 +166,7 @@
       "Left/Right, Home, and End move between tabs. Vertical tablists use Up/Down.",
       "Set data-rf-activation=\"manual\" to activate only on Enter, Space, or click.",
       "Use equal numbers of tabs and panels. aria-controls can map them explicitly.",
-      "Without JS, all panels remain visible. After changing a tabset\u2019s internal structure, destroy and initialize that root again."
+      "Without JS, all panels remain visible. After changing a tabset’s internal structure, destroy and initialize that root again."
     ]
   },
   {
@@ -281,7 +281,7 @@
     "js": [],
     "file": "examples/components/badge.html",
     "notes": [
-      "Always communicate status with text; color alone isn\u2019t enough."
+      "Always communicate status with text; color alone isn’t enough."
     ]
   },
   {
@@ -325,7 +325,7 @@
     "js": [],
     "file": "examples/components/breadcrumb.html",
     "notes": [
-      "Replace the example fragment links with your application\u2019s real URLs.",
+      "Replace the example fragment links with your application’s real URLs.",
       "aria-current=\"page\" marks the current location."
     ]
   },
@@ -488,6 +488,140 @@
     ]
   },
   {
+    "id": "password-field",
+    "title": "Password reveal",
+    "category": "Components",
+    "description": "A native password field with an explicit reveal toggle and reset protection.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/password-field.html",
+    "notes": [
+      "Reveal is opt-in. The native password input works before JavaScript initializes.",
+      "The toggle has a stable accessible name and aria-pressed state. Reset and teardown conceal the password.",
+      "This interface is not authentication or a password-strength policy. Use sample text in the preview."
+    ]
+  },
+  {
+    "id": "character-counter",
+    "title": "Character counter",
+    "category": "Components",
+    "description": "A compact profile composer with a native limit and a live count.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/character-counter.html",
+    "notes": [
+      "The counter follows native maxlength, which counts UTF-16 code units. Some emoji use more than one unit.",
+      "The count is descriptive help rather than a live-region announcement for every keystroke.",
+      "Values remain local. Native form reset updates the count."
+    ]
+  },
+  {
+    "id": "tag-input",
+    "title": "Tag input",
+    "category": "Components",
+    "description": "Add and remove tags with keyboard entry, removable chips, and native form values.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/tag-input.html",
+    "notes": [
+      "Enter adds a tag without submitting the form; IME composition is preserved.",
+      "Duplicate tags are compared without case. The example allows five tags of 32 characters.",
+      "Hidden inputs submit repeated values under data-rf-tags-name. Read them with FormData.getAll().",
+      "Emits rf:tags-change with detail.values when adding or removing. Reset restores the initial tags. Validate values again on your server."
+    ]
+  },
+  {
+    "id": "data-table",
+    "title": "Searchable table",
+    "category": "Components",
+    "description": "Find the right row, sort by name or number, and keep native table semantics.",
+    "css": [
+      "patterns",
+      "table",
+      "form",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/data-table.html",
+    "notes": [
+      "Column buttons toggle ascending and descending order; aria-sort belongs to the active header.",
+      "Set data-rf-sort to number for numeric columns. A cell may provide data-rf-sort-value for formatted values.",
+      "Filters and sorting run on the current in-memory rows. Reinitialize after structural changes; use server queries for large or paginated datasets.",
+      "The table remains readable without JavaScript. The scrollable region supports narrow screens.",
+      "Accessibility reference: https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/"
+    ]
+  },
+  {
+    "id": "launch-checklist",
+    "title": "Launch checklist",
+    "category": "Components",
+    "description": "Turn onboarding into a clear path with native checkboxes and honest progress.",
+    "css": [
+      "patterns",
+      "form",
+      "progress",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/launch-checklist.html",
+    "notes": [
+      "Checkbox state stays in the current page and is not persisted by the library.",
+      "The native progress element and status update together. Reset restores the original checklist.",
+      "Works with keyboard and touch; no motion is required to understand completion."
+    ]
+  },
+  {
+    "id": "billing-switch",
+    "title": "Billing switch",
+    "category": "Components",
+    "description": "A monthly/yearly plan comparison that keeps rates and billing language together.",
+    "css": [
+      "patterns",
+      "sections",
+      "form",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/billing-switch.html",
+    "notes": [
+      "Prices are supplied as display strings in data-rf-monthly and data-rf-yearly. The component performs no currency conversion or calculations.",
+      "Yearly examples show a monthly equivalent with the annual amount stated below. Replace all figures and policies with your own.",
+      "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
+    ]
+  },
+  {
     "id": "dot-grid",
     "title": "Dot grid",
     "category": "Effects",
@@ -602,7 +736,7 @@
     "js": [],
     "file": "sections/hero.html",
     "notes": [
-      "Replace placeholder copy and links with your product\u2019s real content.",
+      "Replace placeholder copy and links with your product’s real content.",
       "Include the core stylesheet and the optional sections stylesheet."
     ]
   },
@@ -717,7 +851,7 @@
     "js": [],
     "file": "sections/cta.html",
     "notes": [
-      "Connect the link to your product\u2019s actual signup or contact destination."
+      "Connect the link to your product’s actual signup or contact destination."
     ]
   },
   {
@@ -1369,9 +1503,12 @@
       "sections",
       "card",
       "form",
-      "button"
+      "button",
+      "patterns"
     ],
-    "js": [],
+    "js": [
+      "patterns"
+    ],
     "file": "sections/sign-in.html",
     "notes": [
       "This is an interface, not authentication. Wire your own trusted authentication backend and error handling.",

@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **49 component examples**, **20 optional effects**,
+The library includes **55 component examples**, **20 optional effects**,
 **16 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -73,14 +73,16 @@ reinitialization.
 | Forms | Input, select, textarea, checkbox, radio group, switch, range, file input |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
+| Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
 
 Native HTML handles form behavior, expandable details, and modal focus
 management. JavaScript adds keyboard navigation for tabs and menus, dialog
 triggers, tooltip Escape dismissal, file-selection details, and toast APIs.
 
-A file input does not upload files by itself. Tables do not include sorting,
-filtering, or virtualization. Application data, authentication, form submission,
-and backend integrations remain your application's responsibility.
+A file input does not upload files by itself. The optional table pattern adds
+local search and sorting; it does not include virtualization or server queries.
+Application data, authentication, form submission, and backend integrations
+remain your application's responsibility.
 
 ## Optional effects and sections
 
@@ -98,7 +100,8 @@ magnetic buttons use the existing `initEffects()` initializer.
 ## Optional interaction patterns
 
 Comparison sliders, carousels, command palettes, like buttons, number steppers,
-multistep forms, and copy buttons use a separate module. Native segmented
+multistep forms, password reveal, tag inputs, character counters, searchable
+tables, launch checklists, billing switches, and copy buttons use a separate module. Native segmented
 controls, dates, one-time codes, timelines, docks, details cards, checklists,
 ratings, chips, and the pausable marquee share its optional stylesheet.
 These are excluded from the core bundle and the auto initializer.
@@ -117,8 +120,9 @@ These are excluded from the core bundle and the auto initializer.
 
 Initialize each patterns root once; call the returned cleanup before removal.
 Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
-palettes emit `rf:command` with `detail.value`; your app owns the actual action.
-Forms, counters, authentication, subscriptions, and integrations are interface
+palettes emit `rf:command` with `detail.value`; tag inputs emit `rf:tags-change`
+with `detail.values`. Your app owns persistence and the actual action.
+Authentication, subscriptions, and integrations are interface
 examples; connect application behavior and server validation yourself.
 
 The documentation's **Reference library** indexes 11 source catalogs with
@@ -168,6 +172,8 @@ browser script, type declarations, and a self-contained documentation site in
 The documentation website is composed from Rofin's own cards, inputs, buttons,
 navigation, badges, grids, statistics, empty states, dialogs, and footer.
 `docs/style.css` handles the site layout, branding, and decorative thumbnails.
+Star components to build a saved collection, search it, and copy a deduplicated
+setup snippet. Collections persist in this browser when local storage is available.
 
 ```html
 <link rel="stylesheet" href="./dist/rofin.css">
