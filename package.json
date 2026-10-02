@@ -43,7 +43,12 @@
     "./data-grid": { "types": "./dist/data-grid.d.ts", "import": "./dist/data-grid.js" },
     "./data-grid.css": "./dist/data-grid.css",
     "./upload-queue": { "types": "./dist/upload-queue.d.ts", "import": "./dist/upload-queue.js" },
-    "./upload-queue.css": "./dist/upload-queue.css"
+    "./upload-queue.css": "./dist/upload-queue.css",
+    "./team-management": {
+      "types": "./dist/team-management.d.ts",
+      "import": "./dist/team-management.js"
+    },
+    "./team-management.css": "./dist/team-management.css"
   },
   "files": [
     "dist/*.css",

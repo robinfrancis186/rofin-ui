@@ -1,6 +1,8 @@
 import { init, toast, clearToasts } from '../src/js/index.js';
 import { initPatterns } from '../src/js/patterns.js';
 import { initFormPatterns } from '../src/js/form-patterns.js';
+import { createTeamManager, applyTeamChange } from '../src/js/team-management.js';
+import { sampleTeam } from './team-demo.js';
 
 init();
 const projects = document.querySelector('#projects');
@@ -24,7 +26,18 @@ const workspaces = new Map([
   ['personal', { name: 'Personal', rows: [projectRow('project-1', 'Weekend journal', 'Robin', 'Draft', 4, '2026-09-27'), projectRow('project-2', 'Reading list', 'Robin', 'In progress', 2, '2026-09-28')], nextId: 3, owners: ['Robin'], members: ['Robin Francis'], notices: [notice('personal-draft', 'An idea worth keeping', 'Your weekend journal is ready for another look.')], revenue: '$420', growth: '↑ 8%', retention: '100%', change: '↑ 2 points', months: [2, 4, 3, 5, 4, 6], completed: 6, total: 16, prefs: { timezone: 'Asia/Kolkata', updates: false, digest: true }, activity: [['2026-09-28', 'A few good pages', 'The reading list has a new chapter.'], ['2026-09-27', 'A beginning of your own', 'The weekend journal started as a small idea.']] }],
   ['lab', { name: 'Lab', rows: [projectRow('project-1', 'Motion study', 'Alex', 'In progress', 8, '2026-09-22'), projectRow('project-2', 'Accessible map', 'Robin', 'Draft', 5, '2026-09-26'), projectRow('project-3', 'Prototype kit', 'Alex', 'Published', 12, '2026-09-29')], nextId: 4, owners: ['Robin', 'Alex'], members: ['Robin Francis', 'Alex Morgan'], notices: [notice('lab-map', 'Make room for everyone', 'The accessible map is ready for keyboard review.'), notice('lab-kit', 'A useful little toolkit', 'Alex published the prototype kit.')], revenue: '$2,160', growth: '↑ 5%', retention: '94.5%', change: '↑ 1.2 points', months: [4, 6, 3, 8, 6, 12], completed: 24, total: 48, prefs: { timezone: 'UTC', updates: true, digest: false }, activity: [['2026-09-29', 'A prototype to share', 'Alex published the first toolkit.'], ['2026-09-26', 'An inclusive direction', 'Robin started the accessible map.']] }]
 ]);
-let activeWorkspace = 'studio', refreshTimer;
+for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, workspace.name, workspace.members);
+const teamElement = document.querySelector('[data-rf-team-manager]');
+let activeWorkspace = 'studio', refreshTimer, teamManager;
+function renderTeamMembers() {
+  const workspace = workspaces.get(activeWorkspace), members = document.querySelector('[data-workspace-team]'); members.replaceChildren();
+  for (const member of workspace.team.members) { const avatar = document.createElement('span'); avatar.className = 'rf-avatar'; avatar.setAttribute('role', 'img'); avatar.setAttribute('aria-label', member.name); avatar.textContent = initials(member.name); members.append(avatar); }
+}
+function initWorkspaceTeam() {
+  teamManager?.destroy(); const workspace = workspaces.get(activeWorkspace);
+  teamElement.querySelector('[data-rf-team-note]').textContent = 'Team changes belong to this workspace for the page session. No email, durable accounts or access to application resources is provided.';
+  teamManager = createTeamManager(teamElement, { team: workspace.team, actorId: 'robin', change: async operation => { workspace.team = applyTeamChange(workspace.team, 'robin', operation); renderTeamMembers(); updateContextLabels(); return { team: workspace.team }; }, load: async () => workspace.team });
+}
 initFormPatterns(range);
 let stopOwner = initFormPatterns(createForm);
 initPatterns(range);
@@ -67,6 +80,7 @@ function updateContextLabels() {
     const id = link.dataset.dashboardWorkspace, workspace = workspaces.get(id); if (!workspace) continue;
     link.setAttribute('aria-label', `${workspace.name} workspace`); link.querySelector('[data-workspace-option-name]').textContent = workspace.name;
     link.querySelector('[data-workspace-option-avatar]').textContent = initials(workspace.name); link.querySelector('[data-workspace-current]').hidden = id !== activeWorkspace;
+    const count = link.querySelector('[data-workspace-member-count]'); if (count) count.textContent = String(workspace.team.members.length);
     if (id === activeWorkspace) link.setAttribute('aria-current', 'true'); else link.removeAttribute('aria-current');
   }
   for (const link of document.querySelectorAll('[data-dashboard-account-link]')) { const url = new URL(link.href); url.searchParams.set('workspace', activeWorkspace); link.href = url.href; }
@@ -81,8 +95,7 @@ function renderWorkspaceData() {
   const percent = Math.round(workspace.completed / workspace.total * 1000) / 10, remaining = Math.round((100 - percent) * 10) / 10;
   document.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${remaining}`); document.querySelector('.rf-chart__ring text').textContent = `${percent}%`;
   document.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => { value.textContent = [`${workspace.completed} tasks · ${percent}%`, `${workspace.total - workspace.completed} tasks · ${remaining}%`, `${workspace.total} tasks`][index]; });
-  const members = document.querySelector('[data-workspace-team]'); members.replaceChildren();
-  for (const name of workspace.members) { const avatar = document.createElement('span'); avatar.className = 'rf-avatar'; avatar.setAttribute('role', 'img'); avatar.setAttribute('aria-label', name); avatar.textContent = initials(name); members.append(avatar); }
+  renderTeamMembers();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
     const item = document.createElement('li'), time = document.createElement('time'), text = document.createElement('p'), heading = document.createElement('strong'), note = document.createElement('span');
@@ -104,6 +117,7 @@ function switchWorkspace(id, navigate = false) {
   if (!workspaces.has(id)) return false;
   const changed = id !== activeWorkspace;
   if (changed) {
+    teamManager?.destroy();
     for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
     clearToasts(); clearTimeout(refreshTimer); const refresh = document.querySelector('#refresh-dashboard'); refresh.disabled = false; refresh.querySelector('.rf-spinner').hidden = true; projects.removeAttribute('aria-busy');
     stopTable(); stopInbox(); stopOwner(); const previous = workspaces.get(activeWorkspace); previous.rows = [...projects.querySelectorAll('tbody tr')]; previous.notices = [...inbox.querySelectorAll('li')]; previous.nextId = nextId;
@@ -115,12 +129,13 @@ function switchWorkspace(id, navigate = false) {
     stopOwner = initFormPatterns(createForm); stopInbox = initPatterns(inbox); stopTable = initPatterns(projects);
     const files = document.querySelector('#project-files'); files.value = ''; files.dispatchEvent(new Event('change', { bubbles: true })); renderBoard();
   }
-  if (changed) renderWorkspaceData(); else updateContextLabels(); document.querySelector('[data-project-count]').textContent = String(projects.querySelectorAll('tbody tr:not([data-rf-status="Archived"])').length);
+  if (changed) { renderWorkspaceData(); initWorkspaceTeam(); } else updateContextLabels(); document.querySelector('[data-project-count]').textContent = String(projects.querySelectorAll('tbody tr:not([data-rf-status="Archived"])').length);
   document.querySelector('[data-workspace-status]').textContent = `${workspaces.get(id).name} workspace loaded.${changed ? ' Filters, selections and unsaved forms cleared.' : ''}`;
   if (navigate) { const url = new URL(location.href); url.searchParams.set('workspace', id); url.searchParams.delete('panel'); url.hash = 'overview'; if (url.href !== location.href) history.pushState(null, '', url); }
   syncSection(); if (changed || navigate) document.querySelector('[data-dashboard-workspace-trigger]').focus({ preventScroll: true }); return true;
 }
 renderBoard();
+initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
   const row = selectedRows([event.detail.value])[0];
   if (!row) return;
@@ -207,7 +222,7 @@ document.querySelector('#preferences').addEventListener('submit', event => {
     toast('Enter a workspace and display name.', { title: 'A little more detail', variant: 'warning' }); return;
   }
   const name = form.elements.name.value.trim();
-  const workspace = workspaces.get(activeWorkspace); workspace.name = form.elements.workspace.value.trim(); workspace.prefs = { timezone: form.elements.timezone.value, updates: form.elements.updates.checked, digest: form.elements.digest.checked }; updateContextLabels();
+  const workspace = workspaces.get(activeWorkspace); workspace.name = form.elements.workspace.value.trim(); workspace.team.name = workspace.name; workspace.team.revision++; workspace.prefs = { timezone: form.elements.timezone.value, updates: form.elements.updates.checked, digest: form.elements.digest.checked }; updateContextLabels(); initWorkspaceTeam();
   document.querySelector('[data-display-name]').textContent = name;
   document.querySelector('[data-account-name]').textContent = name; document.querySelector('[data-dashboard-account-trigger]').setAttribute('aria-label', `Account menu for ${name}`);
   const avatar = document.querySelector('[data-profile-avatar]'); avatar.textContent = initials(name);

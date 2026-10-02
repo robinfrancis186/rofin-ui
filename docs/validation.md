@@ -1,9 +1,43 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 119 runnable entries, including workspace/account menus, the upload
+Current gallery: 122 runnable entries, including team management, invitation and
+permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Team management and invitations
+
+Seven focused checks pass in Chromium, Firefox and macOS WebKit. The full
+88-test Chromium suite passes, including every gallery preview in both themes.
+Package validation passes with 212 files and zero runtime/peer dependencies.
+Core CSS plus auto JavaScript remains 8,161 bytes gzip. The optional team module
+and styles add 4,784 and 315 bytes gzip respectively outside the core.
+
+Checks cover invitation creation/edit/revoke, case-insensitive duplicate emails,
+confirmation/Escape/focus, native and cancelled reset, safe display-name
+rendering, failed callbacks, late completion after teardown, retained role
+choices, and last-owner controls. Team state stays isolated between the three
+dashboard workspaces; removing a sample member updates avatars and menu counts,
+and reload restores the public samples. Tables, invitation errors and exposed
+confirmations pass automated WCAG checks in both themes at 320/390 pixels.
+
+The private localhost service receives real HTTP requests. It issues random
+access tokens bound to current membership and workspace, checks revisions and
+roles on every mutation, rejects direct privilege forgery and cross-workspace
+access, rotates/revokes invitation tokens, and consumes each accepted link once.
+Overlapping requests cannot demote both owners or accept one invitation twice.
+Acceptance uses the latest invitation role; removed memberships lose their access
+tokens. Malformed and oversized bodies and foreign origins are rejected.
+Expired invitation policy and out-of-range timestamps are checked explicitly.
+
+A rendered local check created and accepted an invitation, confirmed Viewer
+controls with invitation creation disabled, and refreshed the owner's team to
+four members with no pending invitation. These are isolated temporary sandboxes:
+links grant access to their holder, not a verified email identity. State expires
+after 15 minutes or server stop. No email or durable account is created; A01,
+A02 and A04 remain outstanding. Static production exposes page-session examples
+and keeps the local service option hidden.
 
 ## Workspace and account menus
 

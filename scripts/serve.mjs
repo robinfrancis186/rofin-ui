@@ -4,6 +4,7 @@ import { resolve, extname, sep } from 'node:path';
 import { queryGridRows } from '../src/js/data-grid.js';
 import { sampleGridColumns, sampleGridRows } from '../examples/grid-data.js';
 import { handleSampleUpload, cleanupSampleUploads } from './sample-upload.mjs';
+import { handleSampleTeam, cleanupSampleTeams } from './sample-team.mjs';
 
 const root = resolve(process.env.RF_SERVE_ROOT || '.');
 const port = Number(process.env.PORT || 4173);
@@ -12,6 +13,7 @@ const gridRows = sampleGridRows();
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url, 'http://localhost');
+    if (url.pathname.startsWith('/api/sample-teams')) { await handleSampleTeam(request, response, url, port); return; }
     if (url.pathname.startsWith('/api/sample-uploads')) { await handleSampleUpload(request, response, url, port); return; }
     if (url.pathname === '/api/sample-grid') {
       response.setHeader('Content-Type', 'application/json'); response.setHeader('Cache-Control', 'no-store'); response.setHeader('X-Content-Type-Options', 'nosniff');
@@ -35,5 +37,5 @@ const server = createServer(async (request, response) => {
 server.listen(port, '127.0.0.1', () => console.log(`Rofin UI: http://127.0.0.1:${port}`));
 
 let stopping = false;
-async function stop() { if (stopping) return; stopping = true; server.close(); server.closeAllConnections(); await cleanupSampleUploads(); process.exit(0); }
+async function stop() { if (stopping) return; stopping = true; server.close(); server.closeAllConnections(); cleanupSampleTeams(); await cleanupSampleUploads(); process.exit(0); }
 process.once('SIGINT', stop); process.once('SIGTERM', stop);

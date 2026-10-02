@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **76 component examples**, **20 optional effects**,
+The library includes **79 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -258,6 +258,36 @@ gallery disables transport and offers local previews only.
 After npm publication, optional imports are `rofin-ui/upload-queue` and
 `rofin-ui/upload-queue.css`. The module has no runtime dependencies and stays
 outside the core bundle.
+
+## Team management
+
+Add `src/team-management.css` and use the native form/table in
+`examples/components/team-management.html` with the optional controller:
+
+```js
+import { createTeamManager } from './src/js/team-management.js';
+const manager = createTeamManager(document.querySelector('[data-rf-team-manager]'), {
+  team, actorId,
+  change: (operation, { signal, revision }) => application.changeTeam(operation, { signal, revision }),
+  load: ({ signal }) => application.loadTeam({ signal })
+});
+// change confirms { team } or explicitly { team: null } after access ends.
+// Call manager.destroy() before removing the component.
+```
+
+The application supplies confirmed snapshots, safe sessions, email and storage.
+`applyTeamChange` and `acceptTeamInvitation` expose the same small policy used by
+the localhost service: owners manage all roles, admins manage editors/viewers,
+and at least one owner remains. A server derives the actor from its verified
+session and checks the expected revision before applying a change.
+
+The default examples keep changes in the page session. **Start isolated local
+team** explicitly creates a temporary private sandbox with server-issued access
+tokens and one-use invitation links. Those links grant their holder the selected
+role; they do not verify email identity or create durable accounts. Samples
+expire after 15 minutes or server stop. No email is sent. Production applications
+supply their own backend. After npm publication, optional imports will be
+`rofin-ui/team-management` and `rofin-ui/team-management.css`.
 
 ## Themes
 

@@ -56,6 +56,14 @@
     "upload-queue.js": {
       "bytes": 10857,
       "gzip": 4359
+    },
+    "team-management.css": {
+      "bytes": 662,
+      "gzip": 315
+    },
+    "team-management.js": {
+      "bytes": 13301,
+      "gzip": 4784
     }
   }
 }

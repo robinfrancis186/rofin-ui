@@ -2339,5 +2339,73 @@ export default [
     ],
     "html": "<div data-rf-dropdown data-demo-navigation>\n  <button class=\"rf-button rf-button--outline rf-account-trigger\" type=\"button\" popovertarget=\"account-menu\" aria-label=\"Account menu for Robin Francis\" data-dashboard-account-trigger><span class=\"rf-avatar\" aria-hidden=\"true\" data-profile-avatar>RF</span><span class=\"rf-account-label\" data-account-name>Robin Francis</span><span aria-hidden=\"true\">⌄</span></button>\n  <div class=\"rf-menu rf-account-menu\" id=\"account-menu\" popover role=\"menu\" aria-label=\"Account\">\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio&panel=account#overview\" data-dashboard-account-link=\"profile\">Profile & preferences</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#overview\" data-dashboard-account-link=\"overview\">Workspace overview</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#projects\" data-dashboard-account-link=\"projects\">Your projects</a>\n    <hr class=\"rf-menu__separator\" role=\"separator\">\n    <a role=\"menuitem\" href=\"https://rofin-ui.vercel.app/#api\">Documentation & help</a>\n    <button type=\"button\" role=\"menuitem\" disabled aria-describedby=\"account-session-note\">Sign out</button>\n  </div>\n  <span class=\"rf-sr-only\" id=\"account-session-note\">This public sample has no authenticated account session.</span>\n</div>",
     "cssBytes": 3865
+  },
+  {
+    "id": "team-management",
+    "title": "Team management",
+    "category": "Components",
+    "description": "Invite collaborators, edit roles and revoke invitations with explicit application callbacks.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "dialog",
+      "alert",
+      "team-management"
+    ],
+    "js": [
+      "team-management"
+    ],
+    "file": "examples/components/team-management.html",
+    "notes": [
+      "Native labelled forms and a readable table remain available without scripts. The optional controller renders text safely and waits for confirmed changes before committing.",
+      "Owners manage all roles; admins manage editors and viewers. The shared server policy prevents removal or demotion of the last owner. Project, file and billing permissions are enforced by your application separately.",
+      "Change and load callbacks receive AbortSignals; mutations receive an expected workspace revision. Failed or stale changes preserve the current snapshot and unsaved role selection. Call destroy before unmounting.",
+      "The default gallery and composed dashboard use isolated page-session state. The explicit localhost option creates a private sample with server-issued access tokens, one-use invitation links, role checks and revision conflicts.",
+      "Local links grant their holder the configured role; they do not verify the recipient email. Private samples expire after 15 minutes or server stop. Real accounts, durable storage and email delivery remain application services."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-team-manager data-demo-navigation aria-labelledby=\"team-manager-title\">\n  <div><p class=\"rf-eyebrow\">A shared idea, with clear access.</p><h3 id=\"team-manager-title\"><span data-rf-team-name>Studio</span> team</h3><p class=\"rf-muted\"><span data-rf-team-count>3</span> members · Your role: <strong data-rf-team-current-role>Owner</strong></p></div>\n  <p class=\"rf-help\" data-rf-team-note>Page-session sample. Invitations create pending rows; no email or account access is provided.</p>\n  <div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-local hidden>Start isolated local team</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-page hidden>Return to page sample</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-refresh disabled>Refresh team</button></div>\n  <form class=\"rf-team-toolbar\" data-rf-team-invite-form method=\"dialog\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Invitation email</span><input class=\"rf-input\" type=\"email\" name=\"email\" maxlength=\"254\" autocomplete=\"off\" required disabled></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Invitation role</span><select class=\"rf-select\" name=\"role\" disabled><option value=\"viewer\" selected>Viewer</option><option value=\"editor\">Editor</option><option value=\"admin\">Admin</option><option value=\"owner\">Owner</option></select></label>\n    <button class=\"rf-button\" type=\"submit\" disabled>Create invitation</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Clear invitation form</button>\n  </form>\n  <p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-team-error hidden></p><p class=\"rf-help\" role=\"status\" data-rf-team-status></p>\n  <label class=\"rf-field\"><span class=\"rf-label\">Search team members</span><input class=\"rf-input\" type=\"search\" data-rf-team-search maxlength=\"200\"></label>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Team members\"><table class=\"rf-table rf-team-members\"><caption>Members and their workspace access. At least one owner must remain.</caption><thead><tr><th scope=\"col\">Member</th><th scope=\"col\">Role</th><th scope=\"col\">Actions</th></tr></thead><tbody data-rf-team-members>\n    <tr><th scope=\"row\">Robin Francis<p class=\"rf-help\">robin@example.com</p></th><td>Owner</td><td>Last owner protected</td></tr><tr><th scope=\"row\">Jamie Lee<p class=\"rf-help\">jamie@example.com</p></th><td>Editor</td><td>Application controls required</td></tr><tr><th scope=\"row\">Alex Morgan<p class=\"rf-help\">alex@example.com</p></th><td>Viewer</td><td>Application controls required</td></tr>\n  </tbody></table></div>\n  <p class=\"rf-help\" data-rf-team-empty hidden>No members match this search.</p>\n  <div><h4>Pending invitations</h4><ul class=\"rf-team-invitations\" data-rf-team-invitations><li class=\"rf-help\">No pending invitations.</li></ul></div>\n  <p class=\"rf-help\">Owners manage all roles. Admins manage editors and viewers. Editors and viewers cannot manage other members. Everyone can leave unless they are the last owner. <a href=\"https://rofin-ui.vercel.app/#component/permissions-matrix\">View the role permissions →</a></p>\n  <dialog class=\"rf-dialog\" data-rf-team-confirm><h3 class=\"rf-dialog__title\">Confirm access change</h3><p data-rf-team-confirm-text></p><p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-team-confirm-error hidden></p><form method=\"dialog\" class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-team-cancel>Keep current access</button><button class=\"rf-button\" type=\"submit\">Confirm change</button></form></dialog>\n</section>",
+    "cssBytes": 6799
+  },
+  {
+    "id": "team-invitation",
+    "title": "Team invitation",
+    "category": "Components",
+    "description": "Accept a workspace invitation with native validation and clear access context.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/team-invitation.html",
+    "notes": [
+      "The gallery previews accepting a page-session invitation. Native name validation and reset remain available; no account or email is created.",
+      "Invitations issued by the isolated localhost service open a dedicated acceptance page. The server validates the token, expiry and latest role, consumes the link once, and issues access bound to the new membership.",
+      "A local invitation grants access to its holder, not a verified email identity. The dedicated page keeps its access token in memory and disables production acceptance until an application service is configured.",
+      "Bind the native form to your application acceptance callback. The optional team policy runs on the server after verifying the invitation; it does not submit this form automatically."
+    ],
+    "html": "<section class=\"rf-card rf-stack\" data-rf-team-accept aria-labelledby=\"team-invitation-title\">\n  <div><p class=\"rf-eyebrow\">Good work starts together.</p><h3 id=\"team-invitation-title\">Join <span data-rf-invite-team>Studio</span></h3><p class=\"rf-muted\">You were invited as <strong data-rf-invite-role>Viewer</strong>.</p></div>\n  <form class=\"rf-stack\" method=\"dialog\" data-rf-invite-accept-form>\n    <label class=\"rf-field\"><span class=\"rf-label\">Invited email</span><input class=\"rf-input\" type=\"email\" name=\"email\" value=\"avery@example.com\" readonly></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Your display name</span><input class=\"rf-input\" name=\"name\" maxlength=\"80\" autocomplete=\"name\" required></label>\n    <p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-invite-error hidden></p>\n    <button class=\"rf-button\" type=\"submit\" data-rf-invite-join>Join sample workspace</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Clear display name</button>\n  </form>\n  <p class=\"rf-help\" role=\"status\" data-rf-invite-status></p><p class=\"rf-help\" data-rf-invite-note>This gallery previews joining a page-session sample. No account is created. Real invitation links must be validated by your application server.</p>\n</section>",
+    "cssBytes": 5601
+  },
+  {
+    "id": "permissions-matrix",
+    "title": "Permissions matrix",
+    "category": "Components",
+    "description": "Explain owner, admin, editor and viewer access in a readable native table.",
+    "css": [
+      "table",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/permissions-matrix.html",
+    "notes": [
+      "Column and row headers expose exact permissions without color or icons. The surrounding region scrolls independently on narrow screens.",
+      "These rules cover team management. Applications authorize project, file and billing actions on their own server.",
+      "Disabled controls help explain a role. The localhost team service separately checks current membership, privilege changes and last-owner protection for direct HTTP requests."
+    ],
+    "html": "<section class=\"rf-stack\" aria-labelledby=\"permissions-title\">\n  <div><p class=\"rf-eyebrow\">Clear roles. Fewer surprises.</p><h3 id=\"permissions-title\">Who can do what?</h3><p class=\"rf-muted\">These team rules are shared by the optional UI and the local server policy. Applications enforce their project, file and billing permissions separately.</p></div>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Role permissions\"><table class=\"rf-table\"><caption>Team management permissions by role</caption><thead><tr><th scope=\"col\">Action</th><th scope=\"col\">Owner</th><th scope=\"col\">Admin</th><th scope=\"col\">Editor</th><th scope=\"col\">Viewer</th></tr></thead><tbody>\n    <tr><th scope=\"row\">Read the member list</th><td>Allowed</td><td>Allowed</td><td>Allowed</td><td>Allowed</td></tr>\n    <tr><th scope=\"row\">Invite editors and viewers</th><td>Allowed</td><td>Allowed</td><td>Not allowed</td><td>Not allowed</td></tr>\n    <tr><th scope=\"row\">Change or remove editors/viewers</th><td>Allowed</td><td>Allowed</td><td>Not allowed</td><td>Not allowed</td></tr>\n    <tr><th scope=\"row\">Manage owners and admins</th><td>Allowed</td><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td></tr>\n    <tr><th scope=\"row\">Leave your own membership</th><td>Another owner required</td><td>Allowed</td><td>Allowed</td><td>Allowed</td></tr>\n    <tr><th scope=\"row\">Remove or demote the last owner</th><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td></tr>\n  </tbody></table></div>\n  <div class=\"rf-alert\" data-variant=\"info\"><div><strong>Enforce access on the server.</strong><p>Disabled buttons explain permissions; the server checks the caller's current membership, requested role and workspace revision. An invitation link grants its configured access to its holder. Real accounts and email verification belong to the application.</p></div></div>\n</section>",
+    "cssBytes": 1387
   }
 ];

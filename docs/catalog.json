@@ -44,7 +44,7 @@
     "notes": [
       "Always associate a visible label with the input.",
       "Set aria-invalid=\"true\" and aria-describedby to your error text when validation fails.",
-      "Validation and submission remain your application’s responsibility."
+      "Validation and submission remain your application\u2019s responsibility."
     ]
   },
   {
@@ -102,7 +102,7 @@
     "file": "examples/components/radio.html",
     "notes": [
       "Use the same name on the radio inputs.",
-      "A fieldset and legend communicate the group’s purpose."
+      "A fieldset and legend communicate the group\u2019s purpose."
     ]
   },
   {
@@ -166,7 +166,7 @@
       "Left/Right, Home, and End move between tabs. Vertical tablists use Up/Down.",
       "Set data-rf-activation=\"manual\" to activate only on Enter, Space, or click.",
       "Use equal numbers of tabs and panels. aria-controls can map them explicitly.",
-      "Without JS, all panels remain visible. After changing a tabset’s internal structure, destroy and initialize that root again."
+      "Without JS, all panels remain visible. After changing a tabset\u2019s internal structure, destroy and initialize that root again."
     ]
   },
   {
@@ -281,7 +281,7 @@
     "js": [],
     "file": "examples/components/badge.html",
     "notes": [
-      "Always communicate status with text; color alone isn’t enough."
+      "Always communicate status with text; color alone isn\u2019t enough."
     ]
   },
   {
@@ -325,7 +325,7 @@
     "js": [],
     "file": "examples/components/breadcrumb.html",
     "notes": [
-      "Replace the example fragment links with your application’s real URLs.",
+      "Replace the example fragment links with your application\u2019s real URLs.",
       "aria-current=\"page\" marks the current location."
     ]
   },
@@ -587,7 +587,7 @@
     "file": "examples/components/bar-chart.html",
     "notes": [
       "The decorative bars are hidden from assistive technology; a labelled native details disclosure contains the exact data table.",
-      "Set --rf-bar to value / maximum × 100%; keep the chart and table in sync. This static example has a zero baseline."
+      "Set --rf-bar to value / maximum \u00d7 100%; keep the chart and table in sync. This static example has a zero baseline."
     ]
   },
   {
@@ -644,7 +644,7 @@
     "file": "examples/components/paginated-table.html",
     "notes": [
       "Local pagination uses the initial tbody rows; filtering and sorting reset to page one.",
-      "data-rf-table-filter=\"status\" matches each row’s data-rf-status exactly; other attribute keys work the same way.",
+      "data-rf-table-filter=\"status\" matches each row\u2019s data-rf-status exactly; other attribute keys work the same way.",
       "Search, filters, and row selection use native inputs. Reset returns form fields and page to their defaults; sorting stays as chosen.",
       "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
     ]
@@ -1051,7 +1051,7 @@
     "js": [],
     "file": "sections/hero.html",
     "notes": [
-      "Replace placeholder copy and links with your product’s real content.",
+      "Replace placeholder copy and links with your product\u2019s real content.",
       "Include the core stylesheet and the optional sections stylesheet."
     ]
   },
@@ -1166,7 +1166,7 @@
     "js": [],
     "file": "sections/cta.html",
     "notes": [
-      "Connect the link to your product’s actual signup or contact destination."
+      "Connect the link to your product\u2019s actual signup or contact destination."
     ]
   },
   {
@@ -2099,6 +2099,68 @@
       "The shared dropdown owns keyboard focus, typeahead, Escape and teardown. A complete account name remains in the accessible trigger label when the visible name is truncated.",
       "Sign out is disabled in these public samples because they have no authenticated session. Enable and bind it to your actual sign-out service; the component does not create or end account sessions.",
       "Replace sample links with your application routes and update displayed account data after confirmed profile changes."
+    ]
+  },
+  {
+    "id": "team-management",
+    "title": "Team management",
+    "category": "Components",
+    "description": "Invite collaborators, edit roles and revoke invitations with explicit application callbacks.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "dialog",
+      "alert",
+      "team-management"
+    ],
+    "js": [
+      "team-management"
+    ],
+    "file": "examples/components/team-management.html",
+    "notes": [
+      "Native labelled forms and a readable table remain available without scripts. The optional controller renders text safely and waits for confirmed changes before committing.",
+      "Owners manage all roles; admins manage editors and viewers. The shared server policy prevents removal or demotion of the last owner. Project, file and billing permissions are enforced by your application separately.",
+      "Change and load callbacks receive AbortSignals; mutations receive an expected workspace revision. Failed or stale changes preserve the current snapshot and unsaved role selection. Call destroy before unmounting.",
+      "The default gallery and composed dashboard use isolated page-session state. The explicit localhost option creates a private sample with server-issued access tokens, one-use invitation links, role checks and revision conflicts.",
+      "Local links grant their holder the configured role; they do not verify the recipient email. Private samples expire after 15 minutes or server stop. Real accounts, durable storage and email delivery remain application services."
+    ]
+  },
+  {
+    "id": "team-invitation",
+    "title": "Team invitation",
+    "category": "Components",
+    "description": "Accept a workspace invitation with native validation and clear access context.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/team-invitation.html",
+    "notes": [
+      "The gallery previews accepting a page-session invitation. Native name validation and reset remain available; no account or email is created.",
+      "Invitations issued by the isolated localhost service open a dedicated acceptance page. The server validates the token, expiry and latest role, consumes the link once, and issues access bound to the new membership.",
+      "A local invitation grants access to its holder, not a verified email identity. The dedicated page keeps its access token in memory and disables production acceptance until an application service is configured.",
+      "Bind the native form to your application acceptance callback. The optional team policy runs on the server after verifying the invitation; it does not submit this form automatically."
+    ]
+  },
+  {
+    "id": "permissions-matrix",
+    "title": "Permissions matrix",
+    "category": "Components",
+    "description": "Explain owner, admin, editor and viewer access in a readable native table.",
+    "css": [
+      "table",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/permissions-matrix.html",
+    "notes": [
+      "Column and row headers expose exact permissions without color or icons. The surrounding region scrolls independently on narrow screens.",
+      "These rules cover team management. Applications authorize project, file and billing actions on their own server.",
+      "Disabled controls help explain a role. The localhost team service separately checks current membership, privilege changes and last-owner protection for direct HTTP requests."
     ]
   }
 ]

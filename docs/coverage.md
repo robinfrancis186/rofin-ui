@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 119-example gallery covers common website and dashboard UI. Use the
+The 122-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -9,7 +9,7 @@ each example. This is a UI library, not an application backend.
 | Website navigation | Responsive header, native mobile menu, navigation, breadcrumbs, footer |
 | Marketing pages | Hero, feature grid, bento, logos, pricing and billing toggle, testimonials, FAQ, CTA, team, blog grid |
 | Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, checkboxes/radios, file input, upload queue, character counter, tags |
-| Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu |
+| Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu, team management, invitation acceptance, permissions matrix |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
 | Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters and saved views |
@@ -45,7 +45,7 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
 server validation. Rich-text and Markdown editors, file/browser/media workflows,
-team and billing flows, and deeper sorting/panel/chart interactions remain in
+billing flows, and deeper sorting/panel/chart interactions remain in
 `completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
@@ -84,3 +84,11 @@ links open real dashboard routes, including the profile preferences drawer.
 Without the application script, the menus still navigate and an explicit notice
 identifies the readable static Studio fallback. Sign out stays disabled until
 an application provides an authenticated session.
+
+Team management reuses the shared native table, fields, buttons and dialog in the
+gallery and dashboard. Workspace roles and invitations stay separate during the
+page session. The explicit localhost sandbox verifies current membership and
+roles, one-use/rotatable/revocable invitations, revision conflicts and last-owner
+protection. Its private access tokens do not verify email identity; data expires
+after 15 minutes or server stop. Production accounts, storage and email remain
+outstanding application services.
