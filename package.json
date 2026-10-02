@@ -39,7 +39,9 @@
       "types": "./dist/form-patterns.d.ts",
       "import": "./dist/form-patterns.js"
     },
-    "./form-patterns.css": "./dist/form-patterns.css"
+    "./form-patterns.css": "./dist/form-patterns.css",
+    "./data-grid": { "types": "./dist/data-grid.d.ts", "import": "./dist/data-grid.js" },
+    "./data-grid.css": "./dist/data-grid.css"
   },
   "files": [
     "dist/*.css",

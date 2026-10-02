@@ -116,6 +116,11 @@ for (const theme of ['light', 'dark']) {
         await page.goto(`/docs/index.html#component/${item.id}`);
         await expect(page.locator('.page-heading h1')).toHaveText(item.title);
         await page.locator('html').evaluate((element, value) => { element.dataset.rfTheme = value; }, theme);
+        // IntersectionObserver can start a reveal after the initial animation list.
+        for (const reveal of await page.locator('.preview [data-rf-reveal]').all()) {
+          await reveal.scrollIntoViewIfNeeded();
+          await expect(reveal).toHaveAttribute('data-rf-revealed', '');
+        }
         await page.evaluate(async () => {
           const animations = document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity);
           await Promise.all(animations.map(animation => animation.finished.catch(() => {})));

@@ -40,6 +40,14 @@
     "form-patterns.js": {
       "bytes": 17048,
       "gzip": 5527
+    },
+    "data-grid.css": {
+      "bytes": 2280,
+      "gzip": 808
+    },
+    "data-grid.js": {
+      "bytes": 21686,
+      "gzip": 8203
     }
   }
 }

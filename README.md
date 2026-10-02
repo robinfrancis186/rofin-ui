@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **72 component examples**, **20 optional effects**,
+The library includes **73 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -85,7 +85,8 @@ The [website and dashboard checklist](docs/coverage.md) maps common product need
 to existing examples. The documentation also includes a clickable coverage page.
 
 A file input does not upload files by itself. The optional table pattern adds
-local search, sorting, filters, pagination, and selection; it does not include virtualization or server queries.
+local search, sorting, filters, pagination, and selection. The separate advanced
+data table adds virtualization and application-supplied server queries.
 Application data, authentication, form submission, and backend integrations
 remain your application's responsibility.
 
@@ -175,6 +176,43 @@ in form submission handlers so validation can stop invalid submissions.
 Preview forms use `method="dialog"` to retain native validation without sending
 sample values when JavaScript is unavailable. When connecting an application,
 replace it with your server's form method/action or your own submit handler.
+
+## Optional advanced data table
+
+Add `src/data-grid.css` alongside the core styles and enhance the native table
+in `examples/components/data-grid.html`:
+
+```js
+import { createDataGrid } from './src/js/data-grid.js';
+const grid = createDataGrid(document.querySelector('[data-rf-data-grid]'));
+// Call grid.destroy() before removing or changing the table structure.
+```
+
+The table supports typed inline edits, sorting, compound all/any filters,
+visible/resizable/pinned columns, and named views. Set `storageKey` or
+`data-rf-grid-storage` to save views in this browser; unavailable storage falls
+back to the current page. Edits remain in memory unless an application supplies
+`saveCell(edit, { signal })`, which returns the validated saved row. A failed
+save retains the draft for retry. IDs must stay stable and cannot be edited.
+
+Pass `rows` and optional `columns` to use application data. `loadPage(query,
+{ signal })` returns `{ rows, total, page? }` for server paging; stale requests
+cannot replace newer results. `queryGridRows` supplies shared query semantics
+for the included read-only HTTP sample at `/api/sample-grid` when running
+`npm run dev`. The static production gallery uses browser data. Applications
+own transport, authorization, durable storage and edit-conflict handling.
+The module makes no automatic network calls and stays outside the core.
+
+Virtual scrolling uses fixed 56-pixel rows and truncated cell text. Turn it off
+for native paginated reading. Client queries scan at most 100,000 rows; use a
+server loader for larger data or expensive queries. `getState()` and `getRows()`
+return copies; `getRows()` returns browser rows, not a remote dataset. `refresh`,
+`setRows` and `setLoader` update data. Destroying restores the first 25 browser
+rows with committed values. `rf:grid-change` and `rf:grid-edit` report copied
+state/rows; cancel `rf:grid-before-edit` to stop a save.
+
+After npm publication, the optional imports are `rofin-ui/data-grid` and
+`rofin-ui/data-grid.css`.
 
 ## Themes
 

@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 115-example gallery covers common website and dashboard UI. Use the
+The 116-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -12,7 +12,7 @@ each example. This is a UI library, not an application backend.
 | Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
-| Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions |
+| Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters and saved views |
 | Actions and overlays | Buttons, dropdown, native dialog/drawer, tooltip, command palette |
 | Feedback and states | Alert, toast, notification inbox, empty state, spinner, skeleton |
 | Activity and onboarding | Task board, sortable priorities, timeline, checklist/progress, multistep form, calendar, time picker, daily event scheduler, tabs |
@@ -42,8 +42,9 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
-server validation. Large grids/virtualization, rich text, maps, and
-industry-specific tools should be added when a product actually needs them.
+server validation. Rich-text and Markdown editors, file/browser/media workflows,
+team and billing flows, and deeper sorting/panel/chart interactions remain in
+`completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
 resizable panels, and line chart. Desktop drag operations commit on drop;
@@ -62,3 +63,10 @@ linked validation summaries, calendars, date shortcuts, and a daily event
 scheduler. Invalid date shortcuts preserve the prior range. Scheduler changes
 emit an event for the application to persist; they currently last for the page
 session. The dashboard reuses the searchable owner field and date shortcuts.
+
+The optional advanced data table enhances native fallback cells with inline
+edits, column visibility/pinning/resizing, compound filters and named browser
+views. Its generated 10,000-row sample uses a bounded virtual window or native
+pagination. The local development server also serves real read-only HTTP pages;
+production applications supply authorized loaders and save callbacks. These
+controls reuse Rofin form, table and button styles and stay outside the core.

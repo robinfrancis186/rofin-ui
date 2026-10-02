@@ -1,9 +1,30 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 115 runnable entries, including eight new form/scheduling
-examples. This is a component implementation checkpoint; application services,
+Current gallery: 116 runnable entries, including the advanced data table and
+eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Advanced data table
+
+The full 67-test installed Chrome suite passed with all 116 gallery previews
+scanned in both themes. The final grid refinements are covered by nine focused
+checks in Chrome, Firefox and macOS WebKit: bounded 10,000-row virtualization,
+draft retention, numeric constraints and text-safe edits, compound filters,
+saved views, column visibility/pinning, pointer/keyboard resizing, cancellation,
+real local HTTP pagination, stale/error responses, save failures and teardown.
+The exposed settings also pass automated WCAG checks at a 390-pixel viewport.
+
+Slow or failed read-only loaders preserve a bounded previous row window;
+malformed responses preserve the previous rows and count. IDs cannot be edited,
+and numeric display columns preserve distinct IDs such as `01` and `1`.
+The package contains 190 files, with zero runtime or peer dependencies and
+DOM-safe optional-grid imports. The core remains 8,153 bytes gzip.
+
+Rendered local browser checks verified filtering followed by cell editing and
+actual HTTP navigation to rows 26–50. The HTTP endpoint serves generated public
+sample data and rejects invalid queries and writes. It is not a durable,
+authenticated application service. Static production uses browser data.
 
 ## Chrome
 
@@ -50,7 +71,9 @@ assumed pointer clicks focus buttons. The test now activates the move button
 with the keyboard to check the intended focus-restoration contract.
 After that correction and the preview-form fix below, all 14 form/workspace
 checks pass in Chromium, Firefox and macOS WebKit. The current full suite
-contains 58 tests.
+contained 58 tests. GitHub run
+[37002785720](https://github.com/robinfrancis186/rofin-ui/actions/runs/37002785720)
+then passed all 58 tests in each engine on commit `4e6c71b`.
 
 ## Preview forms without scripts
 
@@ -64,7 +87,7 @@ JavaScript submit handlers continue to supply the interactive local previews.
 ## Production documentation
 
 [rofin-ui.vercel.app](https://rofin-ui.vercel.app) is deployed and ready.
-All 185 built files returned HTTP 200. Their contents matched the local build;
+At the preceding 115-example checkpoint, all 185 built files returned HTTP 200. Their contents matched the local build;
 the generated size report was compared by uncompressed byte counts because
 gzip sizes differ between the Linux build and macOS.
 

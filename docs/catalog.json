@@ -2008,5 +2008,28 @@
       "rf:schedule-change supplies a copied event array for your application to persist. The example stores changes only in the page session.",
       "Titles are rendered as text. Times require your workspace time zone; overnight events need a separate end date."
     ]
+  },
+  {
+    "id": "data-grid",
+    "title": "Advanced data table",
+    "category": "Components",
+    "description": "Edit cells, pin and resize columns, save filtered views, and explore a virtual window of 10,000 projects.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "data-grid"
+    ],
+    "js": [
+      "data-grid"
+    ],
+    "file": "examples/components/data-grid.html",
+    "notes": [
+      "Native cells remain readable without JavaScript. createDataGrid enhances a fallback table; your application supplies rows and stable IDs.",
+      "Column settings include visibility, sticky pinning, pointer/keyboard resizing and saved browser views. Compound filters support all/any matching. Edits validate native text, numeric, date and select controls; Enter saves and Escape cancels.",
+      "Virtual scrolling keeps a bounded row window with aria-rowcount/index. Turn it off for native paginated reading. Client filtering/sorting runs in memory; loadPage supplies server pages for larger datasets.",
+      "The 10,000-row gallery is generated sample data. Its read-only HTTP paging option runs on the repository development server and is unavailable on the static production site. Applications supply loadPage/saveCell callbacks, server validation, authorization and durable storage.",
+      "Saved views contain filters and column settings, not row data. Browser storage is optional; edits remain in the controller until the application persists them. Call destroy() before unmounting."
+    ]
   }
 ]

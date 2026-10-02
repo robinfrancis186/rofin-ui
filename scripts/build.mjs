@@ -10,6 +10,7 @@ await build({ ...shared, entryPoints: ['src/effects.css'], outfile: 'dist/effect
 await build({ ...shared, entryPoints: ['src/sections.css'], outfile: 'dist/sections.css' });
 await build({ ...shared, entryPoints: ['src/patterns.css'], outfile: 'dist/patterns.css' });
 await build({ ...shared, entryPoints: ['src/form-patterns.css'], outfile: 'dist/form-patterns.css' });
+await build({ ...shared, entryPoints: ['src/data-grid.css'], outfile: 'dist/data-grid.css' });
 await build({ ...shared, entryPoints: ['src/js/index.js'], outfile: 'dist/rofin.js', format: 'esm' });
 await build({ ...shared, entryPoints: ['src/js/index.js'], outfile: 'dist/rofin.cjs', format: 'cjs' });
 await build({ ...shared, entryPoints: ['src/js/auto.js'], outfile: 'dist/rofin.auto.js', format: 'iife', globalName: 'Rofin' });
@@ -18,9 +19,11 @@ await build({ ...shared, entryPoints: ['src/js/patterns.js'], outfile: 'dist/pat
 await cp('src/js/patterns.d.ts', 'dist/patterns.d.ts');
 await build({ ...shared, entryPoints: ['src/js/form-patterns.js'], outfile: 'dist/form-patterns.js', format: 'esm' });
 await cp('src/js/form-patterns.d.ts', 'dist/form-patterns.d.ts');
+await build({ ...shared, entryPoints: ['src/js/data-grid.js'], outfile: 'dist/data-grid.js', format: 'esm' });
+await cp('src/js/data-grid.d.ts', 'dist/data-grid.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);
