@@ -2,6 +2,7 @@ import { build, transform } from 'esbuild';
 import { mkdir, readFile, writeFile, cp, readdir, rm } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
+import { errorPage } from './error-pages.mjs';
 
 await mkdir('dist', { recursive: true });
 const shared = { bundle: true, minify: true, target: ['es2022'], logLevel: 'warning' };
@@ -64,6 +65,9 @@ await writeFile('docs/catalog.js', `// Generated from catalog.json and the sourc
 const references = JSON.parse(await readFile('docs/reference-catalog.json', 'utf8'));
 await writeFile('docs/references.js', `// Catalog snapshot; related patterns are not feature parity claims.\nexport default ${JSON.stringify(references)};\n`);
 await writeFile('docs/sizes.json', JSON.stringify({ coreGzip, files: sizes }, null, 2) + '\n');
+const recovery = await readFile('examples/recovery.html', 'utf8');
+if (!recovery.includes('<!-- rf:recovery-pages:start -->') || !recovery.includes('<!-- rf:recovery-pages:end -->')) throw Error('Missing recovery template markers.');
+await writeFile('examples/recovery.html', recovery.replace(/<!-- rf:recovery-pages:start -->[\s\S]*?<!-- rf:recovery-pages:end -->/, `<!-- rf:recovery-pages:start -->\n<template id="recovery-pages">\n${catalog.filter(item => item.id.startsWith('error-')).map(item => item.html).join('\n')}\n</template>\n<!-- rf:recovery-pages:end -->`));
 
 // Self-contained static documentation, ready for any static host. No deployment required.
 await rm('dist/site', { recursive: true, force: true });
@@ -78,10 +82,11 @@ for (const name of ['index.html', 'app.js', 'catalog.js']) {
 }
 await cp('src', 'dist/site/src', { recursive: true });
 await cp('examples', 'dist/site/examples', { recursive: true });
-for (const name of ['index.html', 'landing.html', 'dashboard.html', 'team-invite.html']) {
+for (const name of ['index.html', 'landing.html', 'dashboard.html', 'team-invite.html', 'recovery.html', 'recovery.js']) {
   const file = `dist/site/examples/${name}`;
   await writeFile(file, (await readFile(file, 'utf8')).replaceAll('../docs/index.html', '../index.html'));
 }
+for (const [name, kind] of [['404', '404'], ['403', 'permission'], ['offline', 'offline'], ['500', 'server']]) await writeFile(`dist/site/${name}.html`, await errorPage(kind));
 await cp('sections', 'dist/site/sections', { recursive: true });
 await mkdir('dist/site/downloads', { recursive: true });
 for (const name of names) await cp(`dist/${name}`, `dist/site/downloads/${name}`);

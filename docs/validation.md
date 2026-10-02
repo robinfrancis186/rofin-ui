@@ -1,10 +1,51 @@
 # Validation evidence — 2–3 October 2026
 
-Current gallery: 128 runnable entries, including image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 132 runnable entries, including error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Error pages and read recovery
+
+Four original `sections/error-*.html` examples compose the existing empty-state,
+button and layout components. The documentation uses the shared 404 section for
+unknown routes instead of silently displaying its homepage. The static build
+emits `404.html`, `403.html`, `offline.html` and `500.html`. The local server keeps
+real status codes and HEAD behavior, distinguishes missing/denied/unexpected
+filesystem failures, and preserves the existing missing-upload endpoint contract.
+
+The composed `examples/recovery.html` uses native templates generated from those
+same sections. It reads an actual JSON asset, hides stale content, validates
+bounded text and exact progress values, and keeps an unsent native note in place.
+Retry performs only a GET. Cancellation, selection changes, pagehide and the
+real eight-second timeout abort requests; late completion cannot update a newer
+view. The error/result heading gets focus after explicit reads while an active
+note retains focus. No documentation-data import, runtime dependency, automatic
+reconnection retry, note submission or service worker is required.
+
+All eight focused recovery checks pass locally in Chromium, Firefox and macOS
+WebKit. They cover actual missing resources, explicit read-only 403/500 localhost
+fixtures, genuine filesystem-denial/server-failure responses, offline browser
+requests and manual reconnection retry, validated text rendering, exact values,
+cancellation, late results, timeout, lifecycle cleanup, native links and scripts-off
+fallbacks. Both themes fit 320/390/1440 pixels and exposed recovery states pass
+automated WCAG checks. A shared native-select overflow fix clips long selected
+labels without losing their full native option/accessibility text; error pages
+use a distinct class from inline field errors.
+
+The full local Chromium run passes all 122 tests and the 252-file package check.
+The package contains the native templates and original snapshot asset; it still
+has zero runtime/peer dependencies. Core CSS plus auto JavaScript remains about
+8.1 KiB gzip, below the enforced 14 KiB budget.
+
+Installed Safari also passed native chooser/keyboard, failed-read/retry, focus,
+exact snapshot and draft-preservation smoke checks. Its owned test tab was closed
+and its original Start Page restored. This is partial Safari evidence, not a full
+Safari, screen-reader or physical-touch run. The browser-connection test is an
+already-loaded page; first-visit offline still needs application caching.
+Permission fixtures do not create accounts; server authorization, durable notes
+and production services remain outstanding.
 
 ## Image, document and media viewers
 

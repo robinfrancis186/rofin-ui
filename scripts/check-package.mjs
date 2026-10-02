@@ -10,6 +10,8 @@ const report = JSON.parse(execFileSync('npm', ['pack', '--dry-run', '--json', '-
 const packed = new Set(report.files.map(file => file.path));
 for (const path of ['dist/rofin.css', 'dist/rofin.js', 'dist/rofin.cjs', 'dist/rofin.auto.js', 'dist/effects.css', 'dist/effects.js', 'dist/sections.css', 'dist/patterns.css', 'dist/patterns.js', 'dist/patterns.d.ts', 'dist/form-patterns.css', 'dist/form-patterns.js', 'dist/form-patterns.d.ts', 'dist/index.d.ts', 'LICENSE', 'README.md']) assert(packed.has(path), `Missing ${path}`);
 for (const file of report.files) assert(!/^(docs|tests|scripts|node_modules)\//.test(file.path), `Development-only file packed: ${file.path}`);
+for (const path of ['examples/recovery.html', 'examples/recovery.js', 'examples/assets/project-snapshot.json', 'sections/error-404.html', 'sections/error-permission.html', 'sections/error-offline.html', 'sections/error-server.html']) assert(packed.has(path), `Missing recovery example file: ${path}`);
+assert(!(await readFile('examples/recovery.js', 'utf8')).includes('docs/catalog'), 'Recovery does not depend on unpublished documentation');
 for (const [key, value] of Object.entries(pkg.exports)) {
   const paths = typeof value === 'string' ? [value] : Object.values(value);
   for (const path of paths) if (!path.includes('*')) { await access(path); assert(packed.has(path.slice(2)), `Export ${key} points outside package: ${path}`); }

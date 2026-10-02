@@ -7,7 +7,7 @@ runtime dependencies, no required framework, and no required build step for
 using the source files.
 
 The library includes **85 component examples**, **20 optional effects**,
-**23 copyable sections**, a searchable documentation gallery, and composed
+**27 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
 > Pre-1.0: APIs and styles may change. The npm package has not been published
@@ -515,3 +515,26 @@ first: teardown restores the original details/download fallback, not subsequent
 session data. The dashboard retains separate browser files/Trash for each public
 workspace during the page session. Reload restores samples. These examples do
 not supply durable storage, multi-user authorization or operating-system writes.
+
+## Error pages and read recovery
+
+Copy `sections/error-404.html`, `error-permission.html`, `error-offline.html` or
+`error-server.html` with the core stylesheet. They compose the same empty-state,
+button and layout components used by the documentation and HTTP error pages.
+Native links work without JavaScript; supply your own account/team destinations.
+
+Open `examples/recovery.html` for actual JSON loading, cancellation and read-only
+retry. It hides stale content on failure, preserves an unsent native note and
+focuses the result heading. Requests time out after eight seconds; cancelled or
+superseded requests cannot commit late results. Missing files return real 404s.
+Two explicit localhost fixtures return 403/500; they are disabled on production
+and do not represent an authenticated account. `navigator.onLine` is only a
+hint: other network failures use the general retry page. Reconnection never
+automatically repeats a request or sends the note.
+
+The static build emits `404.html`, `403.html`, `offline.html` and `500.html`; the
+deployed site's missing routes use its custom 404. Configure other hosts using
+their status-page conventions. Permissions still need server enforcement,
+first-visit offline needs an application cache, and notes remain only while the
+page is open. Before retrying a failed save or payment, reconcile its server
+state so it is not duplicated.

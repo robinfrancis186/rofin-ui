@@ -2316,5 +2316,78 @@
       "With initViewers(root), starting one sample player pauses the other, decoder failures expose feedback, and teardown pauses media. With scripts disabled, native playback and downloadable files still work.",
       "Copy the original local assets and replace the descriptions/captions when supplying your own media. No remote media service, autoplay, analytics or runtime dependency is required."
     ]
+  },
+  {
+    "id": "error-404",
+    "title": "404 page",
+    "category": "Sections",
+    "description": "A useful next step when a page or resource cannot be found.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-404.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-permission",
+    "title": "Permission page",
+    "category": "Sections",
+    "description": "Clear access guidance with a real team destination and a read-only retry.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-permission.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-offline",
+    "title": "Offline page",
+    "category": "Sections",
+    "description": "Keep an unsent draft in place while a resource reconnects.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-offline.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-server",
+    "title": "Server-error page",
+    "category": "Sections",
+    "description": "A calm recovery page with a safe read-request retry.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-server.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
   }
+
 ]
