@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **82 component examples**, **20 optional effects**,
+The library includes **85 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -72,7 +72,7 @@ reinitialization.
 | Foundations | Button, card, layout, navigation, avatar, badge |
 | Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, rich-text/Markdown editors, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
-| Feedback and content | Toast, alert, table, file browser/tree, progress, meter, spinner, skeleton, empty state |
+| Feedback and content | Toast, alert, table, file browser/tree, image lightbox, document/local-file viewer, native media player, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
 | Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
@@ -332,6 +332,40 @@ saving updates the reset default, switching clears unfinished notes, and reload
 restores samples. The module sends no requests. Applications handle submit,
 authorization, durable storage and server validation. After npm publication,
 optional imports are `rofin-ui/editors` and `rofin-ui/editors.css`.
+
+## Optional image, document and media viewers
+
+Include `src/viewers.css` alongside the core styles and copy the labelled markup
+from `examples/components/image-lightbox.html`, `document-viewer.html` or
+`media-player.html`. Copy their `examples/assets` files and adjust relative URLs.
+
+```js
+import { initViewers, createFileViewer } from './src/js/viewers.js';
+const stop = initViewers(document.querySelector('#resources'));
+const preview = createFileViewer(document.querySelector('[data-rf-file-viewer]'));
+// await preview.open(file); // An actual File, such as a selected browser copy.
+// stop(); // Before removing the root; closes previews and pauses media.
+```
+
+The image lightbox enhances native image links with a native dialog, captions,
+bounded Previous/Next and arrow/Home/End navigation. Escape returns focus to its
+opening link. Links remain usable without scripts; large images load on open.
+`rf:lightbox-change` supplies the zero-based index and resolved original URL.
+
+The document example includes an original two-page PDF, its complete HTML text
+alternative and a real download. Embedded PDF controls depend on the browser.
+The optional chooser previews explicit local raster images, PDF, plain text,
+audio and video of at most 8 MB; text previews show at most 64 KB while downloads
+keep every byte. HTML/SVG and unsupported formats are rejected. Close and teardown
+release owned blob URLs. The viewer does not upload files or write to disk.
+
+Original three-second MP4/WebM video and WAV audio use native controls, caption
+and text alternatives, with downloads if playback is unavailable. No autoplay;
+starting one sample player pauses the other. Local user files need their own
+captions/transcripts. The dashboard reuses these examples and previews actual
+selected workspace File objects, including after import or rename. Workspace
+switching closes previews and stops playback. After npm publication, optional
+imports will be `rofin-ui/viewers` and `rofin-ui/viewers.css`.
 
 ## Themes
 

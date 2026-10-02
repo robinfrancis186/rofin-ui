@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" data-rf-theme="light">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"><link rel="stylesheet" href="../src/patterns.css"><link rel="stylesheet" href="../src/form-patterns.css"><link rel="stylesheet" href="../src/account-menu.css"><link rel="stylesheet" href="../src/team-management.css"><link rel="stylesheet" href="../src/editors.css"><link rel="stylesheet" href="../src/file-browser.css"><style>body{margin:0} .dashboard-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem} .dashboard-heading h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.045em;margin:.5rem 0} .dashboard-charts{--rf-column:22rem} .rf-app-main{--rf-gap:1.75rem} .dashboard-range{padding:.875rem 1rem} .dashboard-range .rf-input{min-inline-size:0} .dashboard-range .rf-field{flex:1 1 10rem} .dashboard-range fieldset{border:0;padding:0;margin:0;min-inline-size:0} .dashboard-range legend{font-size:.75rem;color:var(--rf-muted);margin-bottom:.5rem} .dashboard-support{--rf-column:22rem} .dashboard-footer{padding-inline:1.5rem} .dashboard-chart-label{margin:0}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dashboard — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"><link rel="stylesheet" href="../src/patterns.css"><link rel="stylesheet" href="../src/form-patterns.css"><link rel="stylesheet" href="../src/account-menu.css"><link rel="stylesheet" href="../src/team-management.css"><link rel="stylesheet" href="../src/editors.css"><link rel="stylesheet" href="../src/file-browser.css"><link rel="stylesheet" href="../src/viewers.css"><style>body{margin:0} .dashboard-heading{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem} .dashboard-heading h1{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.045em;margin:.5rem 0} .dashboard-charts{--rf-column:22rem} .rf-app-main{--rf-gap:1.75rem} .dashboard-range{padding:.875rem 1rem} .dashboard-range .rf-input{min-inline-size:0} .dashboard-range .rf-field{flex:1 1 10rem} .dashboard-range fieldset{border:0;padding:0;margin:0;min-inline-size:0} .dashboard-range legend{font-size:.75rem;color:var(--rf-muted);margin-bottom:.5rem} .dashboard-support{--rf-column:22rem} .dashboard-footer{padding-inline:1.5rem} .dashboard-chart-label{margin:0}</style></head>
 <body class="rf-scope"><noscript><p class="rf-alert" data-variant="info">The static Studio sample remains readable. Interactive workspace switching and account panels require the dashboard application script.</p></noscript><a class="rf-skip-link" href="#main">Skip to content</a>
 <div class="rf-app-frame"><div class="rf-app-shell">
   <details class="rf-app-sidebar" open><summary><span data-workspace-name>Studio</span> workspace</summary><div class="rf-workspace-switcher" data-rf-dropdown data-demo-navigation>
@@ -158,6 +158,53 @@
   </div>
 </section>
 </div></section>
+
+<section class="rf-stack" id="shared-references"><div><h2>Shared reference shelf.</h2><p class="rf-muted">Original sample images, media and the project brief are shared across the three public workspaces.</p></div><button class="rf-button rf-button--outline" type="button" data-preview-selected-file disabled>Preview selected file</button>
+<section class="rf-card rf-stack rf-document" data-rf-file-viewer data-demo-navigation>
+  <div><h3>A small project, thoughtfully made.</h3><p class="rf-muted">A two-page project brief, with a readable text alternative and a PDF download.</p></div>
+  <details><summary>Read the project brief as text</summary><div class="rf-stack">
+    <h4>Make room for a good idea.</h4><p><strong>The idea:</strong> Build a useful workspace from small, reusable pieces.</p><p><strong>The people:</strong> Make it readable, keyboard friendly and comfortable on a phone.</p><p><strong>The shape:</strong> Start with a clear task, a short form and helpful feedback.</p>
+    <h4>Give the details a little care.</h4><p><strong>Before sharing:</strong> Check navigation, forms, errors and actual file downloads.</p><p><strong>When it moves:</strong> Let people choose when media plays. Keep text alternatives.</p><p><strong>What stays:</strong> A product supplies its own accounts, services and durable data.</p>
+  </div></details>
+  <details><summary>View the PDF in this browser</summary><object data="./assets/project-brief.pdf" type="application/pdf" aria-label="Two-page project brief"><p>Your browser may not embed PDFs. Download the brief below or read its text alternative above.</p></object></details>
+  <div class="rf-cluster"><a class="rf-button rf-button--outline" href="./assets/project-brief.pdf" download="project-brief.pdf">Download project brief (PDF)</a><a href="./assets/project-brief.pdf" target="_blank" rel="noopener noreferrer">Open PDF in a new tab</a></div>
+  <label class="rf-field" data-rf-file-viewer-field hidden><span class="rf-label">Preview your own file</span><input type="file" accept="image/png,image/jpeg,image/gif,image/webp,image/avif,application/pdf,text/plain,audio/wav,audio/x-wav,audio/mpeg,audio/ogg,video/mp4,video/webm,video/ogg,.txt,.pdf,.wav" data-rf-file-viewer-input></label>
+  <p class="rf-help">Local previews stay in this browser. Choose a supported image, PDF, plain text, audio or video file up to 8 MB. Original files stay intact.</p>
+  <p class="rf-error" role="alert" data-rf-file-viewer-error hidden></p>
+  <dialog class="rf-dialog rf-viewer-dialog rf-stack" aria-label="Local file preview" data-rf-file-viewer-dialog>
+    <div class="rf-viewer-head"><h4 data-rf-file-viewer-title>File preview</h4><button class="rf-button rf-button--outline" type="button" data-rf-viewer-close>Close file preview</button></div>
+    <div class="rf-file-preview" data-rf-file-viewer-body></div><p class="rf-help" role="status" data-rf-file-viewer-status></p>
+    <a class="rf-button rf-button--outline" data-rf-file-viewer-download>Download opened file</a>
+  </dialog>
+</section>
+
+<section class="rf-stack" data-rf-lightbox data-demo-navigation>
+  <div><h3>Three ways to see a new idea.</h3><p class="rf-muted">Open an image, then use Left/Right or Previous/Next to explore. Without scripts, each link opens the original.</p></div>
+  <div class="rf-lightbox-grid">
+    <a class="rf-lightbox-link" href="./assets/dawn.svg" data-rf-lightbox-item><figure><img src="./assets/dawn.svg" width="960" height="540" alt="A warm sun rises behind green hills beside a quiet window."><figcaption>A little room for the morning.</figcaption></figure></a>
+    <a class="rf-lightbox-link" href="./assets/orbit.svg" data-rf-lightbox-item><figure><img src="./assets/orbit.svg" width="960" height="540" alt="A lavender planet, pale orbit and golden moon against a dark sky."><figcaption>A wider world of possibility.</figcaption></figure></a>
+    <a class="rf-lightbox-link" href="./assets/studio.svg" data-rf-lightbox-item><figure><img src="./assets/studio.svg" width="960" height="540" alt="A calm workspace arranged in green, lavender and sand-colored panels."><figcaption>A few useful pieces, together.</figcaption></figure></a>
+  </div>
+  <p class="rf-error" role="alert" data-rf-lightbox-error hidden></p>
+  <dialog class="rf-dialog rf-viewer-dialog rf-stack" aria-label="Project image viewer" data-rf-lightbox-dialog>
+    <div class="rf-viewer-head"><h3>Another perspective.</h3><button class="rf-button rf-button--outline" type="button" data-rf-viewer-close>Close image viewer</button></div>
+    <div class="rf-lightbox-stage" data-rf-lightbox-stage></div>
+    <p data-rf-lightbox-caption></p><p class="rf-help" role="status" data-rf-lightbox-status></p>
+    <div class="rf-viewer-actions"><button class="rf-button rf-button--outline" type="button" data-rf-lightbox-prev>Previous image</button><a class="rf-button rf-button--outline" data-rf-lightbox-original target="_blank" rel="noopener noreferrer">Open original image</a><button class="rf-button rf-button--outline" type="button" data-rf-lightbox-next>Next image</button></div>
+  </dialog>
+</section>
+
+<section class="rf-card rf-stack rf-media-player" data-rf-media data-demo-navigation>
+  <div><h3>A little momentum.</h3><p class="rf-muted">A three-second original animation and three quiet notes. Playback starts when you choose it.</p></div>
+  <figure><video controls playsinline preload="none" width="640" height="360" aria-label="Small momentum animation"><source src="./assets/small-momentum.webm" type="video/webm"><source src="./assets/small-momentum.mp4" type="video/mp4"><track src="./assets/small-momentum.vtt" kind="captions" srclang="en" label="English descriptions" default><p>Use the video download below if playback is unavailable.</p></video><figcaption>A golden dot visits three cards as a lavender progress bar fills. Three soft notes accompany it; there is no speech.</figcaption></figure>
+  <details><summary>Read the video text alternative</summary><p>Over three seconds, a golden dot travels from left to right across three dark cards, gently rising and falling. A lavender bar fills beneath them. Three soft musical notes sound in sequence. No information is conveyed only through speech.</p></details>
+  <div class="rf-cluster"><a href="./assets/small-momentum.mp4" download="small-momentum.mp4">Download MP4 video</a><a href="./assets/small-momentum.webm" download="small-momentum.webm">Download WebM video</a><a href="./assets/small-momentum.vtt" download="small-momentum.vtt">Download video captions</a></div>
+  <figure><audio controls preload="none" aria-label="Three quiet notes"><source src="./assets/three-notes.wav" type="audio/wav"><p>Use the audio download below if playback is unavailable.</p></audio><figcaption>Three quiet notes, played one after another, fading gently. There is no speech.</figcaption></figure>
+  <details><summary>Read the audio text alternative</summary><p>A C note sounds at 0.2 seconds, an E at 1 second and a G at 1.8 seconds. Each fades gently. The clip lasts three seconds and contains no speech.</p></details>
+  <a href="./assets/three-notes.wav" download="three-notes.wav">Download WAV audio</a><p class="rf-help" role="status" data-rf-media-status></p>
+</section>
+
+</section>
     <div data-workspace-notes-host>
 <section class="rf-card rf-stack rf-editor" data-rf-markdown-editor data-demo-navigation id="workspace-notes">
   <div><h3>Notes for your next chapter.</h3><p class="rf-muted">Save a useful thought for this workspace. Notes last for this page session.</p></div>

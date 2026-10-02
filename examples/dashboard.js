@@ -5,6 +5,7 @@ import { createTeamManager, applyTeamChange } from '../src/js/team-management.js
 import { sampleTeam } from './team-demo.js';
 import { initEditors } from '../src/js/editors.js';
 import { createFileBrowser } from '../src/js/file-browser.js';
+import { initViewers, createFileViewer } from '../src/js/viewers.js';
 
 init();
 const projects = document.querySelector('#projects');
@@ -32,10 +33,15 @@ for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, worksp
 for (const [id, workspace] of workspaces) workspace.notes = ({ studio: '### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful', personal: '### A little room of your own\n\nKeep a thought worth coming back to.', lab: '### An experiment worth trying\n\n- [ ] Test the next prototype' })[id];
 for (const [id, name, contents] of [['personal', 'Reading list.txt', 'A few good pages.\n'], ['lab', 'Experiment.txt', 'Try a new perspective.\n']]) workspaces.get(id).files = [{ id: `${id}-file`, parentId: null, kind: 'file', name, file: new File([contents], name, { type: 'text/plain' }) }];
 const filesHost = document.querySelector('[data-workspace-files-host]'), filesTemplate = filesHost.firstElementChild.cloneNode(true);
-let fileBrowser;
+let fileBrowser, fileViewer, selectedFile = null, stopViewers = () => {};
+const previewFile = document.querySelector('[data-preview-selected-file]');
+previewFile.addEventListener('click', () => { if (selectedFile) fileViewer.open(selectedFile); });
+function renderViewers() { stopViewers(); stopViewers = initViewers(document); fileViewer = createFileViewer(document.querySelector('[data-rf-file-viewer]')); }
 function renderFiles() {
+  selectedFile = null; previewFile.disabled = true;
   fileBrowser?.destroy(); const workspace = workspaces.get(activeWorkspace), browser = filesTemplate.cloneNode(true);
   filesHost.replaceChildren(browser);
+  browser.addEventListener('rf:file-select', event => { selectedFile = event.detail.entry?.file || null; previewFile.disabled = !selectedFile; });
   fileBrowser = createFileBrowser(browser, { entries: workspace.files, onChange: entries => { workspace.files = entries; } });
   workspace.files = fileBrowser.getEntries();
 }
@@ -117,7 +123,7 @@ function renderWorkspaceData() {
   const percent = Math.round(workspace.completed / workspace.total * 1000) / 10, remaining = Math.round((100 - percent) * 10) / 10;
   document.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${remaining}`); document.querySelector('.rf-chart__ring text').textContent = `${percent}%`;
   document.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => { value.textContent = [`${workspace.completed} tasks · ${percent}%`, `${workspace.total - workspace.completed} tasks · ${remaining}%`, `${workspace.total} tasks`][index]; });
-  renderTeamMembers(); renderNotes(); renderFiles();
+  renderTeamMembers(); renderNotes(); renderFiles(); renderViewers();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
     const item = document.createElement('li'), time = document.createElement('time'), text = document.createElement('p'), heading = document.createElement('strong'), note = document.createElement('span');
@@ -159,6 +165,7 @@ function switchWorkspace(id, navigate = false) {
 renderBoard();
 renderNotes();
 renderFiles();
+renderViewers();
 initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
   const row = selectedRows([event.detail.value])[0];

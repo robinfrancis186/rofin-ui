@@ -1,0 +1,19 @@
+@layer rf.components {
+  .rf-lightbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem; }
+  .rf-lightbox-link { display: block; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); overflow: hidden; text-decoration: none; color: var(--rf-text); }
+  .rf-lightbox-link figure { margin: 0; }
+  .rf-lightbox-link img { display: block; inline-size: 100%; block-size: auto; aspect-ratio: 16/9; object-fit: cover; }
+  .rf-lightbox-link figcaption { padding: .75rem; overflow-wrap: anywhere; }
+  .rf-viewer-dialog { inline-size: min(58rem, calc(100% - 2rem)); }
+  .rf-viewer-head, .rf-viewer-actions { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: .75rem; }
+  .rf-viewer-head h3, .rf-viewer-head h4 { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+  .rf-viewer-dialog .rf-button { min-block-size: 2.75rem; }
+  .rf-lightbox-stage img, .rf-file-preview img { display: block; inline-size: 100%; max-block-size: 55dvh; object-fit: contain; }
+  .rf-file-preview video, .rf-media-player video { display: block; inline-size: 100%; max-block-size: 55dvh; }
+  .rf-file-preview audio, .rf-media-player audio { inline-size: 100%; min-inline-size: 0; }
+  .rf-document input[type="file"] { max-inline-size: 100%; min-inline-size: 0; }
+  .rf-file-preview object, .rf-document object { display: block; inline-size: 100%; block-size: min(32rem, 55dvh); border: 1px solid var(--rf-border); }
+  .rf-file-text { max-block-size: 55dvh; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--rf-mono); }
+  .rf-media-player figure { margin: 0; }
+  .rf-media-player p, .rf-document p { overflow-wrap: anywhere; }
+}

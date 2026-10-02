@@ -1,12 +1,53 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 125 runnable entries, including the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 128 runnable entries, including image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
 
-## File browser and workspace files
+## Image, document and media viewers
+
+Eight focused viewer checks pass in Chromium, Firefox and macOS WebKit. Native
+lightbox controls cover arrow/Home/End bounds, modal focus and Escape, disabled
+roots, missing images, rejected URLs and immediate close/reopen cleanup. The
+local-file viewer decodes an actual valid PNG, renders Unicode text safely,
+previews a PDF and downloads exact original bytes. Unsupported types, malformed
+PDF headers, invalid names and size limits preserve the prior preview. Cancelled
+reads and teardown cannot reopen the viewer; owned blob URLs are revoked.
+Unreadable image bytes show an error while retaining their download.
+
+Native video/audio checks verify actual decoding and advancing playback time,
+seeking, caption cues, exclusive playback, completed exact-byte downloads and
+cleanup/reinitialization. The development server serves correct media types,
+HEAD and single byte ranges, and rejects invalid ranges. Original local SVGs,
+two-page PDF, three-second MP4/WebM and WAV samples require no remote service.
+Both PDF pages were rendered and visually inspected; extracted text matches
+the complete HTML alternative. Asset-generation tools are development-only.
+
+The dashboard uses the same viewers for actual selected File objects after
+import and rename. Workspace switching closes previews, pauses media and clears
+selection while keeping each workspace's browser files separate. Both themes
+fit 320/390/1440 pixels, opened viewers pass automated WCAG checks, reduced-motion
+flows report no page errors and native scripts-off links/downloads remain usable.
+
+A separate native in-app check verified image navigation, Escape/focus and both
+themes at 390 pixels, and played both original media clips through actual native
+controls to completion. Its native file chooser opened the PDF preview dialog,
+but the embedded PDF area remained blank. PDF display is browser-dependent;
+download and complete sample HTML text alternatives remain available. Local user
+media needs application-supplied captions/transcripts. This does not prove full
+native Safari, actual screen-reader or physical touch behavior (V01–V03).
+
+The shared dialog visibility guard keeps closed dialogs hidden when the stack
+layout utility sets display:flex. File-browser mutations now emit the updated
+selection, so dashboard previews immediately use imported/renamed File objects.
+Core CSS plus auto JavaScript is 8,167 bytes gzip locally; optional viewer
+JavaScript and CSS add 3,058 and 598 bytes gzip outside that core. There are zero
+runtime or peer dependencies. The full 114-test Chromium suite and 245-file
+package check pass. Production release checks are pending for this checkpoint.
+
+## File browser and workspace files — previous checkpoint
 
 Eight focused checks pass in Chromium, Firefox and macOS WebKit. The full
 Chromium suite passes all 104 tests and the 227-file package check. These cover

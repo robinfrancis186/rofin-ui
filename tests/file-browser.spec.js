@@ -35,10 +35,13 @@ test('file tree keyboard navigation, selection, search, composition and readonly
 
 test('actual imported bytes survive rename, move, download, folder trash and restoration', async ({ page }) => {
   await page.goto(route); const bytes=Buffer.from([0,1,2,255,254,10,13,65]);
+  await root(page).evaluate(element=>{window.selectedFiles=[];element.addEventListener('rf:file-select',event=>window.selectedFiles.push(event.detail.entry?.file?.name));});
   await root(page).getByLabel('Project files').setInputFiles({name:'Asset.bin',mimeType:'application/octet-stream',buffer:bytes}); await expect(item(page,'Asset.bin')).toHaveAttribute('aria-selected','true');
   const imported=(await entries(page)).find(entry=>entry.name==='Asset.bin');
+  expect(await page.evaluate(()=>window.selectedFiles)).toEqual(['Asset.bin']);
   await action(page,'Rename item').click(); await dialog(page).getByLabel('Item name').fill('Renamed.bin'); await dialog(page).getByRole('button',{name:'Save file change'}).click(); await expect(item(page,'Renamed.bin')).toBeFocused();
   const renamed=(await entries(page)).find(entry=>entry.name==='Renamed.bin'); expect(renamed).toMatchObject({id:imported.id,size:bytes.length,type:imported.type,modified:imported.modified});
+  expect(await page.evaluate(()=>window.selectedFiles)).toEqual(['Asset.bin','Renamed.bin']);
   await create(page,'New folder','Keepsakes'); await expect(item(page,'Keepsakes folder')).toBeFocused(); await create(page,'New text file','Thought.txt','A useful thought.\n日本語');
   await item(page,'Renamed.bin').click(); await action(page,'Move item').click(); await dialog(page).getByLabel('Destination folder').selectOption({label:'Keepsakes'}); await dialog(page).getByRole('button',{name:'Save file change'}).click(); await expect(root(page).locator('[data-rf-file-details]')).toContainText('Keepsakes/Renamed.bin');
   const downloading=page.waitForEvent('download'); await action(page,'Download file').click(); const download=await downloading; expect(download.suggestedFilename()).toBe('Renamed.bin'); expect(await readFile(await download.path())).toEqual(bytes);

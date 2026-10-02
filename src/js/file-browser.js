@@ -123,7 +123,8 @@ export function createFileBrowser(element, { entries: supplied, onChange } = {})
     try {
       await onChange?.(copy(validated), { operation: { ...change }, signal: task.signal });
       if (destroyed || task.signal.aborted || pending !== task || operation && !dialog.open) return false;
-      entries = validated; pending = null; selectedId = focusedId = selection; openParents(selection); search.value = ''; render();
+      entries = validated; pending = null; selectedId = focusedId = entries.some(entry => entry.id === selection && !entry.trashed) ? selection : null; openParents(selectedId); search.value = ''; render();
+      element.dispatchEvent(new CustomEvent('rf:file-select', { bubbles: true, detail: { entry: selected() ? { ...selected() } : null } }));
       announce(change.type === 'trash' ? 'Moved to recoverable Trash. Original disk files stay intact.' : change.type === 'restore' ? 'Restored the files and folders from Trash.' : 'Browser files updated. Save important files with Download file.');
       element.dispatchEvent(new CustomEvent('rf:file-change', { bubbles: true, detail: { operation: { ...change }, entries: snapshot() } })); return true;
     } catch (cause) { if (!destroyed && pending === task && !task.signal.aborted) showError(cause instanceof Error ? cause.message.slice(0, 300) : 'Files were not changed. Try again.'); return false; }

@@ -33,9 +33,12 @@ await cp('src/js/editors.d.ts', 'dist/editors.d.ts');
 await build({ ...shared, entryPoints: ['src/file-browser.css'], outfile: 'dist/file-browser.css' });
 await build({ ...shared, entryPoints: ['src/js/file-browser.js'], outfile: 'dist/file-browser.js', format: 'esm' });
 await cp('src/js/file-browser.d.ts', 'dist/file-browser.d.ts');
+await build({ ...shared, entryPoints: ['src/viewers.css'], outfile: 'dist/viewers.css' });
+await build({ ...shared, entryPoints: ['src/js/viewers.js'], outfile: 'dist/viewers.js', format: 'esm' });
+await cp('src/js/viewers.d.ts', 'dist/viewers.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js', 'viewers.css', 'viewers.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);

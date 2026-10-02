@@ -55,7 +55,9 @@
     },
     "./editors.css": "./dist/editors.css",
     "./file-browser": { "types": "./dist/file-browser.d.ts", "import": "./dist/file-browser.js" },
-    "./file-browser.css": "./dist/file-browser.css"
+    "./file-browser.css": "./dist/file-browser.css",
+    "./viewers": { "types": "./dist/viewers.d.ts", "import": "./dist/viewers.js" },
+    "./viewers.css": "./dist/viewers.css"
   },
   "files": [
     "dist/*.css",

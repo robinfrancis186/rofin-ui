@@ -44,7 +44,7 @@
     "notes": [
       "Always associate a visible label with the input.",
       "Set aria-invalid=\"true\" and aria-describedby to your error text when validation fails.",
-      "Validation and submission remain your application’s responsibility."
+      "Validation and submission remain your application\u2019s responsibility."
     ]
   },
   {
@@ -102,7 +102,7 @@
     "file": "examples/components/radio.html",
     "notes": [
       "Use the same name on the radio inputs.",
-      "A fieldset and legend communicate the group’s purpose."
+      "A fieldset and legend communicate the group\u2019s purpose."
     ]
   },
   {
@@ -166,7 +166,7 @@
       "Left/Right, Home, and End move between tabs. Vertical tablists use Up/Down.",
       "Set data-rf-activation=\"manual\" to activate only on Enter, Space, or click.",
       "Use equal numbers of tabs and panels. aria-controls can map them explicitly.",
-      "Without JS, all panels remain visible. After changing a tabset’s internal structure, destroy and initialize that root again."
+      "Without JS, all panels remain visible. After changing a tabset\u2019s internal structure, destroy and initialize that root again."
     ]
   },
   {
@@ -281,7 +281,7 @@
     "js": [],
     "file": "examples/components/badge.html",
     "notes": [
-      "Always communicate status with text; color alone isn’t enough."
+      "Always communicate status with text; color alone isn\u2019t enough."
     ]
   },
   {
@@ -325,7 +325,7 @@
     "js": [],
     "file": "examples/components/breadcrumb.html",
     "notes": [
-      "Replace the example fragment links with your application’s real URLs.",
+      "Replace the example fragment links with your application\u2019s real URLs.",
       "aria-current=\"page\" marks the current location."
     ]
   },
@@ -587,7 +587,7 @@
     "file": "examples/components/bar-chart.html",
     "notes": [
       "The decorative bars are hidden from assistive technology; a labelled native details disclosure contains the exact data table.",
-      "Set --rf-bar to value / maximum × 100%; keep the chart and table in sync. This static example has a zero baseline."
+      "Set --rf-bar to value / maximum \u00d7 100%; keep the chart and table in sync. This static example has a zero baseline."
     ]
   },
   {
@@ -644,7 +644,7 @@
     "file": "examples/components/paginated-table.html",
     "notes": [
       "Local pagination uses the initial tbody rows; filtering and sorting reset to page one.",
-      "data-rf-table-filter=\"status\" matches each row’s data-rf-status exactly; other attribute keys work the same way.",
+      "data-rf-table-filter=\"status\" matches each row\u2019s data-rf-status exactly; other attribute keys work the same way.",
       "Search, filters, and row selection use native inputs. Reset returns form fields and page to their defaults; sorting stays as chosen.",
       "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
     ]
@@ -1051,7 +1051,7 @@
     "js": [],
     "file": "sections/hero.html",
     "notes": [
-      "Replace placeholder copy and links with your product’s real content.",
+      "Replace placeholder copy and links with your product\u2019s real content.",
       "Include the core stylesheet and the optional sections stylesheet."
     ]
   },
@@ -1166,7 +1166,7 @@
     "js": [],
     "file": "sections/cta.html",
     "notes": [
-      "Connect the link to your product’s actual signup or contact destination."
+      "Connect the link to your product\u2019s actual signup or contact destination."
     ]
   },
   {
@@ -2235,6 +2235,86 @@
       "createFileBrowser(root, { entries, onChange }) accepts actual File objects. onChange receives copied next entries, an operation and an AbortSignal before a change commits; rejection keeps the current entries and dialog draft. Cancel or teardown aborts pending callbacks and ignores late completion. Your server owns validation, authorization and durable storage; this module sends no requests.",
       "getEntries() includes recoverable Trash and actual Files; retain it before destroy() or unmounting. rf:file-change emits copied entries and the operation; rf:file-select emits the selected entry. data-rf-readonly blocks mutations, aria-disabled blocks all actions. Initialize once; teardown restores the original readable details/download fallback, not later session data.",
       "The composed dashboard uses this exact component with separate page-session files for each public workspace. Reload restores samples. The scripts-off sample keeps native expandable folders and plain-text downloads; custom application data requires supplied File entries."
+    ]
+  },
+  {
+    "id": "image-lightbox",
+    "title": "Image lightbox",
+    "category": "Components",
+    "description": "Open a full image, explore its neighbors and return to where you started.",
+    "css": [
+      "button",
+      "dialog",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/image-lightbox.html",
+    "assets": [
+      "examples/assets/dawn.svg",
+      "examples/assets/orbit.svg",
+      "examples/assets/studio.svg"
+    ],
+    "notes": [
+      "Native image links remain useful without scripts. The optional lightbox uses a labelled native dialog, Left/Right, Home/End, Previous/Next and Escape; focus returns to the opening link. Navigation stops at the first/last image and never autoplays.",
+      "Use 1\u2013100 links with meaningful image alt text and captions. Normal opens accept HTTP/HTTPS URLs without credentials or control characters; explicit image opens load the original. Failed images show an original-file link and useful feedback. Modified clicks retain native link behavior.",
+      "Call initViewers(root) once and its returned cleanup before unmounting. createLightbox(root) reuses an existing instance; destroy closes and clears the viewer. aria-disabled on the root blocks new opens/navigation. rf:lightbox-change exposes the zero-based index and URL.",
+      "Copy the original sample assets and adjust their relative paths for your application. These simple SVG illustrations are original Rofin assets under MIT, with no external image service."
+    ]
+  },
+  {
+    "id": "document-viewer",
+    "title": "Document viewer",
+    "category": "Components",
+    "description": "Read a project brief, download the PDF or preview a local file.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/document-viewer.html",
+    "assets": [
+      "examples/assets/project-brief.pdf"
+    ],
+    "notes": [
+      "The native PDF object uses the browser\u2019s own reader where available. Page/zoom controls and plugin support vary; a PDF download and complete HTML text alternative stay available without scripts. This is not a PDF rendering/editor engine.",
+      "The optional local-file chooser previews supported raster images, PDF, plain text and native audio/video in a dialog. File bytes never leave the browser. Active HTML/SVG documents are rejected, PDF headers are checked, names are bounded and files are limited to 8 MB. Actual decoding still belongs to the browser.",
+      "createFileViewer(root).open(file) accepts an actual File and returns a promise resolving to whether it opened. Plain text is rendered through textContent, with a 64 KB preview limit; Download preserves the complete original bytes. Declared supported formats that fail decoding retain the download.",
+      "Close/Escape and destroy pause media, release blob URLs and discard stale reads. Reinitialization restores the chooser. The local-media preview has no supplied captions/transcript; applications provide their content alternatives, as the separate media example demonstrates.",
+      "The dashboard uses the same viewer for its selected browser-copy files. Workspace changes close previews, pause sample media and clear the selected file. Sample documents/images/media are shared references, not workspace data or authorized storage."
+    ]
+  },
+  {
+    "id": "media-player",
+    "title": "Media player",
+    "category": "Components",
+    "description": "Native video and audio controls, captions, text alternatives and real downloads.",
+    "css": [
+      "card",
+      "button",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/media-player.html",
+    "assets": [
+      "examples/assets/small-momentum.mp4",
+      "examples/assets/small-momentum.webm",
+      "examples/assets/small-momentum.vtt",
+      "examples/assets/three-notes.wav"
+    ],
+    "notes": [
+      "Playback uses native audio/video controls and starts only when the person chooses it. The original three-second clip offers MP4 and WebM sources; codec support varies, and download/text alternatives remain available.",
+      "The video has a native WebVTT description track and a visible description. The audio has a complete text alternative. Caption control labels, seeking and fullscreen behavior are owned by the browser; no custom fake playback timer is used.",
+      "With initViewers(root), starting one sample player pauses the other, decoder failures expose feedback, and teardown pauses media. With scripts disabled, native playback and downloadable files still work.",
+      "Copy the original local assets and replace the descriptions/captions when supplying your own media. No remote media service, autoplay, analytics or runtime dependency is required."
     ]
   }
 ]
