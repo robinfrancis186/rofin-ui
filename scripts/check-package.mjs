@@ -8,7 +8,7 @@ assert.equal(Object.keys(pkg.dependencies || {}).length, 0, 'No runtime dependen
 assert.equal(Object.keys(pkg.peerDependencies || {}).length, 0, 'No peer dependencies');
 const report = JSON.parse(execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { encoding: 'utf8' }))[0];
 const packed = new Set(report.files.map(file => file.path));
-for (const path of ['dist/rofin.css', 'dist/rofin.js', 'dist/rofin.cjs', 'dist/rofin.auto.js', 'dist/effects.css', 'dist/effects.js', 'dist/sections.css', 'dist/patterns.css', 'dist/patterns.js', 'dist/patterns.d.ts', 'dist/index.d.ts', 'LICENSE', 'README.md']) assert(packed.has(path), `Missing ${path}`);
+for (const path of ['dist/rofin.css', 'dist/rofin.js', 'dist/rofin.cjs', 'dist/rofin.auto.js', 'dist/effects.css', 'dist/effects.js', 'dist/sections.css', 'dist/patterns.css', 'dist/patterns.js', 'dist/patterns.d.ts', 'dist/form-patterns.css', 'dist/form-patterns.js', 'dist/form-patterns.d.ts', 'dist/index.d.ts', 'LICENSE', 'README.md']) assert(packed.has(path), `Missing ${path}`);
 for (const file of report.files) assert(!/^(docs|tests|scripts|node_modules)\//.test(file.path), `Development-only file packed: ${file.path}`);
 for (const [key, value] of Object.entries(pkg.exports)) {
   const paths = typeof value === 'string' ? [value] : Object.values(value);
@@ -16,6 +16,7 @@ for (const [key, value] of Object.entries(pkg.exports)) {
 }
 const esm = await import('../dist/rofin.js');
 assert.equal(typeof (await import('../dist/patterns.js')).initPatterns, 'function', 'Optional patterns import is safe without a DOM');
+assert.equal(typeof (await import('../dist/form-patterns.js')).initFormPatterns, 'function', 'Optional forms import is safe without a DOM');
 const cjs = createRequire(import.meta.url)('../dist/rofin.cjs');
 for (const name of ['init', 'initTabs', 'initDialogs', 'initDropdowns', 'initTooltips', 'initUploads', 'toast', 'clearToasts']) {
   assert.equal(typeof esm[name], 'function', `ESM export ${name}`);

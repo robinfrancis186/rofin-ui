@@ -1845,5 +1845,168 @@
     "notes": [
       "A visual diagram only. It makes no network connections or claims about integration availability."
     ]
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "category": "Components",
+    "description": "Search a fixed set of choices with a labelled, keyboard-friendly combobox.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/combobox.html",
+    "notes": [
+      "The native select supplies form values and remains usable without JavaScript.",
+      "Arrow keys skip disabled choices; Enter commits and Escape restores the previous choice.",
+      "Exact typed labels are accepted. Other text is invalid. Reinitialize when changing the option structure."
+    ]
+  },
+  {
+    "id": "autocomplete",
+    "title": "Autocomplete",
+    "category": "Components",
+    "description": "Native suggestions with room to enter a topic of your own.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/autocomplete.html",
+    "notes": [
+      "Uses input with datalist, without JavaScript. Browser suggestion appearance and assistive-technology support vary.",
+      "Suggestions are optional; free text remains valid. Use Combobox when selection must match a fixed option."
+    ]
+  },
+  {
+    "id": "multiselect",
+    "title": "Multiselect",
+    "category": "Components",
+    "description": "Search choices, select several, and remove them with accessible chips.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/multiselect.html",
+    "notes": [
+      "The native multiple select owns repeated form values. Checkbox and search controls have no duplicate names.",
+      "Clear preserves disabled selections. Required fields need at least one selection.",
+      "Reinitialize when changing the option structure. Without JavaScript, use the native multiple select."
+    ]
+  },
+  {
+    "id": "form-error-summary",
+    "title": "Form error summary",
+    "category": "Components",
+    "description": "A focused summary links each native validation error to its field.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/form-error-summary.html",
+    "notes": [
+      "Enhanced forms show a linked summary and inline native validation messages.",
+      "Original aria-describedby and aria-invalid values are restored on correction, reset, and teardown.",
+      "Honor defaultPrevented in submission handlers. Server validation is still required."
+    ]
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "category": "Components",
+    "description": "Navigate a month with arrow keys and keep a native date field in sync.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/calendar.html",
+    "notes": [
+      "Arrows move by day/week, Home/End within the week, Page Up/Down by month. Enter or Space selects.",
+      "Uses local calendar dates without UTC conversion. Native min/max bounds disable unavailable days.",
+      "The date input remains usable without JavaScript. Calendar labels follow data-rf-locale; weekday order starts Monday."
+    ]
+  },
+  {
+    "id": "time-picker",
+    "title": "Time picker",
+    "category": "Components",
+    "description": "A native time control with working-hour bounds and quarter-hour steps.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/time-picker.html",
+    "notes": [
+      "Uses native type=time, min/max and step. Appearance follows the browser and operating system.",
+      "Times do not contain a time zone. The application supplies the workspace zone and resolves daylight-saving ambiguity."
+    ]
+  },
+  {
+    "id": "date-range-presets",
+    "title": "Date-range presets",
+    "category": "Components",
+    "description": "Choose an inclusive reporting period using practical date shortcuts.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "patterns",
+      "form-patterns"
+    ],
+    "file": "examples/components/date-range-presets.html",
+    "notes": [
+      "Last 7 days includes today. Previous month handles month and year boundaries.",
+      "Remove data-rf-today to use the current local date; this example fixes it for predictable sample data.",
+      "Shortcuts outside native min/max bounds preserve the prior range and announce the restriction. Reset restores native values."
+    ]
+  },
+  {
+    "id": "event-scheduler",
+    "title": "Event scheduler",
+    "category": "Sections",
+    "description": "Create, edit, and remove events with native dates, times, and clear validation.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "sections/event-scheduler.html",
+    "notes": [
+      "Events are ordered by date and time. End time must be after start time; events stay within one calendar day.",
+      "rf:schedule-change supplies a copied event array for your application to persist. The example stores changes only in the page session.",
+      "Titles are rendered as text. Times require your workspace time zone; overnight events need a separate end date."
+    ]
   }
 ]

@@ -2060,5 +2060,184 @@ export default [
     ],
     "html": "<section class=\"rf-section rf-integration-map\">\n  <h3 class=\"rf-section__heading\" style=\"margin-inline:auto\">\n    Everything in its place.\n  </h3>\n  <p class=\"rf-muted\">\n    A sample view of connected tools.\n  </p>\n  <div class=\"rf-card rf-gradient-border\">\n    <strong>\n      Your workspace\n    </strong>\n    <p class=\"rf-muted\">\n      One shared starting point\n    </p>\n  </div>\n  <ul aria-label=\"Sample integrations\">\n    <li>\n      Design files\n    </li>\n    <li>\n      Project notes\n    </li>\n    <li>\n      Team calendar\n    </li>\n    <li>\n      Release updates\n    </li>\n  </ul>\n</section>",
     "cssBytes": 10388
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "category": "Components",
+    "description": "Search a fixed set of choices with a labelled, keyboard-friendly combobox.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/combobox.html",
+    "notes": [
+      "The native select supplies form values and remains usable without JavaScript.",
+      "Arrow keys skip disabled choices; Enter commits and Escape restores the previous choice.",
+      "Exact typed labels are accepted. Other text is invalid. Reinitialize when changing the option structure."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form>\n  <div class=\"rf-field\" data-rf-combobox>\n    <label class=\"rf-label\" for=\"project-template\">Project template</label>\n    <select class=\"rf-select\" id=\"project-template\" name=\"template\" required aria-describedby=\"template-help\">\n      <option value=\"\">Choose a template</option><option value=\"website\" selected>Website launch</option><option value=\"dashboard\">Analytics dashboard</option><option value=\"store\">Online store</option><option value=\"mobile\" disabled>Mobile app · coming soon</option>\n    </select>\n    <p class=\"rf-help\" id=\"template-help\">Type to search, use arrow keys, then Enter to choose. Escape restores your last choice.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Use template</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset template</button></div>\n</form>",
+    "cssBytes": 7074
+  },
+  {
+    "id": "autocomplete",
+    "title": "Autocomplete",
+    "category": "Components",
+    "description": "Native suggestions with room to enter a topic of your own.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/autocomplete.html",
+    "notes": [
+      "Uses input with datalist, without JavaScript. Browser suggestion appearance and assistive-technology support vary.",
+      "Suggestions are optional; free text remains valid. Use Combobox when selection must match a fixed option."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form>\n  <label class=\"rf-field\"><span class=\"rf-label\">Project topic</span><input class=\"rf-input\" name=\"topic\" list=\"topic-suggestions\" autocomplete=\"off\" maxlength=\"80\" aria-describedby=\"topic-help\"><span class=\"rf-help\" id=\"topic-help\">Choose a suggestion or enter your own topic.</span></label>\n  <datalist id=\"topic-suggestions\"><option value=\"Accessibility\"></option><option value=\"Analytics\"></option><option value=\"Design systems\"></option><option value=\"Documentation\"></option><option value=\"Web performance\"></option></datalist>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save topic</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset topic</button></div>\n</form>",
+    "cssBytes": 4877
+  },
+  {
+    "id": "multiselect",
+    "title": "Multiselect",
+    "category": "Components",
+    "description": "Search choices, select several, and remove them with accessible chips.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/multiselect.html",
+    "notes": [
+      "The native multiple select owns repeated form values. Checkbox and search controls have no duplicate names.",
+      "Clear preserves disabled selections. Required fields need at least one selection.",
+      "Reinitialize when changing the option structure. Without JavaScript, use the native multiple select."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form>\n  <fieldset class=\"rf-fieldset\" data-rf-multiselect data-rf-multiselect-label=\"Project skills\"><legend>Project skills</legend>\n    <label class=\"rf-field\" for=\"project-skills\"><span class=\"rf-label\">Choose one or more skills</span><select class=\"rf-select\" id=\"project-skills\" name=\"skills\" multiple required size=\"5\"><option value=\"design\" selected>Design</option><option value=\"accessibility\">Accessibility</option><option value=\"engineering\">Engineering</option><option value=\"research\">Research</option><option value=\"video\" disabled>Video · unavailable</option></select></label>\n  </fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save skills</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset skills</button></div>\n</form>",
+    "cssBytes": 7074
+  },
+  {
+    "id": "form-error-summary",
+    "title": "Form error summary",
+    "category": "Components",
+    "description": "A focused summary links each native validation error to its field.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/form-error-summary.html",
+    "notes": [
+      "Enhanced forms show a linked summary and inline native validation messages.",
+      "Original aria-describedby and aria-invalid values are restored on correction, reset, and teardown.",
+      "Honor defaultPrevented in submission handlers. Server validation is still required."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-rf-validation data-demo-form>\n  <div class=\"rf-alert\" data-variant=\"danger\" data-rf-errors role=\"alert\" tabindex=\"-1\" hidden><strong>Check these fields</strong><ul></ul></div>\n  <label class=\"rf-field\" for=\"summary-name\"><span class=\"rf-label\">Your name</span><input class=\"rf-input\" id=\"summary-name\" name=\"name\" autocomplete=\"name\" required maxlength=\"80\"></label>\n  <label class=\"rf-field\" for=\"summary-email\"><span class=\"rf-label\">Email address</span><input class=\"rf-input\" id=\"summary-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required aria-describedby=\"summary-email-help\"><span class=\"rf-help\" id=\"summary-email-help\">Use an address you can receive messages at.</span></label>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Check form</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset form</button></div>\n</form>",
+    "cssBytes": 7798
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "category": "Components",
+    "description": "Navigate a month with arrow keys and keep a native date field in sync.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/calendar.html",
+    "notes": [
+      "Arrows move by day/week, Home/End within the week, Page Up/Down by month. Enter or Space selects.",
+      "Uses local calendar dates without UTC conversion. Native min/max bounds disable unavailable days.",
+      "The date input remains usable without JavaScript. Calendar labels follow data-rf-locale; weekday order starts Monday."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form>\n  <div class=\"rf-calendar rf-stack\" data-rf-calendar data-rf-locale=\"en-GB\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Launch date</span><input class=\"rf-input\" type=\"date\" name=\"date\" value=\"2026-10-02\" min=\"2026-09-01\" max=\"2027-12-31\" required aria-describedby=\"calendar-help\"></label>\n    <div data-rf-calendar-controls hidden><div class=\"rf-calendar__toolbar\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-calendar-month=\"-1\" aria-label=\"Previous month\">←</button><strong data-rf-calendar-title></strong><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-calendar-month=\"1\" aria-label=\"Next month\">→</button></div><table class=\"rf-calendar__grid\" data-rf-calendar-grid></table></div>\n    <p class=\"rf-help\" id=\"calendar-help\">Arrow keys move by day or week. Page Up/Down changes month, Home/End moves within the week. Enter selects.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save date</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset date</button></div>\n</form>",
+    "cssBytes": 7074
+  },
+  {
+    "id": "time-picker",
+    "title": "Time picker",
+    "category": "Components",
+    "description": "A native time control with working-hour bounds and quarter-hour steps.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/time-picker.html",
+    "notes": [
+      "Uses native type=time, min/max and step. Appearance follows the browser and operating system.",
+      "Times do not contain a time zone. The application supplies the workspace zone and resolves daylight-saving ambiguity."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-demo-form>\n  <label class=\"rf-field\"><span class=\"rf-label\">Meeting time</span><input class=\"rf-input\" name=\"time\" type=\"time\" value=\"09:30\" min=\"08:00\" max=\"18:00\" step=\"900\" required aria-describedby=\"meeting-time-help\"><span class=\"rf-help\" id=\"meeting-time-help\">08:00–18:00 in 15-minute steps. Times use your workspace’s time zone.</span></label>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save time</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset time</button></div>\n</form>",
+    "cssBytes": 4877
+  },
+  {
+    "id": "date-range-presets",
+    "title": "Date-range presets",
+    "category": "Components",
+    "description": "Choose an inclusive reporting period using practical date shortcuts.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "patterns",
+      "form-patterns"
+    ],
+    "file": "examples/components/date-range-presets.html",
+    "notes": [
+      "Last 7 days includes today. Previous month handles month and year boundaries.",
+      "Remove data-rf-today to use the current local date; this example fixes it for predictable sample data.",
+      "Shortcuts outside native min/max bounds preserve the prior range and announce the restriction. Reset restores native values."
+    ],
+    "html": "<form class=\"rf-card rf-stack\" data-rf-date-range data-rf-date-presets data-rf-today=\"2026-10-02\" data-demo-form>\n  <fieldset class=\"rf-fieldset\"><legend>Reporting period</legend><div class=\"rf-grid\" style=\"--rf-column:12rem\"><label class=\"rf-field\"><span class=\"rf-label\">Start date</span><input class=\"rf-input\" type=\"date\" name=\"start\" value=\"2026-09-01\" data-rf-date-start required></label><label class=\"rf-field\"><span class=\"rf-label\">End date</span><input class=\"rf-input\" type=\"date\" name=\"end\" value=\"2026-09-30\" data-rf-date-end required></label></div></fieldset>\n  <div class=\"rf-cluster\" aria-label=\"Date shortcuts\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"today\">Today</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"week\">Last 7 days</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"month\">This month</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"previous-month\">Previous month</button></div>\n  <p class=\"rf-help\" role=\"status\">Example today: 2 October 2026. Presets include both start and end dates.</p>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Apply period</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset period</button></div>\n</form>",
+    "cssBytes": 7074
+  },
+  {
+    "id": "event-scheduler",
+    "title": "Event scheduler",
+    "category": "Sections",
+    "description": "Create, edit, and remove events with native dates, times, and clear validation.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "sections/event-scheduler.html",
+    "notes": [
+      "Events are ordered by date and time. End time must be after start time; events stay within one calendar day.",
+      "rf:schedule-change supplies a copied event array for your application to persist. The example stores changes only in the page session.",
+      "Titles are rendered as text. Times require your workspace time zone; overnight events need a separate end date."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-scheduler aria-label=\"Event scheduler\">\n  <div><h3>Make time for what matters.</h3><p class=\"rf-muted\">Create and edit a daily schedule. Changes last for this page session.</p></div>\n  <form class=\"rf-card rf-stack\" data-rf-event-form data-rf-validation data-demo-form>\n    <div class=\"rf-alert\" data-variant=\"danger\" data-rf-errors role=\"alert\" tabindex=\"-1\" hidden><strong>Check your event</strong><ul></ul></div>\n    <input type=\"hidden\" name=\"eventId\" value=\"\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Event title</span><input class=\"rf-input\" name=\"title\" required maxlength=\"120\"></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Event date</span><input class=\"rf-input\" type=\"date\" name=\"date\" value=\"2026-10-02\" required></label>\n    <div class=\"rf-grid\" style=\"--rf-column:10rem\"><label class=\"rf-field\"><span class=\"rf-label\">Start time</span><input class=\"rf-input\" type=\"time\" name=\"start\" value=\"09:00\" required></label><label class=\"rf-field\"><span class=\"rf-label\">End time</span><input class=\"rf-input\" type=\"time\" name=\"end\" value=\"09:30\" required></label></div>\n    <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\" data-rf-event-save>Add event</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Cancel edit</button></div>\n  </form>\n  <p class=\"rf-help\" role=\"status\" data-rf-event-status>1 event scheduled. Times use your workspace’s time zone.</p>\n  <ul class=\"rf-stack\" data-rf-events style=\"list-style:none;margin:0;padding:0\"><li class=\"rf-card rf-stack\" data-rf-event-id=\"kickoff\" data-rf-event-date=\"2026-10-02\" data-rf-event-start=\"10:00\" data-rf-event-end=\"10:30\"><strong data-rf-event-title>Project kickoff</strong><time datetime=\"2026-10-02T10:00\">2026-10-02 · 10:00–10:30</time></li></ul>\n</section>",
+    "cssBytes": 7798
   }
 ];

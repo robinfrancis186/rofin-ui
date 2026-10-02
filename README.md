@@ -6,8 +6,8 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **65 component examples**, **20 optional effects**,
-**22 copyable sections**, a searchable documentation gallery, and composed
+The library includes **72 component examples**, **20 optional effects**,
+**23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
 > Pre-1.0: APIs and styles may change. The npm package has not been published
@@ -70,12 +70,12 @@ reinitialization.
 | Area | Included examples |
 | --- | --- |
 | Foundations | Button, card, layout, navigation, avatar, badge |
-| Forms | Input, select, textarea, checkbox, radio group, switch, range, file input |
+| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, checkbox, radio group, switch, range, file input |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
-| Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart |
+| Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
 
 Native HTML handles form behavior, expandable details, and modal focus
 management. JavaScript adds keyboard navigation for tabs and menus, dialog
@@ -150,6 +150,28 @@ testimonials, statistics, FAQ, call to action, footer, and contact sections.
 Copy their HTML from `sections/`. Product copy, prices, statistics, and quotes
 are illustrative; replace them before publishing.
 
+## Optional form workflows
+
+Add `src/form-patterns.css` and initialize `initFormPatterns` from
+`src/js/form-patterns.js` for searchable comboboxes, multiselects, validation
+summaries, calendars, date shortcuts, and daily event scheduling. Native
+selects, dates, times, and datalist suggestions remain available without scripts.
+The module is separate from the core and has no runtime dependencies.
+
+```js
+import { initFormPatterns } from 'rofin-ui/form-patterns';
+const stopForms = initFormPatterns(document.querySelector('#my-form'));
+// Call stopForms() before removing or changing the control structure.
+```
+
+Use the repository path until npm publication. `rf:combobox-change` supplies
+`detail.value` and `detail.label`; `rf:multiselect-change` supplies
+`detail.values`; `rf:date-change` supplies `detail.value`;
+`rf:date-range-change` supplies `detail.start` and `detail.end`;
+`rf:schedule-change` supplies a copied `detail.events` array. The application
+persists changes and supplies its time zone. Honor `event.defaultPrevented`
+in form submission handlers so validation can stop invalid submissions.
+
 ## Themes
 
 Tokens follow the operating system by default. Set `data-rf-theme="light"` or
@@ -214,12 +236,13 @@ Target current Chrome/Edge, Firefox, and Safari. Dropdowns require native
 Popover support: Chrome/Edge 114+, Firefox 125+, or Safari 17+. CSS layers and
 other modern CSS features are used; no legacy polyfills are bundled.
 
-The automated suite currently runs in Chromium and covers keyboard behavior,
+The automated suite supports Chromium, Firefox and WebKit and covers keyboard behavior,
 dynamic lifecycle, responsive layouts, no-JavaScript fallbacks, packaging,
 and WCAG-tagged accessibility checks across gallery examples in both themes.
-Firefox/Safari, real touch hardware, and screen-reader testing remain
-follow-ups. Automated checks do not certify accessibility of every use case
-or of your customizations.
+Chrome and Firefox suites pass locally. Installed Safari has manual smoke
+checks; WebKit is recorded separately. Physical touch hardware and screen-reader
+testing remain outstanding. See [validation evidence](docs/validation.md).
+Automated checks do not certify accessibility of every use case or customization.
 
 ```sh
 npx playwright install chromium

@@ -1047,7 +1047,7 @@
       "url": "https://ui.aceternity.com/components",
       "coverage": "Public catalog links collected; individual demos are not all visually reviewed.",
       "entries": [
-        {"title": "Image Generation Loader", "url": "https://ui.aceternity.com/components/image-generation-loader", "related": "spinner", "review": "Catalog entry"},
+        {"title": "Image Generation Loader", "url": "https://ui.aceternity.com/components/image-generation-loader", "related": "spinner", "review": "Documentation read; scanning canvas loader; source tier/license and vendor interaction unverified"},
         {"title": "Chromatic Image", "url": "https://ui.aceternity.com/components/chromatic-image", "related": "glare-card", "review": "Catalog entry"},
         {"title": "Cloud Shader", "url": "https://ui.aceternity.com/components/cloud-shader", "related": null, "review": "Catalog entry"},
         {"title": "Text Flipping Board", "url": "https://ui.aceternity.com/components/text-flipping-board", "related": null, "review": "Catalog entry"},
@@ -1166,7 +1166,7 @@
       "url": "https://bencho.dev",
       "coverage": "Public catalog links collected; individual demos are not all visually reviewed.",
       "entries": [
-        {"title": "Asset Swap", "url": "https://bencho.dev/blocks/asset-swap", "related": null, "review": "Catalog entry"},
+        {"title": "Asset Swap", "url": "https://bencho.dev/blocks/asset-swap", "related": null, "review": "Targeted preview text and metadata retrieved; swap direction and coin picker described; source tier/license and vendor interaction unverified"},
         {"title": "Like", "url": "https://bencho.dev/blocks/like", "related": null, "review": "Catalog entry"},
         {"title": "Eye Tracker", "url": "https://bencho.dev/blocks/eye-tracker", "related": null, "review": "Catalog entry"},
         {"title": "Upload Dropzone", "url": "https://bencho.dev/blocks/upload-dropzone", "related": "upload", "review": "Catalog entry"},
@@ -1220,13 +1220,13 @@
       "url": "https://www.obsidianui.dev/components",
       "coverage": "Public catalog links collected; individual demos are not all visually reviewed.",
       "entries": [
-        {"title": "Draggable Marquee", "url": "https://www.obsidianui.dev/docs/draggable-marquee", "related": "marquee", "review": "Catalog entry"},
-        {"title": "V Prism", "url": "https://www.obsidianui.dev/docs/v-prism", "related": null, "review": "Catalog entry"},
-        {"title": "Split Showcase", "url": "https://www.obsidianui.dev/docs/split-showcase", "related": "hero", "review": "Catalog entry"},
-        {"title": "Art Gallery", "url": "https://www.obsidianui.dev/docs/art-gallery", "related": "carousel", "review": "Catalog entry"},
-        {"title": "Text Stream", "url": "https://www.obsidianui.dev/docs/text-stream", "related": null, "review": "Catalog entry"},
-        {"title": "Hover Img", "url": "https://www.obsidianui.dev/docs/hover-img", "related": "glare-card", "review": "Catalog entry"},
-        {"title": "Flip Text", "url": "https://www.obsidianui.dev/docs/flip-text", "related": null, "review": "Catalog entry"}
+        {"title": "Draggable Marquee", "url": "https://www.obsidianui.dev/docs/draggable-marquee", "related": "marquee", "review": "Documentation read; repeating image rail with dragging and momentum; source tier/license and vendor interaction unverified"},
+        {"title": "V Prism", "url": "https://www.obsidianui.dev/docs/v-prism", "related": null, "review": "Documentation read; movable Three.js prism and reduced motion; source tier/license and vendor interaction unverified"},
+        {"title": "Split Showcase", "url": "https://www.obsidianui.dev/docs/split-showcase", "related": "hero", "review": "Documentation read; two partner cards separated by a dotted divider; source tier/license and vendor interaction unverified"},
+        {"title": "Art Gallery", "url": "https://www.obsidianui.dev/docs/art-gallery", "related": "carousel", "review": "Documentation read; pannable repeating photo grid with lens distortion; source tier/license and vendor interaction unverified"},
+        {"title": "Text Stream", "url": "https://www.obsidianui.dev/docs/text-stream", "related": null, "review": "Documentation read; scroll-driven vertical text; source tier/license and vendor interaction unverified"},
+        {"title": "Hover Img", "url": "https://www.obsidianui.dev/docs/hover-img", "related": "glare-card", "review": "Documentation read; project-title hover reveals a pointer-following image; source tier/license and vendor interaction unverified"},
+        {"title": "Flip Text", "url": "https://www.obsidianui.dev/docs/flip-text", "related": null, "review": "Documentation read; per-character hover rotation; source tier/license and vendor interaction unverified"}
       ]
     },
     {
@@ -1234,13 +1234,13 @@
       "url": "https://libraries.dev",
       "coverage": "Public catalog links collected; individual demos are not all visually reviewed.",
       "entries": [
-        {"title": "Border beam", "url": "https://libraries.dev/beam.html", "related": "border-beam", "review": "Catalog entry"},
-        {"title": "Thinking orbs", "url": "https://libraries.dev/orbs.html", "related": "spinner", "review": "Catalog entry"},
-        {"title": "Gooey", "url": "https://libraries.dev/gooey.html", "related": null, "review": "Catalog entry"},
-        {"title": "Voice", "url": "https://libraries.dev/voice.html", "related": null, "review": "Catalog entry"},
-        {"title": "Bot avatars", "url": "https://libraries.dev/bots.html", "related": "avatar", "review": "Catalog entry"},
-        {"title": "Liquid metal", "url": "https://libraries.dev/metal.html", "related": null, "review": "Catalog entry"},
-        {"title": "Image generation", "url": "https://libraries.dev/image.html", "related": null, "review": "Catalog entry"}
+        {"title": "Border beam", "url": "https://libraries.dev/beam.html", "related": "border-beam", "review": "Documentation read; public border-beam@1.4.1 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Thinking orbs", "url": "https://libraries.dev/orbs.html", "related": "spinner", "review": "Documentation read; public thinking-orbs@0.3.2 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Gooey", "url": "https://libraries.dev/gooey.html", "related": null, "review": "Documentation read; public liquid-gooey@0.2.2 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Voice", "url": "https://libraries.dev/voice.html", "related": null, "review": "Documentation read; public voice-glow@0.2.1 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Bot avatars", "url": "https://libraries.dev/bots.html", "related": "avatar", "review": "Documentation read; public bot-avatars@0.2.1 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Liquid metal", "url": "https://libraries.dev/metal.html", "related": null, "review": "Documentation read; public metal-fx@2.0.11 artifact and MIT license checked; vendor interactions unverified"},
+        {"title": "Image generation", "url": "https://libraries.dev/image.html", "related": null, "review": "Documentation read; public img-fx@0.5.1 artifact and MIT license checked; vendor interactions unverified"}
       ]
     },
     {

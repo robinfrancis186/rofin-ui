@@ -1,4 +1,4 @@
-import { matches } from './utils.js';
+import { matches, onFormReset } from './utils.js';
 
 /** Optional patterns; initialize each root once and tear down before removing it. */
 export function initPatterns(root = document) {
@@ -6,15 +6,7 @@ export function initPatterns(root = document) {
   const { signal } = controller;
   const cleanups = [];
   const listen = (node, type, handler) => node.addEventListener(type, handler, { signal });
-  const afterReset = (form, update) => {
-    if (!form) return;
-    let timer;
-    listen(form, 'reset', event => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { if (!signal.aborted && !event.defaultPrevented) update(); }, 0);
-    });
-    cleanups.push(() => clearTimeout(timer));
-  };
+  const afterReset = (form, update) => cleanups.push(onFormReset(form, update, signal));
 
   for (const element of matches(root, '[data-rf-sortable]')) {
     const list = element.querySelector('[data-rf-sort-list]');

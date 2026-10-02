@@ -1,0 +1,298 @@
+[
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/v-prism",
+    "title": "V Prism",
+    "features": [
+      "Container-scoped movable beam and refracting prism rendered with Three.js",
+      "Tunable light, emission, glass material and scene colors",
+      "Reduced-motion behavior; reflection setting unsupported by the published component"
+    ],
+    "gap": "Original 3D/shader prism example remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/text-stream",
+    "title": "Text reel",
+    "features": [
+      "Vertical repeating text with scroll-dependent speed and direction",
+      "Container-scoped behavior and reduced-motion support"
+    ],
+    "gap": "Original scroll-responsive text stream remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/flip-text",
+    "title": "Flip Text",
+    "features": [
+      "Per-character rotation and flipping on hover",
+      "Text and class-name props"
+    ],
+    "gap": "Original per-character hover/focus treatment remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/draggable-marquee",
+    "title": "Draggable Marquee",
+    "features": [
+      "Repeating image rail with dragging and momentum",
+      "Focused left/right arrow controls, container scoping and reduced-motion behavior"
+    ],
+    "gap": "Rofin has a pausable marquee; drag momentum and focused arrow movement remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/split-showcase",
+    "title": "Split Showcase",
+    "features": [
+      "Two partner cards separated by a dotted divider",
+      "Hover expansion uses spring motion"
+    ],
+    "gap": "Rofin has split-layout foundations; the expanding partner showcase remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/art-gallery",
+    "title": "Art Gallery",
+    "features": [
+      "Pannable repeating photo grid with lens distortion",
+      "Shared WebGL surface, loading helpers and reduced-motion behavior"
+    ],
+    "gap": "Rofin carousel is related only; an original WebGL panning gallery remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Obsidian UI",
+    "url": "https://www.obsidianui.dev/docs/hover-img",
+    "title": "Hover Img",
+    "features": [
+      "Project-title hover reveals a pointer-following image",
+      "Contained and compact display options"
+    ],
+    "gap": "Original pointer-following image preview and keyboard-focus fallback remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through Firecrawl",
+    "statusCode": 200,
+    "access": "Public documentation; source tier and license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/beam.html",
+    "title": "Border beam",
+    "features": [
+      "Animated border glow with color, intensity and pause controls"
+    ],
+    "gap": "Related border-beam foundation exists; not every vendor variant is implemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact border-beam@1.4.1; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "border-beam",
+      "version": "1.4.1",
+      "url": "https://www.npmjs.com/package/border-beam/v/1.4.1",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/orbs.html",
+    "title": "Thinking orbs",
+    "features": [
+      "Nine animated loading states for AI work",
+      "Separate inline/avatar sizes, speed and pause controls"
+    ],
+    "gap": "A native spinner exists; the nine animated orb states remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact thinking-orbs@0.3.2; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "thinking-orbs",
+      "version": "0.3.2",
+      "url": "https://www.npmjs.com/package/thinking-orbs/v/0.3.2",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/gooey.html",
+    "title": "Gooey",
+    "features": [
+      "Neighboring shapes merge through a liquid filter",
+      "Morph, move, melt and bend treatments with crisp text"
+    ],
+    "gap": "Original liquid merging and morph treatments remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact liquid-gooey@0.2.2; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "liquid-gooey",
+      "version": "0.2.2",
+      "url": "https://www.npmjs.com/package/liquid-gooey/v/0.2.2",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/voice.html",
+    "title": "Voice",
+    "features": [
+      "Sound-reactive glow driven by a media stream or supplied level",
+      "Processing animation and configurable gain, gate and envelope"
+    ],
+    "gap": "Original reactive glow and explicit opt-in microphone workflow remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact voice-glow@0.2.1; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "voice-glow",
+      "version": "0.2.1",
+      "url": "https://www.npmjs.com/package/voice-glow/v/0.2.1",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/bots.html",
+    "title": "Bot avatars",
+    "features": [
+      "Eighteen animated canvas avatar shapes with idle, working and sleeping states",
+      "Custom faces and accessories, pointer response, offscreen pause and reduced motion"
+    ],
+    "gap": "Native avatars exist; original animated canvas characters remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact bot-avatars@0.2.1; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "bot-avatars",
+      "version": "0.2.1",
+      "url": "https://www.npmjs.com/package/bot-avatars/v/0.2.1",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/metal.html",
+    "title": "Liquid metal",
+    "features": [
+      "WebGL liquid-metal treatment for buttons, text and badges",
+      "Pointer bending, reflections, pause control and plain-child fallback"
+    ],
+    "gap": "Original WebGL metal rendering and performance/fallback checks remain unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact metal-fx@2.0.11; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "metal-fx",
+      "version": "2.0.11",
+      "url": "https://www.npmjs.com/package/metal-fx/v/2.0.11",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Libraries.dev",
+    "url": "https://libraries.dev/image.html",
+    "title": "Image generation",
+    "features": [
+      "WebGL pixel mosaic resolves into supplied images",
+      "Organic, mechanical and gradient-sweep presets with automatic reveal"
+    ],
+    "gap": "Original shader image reveal remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web; npm metadata and downloaded package/LICENSE inspected",
+    "statusCode": null,
+    "access": "Public npm artifact img-fx@0.5.1; packaged MIT license verified; Pro Studio access not evaluated",
+    "package": {
+      "name": "img-fx",
+      "version": "0.5.1",
+      "url": "https://www.npmjs.com/package/img-fx/v/0.5.1",
+      "license": "MIT",
+      "licenseFile": "package/LICENSE"
+    },
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Aceternity",
+    "url": "https://ui.aceternity.com/components/image-generation-loader",
+    "title": "Image Generation Loader",
+    "features": [
+      "Canvas loader scans an image using a pixel grid",
+      "Shimmer, wave and scale-wave variants, text masks and progress overlays"
+    ],
+    "gap": "Original scanning canvas loader remains unimplemented.",
+    "reviewedAt": "2026-10-02",
+    "method": "Public documentation read through web",
+    "statusCode": null,
+    "access": "Public documentation and install command; source tier/license not verified",
+    "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Bencho",
+    "url": "https://bencho.dev/blocks/asset-swap",
+    "title": "Asset swap",
+    "features": [
+      "Swap illustration with two asset values",
+      "Published metadata describes reversing direction and choosing another coin"
+    ],
+    "gap": "A swap illustration remains unimplemented; preview text does not prove interaction or actual conversion.",
+    "reviewedAt": "2026-10-02",
+    "method": "Targeted page metadata and rendered preview text retrieved through Firecrawl",
+    "statusCode": 200,
+    "access": "Public preview; source tier/license not verified",
+    "vendorDemoInteractionTested": false
+  }
+]

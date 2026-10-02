@@ -34,7 +34,12 @@
     "./tokens.css": "./src/tokens.css",
     "./button.css": "./src/button.css",
     "./card.css": "./src/card.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./form-patterns": {
+      "types": "./dist/form-patterns.d.ts",
+      "import": "./dist/form-patterns.js"
+    },
+    "./form-patterns.css": "./dist/form-patterns.css"
   },
   "files": [
     "dist/*.css",

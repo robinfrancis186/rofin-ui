@@ -41,3 +41,13 @@ Describe accessibility or cross-browser limits honestly.
 
 `dist/site` is the static documentation artifact. Building it does not deploy it
 or register a domain.
+
+Run the same suite in other engines with `RF_BROWSER=firefox npm test` or
+`RF_BROWSER=webkit npm test`, after `npx playwright install firefox webkit`.
+The gallery WCAG scan checks every component preview in batches of 25 for both
+themes; route tests separately scan the shared documentation UI.
+Clipboard reads use Chromium's supported permission; other engines verify
+copy acceptance or the visible manual-copy fallback. Native keyboard navigation
+uses Safari's [Option-Tab behavior](https://support.apple.com/en-gb/guide/safari/cpsh003/mac)
+on macOS. WebKit automation and installed Safari interaction checks are
+recorded separately; neither proves physical touch or screen-reader behavior.

@@ -97,13 +97,13 @@ test('tables sort numbers correctly and progress and billing reflect their contr
   }
 });
 
-test('saved components persist, search, and share deduplicated setup', async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+test('saved components persist, search, and share deduplicated setup', async ({ page, context, browserName }) => {
+  if (browserName === 'chromium') await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/dist/site/index.html#saved');
   await expect(page.locator('.rf-empty')).toContainText('Make room for a good idea');
   await page.goto('/dist/site/index.html#catalog');
   const saveTag = page.getByRole('button', { name: 'Save Tag input', exact: true });
-  await saveTag.click(); await expect(saveTag).toBeFocused();
+  await saveTag.focus(); await saveTag.press('Enter'); await expect(saveTag).toBeFocused();
   await page.getByRole('button', { name: 'Save Password reveal', exact: true }).click();
   await page.reload();
   await expect(page.getByRole('button', { name: 'Save Tag input', exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -111,7 +111,9 @@ test('saved components persist, search, and share deduplicated setup', async ({ 
   await expect(page.locator('.catalog-card')).toHaveCount(2);
   await page.screenshot({ path: 'output/playwright/rofin-collection.png', fullPage: true });
   await page.getByRole('button', { name: 'Copy code' }).click();
-  const setup = await page.evaluate(() => navigator.clipboard.readText());
+  const setup = await page.locator('.code-panel code').textContent();
+  if (browserName === 'chromium') expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(setup);
+  else await expect.poll(() => page.evaluate(() => document.querySelector('.code-panel button').textContent === 'Copied' || getSelection().toString() === document.querySelector('.code-panel code').textContent)).toBe(true);
   expect(setup.match(/patterns\.css/g)).toHaveLength(1);
   expect(setup.match(/initPatterns\(\)/g)).toHaveLength(1);
   await page.locator('#docs-search').fill('tags');

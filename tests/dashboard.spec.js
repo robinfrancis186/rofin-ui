@@ -75,6 +75,8 @@ test('the composed dashboard completes local project, export, archive, inbox, an
   await page.getByRole('button', { name: 'New project +', exact: true }).click();
   const create = page.getByRole('dialog', { name: 'Make room for a new idea.' });
   await create.getByRole('textbox', { name: 'Project name' }).fill('=SUM(1,2)');
+  const owner = create.getByRole('combobox', { name: 'Project owner' });
+  await owner.fill('Alex'); await owner.press('ArrowDown'); await owner.press('Enter');
   await create.getByRole('button', { name: 'Create project' }).click();
   await expect(create).not.toBeVisible();
   await expect(page.locator('[data-project-count]')).toHaveText('7');
@@ -84,7 +86,7 @@ test('the composed dashboard completes local project, export, archive, inbox, an
   const download = await downloaded;
   expect(download.suggestedFilename()).toBe('studio-projects.csv');
   const csv = await readFile(await download.path(), 'utf8');
-  expect(csv).toContain('"\'=SUM(1,2)","Robin","Draft","0"');
+  expect(csv).toContain('"\'=SUM(1,2)","Alex","Draft","0"');
   expect(csv).not.toContain('Studio website');
   await page.getByRole('button', { name: 'Archive selected', exact: true }).click();
   const confirmation = page.getByRole('dialog', { name: 'Archive selected projects?' });

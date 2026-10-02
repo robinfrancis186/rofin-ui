@@ -10,6 +10,16 @@ export const matches = (root, selector) => [
   ...root.querySelectorAll(selector)
 ];
 
+// Native reset applies after its event; cancelled resets and removed roots stay untouched.
+export function onFormReset(form, update, signal) {
+  let timer;
+  form?.addEventListener('reset', event => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { if (!signal.aborted && !event.defaultPrevented) update(); }, 0);
+  }, { signal });
+  return () => clearTimeout(timer);
+}
+
 // Every instance owns its listeners. Reinserted components initialize afresh.
 export function enhancer(selector, setup) {
   const instances = new Map();

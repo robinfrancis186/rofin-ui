@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('optional patterns work with native controls, validation, and teardown', async ({ page, context }) => {
-  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+test('optional patterns work with native controls, validation, and teardown', async ({ page, context, browserName }) => {
+  if (browserName === 'chromium') await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/docs/index.html#component/image-compare');
   const range = page.getByRole('slider', { name: 'Comparison position' });
   await range.focus(); await range.press('End');
@@ -66,7 +66,8 @@ test('optional patterns work with native controls, validation, and teardown', as
 
   await page.goto('/docs/index.html#component/copy-button');
   await page.getByRole('button', { name: 'Copy command' }).click();
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('git clone');
+  if (browserName === 'chromium') expect(await page.evaluate(() => navigator.clipboard.readText())).toContain('git clone');
+  else await expect(page.locator('.preview [role="status"]')).toHaveText(/Copied to clipboard|Copy unavailable/);
 
   await page.evaluate(async () => {
     const { initPatterns } = await import('/src/js/patterns.js');

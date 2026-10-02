@@ -1,7 +1,9 @@
 import { init, toast } from '../src/js/index.js';
 import { initPatterns } from '../src/js/patterns.js';
+import { initFormPatterns } from '../src/js/form-patterns.js';
 
 init();
+initFormPatterns();
 const projects = document.querySelector('#projects');
 const range = document.querySelector('#report-range');
 initPatterns(range);

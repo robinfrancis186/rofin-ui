@@ -7,7 +7,7 @@
     },
     "rofin.js": {
       "bytes": 9130,
-      "gzip": 3401
+      "gzip": 3402
     },
     "rofin.auto.js": {
       "bytes": 9712,
@@ -30,8 +30,16 @@
       "gzip": 3007
     },
     "patterns.js": {
-      "bytes": 20048,
-      "gzip": 6189
+      "bytes": 20094,
+      "gzip": 6211
+    },
+    "form-patterns.css": {
+      "bytes": 2197,
+      "gzip": 771
+    },
+    "form-patterns.js": {
+      "bytes": 17048,
+      "gzip": 5527
     }
   }
 }
