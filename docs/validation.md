@@ -108,6 +108,12 @@ GitHub run [37008506810](https://github.com/robinfrancis186/rofin-ui/actions/run
 passed all 67 tests and package validation in each engine on commit `b5f321e`.
 This verifies the complete grid checkpoint in Linux Chromium, Firefox and WebKit.
 
+GitHub run [37013262771](https://github.com/robinfrancis186/rofin-ui/actions/runs/37013262771)
+passed all 75 tests and 198-file package validation in each engine on commit
+`532cffc`. This verifies the full 117-example upload checkpoint in Linux
+Chromium, Firefox and WebKit; the eight focused checks also passed locally in
+all three engines. Each completed job's log was inspected.
+
 ## Preview forms without scripts
 
 A new regression check reproduced a sample sign-in form placing its values in
@@ -139,6 +145,12 @@ edit cancellation, 25-row pagination and both themes. At 390 pixels the document
 width remained 390 pixels. Reload restored sample row data while the saved view
 persisted; the temporary QA view was removed. The local-only HTTP option is
 disabled on static production.
+
+The 117-example upload checkpoint passed content checks for all 200 built files
+on production. Native file selection added a local preview while Upload/Retry
+remained disabled. Keyboard cancellation and reset worked, and both themes
+remained within 390 pixels. No console errors were reported in those checks.
+The static gallery provides no upload endpoint or durable application storage.
 
 `.vercelignore` excludes local test traces, test files, dependency/build output
 and environment files from CLI uploads. The corrected deployment uploaded
