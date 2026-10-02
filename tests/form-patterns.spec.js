@@ -207,3 +207,24 @@ test('emulated touch can select, remove and reset choices and pick calendar date
   await expect(page.getByLabel('Launch date', { exact: true })).toHaveValue('2026-10-04');
   await context.close();
 });
+
+test('preview forms never navigate or transmit values when scripts are unavailable', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false }), page = await context.newPage();
+  const requests = [];
+  page.on('request', request => { if (request.isNavigationRequest()) requests.push(request.url()); });
+  for (const [path, button, fields] of [
+    ['sections/sign-in.html', 'Sign in', { Email: 'demo@example.invalid', Password: 'not-a-real-password' }],
+    ['examples/components/password-field.html', 'Try the form', { Password: 'not-a-real-password' }],
+    ['examples/components/autocomplete.html', 'Save topic', { 'Project topic': 'Keep this preview local' }],
+    ['sections/event-scheduler.html', 'Add event', { 'Event title': 'Local preview only' }]
+  ]) {
+    const url = `http://127.0.0.1:4173/${path}`;
+    await page.goto(url);
+    for (const [label, value] of Object.entries(fields)) await page.getByLabel(label).and(page.locator('input')).fill(value);
+    requests.length = 0;
+    await page.getByRole('button', { name: button, exact: true }).click();
+    await expect(page).toHaveURL(url);
+    expect(requests, path).toEqual([]);
+  }
+  await context.close();
+});

@@ -12,7 +12,8 @@ test('priorities commit once on drop or keyboard moves and reset to the initial 
   expect(await order()).toEqual(['prototype', 'brief', 'review', 'launch']);
   await expect(down).toBeFocused();
   expect(await page.evaluate(() => window.moves)).toEqual([{ value: 'brief', from: 0, to: 1, values: ['prototype','brief','review','launch'], previousValues: ['brief','prototype','review','launch'] }]);
-  await page.getByRole('button', { name: 'Move Give the idea a shape. up', exact: true }).click();
+  const up = page.getByRole('button', { name: 'Move Give the idea a shape. up', exact: true });
+  await up.focus(); await up.press('Enter');
   await expect(down).toBeFocused();
   await list.locator('[data-rf-sort-item="brief"]').dragTo(list.locator('[data-rf-sort-item="launch"]'), { sourcePosition: { x: 20, y: 20 }, targetPosition: { x: 50, y: 75 } });
   expect(await order()).toEqual(['prototype','review','launch','brief']);

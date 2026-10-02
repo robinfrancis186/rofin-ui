@@ -172,6 +172,10 @@ Use the repository path until npm publication. `rf:combobox-change` supplies
 persists changes and supplies its time zone. Honor `event.defaultPrevented`
 in form submission handlers so validation can stop invalid submissions.
 
+Preview forms use `method="dialog"` to retain native validation without sending
+sample values when JavaScript is unavailable. When connecting an application,
+replace it with your server's form method/action or your own submit handler.
+
 ## Themes
 
 Tokens follow the operating system by default. Set `data-rf-theme="light"` or

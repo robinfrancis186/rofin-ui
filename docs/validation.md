@@ -2,7 +2,7 @@
 
 Current gallery: 115 runnable entries, including eight new form/scheduling
 examples. This is a component implementation checkpoint; application services,
-complete reference review and publication remain outstanding in
+complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
 
 ## Chrome
@@ -39,10 +39,49 @@ website/dashboard flows. Clipboard cases verify copy acceptance or a visible
 manual-copy fallback because the Chromium clipboard permission is unsupported
 in Firefox.
 
+## WebKit and CI
+
+GitHub run [37000033753](https://github.com/robinfrancis186/rofin-ui/actions/runs/37000033753)
+passed all 57 tests in each of Chromium, Firefox and WebKit on commit `631b903`.
+This Linux WebKit run is separate from installed Safari.
+
+The full macOS WebKit run passed 56 of 57 tests. Its remaining sortable test
+assumed pointer clicks focus buttons. The test now activates the move button
+with the keyboard to check the intended focus-restoration contract.
+After that correction and the preview-form fix below, all 14 form/workspace
+checks pass in Chromium, Firefox and macOS WebKit. The current full suite
+contains 58 tests.
+
+## Preview forms without scripts
+
+A new regression check reproduced a sample sign-in form placing its values in
+the URL when JavaScript was unavailable. All 31 local preview forms now use
+native `method="dialog"`, which preserves validation without transmitting
+values. The check passes in all three engines for sign-in, password reveal,
+autocomplete and the scheduler, with unchanged URLs and no navigation requests.
+JavaScript submit handlers continue to supply the interactive local previews.
+
+## Production documentation
+
+[rofin-ui.vercel.app](https://rofin-ui.vercel.app) is deployed and ready.
+All 185 built files returned HTTP 200. Their contents matched the local build;
+the generated size report was compared by uncompressed byte counts because
+gzip sizes differ between the Linux build and macOS.
+
+Rendered production checks covered calendar pointer/keyboard selection,
+multiselect selection/removal/clear/reset, mobile documentation navigation,
+theme switching, and project creation/filtering with shared table/board state.
+At a 390-pixel viewport, the document width remained 390 pixels. The sample
+project was cleared by reloading. These checks verify the static documentation
+and sample flows; they do not establish durable application services.
+
+`.vercelignore` excludes local test traces, test files, dependency/build output
+and environment files from CLI uploads. The corrected deployment uploaded
+238.7 KB of changed source, rather than the first deployment's local traces.
+
 ## Outstanding verification
 
-Full updated WebKit validation,
-actual screen-reader interaction and physical touch-device checks remain
+Full installed Safari validation, actual screen-reader interaction and physical touch-device checks remain
 pending. Axe and touch emulation do not substitute for those device checks.
-No npm publication, production deployment, email delivery, payment webhook or
+No npm publication, email delivery, payment webhook or
 durable application-service behavior has been verified at this checkpoint.
