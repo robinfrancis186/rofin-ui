@@ -276,6 +276,8 @@ const manager = createTeamManager(document.querySelector('[data-rf-team-manager]
 ```
 
 The application supplies confirmed snapshots, safe sessions, email and storage.
+Snapshots support at most 50 members and 20 pending invitations; larger
+directories require application paging and a corresponding server policy.
 `applyTeamChange` and `acceptTeamInvitation` expose the same small policy used by
 the localhost service: owners manage all roles, admins manage editors/viewers,
 and at least one owner remains. A server derives the actor from its verified

@@ -2123,7 +2123,8 @@
       "Owners manage all roles; admins manage editors and viewers. The shared server policy prevents removal or demotion of the last owner. Project, file and billing permissions are enforced by your application separately.",
       "Change and load callbacks receive AbortSignals; mutations receive an expected workspace revision. Failed or stale changes preserve the current snapshot and unsaved role selection. Call destroy before unmounting.",
       "The default gallery and composed dashboard use isolated page-session state. The explicit localhost option creates a private sample with server-issued access tokens, one-use invitation links, role checks and revision conflicts.",
-      "Local links grant their holder the configured role; they do not verify the recipient email. Private samples expire after 15 minutes or server stop. Real accounts, durable storage and email delivery remain application services."
+      "Local links grant their holder the configured role; they do not verify the recipient email. Private samples expire after 15 minutes or server stop. Real accounts, durable storage and email delivery remain application services.",
+      "Snapshots are bounded to 50 members and 20 pending invitations. Larger teams require application paging and an appropriate server policy; the sample is not an unbounded directory."
     ]
   },
   {

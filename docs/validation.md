@@ -39,6 +39,22 @@ after 15 minutes or server stop. No email or durable account is created; A01,
 A02 and A04 remain outstanding. Static production exposes page-session examples
 and keeps the local service option hidden.
 
+The final team/navigation implementation at `6a29c10` passed all 88 tests and
+212-file package validation in Chromium, Firefox and WebKit in GitHub run
+[37026273759](https://github.com/robinfrancis186/rofin-ui/actions/runs/37026273759).
+All three completed job logs were inspected. The preceding component run
+37025793040 also passed the full suite in all three engines. Documentation-only
+follow-ups record these immutable checks and the snapshot limits; they do not
+replace native Safari, screen-reader or device evidence.
+
+Production's 122-example build at `6a29c10` matches all 213 built files. Rendered
+checks covered invitation creation/revocation, role confirmation with returned
+focus, the hidden localhost option, both themes within 390 pixels, and no
+console errors. Reload restored the sample role and cleared QA invitations.
+The dashboard Team & activity link reaches the same team-management component.
+The branch ZIP returns HTTP 200 and includes all 122 examples and optional team
+module/types. Production has page-session examples and no invitation endpoint.
+
 ## Workspace and account menus
 
 Six focused checks pass in installed Google Chrome, Firefox and macOS WebKit.
