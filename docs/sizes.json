@@ -1,9 +1,9 @@
 {
-  "coreGzip": 8259,
+  "coreGzip": 8258,
   "files": {
     "rofin.css": {
-      "bytes": 20986,
-      "gzip": 4584
+      "bytes": 21022,
+      "gzip": 4583
     },
     "rofin.js": {
       "bytes": 9162,

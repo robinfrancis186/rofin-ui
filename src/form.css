@@ -1,5 +1,5 @@
 @layer rf.components {
-  .rf-field { display: grid; gap: .45rem; min-inline-size: 0; font-family: var(--rf-font); }
+  .rf-field { display: grid; grid-template-columns: minmax(0, 1fr); gap: .45rem; min-inline-size: 0; font-family: var(--rf-font); }
   .rf-label { color: var(--rf-text); font-size: .875rem; font-weight: 600; }
   .rf-input, .rf-select, .rf-textarea { box-sizing: border-box; inline-size: 100%; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem; padding: .65rem .85rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); color: var(--rf-text); font: 400 .9375rem/1.5 var(--rf-font); }
   .rf-input::placeholder, .rf-textarea::placeholder { color: var(--rf-muted); opacity: 1; }

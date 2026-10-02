@@ -52,7 +52,7 @@ export default [
       "Validation and submission remain your application’s responsibility."
     ],
     "html": "<div class=\"rf-stack\">\n  <div class=\"rf-field\">\n    <label class=\"rf-label\" for=\"input-name\">Your name</label>\n    <input class=\"rf-input\" id=\"input-name\" name=\"name\" autocomplete=\"name\" placeholder=\"Robin Francis\">\n  </div>\n  <div class=\"rf-field\">\n    <label class=\"rf-label\" for=\"input-email\">Email address</label>\n    <input class=\"rf-input\" id=\"input-email\" type=\"email\" autocomplete=\"email\" aria-describedby=\"email-help\" placeholder=\"you@example.com\">\n    <p class=\"rf-help\" id=\"email-help\">We’ll only use this to contact you about your account.</p>\n  </div>\n</div>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "select",
@@ -69,7 +69,7 @@ export default [
       "For simple autocomplete, consider native input with datalist before building a custom combobox."
     ],
     "html": "<div class=\"rf-field\">\n  <label class=\"rf-label\" for=\"select-team\">Team size</label>\n  <select class=\"rf-select\" id=\"select-team\" name=\"team\">\n    <option value=\"solo\">Just me</option><option value=\"small\">2–10 people</option><option value=\"large\">11–50 people</option>\n  </select>\n</div>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "textarea",
@@ -85,7 +85,7 @@ export default [
       "The field resizes vertically so its width stays inside the layout."
     ],
     "html": "<div class=\"rf-field\">\n  <label class=\"rf-label\" for=\"textarea-message\">Tell us about your project</label>\n  <textarea class=\"rf-textarea\" id=\"textarea-message\" name=\"message\" rows=\"4\" placeholder=\"Something wonderful starts here…\"></textarea>\n</div>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "checkbox",
@@ -101,7 +101,7 @@ export default [
       "The wrapping label makes both the text and checkbox clickable."
     ],
     "html": "<label class=\"rf-check\"><input type=\"checkbox\" name=\"updates\" checked> Send me product updates</label>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "radio",
@@ -118,7 +118,7 @@ export default [
       "A fieldset and legend communicate the group’s purpose."
     ],
     "html": "<fieldset class=\"rf-fieldset\">\n  <legend>Choose a workspace</legend>\n  <div class=\"rf-stack\" style=\"--rf-gap: .25rem\">\n    <label class=\"rf-check\"><input type=\"radio\" name=\"workspace\" value=\"personal\" checked> Personal</label>\n    <label class=\"rf-check\"><input type=\"radio\" name=\"workspace\" value=\"team\"> Team</label>\n  </div>\n</fieldset>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "switch",
@@ -135,7 +135,7 @@ export default [
       "Keep the label stable when toggled; it names the setting, not the current state."
     ],
     "html": "<label class=\"rf-check\"><input class=\"rf-switch\" type=\"checkbox\" role=\"switch\" name=\"notifications\" checked> Enable notifications</label>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "range",
@@ -152,7 +152,7 @@ export default [
       "If you display the value separately, keep that display synchronized in your app."
     ],
     "html": "<div class=\"rf-field\">\n  <label class=\"rf-label\" for=\"range-volume\">Volume</label>\n  <input class=\"rf-range\" type=\"range\" id=\"range-volume\" min=\"0\" max=\"100\" value=\"65\">\n</div>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "accordion",
@@ -255,7 +255,7 @@ export default [
       "This panel is a modal. For a persistent sidebar, use the Navigation component."
     ],
     "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-dialog-open=\"settings-drawer\">Workspace settings</button>\n<dialog class=\"rf-dialog rf-dialog--drawer\" id=\"settings-drawer\" aria-labelledby=\"drawer-title\">\n  <h2 class=\"rf-dialog__title\" id=\"drawer-title\">Workspace settings</h2>\n  <p class=\"rf-muted\">Give your workspace a name that feels like you.</p>\n  <div class=\"rf-field\"><label class=\"rf-label\" for=\"drawer-name\">Workspace name</label><input class=\"rf-input\" id=\"drawer-name\" value=\"Studio\" autofocus></div>\n  <div class=\"rf-dialog__actions\"><button class=\"rf-button\" type=\"button\" data-rf-dialog-close>Done</button></div>\n</dialog>",
-    "cssBytes": 4924
+    "cssBytes": 4960
   },
   {
     "id": "tooltip",
@@ -493,7 +493,7 @@ export default [
       "File names are inserted as text, not HTML."
     ],
     "html": "<div class=\"rf-upload\" data-rf-upload>\n  <label class=\"rf-label\" for=\"project-files\">Add files to your project</label>\n  <p class=\"rf-help\" id=\"files-help\">Choose one or more files. This demo lists them locally; it does not upload them.</p>\n  <input id=\"project-files\" type=\"file\" multiple aria-describedby=\"files-help\">\n  <ul class=\"rf-upload__files\" data-rf-file-list aria-live=\"polite\"></ul>\n</div>",
-    "cssBytes": 3213
+    "cssBytes": 3249
   },
   {
     "id": "navigation",
@@ -569,7 +569,7 @@ export default [
       "Native form reset restores the initial order. Cancelled drags make no changes. Teardown removes enhancement controls while preserving committed order; destroy and reinitialize after structural changes."
     ],
     "html": "<form class=\"rf-stack\" data-rf-sortable data-demo-form aria-labelledby=\"priority-title\" method=\"dialog\">\n  <div><h3 id=\"priority-title\">Make room for what matters first.</h3><p class=\"rf-help\">Drag a card above or below another, or use its Move buttons on keyboard and touch.</p></div>\n  <ol class=\"rf-sort-list\" data-rf-sort-list aria-label=\"Project priorities\">\n    <li data-rf-sort-item=\"brief\"><div><strong data-rf-item-label>Give the idea a shape.</strong><p class=\"rf-help\">Write the project brief.</p><input type=\"hidden\" name=\"priority\" value=\"brief\"></div><div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"-1\" aria-label=\"Move Give the idea a shape. up\" hidden>↑ <span class=\"rf-sr-only\">Move up</span></button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"1\" aria-label=\"Move Give the idea a shape. down\" hidden>↓ <span class=\"rf-sr-only\">Move down</span></button></div></li>\n    <li data-rf-sort-item=\"prototype\"><div><strong data-rf-item-label>Make something tangible.</strong><p class=\"rf-help\">Build the first prototype.</p><input type=\"hidden\" name=\"priority\" value=\"prototype\"></div><div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"-1\" aria-label=\"Move Make something tangible. up\" hidden>↑ <span class=\"rf-sr-only\">Move up</span></button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"1\" aria-label=\"Move Make something tangible. down\" hidden>↓ <span class=\"rf-sr-only\">Move down</span></button></div></li>\n    <li data-rf-sort-item=\"review\"><div><strong data-rf-item-label>Invite a fresh perspective.</strong><p class=\"rf-help\">Ask for a review.</p><input type=\"hidden\" name=\"priority\" value=\"review\"></div><div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"-1\" aria-label=\"Move Invite a fresh perspective. up\" hidden>↑ <span class=\"rf-sr-only\">Move up</span></button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"1\" aria-label=\"Move Invite a fresh perspective. down\" hidden>↓ <span class=\"rf-sr-only\">Move down</span></button></div></li>\n    <li data-rf-sort-item=\"launch\"><div><strong data-rf-item-label>Share your next chapter.</strong><p class=\"rf-help\">Prepare the launch.</p><input type=\"hidden\" name=\"priority\" value=\"launch\"></div><div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"-1\" aria-label=\"Move Share your next chapter. up\" hidden>↑ <span class=\"rf-sr-only\">Move up</span></button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-sort-move=\"1\" aria-label=\"Move Share your next chapter. down\" hidden>↓ <span class=\"rf-sr-only\">Move down</span></button></div></li>\n  </ol>\n  <p class=\"rf-help\" role=\"status\">Four priorities. Changes stay in this example.</p><div><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset order</button></div>\n</form>",
-    "cssBytes": 16651
+    "cssBytes": 16687
   },
   {
     "id": "kanban",
@@ -593,7 +593,7 @@ export default [
       "The composed dashboard uses this component and updates table statuses, draft creation, and archiving from the same sample rows."
     ],
     "html": "<form class=\"rf-stack rf-kanban\" data-rf-kanban data-demo-form aria-labelledby=\"board-title\" method=\"dialog\">\n  <div><h3 id=\"board-title\">Move good ideas forward.</h3><p class=\"rf-help\">Drag a card into a column, or choose its Move to field on keyboard and touch.</p></div>\n  <div class=\"rf-kanban__columns\">\n    <section class=\"rf-kanban__column\" data-rf-kanban-column=\"Draft\" aria-labelledby=\"board-column-0\"><h3 id=\"board-column-0\">Draft <span class=\"rf-badge\" data-rf-kanban-count>1</span></h3><ul class=\"rf-kanban__list\" data-rf-kanban-list aria-label=\"Draft projects\">\n        <li data-rf-kanban-item=\"project-3\"><strong data-rf-item-label>Brand refresh</strong><p class=\"rf-help\">Alex · 20 tasks</p><label class=\"rf-field\" data-rf-kanban-control hidden><span class=\"rf-label\">Move to<span class=\"rf-sr-only\"> for Brand refresh</span></span><select class=\"rf-select\" data-rf-kanban-move><option selected>Draft</option><option>In progress</option><option>Published</option></select></label></li>\n      </ul><p class=\"rf-help\" data-rf-kanban-empty hidden>Nothing here yet. Make space for a new beginning.</p></section>\n    <section class=\"rf-kanban__column\" data-rf-kanban-column=\"In progress\" aria-labelledby=\"board-column-1\"><h3 id=\"board-column-1\">In progress <span class=\"rf-badge\" data-rf-kanban-count>2</span></h3><ul class=\"rf-kanban__list\" data-rf-kanban-list aria-label=\"In progress projects\">\n        <li data-rf-kanban-item=\"project-2\"><strong data-rf-item-label>Mobile journal</strong><p class=\"rf-help\">Jamie · 3 tasks</p><label class=\"rf-field\" data-rf-kanban-control hidden><span class=\"rf-label\">Move to<span class=\"rf-sr-only\"> for Mobile journal</span></span><select class=\"rf-select\" data-rf-kanban-move><option>Draft</option><option selected>In progress</option><option>Published</option></select></label></li>\n        <li data-rf-kanban-item=\"project-4\"><strong data-rf-item-label>Component library</strong><p class=\"rf-help\">Robin · 8 tasks</p><label class=\"rf-field\" data-rf-kanban-control hidden><span class=\"rf-label\">Move to<span class=\"rf-sr-only\"> for Component library</span></span><select class=\"rf-select\" data-rf-kanban-move><option>Draft</option><option selected>In progress</option><option>Published</option></select></label></li>\n      </ul><p class=\"rf-help\" data-rf-kanban-empty hidden>Nothing here yet. Make space for a new beginning.</p></section>\n    <section class=\"rf-kanban__column\" data-rf-kanban-column=\"Published\" aria-labelledby=\"board-column-2\"><h3 id=\"board-column-2\">Published <span class=\"rf-badge\" data-rf-kanban-count>1</span></h3><ul class=\"rf-kanban__list\" data-rf-kanban-list aria-label=\"Published projects\">\n        <li data-rf-kanban-item=\"project-1\"><strong data-rf-item-label>Studio website</strong><p class=\"rf-help\">Robin · 12 tasks</p><label class=\"rf-field\" data-rf-kanban-control hidden><span class=\"rf-label\">Move to<span class=\"rf-sr-only\"> for Studio website</span></span><select class=\"rf-select\" data-rf-kanban-move><option>Draft</option><option>In progress</option><option selected>Published</option></select></label></li>\n      </ul><p class=\"rf-help\" data-rf-kanban-empty hidden>Nothing here yet. Make space for a new beginning.</p></section>\n  </div>\n  <p class=\"rf-help\" role=\"status\">Four sample projects. Changes stay in this example.</p><div><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset board</button></div>\n</form>",
-    "cssBytes": 15825
+    "cssBytes": 15861
   },
   {
     "id": "resizable-panels",
@@ -616,7 +616,7 @@ export default [
       "Native form reset restores the default slider and textarea. Teardown restores the original inline grid variables and slider accessible value."
     ],
     "html": "<form class=\"rf-stack rf-resizable\" data-rf-resizable data-demo-form aria-labelledby=\"panels-title\" method=\"dialog\">\n  <div><h3 id=\"panels-title\">A workspace that fits your focus.</h3><p class=\"rf-help\" id=\"panels-help\">Use the slider or arrow keys to resize. Panels stack on small screens.</p></div>\n  <label class=\"rf-field\"><span class=\"rf-label\">First panel width</span><input class=\"rf-range\" type=\"range\" min=\"25\" max=\"75\" value=\"40\" step=\"1\" aria-controls=\"workspace-panels\" aria-describedby=\"panels-help\"><output class=\"rf-help\" data-rf-panel-size>40% first panel, 60% second panel</output></label>\n  <div class=\"rf-resizable__panels\" id=\"workspace-panels\"><aside class=\"rf-card rf-stack\" aria-label=\"Project notes\"><strong>Give the idea a shape.</strong><p class=\"rf-muted\">A few notes, a clear direction, a little room to explore.</p><ul><li>Make it useful.</li><li>Keep it simple.</li><li>Invite a fresh perspective.</li></ul></aside><article class=\"rf-card rf-stack\"><h4 style=\"margin:0\">Make something tangible.</h4><p>Build the smallest thing that helps someone. Adjust your workspace when the next task needs more room.</p><label class=\"rf-field\"><span class=\"rf-label\">Your next step</span><textarea class=\"rf-textarea\" name=\"notes\">Prepare the first prototype for review.</textarea></label></article></div>\n  <div><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset workspace</button></div>\n</form>",
-    "cssBytes": 17544
+    "cssBytes": 17580
   },
   {
     "id": "line-chart",
@@ -640,7 +640,7 @@ export default [
       "Without JavaScript, the fallback chart and full data table remain available. This is a small static chart; streaming data, zoom, custom tooltips, and large datasets need application-specific work."
     ],
     "html": "<figure class=\"rf-card rf-chart\" data-rf-line-chart>\n  <figcaption>A steady climb, with room to grow.</figcaption><p class=\"rf-help\">Sample active members, April–September. Solid line: active members; dashed line: target. Shared linear scale includes zero.</p>\n  <svg class=\"rf-line-plot\" data-rf-line-plot viewBox=\"0 0 560 240\" aria-hidden=\"true\">\n    <line x1=\"32\" y1=\"20\" x2=\"528\" y2=\"20\"/><line x1=\"32\" y1=\"110\" x2=\"528\" y2=\"110\"/><line x1=\"32\" y1=\"200\" x2=\"528\" y2=\"200\"/>\n    <polyline data-rf-line-series=\"active\" points=\"32,140 131.2,105 230.4,122.5 329.6,70 428.8,80 528,20\"/><polyline class=\"rf-line-target\" data-rf-line-series=\"target\" points=\"32,125 131.2,112.5 230.4,100 329.6,87.5 428.8,75 528,62.5\"/>\n    <line data-rf-line-cursor x1=\"32\" x2=\"32\" y1=\"20\" y2=\"200\"/>\n    <text x=\"32\" y=\"228\" text-anchor=\"middle\">Apr</text><text x=\"131.2\" y=\"228\" text-anchor=\"middle\">May</text><text x=\"230.4\" y=\"228\" text-anchor=\"middle\">Jun</text><text x=\"329.6\" y=\"228\" text-anchor=\"middle\">Jul</text><text x=\"428.8\" y=\"228\" text-anchor=\"middle\">Aug</text><text x=\"528\" y=\"228\" text-anchor=\"middle\">Sep</text>\n  </svg>\n  <div class=\"rf-stack\" data-rf-line-controls hidden><div class=\"rf-cluster\"><label class=\"rf-check\"><input type=\"checkbox\" data-rf-line-toggle=\"active\" checked>Active members · solid</label><label class=\"rf-check\"><input type=\"checkbox\" data-rf-line-toggle=\"target\" checked>Target · dashed</label></div><label class=\"rf-field\"><span class=\"rf-label\">Chart month</span><input class=\"rf-range\" type=\"range\" min=\"0\" max=\"5\" value=\"0\" step=\"1\" data-rf-line-range></label><p class=\"rf-help\" data-rf-line-readout>April: Active members 24; Target 30</p></div>\n  <details><summary>View line chart data</summary><div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Active member chart data\"><table class=\"rf-table\"><caption>Active members and targets, April–September</caption><thead><tr><th scope=\"col\">Month</th><th scope=\"col\" data-rf-line-series=\"active\">Active members</th><th scope=\"col\" data-rf-line-series=\"target\">Target</th></tr></thead><tbody><tr><th scope=\"row\">April</th><td>24</td><td>30</td></tr><tr><th scope=\"row\">May</th><td>38</td><td>35</td></tr><tr><th scope=\"row\">June</th><td>31</td><td>40</td></tr><tr><th scope=\"row\">July</th><td>52</td><td>45</td></tr><tr><th scope=\"row\">August</th><td>48</td><td>50</td></tr><tr><th scope=\"row\">September</th><td>72</td><td>55</td></tr></tbody></table></div></details>\n</figure>",
-    "cssBytes": 16583
+    "cssBytes": 16619
   },
   {
     "id": "bar-chart",
@@ -698,7 +698,7 @@ export default [
       "Inputs submit YYYY-MM-DD values. Your application chooses time zone, inclusive endpoints, and server validation."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-rf-date-range data-demo-form method=\"dialog\">\n  <fieldset class=\"rf-fieldset\"><legend>Reporting period</legend><div class=\"rf-grid\" style=\"--rf-column:12rem\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Start date</span><input class=\"rf-input\" type=\"date\" name=\"start\" value=\"2026-09-01\" data-rf-date-start required></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">End date</span><input class=\"rf-input\" type=\"date\" name=\"end\" value=\"2026-09-30\" data-rf-date-end required></label>\n  </div><p class=\"rf-help\" style=\"margin-top:1rem\">The end date must be on or after the start date.</p></fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Apply dates</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset dates</button></div>\n</form>",
-    "cssBytes": 5005
+    "cssBytes": 5041
   },
   {
     "id": "paginated-table",
@@ -724,7 +724,7 @@ export default [
       "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
     ],
     "html": "<form class=\"rf-stack\" data-rf-data-table data-demo-form aria-labelledby=\"paged-title\" method=\"dialog\">\n  <div><h3 id=\"paged-title\">A clear view of your projects.</h3><p class=\"rf-help\">Search, filter, sort, and page through six sample projects.</p></div>\n  <div class=\"rf-table-toolbar\"><label class=\"rf-field\"><span class=\"rf-label\">Search projects</span><input class=\"rf-input\" type=\"search\" data-rf-table-search placeholder=\"Name or owner…\"></label><label class=\"rf-field\"><span class=\"rf-label\">Project status</span><select class=\"rf-select\" data-rf-table-filter=\"status\"><option value=\"\">All statuses</option><option>Published</option><option>In progress</option><option>Draft</option></select></label><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset filters</button></div>\n  \n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Paginated projects\"><table class=\"rf-table\"><caption>Six sample projects. Sorting applies to all matching rows, before pagination.</caption><thead><tr><th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Project <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th><th scope=\"col\">Owner</th><th scope=\"col\">Status</th><th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"number\">Tasks <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th></tr></thead><tbody><tr data-rf-status=\"Published\"><th scope=\"row\">Studio website</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>12</td></tr><tr data-rf-status=\"In progress\"><th scope=\"row\">Mobile journal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>3</td></tr><tr data-rf-status=\"Draft\"><th scope=\"row\">Brand refresh</th><td>Alex</td><td><span class=\"rf-badge\" data-variant=\"info\">Draft</span></td><td>20</td></tr><tr data-rf-status=\"In progress\"><th scope=\"row\">Component library</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>8</td></tr><tr data-rf-status=\"Draft\"><th scope=\"row\">Customer portal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"info\">Draft</span></td><td>16</td></tr><tr data-rf-status=\"Published\"><th scope=\"row\">Onboarding flow</th><td>Alex</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>6</td></tr></tbody></table></div>\n  <div class=\"rf-empty\" data-rf-table-empty hidden><strong>No projects match.</strong><p>Try another search or reset the filters.</p></div>\n  <div class=\"rf-table-toolbar\"><label class=\"rf-field\" style=\"flex:0 1 9rem\"><span class=\"rf-label\">Rows per page</span><select class=\"rf-select\" data-rf-table-page-size><option value=\"3\">3</option><option value=\"6\">6</option></select></label><p class=\"rf-help\" role=\"status\" data-rf-table-status>6 sample projects</p><nav class=\"rf-cluster\" aria-label=\"Table pages\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-table-previous disabled>Previous page</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-table-next disabled>Next page</button></nav></div>\n</form>",
-    "cssBytes": 18835
+    "cssBytes": 18871
   },
   {
     "id": "bulk-actions",
@@ -749,7 +749,7 @@ export default [
       "rf:table-selection exposes detail.values. rf:table-action exposes detail.action and detail.values; your app owns authorization, confirmation, and the real action."
     ],
     "html": "<form class=\"rf-stack\" data-rf-data-table data-demo-form aria-labelledby=\"bulk-title\" method=\"dialog\">\n  <div><h3 id=\"bulk-title\">The work, together.</h3><p class=\"rf-help\">Select this page or individual rows. Selections stay selected across pages and filters.</p></div>\n  <div class=\"rf-table-toolbar\"><label class=\"rf-field\"><span class=\"rf-label\">Search projects</span><input class=\"rf-input\" type=\"search\" data-rf-table-search placeholder=\"Name or owner…\"></label><label class=\"rf-field\"><span class=\"rf-label\">Project status</span><select class=\"rf-select\" data-rf-table-filter=\"status\"><option value=\"\">All statuses</option><option>Published</option><option>In progress</option><option>Draft</option></select></label><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset filters</button></div>\n  <div class=\"rf-cluster\"><p class=\"rf-help\" role=\"status\" data-rf-table-selected>0 selected across all pages</p><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-table-action=\"review\" disabled>Review selected</button></div>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Selectable projects\"><table class=\"rf-table\"><caption>Six sample projects. Sorting applies to all matching rows, before pagination.</caption><thead><tr><th scope=\"col\"><label class=\"rf-check\"><input type=\"checkbox\" data-rf-table-select-all><span class=\"rf-sr-only\">Select this page</span></label></th><th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Project <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th><th scope=\"col\">Owner</th><th scope=\"col\">Status</th><th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"number\">Tasks <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th></tr></thead><tbody><tr data-rf-status=\"Published\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-1\" data-rf-table-select><span class=\"rf-sr-only\">Select Studio website</span></label></td><th scope=\"row\">Studio website</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>12</td></tr><tr data-rf-status=\"In progress\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-2\" data-rf-table-select><span class=\"rf-sr-only\">Select Mobile journal</span></label></td><th scope=\"row\">Mobile journal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>3</td></tr><tr data-rf-status=\"Draft\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-3\" data-rf-table-select><span class=\"rf-sr-only\">Select Brand refresh</span></label></td><th scope=\"row\">Brand refresh</th><td>Alex</td><td><span class=\"rf-badge\" data-variant=\"info\">Draft</span></td><td>20</td></tr><tr data-rf-status=\"In progress\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-4\" data-rf-table-select><span class=\"rf-sr-only\">Select Component library</span></label></td><th scope=\"row\">Component library</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>8</td></tr><tr data-rf-status=\"Draft\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-5\" data-rf-table-select><span class=\"rf-sr-only\">Select Customer portal</span></label></td><th scope=\"row\">Customer portal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"info\">Draft</span></td><td>16</td></tr><tr data-rf-status=\"Published\"><td><label class=\"rf-check\"><input type=\"checkbox\" name=\"projects\" value=\"project-6\" data-rf-table-select><span class=\"rf-sr-only\">Select Onboarding flow</span></label></td><th scope=\"row\">Onboarding flow</th><td>Alex</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>6</td></tr></tbody></table></div>\n  <div class=\"rf-empty\" data-rf-table-empty hidden><strong>No projects match.</strong><p>Try another search or reset the filters.</p></div>\n  <div class=\"rf-table-toolbar\"><label class=\"rf-field\" style=\"flex:0 1 9rem\"><span class=\"rf-label\">Rows per page</span><select class=\"rf-select\" data-rf-table-page-size><option value=\"3\">3</option><option value=\"6\">6</option></select></label><p class=\"rf-help\" role=\"status\" data-rf-table-status>6 sample projects</p><nav class=\"rf-cluster\" aria-label=\"Table pages\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-table-previous disabled>Previous page</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-table-next disabled>Next page</button></nav></div>\n</form>",
-    "cssBytes": 18835
+    "cssBytes": 18871
   },
   {
     "id": "notification-center",
@@ -850,7 +850,7 @@ export default [
       "The composed dashboard saves workspace preferences locally for this session; use a server for real account updates."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <div><h3 class=\"rf-card__title\">A workspace that feels like you.</h3><p class=\"rf-muted\">Sample account settings. Save and reset use native form controls.</p></div>\n  <div class=\"rf-grid\"><label class=\"rf-field\"><span class=\"rf-label\">Display name</span><input class=\"rf-input\" name=\"name\" value=\"Robin Francis\" autocomplete=\"name\" maxlength=\"80\" required></label><label class=\"rf-field\"><span class=\"rf-label\">Email address</span><input class=\"rf-input\" name=\"email\" type=\"email\" value=\"robin@example.com\" autocomplete=\"email\" required></label></div>\n  <label class=\"rf-field\"><span class=\"rf-label\">Time zone</span><select class=\"rf-select\" name=\"timezone\"><option value=\"Asia/Kolkata\">India · Asia/Kolkata</option><option value=\"Europe/London\">United Kingdom · Europe/London</option><option value=\"America/New_York\">United States · America/New_York</option><option value=\"UTC\">UTC</option></select></label>\n  <fieldset class=\"rf-fieldset\"><legend>Notifications</legend><div class=\"rf-stack\"><label class=\"rf-check\"><input class=\"rf-switch\" type=\"checkbox\" role=\"switch\" name=\"updates\" checked>Project updates</label><label class=\"rf-check\"><input class=\"rf-switch\" type=\"checkbox\" role=\"switch\" name=\"digest\">Weekly digest</label></div></fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save preferences</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Discard changes</button></div><p class=\"rf-help\">Preview only. Connect save to your account service.</p>\n</form>",
-    "cssBytes": 9017
+    "cssBytes": 9053
   },
   {
     "id": "sign-up",
@@ -873,7 +873,7 @@ export default [
       "Replace terms and privacy links with your own published policies."
     ],
     "html": "<section class=\"rf-card rf-auth\"><h3>Your next chapter starts here.</h3><p class=\"rf-muted\">A simple account creation form.</p>\n  <form data-demo-form method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Full name</span><input class=\"rf-input\" name=\"name\" autocomplete=\"name\" required></label><label class=\"rf-field\"><span class=\"rf-label\">Email</span><input class=\"rf-input\" name=\"email\" type=\"email\" autocomplete=\"email\" required></label>\n    <div class=\"rf-field\" data-rf-password><label class=\"rf-label\" for=\"signup-password\">Create password</label><div class=\"rf-input-action\"><input class=\"rf-input\" id=\"signup-password\" name=\"password\" type=\"password\" autocomplete=\"new-password\" minlength=\"8\" aria-describedby=\"signup-help\" required><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"signup-password\" aria-pressed=\"false\" hidden>Show</button></div><p class=\"rf-help\" id=\"signup-help\">Example minimum: 8 characters. Apply your own server policy.</p></div>\n    <label class=\"rf-check\"><input type=\"checkbox\" name=\"terms\" required><span>I agree to the <a href=\"#terms\">terms</a> and <a href=\"#privacy\">privacy policy</a>.</span></label><button class=\"rf-button\" type=\"submit\">Create account</button>\n  </form><p class=\"rf-help\" style=\"margin-top:1rem\">Preview only. Do not enter a real password. Authentication requires your backend.</p>\n</section>",
-    "cssBytes": 21556
+    "cssBytes": 21592
   },
   {
     "id": "password-reset",
@@ -893,7 +893,7 @@ export default [
       "Return the same request response for known and unknown accounts; keep the actual recovery service separate from this UI."
     ],
     "html": "<section class=\"rf-card rf-auth\"><h3>A fresh start.</h3><p class=\"rf-muted\">Enter your email to request a password reset.</p><form data-demo-form method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Account email</span><input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required></label><button class=\"rf-button\" type=\"submit\">Request reset link</button></form><p class=\"rf-help\" style=\"margin-top:1rem\">Preview only. No email is sent. Your server must generate, expire, and validate reset tokens; return the same response for known and unknown accounts.</p></section>",
-    "cssBytes": 9017
+    "cssBytes": 9053
   },
   {
     "id": "password-field",
@@ -916,7 +916,7 @@ export default [
       "This interface is not authentication or a password-strength policy. Use sample text in the preview."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:30rem\" method=\"dialog\">\n  <p class=\"rf-eyebrow\">A small detail. A little less friction.</p>\n  <h3 class=\"rf-card__title\">See what you’re typing.</h3>\n  <div class=\"rf-field\" data-rf-password>\n    <label class=\"rf-label\" for=\"reveal-password\">Password</label>\n    <div class=\"rf-input-action\">\n      <input class=\"rf-input\" id=\"reveal-password\" name=\"password\" type=\"password\" autocomplete=\"new-password\" minlength=\"8\" required aria-describedby=\"reveal-help\">\n      <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"reveal-password\" aria-pressed=\"false\" hidden>Show</button>\n    </div>\n    <p class=\"rf-help\" id=\"reveal-help\">Use a sample password of at least 8 characters. This demo sends nothing.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Try the form</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset</button></div>\n</form>",
-    "cssBytes": 17544
+    "cssBytes": 17580
   },
   {
     "id": "character-counter",
@@ -939,7 +939,7 @@ export default [
       "Values remain local. Native form reset updates the count."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:34rem\" method=\"dialog\">\n  <p class=\"rf-eyebrow\">Make every word count.</p>\n  <h3 class=\"rf-card__title\">A little introduction.</h3>\n  <div class=\"rf-field\" data-rf-counter>\n    <label class=\"rf-label\" for=\"profile-bio\">Your bio</label>\n    <textarea class=\"rf-textarea\" id=\"profile-bio\" name=\"bio\" maxlength=\"160\" rows=\"3\" placeholder=\"What do you love making?\" aria-describedby=\"bio-help bio-count\"></textarea>\n    <div class=\"rf-cluster\" style=\"justify-content:space-between\"><p class=\"rf-help\" id=\"bio-help\">Keep it short. Make it you.</p><p class=\"rf-help rf-count\" id=\"bio-count\" data-rf-count>Up to 160 characters.</p></div>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview profile</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Start over</button></div>\n</form>",
-    "cssBytes": 17544
+    "cssBytes": 17580
   },
   {
     "id": "tag-input",
@@ -963,7 +963,7 @@ export default [
       "Emits rf:tags-change with detail.values when adding or removing. Reset restores the initial tags. Validate values again on your server."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form style=\"max-width:34rem\" method=\"dialog\">\n  <p class=\"rf-eyebrow\">A few words. A clearer picture.</p>\n  <h3 class=\"rf-card__title\">What are you making?</h3>\n  <div class=\"rf-stack\" data-rf-tags data-rf-tags-name=\"topics\" data-rf-tags-max=\"5\">\n    <div class=\"rf-field\">\n      <label class=\"rf-label\" for=\"project-tag\">Project topics</label>\n      <div class=\"rf-input-action\"><input class=\"rf-input\" id=\"project-tag\" data-rf-tag-input maxlength=\"32\" placeholder=\"Add a topic…\" aria-describedby=\"tags-help\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-tag-add>Add tag</button></div>\n      <p class=\"rf-help\" id=\"tags-help\">Press Enter or Add tag. Choose up to five topics, 32 characters each.</p>\n    </div>\n    <ul class=\"rf-tag-list\" data-rf-tag-list aria-label=\"Selected topics\">\n      <li class=\"rf-tag\"><span>Design</span><input type=\"hidden\" name=\"topics\" value=\"Design\"></li>\n      <li class=\"rf-tag\"><span>Accessibility</span><input type=\"hidden\" name=\"topics\" value=\"Accessibility\"></li>\n    </ul>\n    <p class=\"rf-help\" role=\"status\"></p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview topics</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset topics</button></div>\n</form>",
-    "cssBytes": 17544
+    "cssBytes": 17580
   },
   {
     "id": "data-table",
@@ -989,7 +989,7 @@ export default [
       "Accessibility reference: https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/"
     ],
     "html": "<section class=\"rf-stack\" data-rf-data-table aria-labelledby=\"work-table-title\">\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\">\n    <div><p class=\"rf-eyebrow\">Less searching. More doing.</p><h3 id=\"work-table-title\" style=\"margin:0\">The work ahead.</h3></div>\n    <div class=\"rf-field\"><label class=\"rf-label\" for=\"work-search\">Find a project</label><input class=\"rf-input\" id=\"work-search\" type=\"search\" placeholder=\"Name, owner, or status…\" data-rf-table-search></div>\n  </div>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Project list\">\n    <table class=\"rf-table\">\n      <caption>Sample projects. Use column buttons to sort; click again to reverse.</caption>\n      <thead><tr>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Project <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"text\">Owner <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n        <th scope=\"col\">Status</th>\n        <th scope=\"col\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-sort=\"number\">Tasks <span aria-hidden=\"true\" data-rf-sort-icon>↕</span></button></th>\n      </tr></thead>\n      <tbody>\n        <tr><th scope=\"row\">Studio website</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"success\">Published</span></td><td>12</td></tr>\n        <tr><th scope=\"row\">Mobile journal</th><td>Jamie</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>3</td></tr>\n        <tr><th scope=\"row\">Brand refresh</th><td>Alex</td><td><span class=\"rf-badge\">Draft</span></td><td>20</td></tr>\n        <tr><th scope=\"row\">Component library</th><td>Robin</td><td><span class=\"rf-badge\" data-variant=\"warning\">In progress</span></td><td>8</td></tr>\n      </tbody>\n    </table>\n  </div>\n  <p class=\"rf-help\" role=\"status\" data-rf-table-status>Four sample projects.</p>\n</section>",
-    "cssBytes": 18112
+    "cssBytes": 18148
   },
   {
     "id": "launch-checklist",
@@ -1014,7 +1014,7 @@ export default [
       "Works with keyboard and touch; no motion is required to understand completion."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-rf-check-progress style=\"max-width:34rem\" method=\"dialog\">\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\"><p class=\"rf-eyebrow\">Small steps. Something real.</p><span class=\"rf-badge\">Your launch plan</span></div>\n  <h3 class=\"rf-card__title\">Bring your idea into the world.</h3>\n  <label class=\"rf-help\" for=\"launch-progress\">Launch preparation</label>\n  <progress class=\"rf-progress\" id=\"launch-progress\" value=\"1\" max=\"3\">1 of 3 steps complete</progress>\n  <ul class=\"rf-launch-list\">\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"idea\" checked><span><strong>Give your idea a name</strong><small>A good beginning is a clear direction.</small></span></label></li>\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"build\"><span><strong>Make your first version</strong><small>Pick your components. Build one useful thing.</small></span></label></li>\n    <li><label><input type=\"checkbox\" name=\"launch\" value=\"share\"><span><strong>Share it with someone</strong><small>A little feedback goes a long way.</small></span></label></li>\n  </ul>\n  <p class=\"rf-help\" role=\"status\" data-rf-check-status>1 of 3 steps complete</p>\n  <button class=\"rf-button rf-button--ghost\" type=\"reset\">Reset checklist</button>\n</form>",
-    "cssBytes": 19021
+    "cssBytes": 19057
   },
   {
     "id": "billing-switch",
@@ -1039,7 +1039,7 @@ export default [
       "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
     ],
     "html": "<section class=\"rf-stack\" data-rf-billing aria-labelledby=\"billing-title\">\n  <div><p class=\"rf-eyebrow\">A clear choice, at your pace.</p><h3 id=\"billing-title\">A little room to grow.</h3><p class=\"rf-muted\">Illustrative plans for a fictional workspace.</p></div>\n  <fieldset class=\"rf-segmented\"><legend>Billing interval</legend><label><input type=\"radio\" name=\"example-billing\" value=\"monthly\" checked><span>Monthly</span></label><label><input type=\"radio\" name=\"example-billing\" value=\"yearly\"><span>Yearly · save 20%</span></label></fieldset>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\">Personal</h4><p class=\"rf-muted\">A home for your own ideas.</p><p class=\"rf-price\"><span data-rf-monthly=\"$10\" data-rf-yearly=\"$8\">$10</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button rf-button--outline\" href=\"#personal-plan\">Choose Personal</a></article>\n    <article class=\"rf-card rf-stack rf-pricing__featured\"><span class=\"rf-badge\" data-variant=\"success\">For building together</span><h4 class=\"rf-card__title\">Studio</h4><p class=\"rf-muted\">More space for your next chapter.</p><p class=\"rf-price\"><span data-rf-monthly=\"$25\" data-rf-yearly=\"$20\">$25</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button\" href=\"#studio-plan\">Choose Studio</a></article>\n  </div>\n  <p class=\"rf-help\">A pricing interface demo. No payment is collected. Yearly examples represent $96 and $240 per year.</p>\n</section>",
-    "cssBytes": 22354
+    "cssBytes": 22390
   },
   {
     "id": "dot-grid",
@@ -1338,7 +1338,7 @@ export default [
       "Validate all submitted data on the server."
     ],
     "html": "<section class=\"rf-section rf-container\" id=\"contact\"><div class=\"rf-grid\"><div><p class=\"rf-eyebrow\">Start a conversation</p><h2 class=\"rf-section__heading\">Tell us what’s next.</h2><p class=\"rf-section__intro\">A sample form layout. Connect it to your own backend before publishing.</p></div><form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\"><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-name\">Name</label><input class=\"rf-input\" id=\"contact-name\" name=\"name\" autocomplete=\"name\" required></div><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-email\">Email</label><input class=\"rf-input\" id=\"contact-email\" type=\"email\" name=\"email\" autocomplete=\"email\" required></div><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-message\">Message</label><textarea class=\"rf-textarea\" id=\"contact-message\" name=\"message\" required></textarea></div><button class=\"rf-button\" type=\"submit\">Send message</button></form></div></section>",
-    "cssBytes": 9017
+    "cssBytes": 9053
   },
   {
     "id": "image-compare",
@@ -1358,7 +1358,7 @@ export default [
       "The native range supports arrows, Home/End, touch, and keyboard."
     ],
     "html": "<div data-rf-compare class=\"rf-stack\">\n  <div class=\"rf-compare\" role=\"img\" aria-label=\"Before and after design comparison\">\n    <div class=\"rf-compare__before\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        A blank canvas.\n      </strong>\n    </div>\n    <div class=\"rf-compare__after\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        Brought to life.\n      </strong>\n    </div>\n    <span class=\"rf-compare__label\">\n      Before\n    </span>\n    <span class=\"rf-compare__label rf-compare__label--after\">\n      After\n    </span>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Comparison position\n    </span>\n    <input class=\"rf-range\" type=\"range\" min=\"0\" max=\"100\" value=\"50\">\n  </label>\n</div>",
-    "cssBytes": 15027
+    "cssBytes": 15063
   },
   {
     "id": "carousel",
@@ -1403,7 +1403,7 @@ export default [
       "The preview reports the choice locally and performs no application action."
     ],
     "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-dialog-open=\"example-command\">\n  Open commands\n  <kbd>\n    ↓\n  </kbd>\n</button>\n<dialog class=\"rf-dialog rf-command\" id=\"example-command\" aria-labelledby=\"command-title\" data-rf-command>\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\">\n    <h2 id=\"command-title\">\n      What would you like to do?\n    </h2>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-dialog-close aria-label=\"Close commands\">\n      ×\n    </button>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Search commands\n    </span>\n    <input class=\"rf-input\" type=\"search\" placeholder=\"Try settings…\" autofocus>\n  </label>\n  <div class=\"rf-command__list\">\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"new-project\">\n      Create project\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"settings\">\n      Open settings\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"help\">\n      Get help\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n  </div>\n  <p class=\"rf-help\" role=\"status\">\n  </p>\n  <p class=\"rf-help\">\n    Arrow keys to browse. Enter to choose. Escape to close.\n  </p>\n</dialog>",
-    "cssBytes": 17463
+    "cssBytes": 17499
   },
   {
     "id": "like-button",
@@ -1444,7 +1444,7 @@ export default [
       "Emits ordinary input and change events. Disabled and read-only inputs are not changed."
     ],
     "html": "<div class=\"rf-stack\">\n  <label class=\"rf-label\" for=\"quantity\">\n    Quantity\n  </label>\n  <div class=\"rf-stepper\" data-rf-stepper>\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"-1\" aria-label=\"Decrease quantity\">\n      −\n    </button>\n    <input class=\"rf-input\" id=\"quantity\" type=\"number\" min=\"1\" max=\"10\" step=\"1\" value=\"2\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"1\" aria-label=\"Increase quantity\">\n      +\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Between 1 and 10. You can also type a quantity.\n  </p>\n</div>",
-    "cssBytes": 16651
+    "cssBytes": 16687
   },
   {
     "id": "segmented-control",
@@ -1477,7 +1477,7 @@ export default [
       "Use min/max for date limits. Validate submitted dates on the server."
     ],
     "html": "<label class=\"rf-field\">\n  <span class=\"rf-label\">\n    Project start date\n  </span>\n  <input class=\"rf-input\" type=\"date\" name=\"start-date\">\n  <span class=\"rf-help\">\n    Calendar appearance follows your browser and device.\n  </span>\n</label>",
-    "cssBytes": 2488
+    "cssBytes": 2524
   },
   {
     "id": "one-time-code",
@@ -1495,7 +1495,7 @@ export default [
       "Your server must check expiry, attempt limits, and validity. This component does not authenticate."
     ],
     "html": "<form class=\"rf-stack\" data-demo-form method=\"dialog\">\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Verification code\n    </span>\n    <input class=\"rf-input\" name=\"code\" type=\"text\" inputmode=\"numeric\" autocomplete=\"one-time-code\" pattern=\"[0-9]{6}\" maxlength=\"6\" required placeholder=\"123456\" aria-describedby=\"code-help\">\n    <span id=\"code-help\" class=\"rf-help\">\n      Enter the six-digit code. Demo only; no verification request is sent.\n    </span>\n  </label>\n  <button class=\"rf-button\" type=\"submit\">\n    Verify code\n  </button>\n</form>",
-    "cssBytes": 4112
+    "cssBytes": 4148
   },
   {
     "id": "timeline",
@@ -1601,7 +1601,7 @@ export default [
       "The checked treatment retains the task label and text contrast."
     ],
     "html": "<ul class=\"rf-checklist\">\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"0\" checked>\n      <span>\n        Sketch the first idea\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"1\" >\n      <span>\n        Build a small prototype\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"2\" >\n      <span>\n        Check the keyboard flow\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"3\" >\n      <span>\n        Share it with someone\n      </span>\n    </label>\n  </li>\n</ul>",
-    "cssBytes": 15027
+    "cssBytes": 15063
   },
   {
     "id": "rating",
@@ -1655,7 +1655,7 @@ export default [
       "Replace the demo handler with your app submission and server-side validation."
     ],
     "html": "<form class=\"rf-stack\" data-rf-step-form data-demo-form method=\"dialog\">\n  <p class=\"rf-help\" role=\"status\">\n    Complete your project details\n  </p>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      1. Your project\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Project name\n      </span>\n      <input class=\"rf-input\" name=\"project\" required autocomplete=\"off\">\n    </label>\n  </fieldset>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      2. Your contact\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Contact email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" required autocomplete=\"email\">\n    </label>\n  </fieldset>\n  <div class=\"rf-cluster\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-step-previous hidden>\n      Previous\n    </button>\n    <button class=\"rf-button\" type=\"button\" data-rf-step-next hidden>\n      Continue\n    </button>\n    <button class=\"rf-button\" type=\"submit\" data-rf-step-submit>\n      Finish demo\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Demo only. No data is submitted or stored.\n  </p>\n</form>",
-    "cssBytes": 16651
+    "cssBytes": 16687
   },
   {
     "id": "copy-button",
@@ -1692,7 +1692,7 @@ export default [
       "The repeated group is decorative and must not contain focusable controls. Studio names are fictional."
     ],
     "html": "<section class=\"rf-marquee\" aria-label=\"Sample studio names\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\">\n    Pause animation\n  </label>\n  <div class=\"rf-marquee__track\">\n    <div class=\"rf-marquee__group\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n    <div class=\"rf-marquee__group\" aria-hidden=\"true\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n  </div>\n</section>",
-    "cssBytes": 15027
+    "cssBytes": 15063
   },
   {
     "id": "grid-background",
@@ -1748,7 +1748,7 @@ export default [
       "The native pause checkbox stops the animation without JavaScript."
     ],
     "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\" data-rf-pause-motion>\n    Pause animation\n  </label>\n  <article class=\"rf-card rf-aurora\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n    <p class=\"rf-eyebrow\">\n      A little atmosphere\n    </p>\n    <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n      Make something\n      <br>\n      worth opening.\n    </h3>\n    <p class=\"rf-muted\">\n      Original CSS. Your own character.\n    </p>\n  </article>\n</div>",
-    "cssBytes": 8897
+    "cssBytes": 8933
   },
   {
     "id": "gradient-border",
@@ -1786,7 +1786,7 @@ export default [
       "The native pause checkbox stops the animation without JavaScript."
     ],
     "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\" data-rf-pause-motion>\n    Pause animation\n  </label>\n  <article class=\"rf-card rf-border-beam\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n    <p class=\"rf-eyebrow\">\n      A little atmosphere\n    </p>\n    <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n      Make something\n      <br>\n      worth opening.\n    </h3>\n    <p class=\"rf-muted\">\n      Original CSS. Your own character.\n    </p>\n  </article>\n</div>",
-    "cssBytes": 8897
+    "cssBytes": 8933
   },
   {
     "id": "glass-card",
@@ -1983,7 +1983,7 @@ export default [
       "Replace the demo handler with your consent, email service, and server validation."
     ],
     "html": "<section class=\"rf-section rf-card\">\n  <h3 class=\"rf-section__heading\">\n    Good things, occasionally.\n  </h3>\n  <p class=\"rf-section__intro\">\n    A little inspiration for what you make next.\n  </p>\n  <form class=\"rf-newsletter\" data-demo-form method=\"dialog\">\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email address\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required placeholder=\"you@example.com\">\n    </label>\n    <button class=\"rf-button\" type=\"submit\">\n      Subscribe\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Demo only. No subscription is created.\n  </p>\n</section>",
-    "cssBytes": 9017
+    "cssBytes": 9053
   },
   {
     "id": "team",
@@ -2041,7 +2041,7 @@ export default [
       "The preview prevents submission and sends no data."
     ],
     "html": "<section class=\"rf-card rf-auth\">\n  <h3>\n    Welcome back.\n  </h3>\n  <p class=\"rf-muted\">\n    A little closer to your next idea.\n  </p>\n  <form data-demo-form method=\"dialog\">\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required>\n    </label>\n    <div class=\"rf-field\" data-rf-password>\n      <label class=\"rf-label\" for=\"signin-password\">Password</label>\n      <div class=\"rf-input-action\">\n        <input class=\"rf-input\" id=\"signin-password\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"signin-password\" aria-pressed=\"false\" hidden>Show</button>\n      </div>\n    </div>\n    <button class=\"rf-button\" type=\"submit\">\n      Sign in\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Preview only. Do not enter a real password.\n  </p>\n</section>",
-    "cssBytes": 21556
+    "cssBytes": 21592
   },
   {
     "id": "integration-map",
@@ -2082,7 +2082,7 @@ export default [
       "Exact typed labels are accepted. Other text is invalid. Reinitialize when changing the option structure."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <div class=\"rf-field\" data-rf-combobox>\n    <label class=\"rf-label\" for=\"project-template\">Project template</label>\n    <select class=\"rf-select\" id=\"project-template\" name=\"template\" required aria-describedby=\"template-help\">\n      <option value=\"\">Choose a template</option><option value=\"website\" selected>Website launch</option><option value=\"dashboard\">Analytics dashboard</option><option value=\"store\">Online store</option><option value=\"mobile\" disabled>Mobile app · coming soon</option>\n    </select>\n    <p class=\"rf-help\" id=\"template-help\">Type to search, use arrow keys, then Enter to choose. Escape restores your last choice.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Use template</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset template</button></div>\n</form>",
-    "cssBytes": 7202
+    "cssBytes": 7238
   },
   {
     "id": "autocomplete",
@@ -2101,7 +2101,7 @@ export default [
       "Suggestions are optional; free text remains valid. Use Combobox when selection must match a fixed option."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <label class=\"rf-field\"><span class=\"rf-label\">Project topic</span><input class=\"rf-input\" name=\"topic\" list=\"topic-suggestions\" autocomplete=\"off\" maxlength=\"80\" aria-describedby=\"topic-help\"><span class=\"rf-help\" id=\"topic-help\">Choose a suggestion or enter your own topic.</span></label>\n  <datalist id=\"topic-suggestions\"><option value=\"Accessibility\"></option><option value=\"Analytics\"></option><option value=\"Design systems\"></option><option value=\"Documentation\"></option><option value=\"Web performance\"></option></datalist>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save topic</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset topic</button></div>\n</form>",
-    "cssBytes": 5005
+    "cssBytes": 5041
   },
   {
     "id": "multiselect",
@@ -2124,7 +2124,7 @@ export default [
       "Reinitialize when changing the option structure. Without JavaScript, use the native multiple select."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <fieldset class=\"rf-fieldset\" data-rf-multiselect data-rf-multiselect-label=\"Project skills\"><legend>Project skills</legend>\n    <label class=\"rf-field\" for=\"project-skills\"><span class=\"rf-label\">Choose one or more skills</span><select class=\"rf-select\" id=\"project-skills\" name=\"skills\" multiple required size=\"5\"><option value=\"design\" selected>Design</option><option value=\"accessibility\">Accessibility</option><option value=\"engineering\">Engineering</option><option value=\"research\">Research</option><option value=\"video\" disabled>Video · unavailable</option></select></label>\n  </fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save skills</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset skills</button></div>\n</form>",
-    "cssBytes": 7202
+    "cssBytes": 7238
   },
   {
     "id": "form-error-summary",
@@ -2148,7 +2148,7 @@ export default [
       "Honor defaultPrevented in submission handlers. Server validation is still required."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-rf-validation data-demo-form method=\"dialog\">\n  <div class=\"rf-alert\" data-variant=\"danger\" data-rf-errors role=\"alert\" tabindex=\"-1\" hidden><strong>Check these fields</strong><ul></ul></div>\n  <label class=\"rf-field\" for=\"summary-name\"><span class=\"rf-label\">Your name</span><input class=\"rf-input\" id=\"summary-name\" name=\"name\" autocomplete=\"name\" required maxlength=\"80\"></label>\n  <label class=\"rf-field\" for=\"summary-email\"><span class=\"rf-label\">Email address</span><input class=\"rf-input\" id=\"summary-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required aria-describedby=\"summary-email-help\"><span class=\"rf-help\" id=\"summary-email-help\">Use an address you can receive messages at.</span></label>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Check form</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset form</button></div>\n</form>",
-    "cssBytes": 7926
+    "cssBytes": 7962
   },
   {
     "id": "calendar",
@@ -2171,7 +2171,7 @@ export default [
       "The date input remains usable without JavaScript. Calendar labels follow data-rf-locale; weekday order starts Monday."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <div class=\"rf-calendar rf-stack\" data-rf-calendar data-rf-locale=\"en-GB\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Launch date</span><input class=\"rf-input\" type=\"date\" name=\"date\" value=\"2026-10-02\" min=\"2026-09-01\" max=\"2027-12-31\" required aria-describedby=\"calendar-help\"></label>\n    <div data-rf-calendar-controls hidden><div class=\"rf-calendar__toolbar\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-calendar-month=\"-1\" aria-label=\"Previous month\">←</button><strong data-rf-calendar-title></strong><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-calendar-month=\"1\" aria-label=\"Next month\">→</button></div><table class=\"rf-calendar__grid\" data-rf-calendar-grid></table></div>\n    <p class=\"rf-help\" id=\"calendar-help\">Arrow keys move by day or week. Page Up/Down changes month, Home/End moves within the week. Enter selects.</p>\n  </div>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save date</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset date</button></div>\n</form>",
-    "cssBytes": 7202
+    "cssBytes": 7238
   },
   {
     "id": "time-picker",
@@ -2190,7 +2190,7 @@ export default [
       "Times do not contain a time zone. The application supplies the workspace zone and resolves daylight-saving ambiguity."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <label class=\"rf-field\"><span class=\"rf-label\">Meeting time</span><input class=\"rf-input\" name=\"time\" type=\"time\" value=\"09:30\" min=\"08:00\" max=\"18:00\" step=\"900\" required aria-describedby=\"meeting-time-help\"><span class=\"rf-help\" id=\"meeting-time-help\">08:00–18:00 in 15-minute steps. Times use your workspace’s time zone.</span></label>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save time</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset time</button></div>\n</form>",
-    "cssBytes": 5005
+    "cssBytes": 5041
   },
   {
     "id": "date-range-presets",
@@ -2214,7 +2214,7 @@ export default [
       "Shortcuts outside native min/max bounds preserve the prior range and announce the restriction. Reset restores native values."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-rf-date-range data-rf-date-presets data-rf-today=\"2026-10-02\" data-demo-form method=\"dialog\">\n  <fieldset class=\"rf-fieldset\"><legend>Reporting period</legend><div class=\"rf-grid\" style=\"--rf-column:12rem\"><label class=\"rf-field\"><span class=\"rf-label\">Start date</span><input class=\"rf-input\" type=\"date\" name=\"start\" value=\"2026-09-01\" data-rf-date-start required></label><label class=\"rf-field\"><span class=\"rf-label\">End date</span><input class=\"rf-input\" type=\"date\" name=\"end\" value=\"2026-09-30\" data-rf-date-end required></label></div></fieldset>\n  <div class=\"rf-cluster\" aria-label=\"Date shortcuts\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"today\">Today</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"week\">Last 7 days</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"month\">This month</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-date-preset=\"previous-month\">Previous month</button></div>\n  <p class=\"rf-help\" role=\"status\">Example today: 2 October 2026. Presets include both start and end dates.</p>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Apply period</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset period</button></div>\n</form>",
-    "cssBytes": 7202
+    "cssBytes": 7238
   },
   {
     "id": "event-scheduler",
@@ -2238,7 +2238,7 @@ export default [
       "Titles are rendered as text. Times require your workspace time zone; overnight events need a separate end date."
     ],
     "html": "<section class=\"rf-stack\" data-rf-scheduler aria-label=\"Event scheduler\">\n  <div><h3>Make time for what matters.</h3><p class=\"rf-muted\">Create and edit a daily schedule. Changes last for this page session.</p></div>\n  <form class=\"rf-card rf-stack\" data-rf-event-form data-rf-validation data-demo-form method=\"dialog\">\n    <div class=\"rf-alert\" data-variant=\"danger\" data-rf-errors role=\"alert\" tabindex=\"-1\" hidden><strong>Check your event</strong><ul></ul></div>\n    <input type=\"hidden\" name=\"eventId\" value=\"\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Event title</span><input class=\"rf-input\" name=\"title\" required maxlength=\"120\"></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Event date</span><input class=\"rf-input\" type=\"date\" name=\"date\" value=\"2026-10-02\" required></label>\n    <div class=\"rf-grid\" style=\"--rf-column:10rem\"><label class=\"rf-field\"><span class=\"rf-label\">Start time</span><input class=\"rf-input\" type=\"time\" name=\"start\" value=\"09:00\" required></label><label class=\"rf-field\"><span class=\"rf-label\">End time</span><input class=\"rf-input\" type=\"time\" name=\"end\" value=\"09:30\" required></label></div>\n    <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\" data-rf-event-save>Add event</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Cancel edit</button></div>\n  </form>\n  <p class=\"rf-help\" role=\"status\" data-rf-event-status>1 event scheduled. Times use your workspace’s time zone.</p>\n  <ul class=\"rf-stack\" data-rf-events style=\"list-style:none;margin:0;padding:0\"><li class=\"rf-card rf-stack\" data-rf-event-id=\"kickoff\" data-rf-event-date=\"2026-10-02\" data-rf-event-start=\"10:00\" data-rf-event-end=\"10:30\"><strong data-rf-event-title>Project kickoff</strong><time datetime=\"2026-10-02T10:00\">2026-10-02 · 10:00–10:30</time></li></ul>\n</section>",
-    "cssBytes": 7926
+    "cssBytes": 7962
   },
   {
     "id": "data-grid",
@@ -2263,7 +2263,7 @@ export default [
       "Saved views contain filters and column settings, not row data. Browser storage is optional; edits remain in the controller until the application persists them. Call destroy() before unmounting."
     ],
     "html": "<section class=\"rf-stack rf-data-grid\" data-rf-data-grid data-rf-grid-storage=\"rofin-project-grid-views-v1\" aria-label=\"Project explorer\">\n  <div><h3>Every project, within reach.</h3><p class=\"rf-muted\">Edit a cell, shape a view, and keep the columns you care about close.</p></div>\n  <div class=\"rf-field\" data-rf-grid-demo-source hidden><label class=\"rf-label\" for=\"grid-data-source\">Data source</label><select class=\"rf-select\" id=\"grid-data-source\" data-rf-grid-source><option value=\"browser\">Browser rows · editable</option><option value=\"http\">Local HTTP pages · read only</option></select></div>\n  <p class=\"rf-help\" data-rf-grid-note>Edits last for this page session. Saved views stay in this browser. The local HTTP example runs with the repository's development server; production applications supply their own loader and authorization.</p>\n  <div class=\"rf-grid-scroll\" data-rf-grid-scroll tabindex=\"0\" role=\"region\" aria-label=\"Scrollable project table\">\n    <table class=\"rf-table rf-grid-table\"><caption>Generated project sample.</caption><thead><tr><th scope=\"col\" data-rf-field=\"name\" data-rf-editable data-rf-width=\"260\" data-rf-max-length=\"80\">Project</th><th scope=\"col\" data-rf-field=\"owner\" data-rf-editable data-rf-width=\"180\" data-rf-max-length=\"50\">Owner</th><th scope=\"col\" data-rf-field=\"status\" data-rf-editable data-rf-width=\"180\" data-rf-options='[\"Draft\",\"In progress\",\"Published\"]'>Status</th><th scope=\"col\" data-rf-field=\"tasks\" data-rf-type=\"number\" data-rf-editable data-rf-width=\"140\" data-rf-min=\"0\" data-rf-max=\"1000\" data-rf-step=\"1\">Tasks</th><th scope=\"col\" data-rf-field=\"updated\" data-rf-type=\"date\" data-rf-editable data-rf-width=\"180\">Updated</th></tr></thead><tbody>\n      <tr data-rf-id=\"project-1\"><th scope=\"row\">Atlas launch</th><td>Robin</td><td>Draft</td><td>0</td><td>2026-09-01</td></tr>\n      <tr data-rf-id=\"project-2\"><th scope=\"row\">Mobile journal</th><td>Jamie</td><td>In progress</td><td>1</td><td>2026-09-02</td></tr>\n      <tr data-rf-id=\"project-3\"><th scope=\"row\">Brand refresh</th><td>Alex</td><td>Published</td><td>2</td><td>2026-09-03</td></tr>\n      <tr data-rf-id=\"project-4\"><th scope=\"row\">Component library</th><td>Robin</td><td>Draft</td><td>3</td><td>2026-09-04</td></tr>\n      <tr data-rf-id=\"project-5\"><th scope=\"row\">Customer portal</th><td>Jamie</td><td>In progress</td><td>4</td><td>2026-09-05</td></tr>\n      <tr data-rf-id=\"project-6\"><th scope=\"row\">Onboarding flow</th><td>Alex</td><td>Published</td><td>5</td><td>2026-09-06</td></tr>\n    </tbody></table>\n  </div>\n</section>",
-    "cssBytes": 7055
+    "cssBytes": 7091
   },
   {
     "id": "upload-queue",
@@ -2290,7 +2290,7 @@ export default [
       "At most 100 files can be configured; the default is 10 files of 8 MB each, with two simultaneous uploads. Call destroy() before unmounting; getFiles() retains the selected File objects for application use."
     ],
     "html": "<form method=\"dialog\" class=\"rf-stack\" data-rf-upload-form>\n  <section class=\"rf-stack rf-upload-queue\" data-rf-upload-queue data-rf-max-size=\"8388608\" data-rf-max-files=\"10\" aria-label=\"Project upload queue\">\n    <div><h3>Give your files a place.</h3><p class=\"rf-muted\">Review the queue, keep what matters, and send it when you're ready.</p></div>\n    <div class=\"rf-upload\" data-rf-drop-zone>\n      <label class=\"rf-label\" for=\"queue-files\">Files to add</label>\n      <p class=\"rf-help\" id=\"queue-files-help\">Choose or drop PNG, JPEG, WebP, PDF or text files. Up to 10 files, 8 MB each.</p>\n      <input id=\"queue-files\" type=\"file\" accept=\".png,.jpg,.jpeg,.webp,.pdf,.txt\" multiple aria-describedby=\"queue-files-help\">\n    </div>\n    <p class=\"rf-help\" data-rf-upload-demo-note>Files stay on your device until you choose Upload. Transfers require your application's upload callback.</p>\n    <ol class=\"rf-upload-items\" data-rf-upload-items aria-label=\"Selected files\"></ol>\n  </section>\n  <div><button type=\"reset\" class=\"rf-button rf-button--outline rf-button--small\">Reset file queue</button></div>\n</form>",
-    "cssBytes": 6691
+    "cssBytes": 6727
   },
   {
     "id": "workspace-switcher",
@@ -2366,7 +2366,7 @@ export default [
       "Snapshots are bounded to 50 members and 20 pending invitations. Larger teams require application paging and an appropriate server policy; the sample is not an unbounded directory."
     ],
     "html": "<section class=\"rf-stack\" data-rf-team-manager data-demo-navigation aria-labelledby=\"team-manager-title\">\n  <div><p class=\"rf-eyebrow\">A shared idea, with clear access.</p><h3 id=\"team-manager-title\"><span data-rf-team-name>Studio</span> team</h3><p class=\"rf-muted\"><span data-rf-team-count>3</span> members · Your role: <strong data-rf-team-current-role>Owner</strong></p></div>\n  <p class=\"rf-help\" data-rf-team-note>Page-session sample. Invitations create pending rows; no email or account access is provided.</p>\n  <div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-local hidden>Start isolated local team</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-page hidden>Return to page sample</button><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-team-refresh disabled>Refresh team</button></div>\n  <form class=\"rf-team-toolbar\" data-rf-team-invite-form method=\"dialog\">\n    <label class=\"rf-field\"><span class=\"rf-label\">Invitation email</span><input class=\"rf-input\" type=\"email\" name=\"email\" maxlength=\"254\" autocomplete=\"off\" required disabled></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Invitation role</span><select class=\"rf-select\" name=\"role\" disabled><option value=\"viewer\" selected>Viewer</option><option value=\"editor\">Editor</option><option value=\"admin\">Admin</option><option value=\"owner\">Owner</option></select></label>\n    <button class=\"rf-button\" type=\"submit\" disabled>Create invitation</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Clear invitation form</button>\n  </form>\n  <p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-team-error hidden></p><p class=\"rf-help\" role=\"status\" data-rf-team-status></p>\n  <label class=\"rf-field\"><span class=\"rf-label\">Search team members</span><input class=\"rf-input\" type=\"search\" data-rf-team-search maxlength=\"200\"></label>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Team members\"><table class=\"rf-table rf-team-members\"><caption>Members and their workspace access. At least one owner must remain.</caption><thead><tr><th scope=\"col\">Member</th><th scope=\"col\">Role</th><th scope=\"col\">Actions</th></tr></thead><tbody data-rf-team-members>\n    <tr><th scope=\"row\">Robin Francis<p class=\"rf-help\">robin@example.com</p></th><td>Owner</td><td>Last owner protected</td></tr><tr><th scope=\"row\">Jamie Lee<p class=\"rf-help\">jamie@example.com</p></th><td>Editor</td><td>Application controls required</td></tr><tr><th scope=\"row\">Alex Morgan<p class=\"rf-help\">alex@example.com</p></th><td>Viewer</td><td>Application controls required</td></tr>\n  </tbody></table></div>\n  <p class=\"rf-help\" data-rf-team-empty hidden>No members match this search.</p>\n  <div><h4>Pending invitations</h4><ul class=\"rf-team-invitations\" data-rf-team-invitations><li class=\"rf-help\">No pending invitations.</li></ul></div>\n  <p class=\"rf-help\">Owners manage all roles. Admins manage editors and viewers. Editors and viewers cannot manage other members. Everyone can leave unless they are the last owner. <a href=\"https://rofin-ui.vercel.app/#component/permissions-matrix\">View the role permissions →</a></p>\n  <dialog class=\"rf-dialog\" data-rf-team-confirm><h3 class=\"rf-dialog__title\">Confirm access change</h3><p data-rf-team-confirm-text></p><p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-team-confirm-error hidden></p><form method=\"dialog\" class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-team-cancel>Keep current access</button><button class=\"rf-button\" type=\"submit\">Confirm change</button></form></dialog>\n</section>",
-    "cssBytes": 6973
+    "cssBytes": 7009
   },
   {
     "id": "team-invitation",
@@ -2388,7 +2388,7 @@ export default [
       "Bind the native form to your application acceptance callback. The optional team policy runs on the server after verifying the invitation; it does not submit this form automatically."
     ],
     "html": "<section class=\"rf-card rf-stack\" data-rf-team-accept aria-labelledby=\"team-invitation-title\">\n  <div><p class=\"rf-eyebrow\">Good work starts together.</p><h3 id=\"team-invitation-title\">Join <span data-rf-invite-team>Studio</span></h3><p class=\"rf-muted\">You were invited as <strong data-rf-invite-role>Viewer</strong>.</p></div>\n  <form class=\"rf-stack\" method=\"dialog\" data-rf-invite-accept-form>\n    <label class=\"rf-field\"><span class=\"rf-label\">Invited email</span><input class=\"rf-input\" type=\"email\" name=\"email\" value=\"avery@example.com\" readonly></label>\n    <label class=\"rf-field\"><span class=\"rf-label\">Your display name</span><input class=\"rf-input\" name=\"name\" maxlength=\"80\" autocomplete=\"name\" required></label>\n    <p class=\"rf-alert\" data-variant=\"danger\" role=\"alert\" data-rf-invite-error hidden></p>\n    <button class=\"rf-button\" type=\"submit\" data-rf-invite-join>Join sample workspace</button><button class=\"rf-button rf-button--ghost\" type=\"reset\">Clear display name</button>\n  </form>\n  <p class=\"rf-help\" role=\"status\" data-rf-invite-status></p><p class=\"rf-help\" data-rf-invite-note>This gallery previews joining a page-session sample. No account is created. Real invitation links must be validated by your application server.</p>\n</section>",
-    "cssBytes": 5729
+    "cssBytes": 5765
   },
   {
     "id": "permissions-matrix",
@@ -2432,7 +2432,7 @@ export default [
       "Run initEditors(root) once and call its returned cleanup before removing the root. Dispatch change after assigning the source textarea programmatically. The application handles submit, authorization, persistence and server-side sanitization; this module sends no requests."
     ],
     "html": "<section class=\"rf-card rf-stack rf-editor\" data-rf-rich-editor>\n  <div><h3>Give an idea a little shape.</h3><p class=\"rf-muted\">Write a note, add emphasis, and keep the useful links close.</p></div>\n  <form class=\"rf-stack\" method=\"dialog\" data-demo-form>\n    <label class=\"rf-field\" data-rf-editor-source-field><span class=\"rf-label\">Rich-text note HTML</span><textarea class=\"rf-textarea rf-editor-source\" name=\"note\" data-rf-editor-source maxlength=\"50000\" required rows=\"8\">&lt;p&gt;Make room for &lt;strong&gt;your next idea&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Start small. Share something useful.&lt;/p&gt;</textarea></label>\n    <div class=\"rf-stack\" data-rf-editor-enhanced hidden>\n      <span class=\"rf-label\" data-rf-editor-label>Rich-text note</span>\n      <div class=\"rf-editor-toolbar\" data-rf-editor-toolbar role=\"group\" aria-label=\"Rich-text formatting\">\n        <label class=\"rf-field\"><span class=\"rf-label\">Paragraph style</span><select class=\"rf-select\"><option value=\"p\">Paragraph</option><option value=\"h2\">Heading</option><option value=\"h3\">Subheading</option><option value=\"blockquote\">Quote</option><option value=\"pre\">Code block</option></select></label>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"bold\" aria-pressed=\"false\">Bold</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"italic\" aria-pressed=\"false\">Italic</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"underline\" aria-pressed=\"false\">Underline</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"insertUnorderedList\">Bullet list</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"insertOrderedList\">Numbered list</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-editor-link>Add link</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"unlink\">Remove link</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"undo\">Undo</button>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-rich-command=\"redo\">Redo</button>\n      </div>\n      <div class=\"rf-input rf-editor-canvas rf-editor-content\" data-rf-rich-surface role=\"textbox\" aria-multiline=\"true\" tabindex=\"0\"></div>\n    </div>\n    <p class=\"rf-help\" data-rf-editor-count></p><p class=\"rf-error\" data-rf-editor-error role=\"alert\" hidden></p>\n    <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview note</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset note</button></div>\n  </form>\n  <dialog class=\"rf-dialog\" data-rf-editor-link-dialog><h4 class=\"rf-dialog__title\">Add a useful link.</h4><form class=\"rf-stack\" method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Link URL</span><input class=\"rf-input\" name=\"url\" type=\"text\" inputmode=\"url\" maxlength=\"2048\" placeholder=\"https://example.com\" required></label><p class=\"rf-error\" data-rf-editor-link-error role=\"alert\" hidden></p><div class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-editor-link-cancel>Cancel link</button><button class=\"rf-button\" type=\"submit\">Insert link</button></div></form></dialog>\n</section>",
-    "cssBytes": 7069
+    "cssBytes": 7105
   },
   {
     "id": "markdown-editor",
@@ -2458,7 +2458,7 @@ export default [
       "Reset and external value changes replace the native textarea to discard previous undo history. Read the current named field with FormData/form.elements and delegate listeners to the root or rf:editor-change. Read-only/disabled fields, composition and cleanup are supported. The dashboard keeps separate page-session notes; saving and server validation belong to the application. Scripts-off keeps a usable textarea."
     ],
     "html": "<section class=\"rf-card rf-stack rf-editor\" data-rf-markdown-editor data-demo-navigation>\n  <div><h3>A good thought, kept simple.</h3><p class=\"rf-muted\">Write Markdown and see your note take shape.</p></div>\n  <form class=\"rf-stack\" method=\"dialog\" data-demo-form>\n    <div class=\"rf-editor-toolbar\" data-rf-editor-toolbar role=\"group\" aria-label=\"Markdown formatting\" hidden>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"bold\">Bold</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"italic\">Italic</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"heading\">Heading</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"list\">Bullet list</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"quote\">Quote</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"code\">Inline code</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"fence\">Code block</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-markdown-action=\"link\">Add link</button>\n    </div>\n    <label class=\"rf-field\"><span class=\"rf-label\">Markdown note</span><textarea class=\"rf-textarea rf-editor-source\" name=\"notes\" data-rf-editor-source maxlength=\"20000\" required rows=\"9\">### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful\n\n[Explore Rofin](https://rofin-ui.vercel.app/)</textarea></label>\n    <p class=\"rf-help\" data-rf-editor-count></p><p class=\"rf-error\" data-rf-editor-error role=\"alert\" hidden></p>\n    <div><h4>Preview</h4><div class=\"rf-editor-content\" data-rf-markdown-preview><p class=\"rf-help\">A live preview appears when the editor is enabled.</p></div></div>\n    <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Preview note</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Reset note</button></div>\n  </form>\n  <dialog class=\"rf-dialog\" data-rf-editor-link-dialog><h4 class=\"rf-dialog__title\">Add a useful link.</h4><form class=\"rf-stack\" method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Link URL</span><input class=\"rf-input\" name=\"url\" type=\"text\" inputmode=\"url\" maxlength=\"2048\" placeholder=\"https://example.com\" required></label><p class=\"rf-error\" data-rf-editor-link-error role=\"alert\" hidden></p><div class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-editor-link-cancel>Cancel link</button><button class=\"rf-button\" type=\"submit\">Insert link</button></div></form></dialog>\n</section>",
-    "cssBytes": 7732
+    "cssBytes": 7768
   },
   {
     "id": "file-browser",
@@ -2486,7 +2486,7 @@ export default [
       "The composed dashboard uses this exact component with separate page-session files for each public workspace. Reload restores samples. The scripts-off sample keeps native expandable folders and plain-text downloads; custom application data requires supplied File entries."
     ],
     "html": "<section class=\"rf-card rf-stack rf-file-browser\" data-rf-file-browser data-demo-navigation>\n  <div><h3>A little room for your files.</h3><p class=\"rf-muted\">Organize a browser copy. Download files to keep them; reload restores the sample.</p></div>\n  <p class=\"rf-help\">Original disk files stay intact. No files are uploaded. Up to 200 items, 8 MB per file, 32 MB total and 12 levels, including recoverable Trash.</p>\n  <ul class=\"rf-file-fallback\" data-rf-file-fallback>\n    <li><details><summary>Ideas</summary><ul><li><a href=\"data:text/plain;charset=utf-8,Make%20room%20for%20a%20good%20idea.%0A\" download=\"Roadmap.txt\">Roadmap.txt</a></li><li><details><summary>Research</summary><ul><li><a href=\"data:text/plain;charset=utf-8,Start%20with%20the%20people%20using%20it.%0A\" download=\"Notes.txt\">Notes.txt</a></li></ul></details></li></ul></details></li>\n    <li><a href=\"data:text/plain;charset=utf-8,Made%20with%20Rofin%20UI.%0A\" download=\"Readme.txt\">Readme.txt</a></li>\n  </ul>\n  <div class=\"rf-stack\" data-rf-file-enhanced hidden>\n    <div class=\"rf-file-inputs rf-upload\">\n      <label class=\"rf-field\"><span class=\"rf-label\">Project files</span><input type=\"file\" multiple data-rf-file-import></label>\n      <label class=\"rf-field\"><span class=\"rf-label\">Import folder</span><input type=\"file\" multiple webkitdirectory data-rf-folder-import></label>\n    </div>\n    <p class=\"rf-help\">Imports go into the selected folder, or beside the selected file. Folder import preserves paths where the browser supports it.</p>\n    <div class=\"rf-file-toolbar\" role=\"group\" aria-label=\"File actions\">\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"folder\">New folder</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"file\">New text file</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"rename\">Rename item</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"move\">Move item</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"download\">Download file</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"trash\">Trash item</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-action=\"restore\">Restore trash</button>\n      <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-file-cancel-pending hidden>Cancel pending file change</button>\n    </div>\n    <label class=\"rf-field\"><span class=\"rf-label\">Search files and folders</span><input class=\"rf-input\" type=\"search\" maxlength=\"200\" data-rf-file-search></label>\n    <p class=\"rf-error\" role=\"alert\" data-rf-file-error hidden></p>\n    <ul class=\"rf-file-tree\" role=\"tree\" aria-label=\"Files and folders\" data-rf-file-tree></ul>\n    <p class=\"rf-help\" data-rf-file-empty hidden></p>\n    <div class=\"rf-file-details\" data-rf-file-details></div>\n    <p class=\"rf-help\" role=\"status\" data-rf-file-status></p>\n    <dialog class=\"rf-dialog\" data-rf-file-dialog>\n      <h4 class=\"rf-dialog__title\">Change a file.</h4><p class=\"rf-help\" data-rf-file-dialog-note></p>\n      <form class=\"rf-stack\" method=\"dialog\">\n        <fieldset class=\"rf-stack\"><label class=\"rf-field\"><span class=\"rf-label\">Item name</span><input class=\"rf-input\" name=\"name\" maxlength=\"120\"></label><label class=\"rf-field\"><span class=\"rf-label\">Text contents</span><textarea class=\"rf-textarea\" name=\"contents\" maxlength=\"20000\" rows=\"6\"></textarea></label><label class=\"rf-field\"><span class=\"rf-label\">Destination folder</span><select class=\"rf-select\" name=\"destination\"><option value=\"\">Top level</option></select></label></fieldset>\n        <p class=\"rf-error\" role=\"alert\" data-rf-file-dialog-error hidden></p>\n        <div class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-file-cancel>Cancel file change</button><button class=\"rf-button\" type=\"submit\">Save file change</button></div>\n      </form>\n    </dialog>\n  </div>\n</section>",
-    "cssBytes": 8042
+    "cssBytes": 8078
   },
   {
     "id": "image-lightbox",
@@ -2543,7 +2543,7 @@ export default [
       "The dashboard uses the same viewer for its selected browser-copy files. Workspace changes close previews, pause sample media and clear the selected file. Sample documents/images/media are shared references, not workspace data or authorized storage."
     ],
     "html": "<section class=\"rf-card rf-stack rf-document\" data-rf-file-viewer data-demo-navigation>\n  <div><h3>A small project, thoughtfully made.</h3><p class=\"rf-muted\">A two-page project brief, with a readable text alternative and a PDF download.</p></div>\n  <details><summary>Read the project brief as text</summary><div class=\"rf-stack\">\n    <h4>Make room for a good idea.</h4><p><strong>The idea:</strong> Build a useful workspace from small, reusable pieces.</p><p><strong>The people:</strong> Make it readable, keyboard friendly and comfortable on a phone.</p><p><strong>The shape:</strong> Start with a clear task, a short form and helpful feedback.</p>\n    <h4>Give the details a little care.</h4><p><strong>Before sharing:</strong> Check navigation, forms, errors and actual file downloads.</p><p><strong>When it moves:</strong> Let people choose when media plays. Keep text alternatives.</p><p><strong>What stays:</strong> A product supplies its own accounts, services and durable data.</p>\n  </div></details>\n  <details><summary>View the PDF in this browser</summary><object data=\"../assets/project-brief.pdf\" type=\"application/pdf\" aria-label=\"Two-page project brief\"><p>Your browser may not embed PDFs. Download the brief below or read its text alternative above.</p></object></details>\n  <div class=\"rf-cluster\"><a class=\"rf-button rf-button--outline\" href=\"../assets/project-brief.pdf\" download=\"project-brief.pdf\">Download project brief (PDF)</a><a href=\"../assets/project-brief.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Open PDF in a new tab</a></div>\n  <label class=\"rf-field\" data-rf-file-viewer-field hidden><span class=\"rf-label\">Preview your own file</span><input type=\"file\" accept=\"image/png,image/jpeg,image/gif,image/webp,image/avif,application/pdf,text/plain,audio/wav,audio/x-wav,audio/mpeg,audio/ogg,video/mp4,video/webm,video/ogg,.txt,.pdf,.wav\" data-rf-file-viewer-input></label>\n  <p class=\"rf-help\">Local previews stay in this browser. Choose a supported image, PDF, plain text, audio or video file up to 8 MB. Original files stay intact.</p>\n  <p class=\"rf-error\" role=\"alert\" data-rf-file-viewer-error hidden></p>\n  <dialog class=\"rf-dialog rf-viewer-dialog rf-stack\" aria-label=\"Local file preview\" data-rf-file-viewer-dialog>\n    <div class=\"rf-viewer-head\"><h4 data-rf-file-viewer-title>File preview</h4><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-viewer-close>Close file preview</button></div>\n    <div class=\"rf-file-preview\" data-rf-file-viewer-body></div><p class=\"rf-help\" role=\"status\" data-rf-file-viewer-status></p>\n    <a class=\"rf-button rf-button--outline\" data-rf-file-viewer-download>Download opened file</a>\n  </dialog>\n</section>",
-    "cssBytes": 7339
+    "cssBytes": 7375
   },
   {
     "id": "media-player",

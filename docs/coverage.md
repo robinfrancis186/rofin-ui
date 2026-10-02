@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 128-example gallery covers common website and dashboard UI. Use the
+The 132-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -15,7 +15,7 @@ each example. This is a UI library, not an application backend.
 | Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters, saved views, file browser/tree |
 | Actions and overlays | Buttons, dropdown, native dialog/drawer, tooltip, command palette, image lightbox |
 | Documents and media | PDF with full text/download alternatives, explicit local-file preview, native video/audio with captions and real downloads |
-| Feedback and states | Alert, toast, notification inbox, empty state, spinner, skeleton |
+| Feedback and states | Alert, toast, notification inbox, empty state, spinner, skeleton, 404/permission/offline/server-error pages and read recovery |
 | Activity and onboarding | Task board, sortable priorities, timeline, checklist/progress, multistep form, calendar, time picker, daily event scheduler, tabs |
 
 Added to fill the audit gaps: responsive website header, application shell,
@@ -45,7 +45,7 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
-server validation. Billing flows, error pages, advanced visuals,
+server validation. Billing flows, advanced visuals,
 and deeper sorting/panel/chart interactions remain in
 `completion-ledger.md`.
 
@@ -117,3 +117,11 @@ the examples usable without third-party assets. PDF embedding and media codecs
 depend on the browser; real downloads and complete sample text alternatives
 remain available. Explicit local-file previews do not provide document editing,
 user-file transcripts or durable storage.
+
+The four error pages compose the same empty-state, button and layout styles.
+Unknown documentation routes and static missing resources use the shared 404.
+The recovery example reads an actual snapshot, validates its values, preserves
+an unsent note and offers explicit GET retry. Cancellation, timeout and stale
+results cannot overwrite a newer read. Local permission/server fixtures are
+disabled on static production; first-visit offline needs application caching,
+and these pages do not supply durable notes or authorization.

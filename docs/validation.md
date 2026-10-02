@@ -34,6 +34,16 @@ automated WCAG checks. A shared native-select overflow fix clips long selected
 labels without losing their full native option/accessibility text; error pages
 use a distinct class from inline field errors.
 
+In [run 37053942455](https://github.com/robinfrancis186/rofin-ui/actions/runs/37053942455)
+on `9930af9`, Chromium and Firefox pass all 122 tests and the 252-file package
+check. The initial WebKit runner was cancelled during slow Ubuntu dependency
+downloads. Its fresh runner passes 121 tests and finds a 320-pixel permission
+state overflow. A focused diagnostic in run 37056543885 locates the excess
+width in the native resource field's implicit grid track, rather than the
+error section. The shared field now uses `minmax(0, 1fr)` to constrain that track;
+CI checks narrow recovery before the full suite and reports element dimensions
+when its unchanged no-overflow assertion fails.
+
 The full local Chromium run passes all 122 tests and the 252-file package check.
 The package contains the native templates and original snapshot asset; it still
 has zero runtime/peer dependencies. Core CSS plus auto JavaScript remains about
@@ -46,6 +56,19 @@ Safari, screen-reader or physical-touch run. The browser-connection test is an
 already-loaded page; first-visit offline still needs application caching.
 Permission fixtures do not create accounts; server authorization, durable notes
 and production services remain outstanding.
+
+The production deployment of `9930af9` is Ready at
+[rofin-ui.vercel.app](https://rofin-ui.vercel.app). All 254 built website files
+match, including the recovery templates and original snapshot. A genuine missing
+static URL returns the custom HTTP 404; its HEAD response has no body. Snapshot
+bytes and JSON content type are correct.
+
+Rendered production checks cover actual missing-resource reads and retry,
+returning to the exact 72/100 snapshot, retained unsent notes, unknown component
+navigation to the 132-entry gallery and the native error-page dashboard link.
+The recovery page fits 390 pixels in both themes; production permission/server
+fixtures remain disabled. The proof image is
+`output/playwright/production-recovery-2026-10-03.png`.
 
 ## Image, document and media viewers
 
