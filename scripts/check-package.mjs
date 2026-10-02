@@ -20,6 +20,7 @@ assert.equal(typeof (await import('../dist/form-patterns.js')).initFormPatterns,
 assert.equal(typeof (await import('../dist/data-grid.js')).createDataGrid, 'function', 'Optional grid import is safe without a DOM');
 assert.equal(typeof (await import('../dist/upload-queue.js')).createUploadQueue, 'function', 'Optional upload queue import is safe without a DOM');
 assert.equal(typeof (await import('../dist/team-management.js')).createTeamManager, 'function', 'Optional team management import is safe without a DOM');
+assert.equal(typeof (await import('../dist/editors.js')).initEditors, 'function', 'Optional editors import is safe without a DOM');
 const cjs = createRequire(import.meta.url)('../dist/rofin.cjs');
 for (const name of ['init', 'initTabs', 'initDialogs', 'initDropdowns', 'initTooltips', 'initUploads', 'toast', 'clearToasts']) {
   assert.equal(typeof esm[name], 'function', `ESM export ${name}`);

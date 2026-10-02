@@ -44,7 +44,7 @@
     "notes": [
       "Always associate a visible label with the input.",
       "Set aria-invalid=\"true\" and aria-describedby to your error text when validation fails.",
-      "Validation and submission remain your application\u2019s responsibility."
+      "Validation and submission remain your application’s responsibility."
     ]
   },
   {
@@ -102,7 +102,7 @@
     "file": "examples/components/radio.html",
     "notes": [
       "Use the same name on the radio inputs.",
-      "A fieldset and legend communicate the group\u2019s purpose."
+      "A fieldset and legend communicate the group’s purpose."
     ]
   },
   {
@@ -166,7 +166,7 @@
       "Left/Right, Home, and End move between tabs. Vertical tablists use Up/Down.",
       "Set data-rf-activation=\"manual\" to activate only on Enter, Space, or click.",
       "Use equal numbers of tabs and panels. aria-controls can map them explicitly.",
-      "Without JS, all panels remain visible. After changing a tabset\u2019s internal structure, destroy and initialize that root again."
+      "Without JS, all panels remain visible. After changing a tabset’s internal structure, destroy and initialize that root again."
     ]
   },
   {
@@ -281,7 +281,7 @@
     "js": [],
     "file": "examples/components/badge.html",
     "notes": [
-      "Always communicate status with text; color alone isn\u2019t enough."
+      "Always communicate status with text; color alone isn’t enough."
     ]
   },
   {
@@ -325,7 +325,7 @@
     "js": [],
     "file": "examples/components/breadcrumb.html",
     "notes": [
-      "Replace the example fragment links with your application\u2019s real URLs.",
+      "Replace the example fragment links with your application’s real URLs.",
       "aria-current=\"page\" marks the current location."
     ]
   },
@@ -587,7 +587,7 @@
     "file": "examples/components/bar-chart.html",
     "notes": [
       "The decorative bars are hidden from assistive technology; a labelled native details disclosure contains the exact data table.",
-      "Set --rf-bar to value / maximum \u00d7 100%; keep the chart and table in sync. This static example has a zero baseline."
+      "Set --rf-bar to value / maximum × 100%; keep the chart and table in sync. This static example has a zero baseline."
     ]
   },
   {
@@ -644,7 +644,7 @@
     "file": "examples/components/paginated-table.html",
     "notes": [
       "Local pagination uses the initial tbody rows; filtering and sorting reset to page one.",
-      "data-rf-table-filter=\"status\" matches each row\u2019s data-rf-status exactly; other attribute keys work the same way.",
+      "data-rf-table-filter=\"status\" matches each row’s data-rf-status exactly; other attribute keys work the same way.",
       "Search, filters, and row selection use native inputs. Reset returns form fields and page to their defaults; sorting stays as chosen.",
       "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
     ]
@@ -1051,7 +1051,7 @@
     "js": [],
     "file": "sections/hero.html",
     "notes": [
-      "Replace placeholder copy and links with your product\u2019s real content.",
+      "Replace placeholder copy and links with your product’s real content.",
       "Include the core stylesheet and the optional sections stylesheet."
     ]
   },
@@ -1166,7 +1166,7 @@
     "js": [],
     "file": "sections/cta.html",
     "notes": [
-      "Connect the link to your product\u2019s actual signup or contact destination."
+      "Connect the link to your product’s actual signup or contact destination."
     ]
   },
   {
@@ -2162,6 +2162,53 @@
       "Column and row headers expose exact permissions without color or icons. The surrounding region scrolls independently on narrow screens.",
       "These rules cover team management. Applications authorize project, file and billing actions on their own server.",
       "Disabled controls help explain a role. The localhost team service separately checks current membership, privilege changes and last-owner protection for direct HTTP requests."
+    ]
+  },
+  {
+    "id": "rich-text-editor",
+    "title": "Rich-text editor",
+    "category": "Components",
+    "description": "A native note editor with formatting, validated links, safe paste and a real HTML form value.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "editors"
+    ],
+    "js": [
+      "editors"
+    ],
+    "file": "examples/components/rich-text-editor.html",
+    "notes": [
+      "Native browser editing commands preserve the undo history. execCommand is deprecated and browser behavior varies; unsupported toolbar actions are disabled. Native keyboard undo/redo remains available. Without the module the named HTML textarea stays usable.",
+      "The restricted renderer reconstructs paragraphs, headings, lists, quotes, code, links and emphasis. Pasted scripts, images/media, forms, foreign namespaces, event attributes and arbitrary styles are removed. Links allow absolute HTTP, HTTPS and mailto URLs without controls or credentials.",
+      "The form submits sanitized HTML, not the visible editing surface. Limits are 50,000 HTML and 20,000 text characters, 10,000 traversed nodes and 30 nested levels. Required validation focuses the visible editor. Reset follows native defaults and honors cancellation; input waits for IME composition to finish.",
+      "Run initEditors(root) once and call its returned cleanup before removing the root. Dispatch change after assigning the source textarea programmatically. The application handles submit, authorization, persistence and server-side sanitization; this module sends no requests."
+    ]
+  },
+  {
+    "id": "markdown-editor",
+    "title": "Markdown editor",
+    "category": "Components",
+    "description": "Write a note with keyboard formatting and a safe, readable Markdown preview.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "table",
+      "editors"
+    ],
+    "js": [
+      "editors"
+    ],
+    "file": "examples/components/markdown-editor.html",
+    "notes": [
+      "The named native textarea is the form value. Toolbar actions wrap the selection or prefix whole lines; Ctrl/Cmd B, I and K apply bold, italic and a validated link. Native insertion preserves undo where supported; the selection replacement fallback cannot promise undo history.",
+      "The explicit subset supports headings, paragraphs, emphasis, strike, inline/fenced code, absolute safe links, quotes, flat lists/task markers, rules and pipe tables. It does not claim CommonMark/GFM compatibility, nested lists or syntax highlighting. Raw HTML and image syntax remain text; preview never loads an image.",
+      "Preview is built from DOM text and allowlisted elements, not Markdown-derived HTML. Links open a new tab with noopener/noreferrer. Limits are 20,000 source characters, 10,000 inline tokens and 12 inline nesting levels; a failed render retains the previous preview.",
+      "Reset and external value changes replace the native textarea to discard previous undo history. Read the current named field with FormData/form.elements and delegate listeners to the root or rf:editor-change. Read-only/disabled fields, composition and cleanup are supported. The dashboard keeps separate page-session notes; saving and server validation belong to the application. Scripts-off keeps a usable textarea."
     ]
   }
 ]

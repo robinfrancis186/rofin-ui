@@ -3,6 +3,7 @@ import { initPatterns } from '../src/js/patterns.js';
 import { initFormPatterns } from '../src/js/form-patterns.js';
 import { createTeamManager, applyTeamChange } from '../src/js/team-management.js';
 import { sampleTeam } from './team-demo.js';
+import { initEditors } from '../src/js/editors.js';
 
 init();
 const projects = document.querySelector('#projects');
@@ -27,6 +28,17 @@ const workspaces = new Map([
   ['lab', { name: 'Lab', rows: [projectRow('project-1', 'Motion study', 'Alex', 'In progress', 8, '2026-09-22'), projectRow('project-2', 'Accessible map', 'Robin', 'Draft', 5, '2026-09-26'), projectRow('project-3', 'Prototype kit', 'Alex', 'Published', 12, '2026-09-29')], nextId: 4, owners: ['Robin', 'Alex'], members: ['Robin Francis', 'Alex Morgan'], notices: [notice('lab-map', 'Make room for everyone', 'The accessible map is ready for keyboard review.'), notice('lab-kit', 'A useful little toolkit', 'Alex published the prototype kit.')], revenue: '$2,160', growth: '↑ 5%', retention: '94.5%', change: '↑ 1.2 points', months: [4, 6, 3, 8, 6, 12], completed: 24, total: 48, prefs: { timezone: 'UTC', updates: true, digest: false }, activity: [['2026-09-29', 'A prototype to share', 'Alex published the first toolkit.'], ['2026-09-26', 'An inclusive direction', 'Robin started the accessible map.']] }]
 ]);
 for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, workspace.name, workspace.members);
+for (const [id, workspace] of workspaces) workspace.notes = ({ studio: '### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful', personal: '### A little room of your own\n\nKeep a thought worth coming back to.', lab: '### An experiment worth trying\n\n- [ ] Test the next prototype' })[id];
+const notesHost = document.querySelector('[data-workspace-notes-host]'), notesTemplate = notesHost.firstElementChild.cloneNode(true);
+let stopNotes = () => {};
+function renderNotes() {
+  stopNotes(); const workspace = workspaces.get(activeWorkspace), editor = notesTemplate.cloneNode(true), source = editor.querySelector('[data-rf-editor-source]'), status = editor.querySelector('[data-workspace-notes-status]');
+  source.value = source.defaultValue = workspace.notes;
+  const form = editor.querySelector('form');
+  form.addEventListener('submit', event => { event.preventDefault(); workspace.notes = new FormData(form).get('notes'); form.elements.notes.defaultValue = workspace.notes; status.textContent = 'Notes saved for this workspace during the page session.'; });
+  form.addEventListener('input', () => status.textContent = '');
+  notesHost.replaceChildren(editor); stopNotes = initEditors(editor);
+}
 const teamElement = document.querySelector('[data-rf-team-manager]');
 let activeWorkspace = 'studio', refreshTimer, teamManager;
 function renderTeamMembers() {
@@ -95,7 +107,7 @@ function renderWorkspaceData() {
   const percent = Math.round(workspace.completed / workspace.total * 1000) / 10, remaining = Math.round((100 - percent) * 10) / 10;
   document.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${remaining}`); document.querySelector('.rf-chart__ring text').textContent = `${percent}%`;
   document.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => { value.textContent = [`${workspace.completed} tasks · ${percent}%`, `${workspace.total - workspace.completed} tasks · ${remaining}%`, `${workspace.total} tasks`][index]; });
-  renderTeamMembers();
+  renderTeamMembers(); renderNotes();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
     const item = document.createElement('li'), time = document.createElement('time'), text = document.createElement('p'), heading = document.createElement('strong'), note = document.createElement('span');
@@ -135,6 +147,7 @@ function switchWorkspace(id, navigate = false) {
   syncSection(); if (changed || navigate) document.querySelector('[data-dashboard-workspace-trigger]').focus({ preventScroll: true }); return true;
 }
 renderBoard();
+renderNotes();
 initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
   const row = selectedRows([event.detail.value])[0];

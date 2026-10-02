@@ -64,6 +64,14 @@
     "team-management.js": {
       "bytes": 13301,
       "gzip": 4784
+    },
+    "editors.css": {
+      "bytes": 1252,
+      "gzip": 497
+    },
+    "editors.js": {
+      "bytes": 14144,
+      "gzip": 5381
     }
   }
 }

@@ -48,7 +48,12 @@
       "types": "./dist/team-management.d.ts",
       "import": "./dist/team-management.js"
     },
-    "./team-management.css": "./dist/team-management.css"
+    "./team-management.css": "./dist/team-management.css",
+    "./editors": {
+      "types": "./dist/editors.d.ts",
+      "import": "./dist/editors.js"
+    },
+    "./editors.css": "./dist/editors.css"
   },
   "files": [
     "dist/*.css",

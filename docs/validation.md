@@ -1,15 +1,40 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 122 runnable entries, including team management, invitation and
+Current gallery: 124 runnable entries, including rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
 
+## Rich-text and Markdown notes
+
+Eight focused checks pass in Chromium, Firefox and macOS WebKit. They cover formatting, real named form values, native undo/redo,
+validated links and safe rich paste/drop. Markdown preview renders text and
+allowlisted elements, including pipe tables and task markers, without loading
+image syntax or executing raw HTML. Checks reject active rich markup, foreign
+namespaces, credential URLs and oversized inputs; failed renders retain drafts
+and the prior preview. Required rich validation focuses the visible editor.
+Composition, disabled/read-only fields, native and cancelled reset, programmatic
+changes, cleanup, scripts-off fields and workspace note separation are covered.
+The dashboard saves through FormData, including after reset has replaced the
+Markdown textarea to discard stale undo commands. Scope, reset and syntax limits
+are documented; native editing uses deprecated execCommand and Markdown is an
+explicit subset rather than a CommonMark/GFM implementation.
+
+The full current Chromium suite passes all 96 tests and the 220-file package
+check. Core CSS plus auto JavaScript remains 8,161 bytes gzip; optional editors
+add 5,381 bytes of JavaScript and 497 bytes of CSS gzip. Both themes fit
+320/390/1440 pixels, opened link dialogs pass WCAG-tagged checks, and reduced
+motion logs no errors. A real formatted paste in the native in-app browser
+preserved emphasis and removed unsafe links, image markup and event attributes.
+Cross-engine CI and production evidence for this checkpoint are recorded after
+verification below. Durable notes, actual screen readers, physical touch and full
+installed Safari interaction remain outstanding requirements.
+
 ## Team management and invitations
 
 Seven focused checks pass in Chromium, Firefox and macOS WebKit. The full
-88-test Chromium suite passes, including every gallery preview in both themes.
+88-test Chromium suite at the team checkpoint passes, including every gallery preview in both themes.
 Package validation passes with 212 files and zero runtime/peer dependencies.
 Core CSS plus auto JavaScript remains 8,161 bytes gzip. The optional team module
 and styles add 4,784 and 315 bytes gzip respectively outside the core.

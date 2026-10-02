@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **79 component examples**, **20 optional effects**,
+The library includes **81 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -70,7 +70,7 @@ reinitialization.
 | Area | Included examples |
 | --- | --- |
 | Foundations | Button, card, layout, navigation, avatar, badge |
-| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, checkbox, radio group, switch, range, file input and upload queue |
+| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, rich-text/Markdown editors, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
@@ -290,6 +290,48 @@ role; they do not verify email identity or create durable accounts. Samples
 expire after 15 minutes or server stop. No email is sent. Production applications
 supply their own backend. After npm publication, optional imports will be
 `rofin-ui/team-management` and `rofin-ui/team-management.css`.
+
+## Optional note editors
+
+Include `src/editors.css` alongside the core styles and copy the labelled markup
+from `examples/components/rich-text-editor.html` or `markdown-editor.html`:
+
+```js
+import { initEditors } from './src/js/editors.js';
+const stop = initEditors(document.querySelector('#my-notes'));
+// stop(); // Before removing the root.
+```
+
+The rich editor writes restricted HTML into its named textarea. Pasted HTML is
+reconstructed from allowed paragraphs, headings, emphasis, lists, quotes, code
+and safe absolute links. Images/media, foreign namespaces, scripts, forms,
+event handlers and arbitrary styles are removed. Limits are 50,000 HTML and
+20,000 text characters, 10,000 nodes and 30 nested levels. Validate persisted
+HTML on your server separately; this is a bounded note renderer.
+
+Formatting uses native [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand)
+to preserve browser undo. That API is deprecated and behavior varies;
+unsupported commands are disabled. Scripts-off keeps the native HTML textarea.
+Required validation focuses the visible editor; reset honors cancellation.
+
+Markdown keeps a native textarea and renders allowlisted DOM nodes. The explicit
+subset covers headings, emphasis/strike, code, safe absolute links, quotes, flat
+lists/task markers, rules and pipe tables. Raw HTML and image syntax remain text.
+It does not claim CommonMark/GFM compatibility, nested lists or highlighting.
+The source limit is 20,000 characters with 10,000 inline tokens and 12 nested
+inline levels. Toolbar selection changes use native insertion where available;
+the selection replacement fallback cannot promise undo history.
+
+Dispatch `change` after assigning a source value programmatically. Markdown reset
+and external value changes replace the textarea to discard previous native undo
+history. Read its current value with `FormData`/`form.elements` and delegate
+listeners to the root or use `rf:editor-change`. Composition,
+disabled/read-only fields, teardown and native/cancelled reset are supported.
+The dashboard reuses this editor for separate page-session workspace notes;
+saving updates the reset default, switching clears unfinished notes, and reload
+restores samples. The module sends no requests. Applications handle submit,
+authorization, durable storage and server validation. After npm publication,
+optional imports are `rofin-ui/editors` and `rofin-ui/editors.css`.
 
 ## Themes
 

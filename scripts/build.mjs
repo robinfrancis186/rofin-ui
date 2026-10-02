@@ -27,9 +27,12 @@ await cp('src/js/upload-queue.d.ts', 'dist/upload-queue.d.ts');
 await build({ ...shared, entryPoints: ['src/team-management.css'], outfile: 'dist/team-management.css' });
 await build({ ...shared, entryPoints: ['src/js/team-management.js'], outfile: 'dist/team-management.js', format: 'esm' });
 await cp('src/js/team-management.d.ts', 'dist/team-management.d.ts');
+await build({ ...shared, entryPoints: ['src/editors.css'], outfile: 'dist/editors.css' });
+await build({ ...shared, entryPoints: ['src/js/editors.js'], outfile: 'dist/editors.js', format: 'esm' });
+await cp('src/js/editors.d.ts', 'dist/editors.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);

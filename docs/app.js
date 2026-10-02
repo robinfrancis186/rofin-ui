@@ -7,6 +7,7 @@ import { initFormPatterns } from '../src/js/form-patterns.js';
 import { initGridExamples } from '../examples/grid-demo.js';
 import { initUploadExamples } from '../examples/upload-demo.js';
 import { initTeamExamples } from '../examples/team-demo.js';
+import { initEditors } from '../src/js/editors.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
@@ -20,6 +21,7 @@ let stopForms = () => {};
 let stopGrids = () => {};
 let stopUploads = () => {};
 let stopTeams = () => {};
+let stopEditors = () => {};
 let sizeReport;
 let saved = new Set();
 try {
@@ -115,7 +117,7 @@ function referenceLibrary() {
   document.querySelector('#search-status').textContent = `${entries.length} reference entries`;
   return `<div class="page-heading"><p class="rf-eyebrow">Collected ${references.date}</p><h1>A wider world of UI.</h1><p>Explore all 11 source libraries. Related Rofin patterns are original alternatives; they do not reproduce every effect or behavior.</p></div><div class="reference-summary rf-card"><strong>${references.libraries.reduce((sum, library) => sum + library.entries.length, 0).toLocaleString()} indexed references · ${catalog.length} runnable Rofin examples</strong><p class="rf-muted">Catalog coverage is partial, especially Aura’s 2,495 free entries. Catalogued names and URLs do not mean each individual demo was reviewed or implemented.</p><a href="./reference-review.md" download>Download coverage notes →</a></div><div class="rf-cluster category-filters" aria-label="Filter reference libraries">${['All', ...references.libraries.map(library => library.name)].map(name => `<button class="rf-button rf-button--small ${libraryFilter === name ? '' : 'rf-button--outline'}" type="button" data-library="${escape(name)}" aria-pressed="${libraryFilter === name}">${escape(name)}</button>`).join('')}</div>${libraries.length === 1 ? `<p class="rf-help">${escape(libraries[0].coverage)} <a href="${libraries[0].url}" target="_blank" rel="noopener">Open source catalog ↗</a></p>` : ''}<p class="rf-help">${entries.length} matching references. Search by name or library.</p><div class="reference-list">${entries.map(item => `<article class="reference-row"><div><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.title)} ↗</a><p>${escape(item.library)} · ${escape(item.review)}</p></div>${item.related ? `<a class="reference-pattern" href="#component/${item.related}">Related: ${escape(catalog.find(entry => entry.id === item.related)?.title || item.related)} →</a>` : '<span class="rf-help">Reference only</span>'}</article>`).join('') || '<p>No references match this search.</p>'}</div>${footer()}`;
 }
-const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager' };
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager', editors: 'initEditors' };
 function setup(item) {
   const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
   let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
@@ -143,7 +145,7 @@ function coverage() {
   const groups = [
     ['Website navigation', ['website-header', 'navigation', 'breadcrumb', 'footer']],
     ['Marketing pages', ['hero', 'features', 'bento', 'logo-cloud', 'pricing', 'billing-switch', 'testimonials', 'faq', 'cta', 'blog-grid', 'team']],
-    ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'checkbox', 'radio', 'upload', 'upload-queue']],
+    ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'rich-text-editor', 'markdown-editor', 'checkbox', 'radio', 'upload', 'upload-queue']],
     ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings', 'workspace-switcher', 'account-menu', 'team-management', 'team-invitation', 'permissions-matrix']],
     ['Dashboard structure', ['app-shell', 'dashboard-metrics', 'resizable-panels', 'layout', 'card', 'avatar', 'badge']],
     ['Charts & progress', ['line-chart', 'bar-chart', 'donut-chart', 'progress', 'meter', 'stats']],
@@ -152,7 +154,7 @@ function coverage() {
     ['Feedback & states', ['alert', 'toast', 'empty-state', 'spinner', 'skeleton', 'notification-center']],
     ['Activity & onboarding', ['kanban', 'sortable-list', 'event-scheduler', 'calendar', 'time-picker', 'timeline', 'launch-checklist', 'multi-step-form', 'tabs']]
   ];
-  return `<div class="page-heading"><p class="rf-eyebrow">The pieces, accounted for.</p><h1>From a website to a workspace.</h1><p>Common website and dashboard UI is covered below. These are working building blocks; your product supplies its data and services.</p><div class="rf-cluster"><a class="rf-button" href="../examples/dashboard.html">Open the dashboard →</a><a class="rf-button rf-button--outline" href="../examples/landing.html">Open the website →</a></div></div><div class="rf-table-wrap" tabindex="0" role="region" aria-label="Website and dashboard coverage"><table class="rf-table coverage-table"><caption>Common UI coverage · ${catalog.length} examples available</caption><thead><tr><th scope="col">Need</th><th scope="col">Reusable examples</th></tr></thead><tbody>${groups.map(([name, ids]) => `<tr><th scope="row">${name}</th><td>${ids.map(id => { const item = catalog.find(item => item.id === id); return `<a href="#component/${id}">${item.title}</a>`; }).join(' · ')}</td></tr>`).join('')}</tbody></table></div><section class="doc-section"><h2>A working dashboard, composed.</h2><p>The sample uses the same shell, metrics, charts, date fields, notification inbox, table filters, selection, dialogs, settings, task board, and timeline found in the library. Move cards to update their table status, export selected rows as CSV, create a sample project, archive with confirmation, and edit workspace preferences. Changes stay in the page session.</p></section><section class="doc-section"><h2>Connect the services your product needs.</h2><p>Authentication and recovery, authorization, databases, email, payments, file storage, and server validation belong to the application. Loading, errors, and empty states compose from the existing feedback components. Large grids, maps, rich text, and domain-specific tools need their own implementation when your product requires them.</p><p>Chrome and Firefox suites check keyboard use, narrow layouts and automated accessibility. Installed Safari has manual smoke checks; physical touch and screen readers still need validation. <a href="./validation.md">Read the evidence</a>.</p></section>${footer()}`;
+  return `<div class="page-heading"><p class="rf-eyebrow">The pieces, accounted for.</p><h1>From a website to a workspace.</h1><p>Common website and dashboard UI is covered below. These are working building blocks; your product supplies its data and services.</p><div class="rf-cluster"><a class="rf-button" href="../examples/dashboard.html">Open the dashboard →</a><a class="rf-button rf-button--outline" href="../examples/landing.html">Open the website →</a></div></div><div class="rf-table-wrap" tabindex="0" role="region" aria-label="Website and dashboard coverage"><table class="rf-table coverage-table"><caption>Common UI coverage · ${catalog.length} examples available</caption><thead><tr><th scope="col">Need</th><th scope="col">Reusable examples</th></tr></thead><tbody>${groups.map(([name, ids]) => `<tr><th scope="row">${name}</th><td>${ids.map(id => { const item = catalog.find(item => item.id === id); return `<a href="#component/${id}">${item.title}</a>`; }).join(' · ')}</td></tr>`).join('')}</tbody></table></div><section class="doc-section"><h2>A working dashboard, composed.</h2><p>The sample uses the same shell, metrics, charts, date fields, notification inbox, table filters, selection, dialogs, settings, task board, and timeline found in the library. Move cards to update their table status, export selected rows as CSV, create a sample project, archive with confirmation, and edit workspace preferences. Changes stay in the page session.</p></section><section class="doc-section"><h2>Connect the services your product needs.</h2><p>Authentication and recovery, authorization, databases, email, payments, file storage, and server validation belong to the application. Loading, errors, and empty states compose from the existing feedback components. Large documents, maps and domain-specific tools need their own implementation when your product requires them. The optional note editors cover bounded rich text and a documented Markdown subset.</p><p>Chrome and Firefox suites check keyboard use, narrow layouts and automated accessibility. Installed Safari has manual smoke checks; physical touch and screen readers still need validation. <a href="./validation.md">Read the evidence</a>.</p></section>${footer()}`;
 }
 function installation() {
   const simple = `<link rel="stylesheet" href="./src/rofin.css">\n\n<div class="rf-scope">\n  <button class="rf-button" type="button">Get started</button>\n</div>\n\n<!-- Only needed for JavaScript interactions. -->\n<script type="module">\n  import { init } from './src/js/index.js';\n  const destroy = init();\n  // Call destroy() when removing this app root.\n</script>`;
@@ -174,7 +176,7 @@ function updateSize() {
   document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = `${(sizeReport.coreGzip / 1024).toFixed(1)} KiB`; });
 }
 function render({ focus = false } = {}) {
-  stopTeams(); stopGrids(); stopUploads();
+  stopEditors(); stopTeams(); stopGrids(); stopUploads();
   stopEffects();
   stopForms();
   stopPatterns();
@@ -199,6 +201,7 @@ function render({ focus = false } = {}) {
   stopGrids = initGridExamples(main);
   stopUploads = initUploadExamples(main);
   stopTeams = initTeamExamples(main);
+  stopEditors = initEditors(main);
   navigation(); updateSize();
   document.title = `${item?.title || ({ coverage: 'Website & dashboard checklist', start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery', saved: 'Saved collection', references: 'Reference library' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
   if (focus) { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }

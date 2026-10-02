@@ -1,0 +1,19 @@
+/* Optional note editors. Reuse the core field, button, dialog and table styles. */
+@layer rf.components {
+  .rf-editor { min-inline-size: 0; }
+  .rf-editor-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: .5rem; }
+  .rf-editor-toolbar .rf-field { max-inline-size: 12rem; }
+  .rf-editor-toolbar .rf-button[aria-pressed="true"] { background: var(--rf-subtle); border-color: var(--rf-primary); }
+  .rf-editor-canvas { min-block-size: 12rem; max-block-size: 30rem; overflow: auto; }
+  .rf-editor-canvas[aria-disabled="true"] { opacity: .6; }
+  .rf-editor-content { min-inline-size: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+  .rf-editor-content > :first-child { margin-block-start: 0; }
+  .rf-editor-content > :last-child { margin-block-end: 0; }
+  .rf-editor-content :is(p, blockquote, ul, ol, pre, .rf-table-wrap) { margin-block: 1rem; }
+  .rf-editor-content :is(ul, ol) { padding-inline-start: 1.5rem; white-space: normal; }
+  .rf-editor-content blockquote { padding-inline-start: 1rem; border-inline-start: 3px solid var(--rf-primary); }
+  .rf-editor-content pre { max-inline-size: 100%; overflow: auto; padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-subtle); white-space: pre; }
+  .rf-editor-content code { font: .875em/1.6 ui-monospace, SFMono-Regular, Consolas, monospace; }
+  .rf-editor-content .rf-table-wrap { white-space: normal; }
+  .rf-editor-source { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+}

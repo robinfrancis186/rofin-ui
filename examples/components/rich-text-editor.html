@@ -1,0 +1,25 @@
+<section class="rf-card rf-stack rf-editor" data-rf-rich-editor>
+  <div><h3>Give an idea a little shape.</h3><p class="rf-muted">Write a note, add emphasis, and keep the useful links close.</p></div>
+  <form class="rf-stack" method="dialog" data-demo-form>
+    <label class="rf-field" data-rf-editor-source-field><span class="rf-label">Rich-text note HTML</span><textarea class="rf-textarea rf-editor-source" name="note" data-rf-editor-source maxlength="50000" required rows="8">&lt;p&gt;Make room for &lt;strong&gt;your next idea&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;Start small. Share something useful.&lt;/p&gt;</textarea></label>
+    <div class="rf-stack" data-rf-editor-enhanced hidden>
+      <span class="rf-label" data-rf-editor-label>Rich-text note</span>
+      <div class="rf-editor-toolbar" data-rf-editor-toolbar role="group" aria-label="Rich-text formatting">
+        <label class="rf-field"><span class="rf-label">Paragraph style</span><select class="rf-select"><option value="p">Paragraph</option><option value="h2">Heading</option><option value="h3">Subheading</option><option value="blockquote">Quote</option><option value="pre">Code block</option></select></label>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="bold" aria-pressed="false">Bold</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="italic" aria-pressed="false">Italic</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="underline" aria-pressed="false">Underline</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="insertUnorderedList">Bullet list</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="insertOrderedList">Numbered list</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-editor-link>Add link</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="unlink">Remove link</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="undo">Undo</button>
+        <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-rich-command="redo">Redo</button>
+      </div>
+      <div class="rf-input rf-editor-canvas rf-editor-content" data-rf-rich-surface role="textbox" aria-multiline="true" tabindex="0"></div>
+    </div>
+    <p class="rf-help" data-rf-editor-count></p><p class="rf-error" data-rf-editor-error role="alert" hidden></p>
+    <div class="rf-cluster"><button class="rf-button" type="submit">Preview note</button><button class="rf-button rf-button--outline" type="reset">Reset note</button></div>
+  </form>
+  <dialog class="rf-dialog" data-rf-editor-link-dialog><h4 class="rf-dialog__title">Add a useful link.</h4><form class="rf-stack" method="dialog"><label class="rf-field"><span class="rf-label">Link URL</span><input class="rf-input" name="url" type="text" inputmode="url" maxlength="2048" placeholder="https://example.com" required></label><p class="rf-error" data-rf-editor-link-error role="alert" hidden></p><div class="rf-dialog__actions"><button class="rf-button rf-button--outline" type="button" data-rf-editor-link-cancel>Cancel link</button><button class="rf-button" type="submit">Insert link</button></div></form></dialog>
+</section>
