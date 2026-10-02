@@ -27,9 +27,21 @@ add 5,381 bytes of JavaScript and 497 bytes of CSS gzip. Both themes fit
 320/390/1440 pixels, opened link dialogs pass WCAG-tagged checks, and reduced
 motion logs no errors. A real formatted paste in the native in-app browser
 preserved emphasis and removed unsafe links, image markup and event attributes.
-Cross-engine CI and production evidence for this checkpoint are recorded after
-verification below. Durable notes, actual screen readers, physical touch and full
-installed Safari interaction remain outstanding requirements.
+GitHub run [37035093869](https://github.com/robinfrancis186/rofin-ui/actions/runs/37035093869)
+passed all 96 tests and the 220-file package check in each of Chromium, Firefox
+and WebKit on `d26f52c`. All three completed job logs were inspected. Core gzip
+size is 8,145 bytes on Linux and 8,161 locally on macOS.
+
+Production's 124-example build matches all 220 built files; size-report
+comparisons use uncompressed byte counts because gzip differs by platform.
+Rendered checks verified Markdown preview, rejection of an unsafe link followed
+by successful insertion of a safe link, reset, rich required-field focus,
+formatting and link insertion into the actual HTML form value. Dashboard notes
+save after reset, remain separate between Studio and Personal, and return when
+switching back. Reload restores the public samples. Both themes fit 390 pixels
+and the checked production flows reported no console errors. Durable notes,
+actual screen readers, physical touch and full installed Safari interaction
+remain outstanding requirements.
 
 ## Team management and invitations
 
@@ -233,7 +245,7 @@ native `method="dialog"`, which preserves validation without transmitting
 values. The check passes in all three engines for sign-in, password reveal,
 autocomplete and the scheduler, with unchanged URLs and no navigation requests.
 JavaScript submit handlers continue to supply the interactive local previews.
-The new upload example follows the same contract, bringing the current total to 32.
+The upload checkpoint followed the same contract, bringing its total to 32.
 
 ## Production documentation
 
