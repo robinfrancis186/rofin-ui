@@ -61,7 +61,8 @@ export function initPatterns(root = document) {
       const index = visible.indexOf(document.activeElement);
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault();
-        visible[(index + (event.key === 'ArrowDown' ? 1 : -1) + visible.length) % visible.length]?.focus();
+        const next = index < 0 ? (event.key === 'ArrowDown' ? 0 : visible.length - 1) : (index + (event.key === 'ArrowDown' ? 1 : -1) + visible.length) % visible.length;
+        visible[next]?.focus();
       }
     });
     for (const item of items) listen(item, 'click', () => {

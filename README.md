@@ -165,6 +165,10 @@ The build outputs minified CSS, ESM and CommonJS modules, an auto-initializing
 browser script, type declarations, and a self-contained documentation site in
 `dist/site`. Build tools are development dependencies only.
 
+The documentation website is composed from Rofin's own cards, inputs, buttons,
+navigation, badges, grids, statistics, empty states, dialogs, and footer.
+`docs/style.css` handles the site layout, branding, and decorative thumbnails.
+
 ```html
 <link rel="stylesheet" href="./dist/rofin.css">
 <script src="./dist/rofin.auto.js" defer></script>

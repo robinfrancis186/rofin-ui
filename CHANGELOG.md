@@ -11,6 +11,9 @@
   with related-pattern links and explicit partial-review notes.
 - Expanded browser checks for interactions, mobile layouts, both themes,
   reduced motion, and static documentation packaging.
+- Documentation chrome now uses Rofin inputs, buttons, navigation, badges,
+  cards, grids, empty states, statistics, and footer styles.
+- Command-palette Arrow Up starts at the last available command and wraps correctly.
 
 ## 0.1.0
 

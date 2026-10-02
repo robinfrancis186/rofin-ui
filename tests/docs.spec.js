@@ -41,6 +41,42 @@ test('gallery category filter and empty-state search keep focus usable', async (
   await expect(page.locator('#docs-search')).toBeFocused();
 });
 
+test('documentation uses shared components across desktop and mobile routes', async ({ page }) => {
+  test.setTimeout(90000);
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  for (const theme of ['light', 'dark']) {
+    await page.goto('/dist/site/index.html');
+    await page.locator('html').evaluate((element, value) => { element.dataset.rfTheme = value; }, theme);
+    await expect(page.locator('.showcase-panel.rf-card')).toHaveCount(3);
+    await expect(page.locator('.catalog-card.rf-card--interactive')).toHaveCount(9);
+    await page.keyboard.press('/');
+    await expect(page.locator('#docs-search.rf-input')).toBeFocused();
+    await page.locator('#docs-search').fill('no-such-component');
+    await expect(page.locator('.rf-empty')).toContainText('No matching components');
+    await page.locator('#docs-search').fill('');
+    await page.goto('/dist/site/index.html#catalog');
+    await page.getByRole('button', { name: 'All · ' + catalog.length }).click();
+    await expect(page.locator('.category-filters button:not(.rf-button)')).toHaveCount(0);
+    await expect(page.locator('.catalog-card')).toHaveCount(catalog.length);
+    for (const route of ['home', 'catalog', 'start', 'theming', 'api', 'principles', 'references']) {
+      await page.goto(`/dist/site/index.html#${route}`);
+      await expect(page.locator('#sidebar-nav [aria-current="page"]')).toHaveAttribute('href', `#${route}`);
+      await expect(page.locator('main h1')).toBeVisible();
+      await page.locator('html').evaluate((element, value) => { element.dataset.rfTheme = value; }, theme);
+      if (route === 'references') await page.getByRole('button', { name: 'Obsidian UI', exact: true }).click();
+      const result = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+      expect(result.violations, `${theme}: ${route}`).toEqual([]);
+      for (const width of [320, 768, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `${theme}: ${route} at ${width}`).toBe(false);
+        if (route === 'home' && width !== 768) await page.screenshot({ path: `output/playwright/rofin-${theme}-${width}.png` });
+      }
+    }
+  }
+  expect(errors).toEqual([]);
+});
+
 test('CSS and native controls remain useful with JavaScript disabled', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();

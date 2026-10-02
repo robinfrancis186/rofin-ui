@@ -22,8 +22,14 @@ test('optional patterns work with native controls, validation, and teardown', as
 
   await page.goto('/docs/index.html#component/command-palette');
   await page.getByRole('button', { name: /Open commands/ }).click();
+  await page.getByRole('searchbox', { name: 'Search commands' }).press('ArrowUp');
+  await expect(page.locator('[data-rf-command-item="help"]')).toBeFocused();
+  await page.keyboard.press('ArrowDown');
+  await expect(page.locator('[data-rf-command-item="new-project"]')).toBeFocused();
   await page.getByRole('searchbox', { name: 'Search commands' }).fill('no such command');
   await expect(page.locator('.rf-command [role="status"]')).toHaveText('0 commands available');
+  await page.getByRole('searchbox', { name: 'Search commands' }).press('ArrowUp');
+  await expect(page.getByRole('searchbox', { name: 'Search commands' })).toBeFocused();
   await page.getByRole('searchbox', { name: 'Search commands' }).fill('settings');
   await page.getByRole('searchbox', { name: 'Search commands' }).press('ArrowDown');
   await expect(page.locator('[data-rf-command-item="settings"]')).toBeFocused();
@@ -45,6 +51,15 @@ test('optional patterns work with native controls, validation, and teardown', as
   await page.getByRole('textbox', { name: 'Contact email' }).fill('demo@example.com');
   await page.getByRole('button', { name: 'Finish demo' }).click();
   await expect(page.locator('.rf-toast').last()).toContainText('No data was sent');
+  await page.locator('[name="project"]').evaluate(input => { input.value = ''; });
+  await page.getByRole('button', { name: 'Finish demo' }).click();
+  await expect(page.getByRole('textbox', { name: 'Project name' })).toBeFocused();
+  await expect(page.locator('[data-rf-step-form] [role="status"]')).toHaveText('Step 1 of 2');
+  await page.getByRole('textbox', { name: 'Project name' }).fill('Reset me');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.locator('[data-rf-step-form]').evaluate(form => form.reset());
+  await expect(page.getByRole('textbox', { name: 'Project name' })).toHaveValue('');
+  await expect(page.locator('[data-rf-step-form] [role="status"]')).toHaveText('Step 1 of 2');
   await page.goto('/docs/index.html#component/carousel');
   await page.getByRole('button', { name: 'Next cards' }).click();
   await expect.poll(() => page.locator('.rf-carousel__track').evaluate(element => element.scrollLeft)).toBeGreaterThan(200);
