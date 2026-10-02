@@ -864,7 +864,7 @@ export default [
       "Replace the two panels with your own images and useful alt text. Both images stay visible side by side at the initial split without JavaScript.",
       "The native range supports arrows, Home/End, touch, and keyboard."
     ],
-    "html": "<div data-rf-compare class=\"rf-stack\">\n  <div class=\"rf-compare\" role=\"img\" aria-label=\"Before and after design comparison\">\n    <div class=\"rf-compare__before\"><strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">An idea.<br>A blank canvas.</strong></div>\n    <div class=\"rf-compare__after\"><strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">An idea.<br>Brought to life.</strong></div>\n    <span class=\"rf-compare__label\">Before</span><span class=\"rf-compare__label rf-compare__label--after\">After</span>\n  </div>\n  <label class=\"rf-field\"><span class=\"rf-label\">Comparison position</span><input class=\"rf-range\" type=\"range\" min=\"0\" max=\"100\" value=\"50\"></label>\n</div>",
+    "html": "<div data-rf-compare class=\"rf-stack\">\n  <div class=\"rf-compare\" role=\"img\" aria-label=\"Before and after design comparison\">\n    <div class=\"rf-compare__before\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        A blank canvas.\n      </strong>\n    </div>\n    <div class=\"rf-compare__after\">\n      <strong style=\"font-size:clamp(1.5rem,5vw,3rem)\">\n        An idea.\n        <br>\n        Brought to life.\n      </strong>\n    </div>\n    <span class=\"rf-compare__label\">\n      Before\n    </span>\n    <span class=\"rf-compare__label rf-compare__label--after\">\n      After\n    </span>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Comparison position\n    </span>\n    <input class=\"rf-range\" type=\"range\" min=\"0\" max=\"100\" value=\"50\">\n  </label>\n</div>",
     "cssBytes": 8692
   },
   {
@@ -885,7 +885,7 @@ export default [
       "Scrolling and CSS snapping work without JavaScript. Optional buttons scroll one card at a time.",
       "No autoplay or hidden slides. Respects reduced motion and right-to-left direction."
     ],
-    "html": "<section data-rf-carousel aria-label=\"Project ideas\"><div class=\"rf-carousel__track\" tabindex=\"0\" aria-label=\"Scrollable project cards\"><article class=\"rf-card\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">01</div><h3>Start somewhere</h3><p class=\"rf-muted\">A small sketch becomes a real direction.</p></article><article class=\"rf-card\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">02</div><h3>Find your rhythm</h3><p class=\"rf-muted\">Make space for the work that matters.</p></article><article class=\"rf-card\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">03</div><h3>Keep going</h3><p class=\"rf-muted\">Build the next chapter, one piece at a time.</p></article></div><div class=\"rf-carousel__controls\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"-1\" aria-label=\"Previous cards\">← Previous</button><span class=\"rf-help\">3 project ideas</span><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"1\" aria-label=\"Next cards\">Next →</button></div></section>",
+    "html": "<section data-rf-carousel aria-label=\"Project ideas\">\n  <div class=\"rf-carousel__track\" tabindex=\"0\" aria-label=\"Scrollable project cards\">\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        01\n      </div>\n      <h3>\n        Start somewhere\n      </h3>\n      <p class=\"rf-muted\">\n        A small sketch becomes a real direction.\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        02\n      </div>\n      <h3>\n        Find your rhythm\n      </h3>\n      <p class=\"rf-muted\">\n        Make space for the work that matters.\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        03\n      </div>\n      <h3>\n        Keep going\n      </h3>\n      <p class=\"rf-muted\">\n        Build the next chapter, one piece at a time.\n      </p>\n    </article>\n  </div>\n  <div class=\"rf-carousel__controls\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"-1\" aria-label=\"Previous cards\">\n      ← Previous\n    </button>\n    <span class=\"rf-help\">\n      3 project ideas\n    </span>\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-carousel-move=\"1\" aria-label=\"Next cards\">\n      Next →\n    </button>\n  </div>\n</section>",
     "cssBytes": 8849
   },
   {
@@ -909,7 +909,7 @@ export default [
       "Listen for rf:command; detail.value contains the chosen command. Connect that event to application behavior.",
       "The preview reports the choice locally and performs no application action."
     ],
-    "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-dialog-open=\"example-command\">Open commands <kbd>↓</kbd></button>\n<dialog class=\"rf-dialog rf-command\" id=\"example-command\" aria-labelledby=\"command-title\" data-rf-command>\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\"><h2 id=\"command-title\">What would you like to do?</h2><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-dialog-close aria-label=\"Close commands\">×</button></div>\n  <label class=\"rf-field\"><span class=\"rf-label\">Search commands</span><input class=\"rf-input\" type=\"search\" placeholder=\"Try settings…\" autofocus></label>\n  <div class=\"rf-command__list\"><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"new-project\">Create project <span aria-hidden=\"true\">↗</span></button><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"settings\">Open settings <span aria-hidden=\"true\">↗</span></button><button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"help\">Get help <span aria-hidden=\"true\">↗</span></button></div>\n  <p class=\"rf-help\" role=\"status\"></p><p class=\"rf-help\">Arrow keys to browse. Enter to choose. Escape to close.</p>\n</dialog>",
+    "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-dialog-open=\"example-command\">\n  Open commands\n  <kbd>\n    ↓\n  </kbd>\n</button>\n<dialog class=\"rf-dialog rf-command\" id=\"example-command\" aria-labelledby=\"command-title\" data-rf-command>\n  <div class=\"rf-cluster\" style=\"justify-content:space-between\">\n    <h2 id=\"command-title\">\n      What would you like to do?\n    </h2>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-dialog-close aria-label=\"Close commands\">\n      ×\n    </button>\n  </div>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Search commands\n    </span>\n    <input class=\"rf-input\" type=\"search\" placeholder=\"Try settings…\" autofocus>\n  </label>\n  <div class=\"rf-command__list\">\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"new-project\">\n      Create project\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"settings\">\n      Open settings\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n    <button class=\"rf-button rf-button--ghost\" type=\"button\" data-rf-command-item=\"help\">\n      Get help\n      <span aria-hidden=\"true\">\n        ↗\n      </span>\n    </button>\n  </div>\n  <p class=\"rf-help\" role=\"status\">\n  </p>\n  <p class=\"rf-help\">\n    Arrow keys to browse. Enter to choose. Escape to close.\n  </p>\n</dialog>",
     "cssBytes": 11082
   },
   {
@@ -929,7 +929,7 @@ export default [
       "aria-pressed communicates the toggle state. The label remains stable.",
       "Counts are demo data in memory. Your app owns persistence and authorization."
     ],
-    "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-like aria-pressed=\"false\"><span aria-hidden=\"true\">♡</span> Like <span data-rf-like-count>128</span></button>",
+    "html": "<button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-like aria-pressed=\"false\">\n  <span aria-hidden=\"true\">\n    ♡\n  </span>\n  Like\n  <span data-rf-like-count>\n    128\n  </span>\n</button>",
     "cssBytes": 7956
   },
   {
@@ -950,7 +950,7 @@ export default [
       "Uses native stepUp/stepDown, min, max, and step. The number input stays usable without JavaScript.",
       "Emits ordinary input and change events. Disabled and read-only inputs are not changed."
     ],
-    "html": "<div class=\"rf-stack\"><label class=\"rf-label\" for=\"quantity\">Quantity</label><div class=\"rf-stepper\" data-rf-stepper><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"-1\" aria-label=\"Decrease quantity\">−</button><input class=\"rf-input\" id=\"quantity\" type=\"number\" min=\"1\" max=\"10\" step=\"1\" value=\"2\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"1\" aria-label=\"Increase quantity\">+</button></div><p class=\"rf-help\">Between 1 and 10. You can also type a quantity.</p></div>",
+    "html": "<div class=\"rf-stack\">\n  <label class=\"rf-label\" for=\"quantity\">\n    Quantity\n  </label>\n  <div class=\"rf-stepper\" data-rf-stepper>\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"-1\" aria-label=\"Decrease quantity\">\n      −\n    </button>\n    <input class=\"rf-input\" id=\"quantity\" type=\"number\" min=\"1\" max=\"10\" step=\"1\" value=\"2\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-stepper-move=\"1\" aria-label=\"Increase quantity\">\n      +\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Between 1 and 10. You can also type a quantity.\n  </p>\n</div>",
     "cssBytes": 10316
   },
   {
@@ -966,7 +966,7 @@ export default [
     "notes": [
       "A native radio group supports arrow keys and form submission. No JavaScript is needed."
     ],
-    "html": "<fieldset class=\"rf-segmented\"><legend>View density</legend><label><input type=\"radio\" name=\"density\" value=\"comfortable\" checked><span>Comfortable</span></label><label><input type=\"radio\" name=\"density\" value=\"compact\" ><span>Compact</span></label><label><input type=\"radio\" name=\"density\" value=\"minimal\" ><span>Minimal</span></label></fieldset>",
+    "html": "<fieldset class=\"rf-segmented\">\n  <legend>\n    View density\n  </legend>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"comfortable\" checked>\n    <span>\n      Comfortable\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"compact\" >\n    <span>\n      Compact\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"density\" value=\"minimal\" >\n    <span>\n      Minimal\n    </span>\n  </label>\n</fieldset>",
     "cssBytes": 6332
   },
   {
@@ -983,7 +983,7 @@ export default [
       "Native browser calendar, locale, touch behavior, and validation are retained.",
       "Use min/max for date limits. Validate submitted dates on the server."
     ],
-    "html": "<label class=\"rf-field\"><span class=\"rf-label\">Project start date</span><input class=\"rf-input\" type=\"date\" name=\"start-date\"><span class=\"rf-help\">Calendar appearance follows your browser and device.</span></label>",
+    "html": "<label class=\"rf-field\">\n  <span class=\"rf-label\">\n    Project start date\n  </span>\n  <input class=\"rf-input\" type=\"date\" name=\"start-date\">\n  <span class=\"rf-help\">\n    Calendar appearance follows your browser and device.\n  </span>\n</label>",
     "cssBytes": 2360
   },
   {
@@ -1001,7 +1001,7 @@ export default [
       "One input avoids fragmented paste and screen-reader navigation. Leading zeroes are retained.",
       "Your server must check expiry, attempt limits, and validity. This component does not authenticate."
     ],
-    "html": "<form class=\"rf-stack\" data-demo-form><label class=\"rf-field\"><span class=\"rf-label\">Verification code</span><input class=\"rf-input\" name=\"code\" type=\"text\" inputmode=\"numeric\" autocomplete=\"one-time-code\" pattern=\"[0-9]{6}\" maxlength=\"6\" required placeholder=\"123456\" aria-describedby=\"code-help\"><span id=\"code-help\" class=\"rf-help\">Enter the six-digit code. Demo only; no verification request is sent.</span></label><button class=\"rf-button\" type=\"submit\">Verify code</button></form>",
+    "html": "<form class=\"rf-stack\" data-demo-form>\n  <label class=\"rf-field\">\n    <span class=\"rf-label\">\n      Verification code\n    </span>\n    <input class=\"rf-input\" name=\"code\" type=\"text\" inputmode=\"numeric\" autocomplete=\"one-time-code\" pattern=\"[0-9]{6}\" maxlength=\"6\" required placeholder=\"123456\" aria-describedby=\"code-help\">\n    <span id=\"code-help\" class=\"rf-help\">\n      Enter the six-digit code. Demo only; no verification request is sent.\n    </span>\n  </label>\n  <button class=\"rf-button\" type=\"submit\">\n    Verify code\n  </button>\n</form>",
     "cssBytes": 3984
   },
   {
@@ -1017,7 +1017,7 @@ export default [
     "notes": [
       "DOM order remains the reading order. Dates are sample content."
     ],
-    "html": "<ol class=\"rf-timeline\"><li><time datetime=\"2026-10-01\">October 1, 2026</time><h3>The first sketch</h3><p class=\"rf-muted\">Find a direction worth exploring.</p></li><li><time datetime=\"2026-10-02\">October 2, 2026</time><h3>Build together</h3><p class=\"rf-muted\">Turn the idea into something useful.</p></li><li><time datetime=\"2026-10-03\">October 3, 2026</time><h3>Ready to share</h3><p class=\"rf-muted\">Check the details, then open the doors.</p></li></ol>",
+    "html": "<ol class=\"rf-timeline\">\n  <li>\n    <time datetime=\"2026-10-01\">\n      October 1, 2026\n    </time>\n    <h3>\n      The first sketch\n    </h3>\n    <p class=\"rf-muted\">\n      Find a direction worth exploring.\n    </p>\n  </li>\n  <li>\n    <time datetime=\"2026-10-02\">\n      October 2, 2026\n    </time>\n    <h3>\n      Build together\n    </h3>\n    <p class=\"rf-muted\">\n      Turn the idea into something useful.\n    </p>\n  </li>\n  <li>\n    <time datetime=\"2026-10-03\">\n      October 3, 2026\n    </time>\n    <h3>\n      Ready to share\n    </h3>\n    <p class=\"rf-muted\">\n      Check the details, then open the doors.\n    </p>\n  </li>\n</ol>",
     "cssBytes": 6332
   },
   {
@@ -1034,7 +1034,7 @@ export default [
       "Replace fragment destinations with your real routes. Labels are always visible.",
       "CSS handles focus and hover. Movement is disabled for reduced motion. Position the dock in your app as needed."
     ],
-    "html": "<nav class=\"rf-dock\" aria-label=\"Workspace shortcuts\"><a href=\"#projects\">Projects</a><a href=\"#activity\">Activity</a><a href=\"#team\">Team</a><a href=\"#settings\">Settings</a></nav>",
+    "html": "<nav class=\"rf-dock\" aria-label=\"Workspace shortcuts\">\n  <a href=\"#projects\">\n    Projects\n  </a>\n  <a href=\"#activity\">\n    Activity\n  </a>\n  <a href=\"#team\">\n    Team\n  </a>\n  <a href=\"#settings\">\n    Settings\n  </a>\n</nav>",
     "cssBytes": 6332
   },
   {
@@ -1053,7 +1053,7 @@ export default [
       "Native details supports keyboard toggling and stays useful without JavaScript.",
       "Place links and buttons in the expanded content, outside summary."
     ],
-    "html": "<details class=\"rf-card rf-expandable\"><summary>A little more about this project</summary><div class=\"rf-expandable__content\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">↗</div><h3>Make room for your next idea.</h3><p>Start with the simplest version that helps someone. Keep refining it together.</p><a class=\"rf-button rf-button--outline\" href=\"#project\">Open project</a></div></details>",
+    "html": "<details class=\"rf-card rf-expandable\">\n  <summary>\n    A little more about this project\n  </summary>\n  <div class=\"rf-expandable__content\">\n    <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n      ↗\n    </div>\n    <h3>\n      Make room for your next idea.\n    </h3>\n    <p>\n      Start with the simplest version that helps someone. Keep refining it together.\n    </p>\n    <a class=\"rf-button rf-button--outline\" href=\"#project\">\n      Open project\n    </a>\n  </div>\n</details>",
     "cssBytes": 8849
   },
   {
@@ -1070,7 +1070,7 @@ export default [
       "Replace decorative art with your own images. Multiple panels may remain open.",
       "Keyboard and touch users can expand each panel. Content remains accessible without hover or JavaScript."
     ],
-    "html": "<div class=\"rf-image-accordion\"><details open><summary>Explore</summary><div style=\"padding:0 1rem\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">○</div></div><p>Find a fresh perspective.</p></details><details ><summary>Create</summary><div style=\"padding:0 1rem\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">△</div></div><p>Give your idea a shape.</p></details><details ><summary>Share</summary><div style=\"padding:0 1rem\"><div class=\"rf-pattern-art\" aria-hidden=\"true\">□</div></div><p>Make something useful together.</p></details></div>",
+    "html": "<div class=\"rf-image-accordion\">\n  <details open>\n    <summary>\n      Explore\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        ○\n      </div>\n    </div>\n    <p>\n      Find a fresh perspective.\n    </p>\n  </details>\n  <details >\n    <summary>\n      Create\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        △\n      </div>\n    </div>\n    <p>\n      Give your idea a shape.\n    </p>\n  </details>\n  <details >\n    <summary>\n      Share\n    </summary>\n    <div style=\"padding:0 1rem\">\n      <div class=\"rf-pattern-art\" aria-hidden=\"true\">\n        □\n      </div>\n    </div>\n    <p>\n      Make something useful together.\n    </p>\n  </details>\n</div>",
     "cssBytes": 6332
   },
   {
@@ -1089,7 +1089,7 @@ export default [
       "The backing layers are decorative CSS. One real card remains in the accessibility tree.",
       "This is a static stack, not a swipe deck or auto-rotating carousel."
     ],
-    "html": "<div class=\"rf-card-stack\"><article class=\"rf-card\"><p class=\"rf-eyebrow\">Next in your collection</p><h3>Small details. Lasting impressions.</h3><p class=\"rf-muted\">A layered surface for a project, testimonial, or next step.</p><a class=\"rf-button\" href=\"#collection\">Explore collection →</a></article></div>",
+    "html": "<div class=\"rf-card-stack\">\n  <article class=\"rf-card\">\n    <p class=\"rf-eyebrow\">\n      Next in your collection\n    </p>\n    <h3>\n      Small details. Lasting impressions.\n    </h3>\n    <p class=\"rf-muted\">\n      A layered surface for a project, testimonial, or next step.\n    </p>\n    <a class=\"rf-button\" href=\"#collection\">\n      Explore collection →\n    </a>\n  </article>\n</div>",
     "cssBytes": 8849
   },
   {
@@ -1107,7 +1107,7 @@ export default [
       "Native checkbox state and submission. Persistence belongs to your application.",
       "The checked treatment retains the task label and text contrast."
     ],
-    "html": "<ul class=\"rf-checklist\"><li><label class=\"rf-check\"><input type=\"checkbox\" name=\"tasks\" value=\"0\" checked><span>Sketch the first idea</span></label></li><li><label class=\"rf-check\"><input type=\"checkbox\" name=\"tasks\" value=\"1\" ><span>Build a small prototype</span></label></li><li><label class=\"rf-check\"><input type=\"checkbox\" name=\"tasks\" value=\"2\" ><span>Check the keyboard flow</span></label></li><li><label class=\"rf-check\"><input type=\"checkbox\" name=\"tasks\" value=\"3\" ><span>Share it with someone</span></label></li></ul>",
+    "html": "<ul class=\"rf-checklist\">\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"0\" checked>\n      <span>\n        Sketch the first idea\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"1\" >\n      <span>\n        Build a small prototype\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"2\" >\n      <span>\n        Check the keyboard flow\n      </span>\n    </label>\n  </li>\n  <li>\n    <label class=\"rf-check\">\n      <input type=\"checkbox\" name=\"tasks\" value=\"3\" >\n      <span>\n        Share it with someone\n      </span>\n    </label>\n  </li>\n</ul>",
     "cssBytes": 8692
   },
   {
@@ -1123,7 +1123,7 @@ export default [
     "notes": [
       "Arrow keys move between values. Numeric labels communicate meaning without relying on star color."
     ],
-    "html": "<fieldset class=\"rf-rating\"><legend>How was your experience?</legend><label><input type=\"radio\" name=\"rating\" value=\"1\" aria-label=\"1 out of 5\"><span><span aria-hidden=\"true\">☆</span> 1</span></label><label><input type=\"radio\" name=\"rating\" value=\"2\" aria-label=\"2 out of 5\"><span><span aria-hidden=\"true\">☆</span> 2</span></label><label><input type=\"radio\" name=\"rating\" value=\"3\" aria-label=\"3 out of 5\"><span><span aria-hidden=\"true\">☆</span> 3</span></label><label><input type=\"radio\" name=\"rating\" value=\"4\" aria-label=\"4 out of 5\"><span><span aria-hidden=\"true\">☆</span> 4</span></label><label><input type=\"radio\" name=\"rating\" value=\"5\" aria-label=\"5 out of 5\"><span><span aria-hidden=\"true\">☆</span> 5</span></label></fieldset>",
+    "html": "<fieldset class=\"rf-rating\">\n  <legend>\n    How was your experience?\n  </legend>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"1\" aria-label=\"1 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      1\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"2\" aria-label=\"2 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      2\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"3\" aria-label=\"3 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      3\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"4\" aria-label=\"4 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      4\n    </span>\n  </label>\n  <label>\n    <input type=\"radio\" name=\"rating\" value=\"5\" aria-label=\"5 out of 5\">\n    <span>\n      <span aria-hidden=\"true\">\n        ☆\n      </span>\n      5\n    </span>\n  </label>\n</fieldset>",
     "cssBytes": 6332
   },
   {
@@ -1139,7 +1139,7 @@ export default [
     "notes": [
       "Each chip is a labelled checkbox. Works with keyboard, touch, and forms without JavaScript."
     ],
-    "html": "<fieldset class=\"rf-chips\"><legend>What would you like to explore?</legend><label><input type=\"checkbox\" name=\"interests\" value=\"design\" checked><span>Design</span></label><label><input type=\"checkbox\" name=\"interests\" value=\"engineering\" ><span>Engineering</span></label><label><input type=\"checkbox\" name=\"interests\" value=\"motion\" ><span>Motion</span></label><label><input type=\"checkbox\" name=\"interests\" value=\"accessibility\" ><span>Accessibility</span></label><label><input type=\"checkbox\" name=\"interests\" value=\"open source\" ><span>Open source</span></label></fieldset>",
+    "html": "<fieldset class=\"rf-chips\">\n  <legend>\n    What would you like to explore?\n  </legend>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"design\" checked>\n    <span>\n      Design\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"engineering\" >\n    <span>\n      Engineering\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"motion\" >\n    <span>\n      Motion\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"accessibility\" >\n    <span>\n      Accessibility\n    </span>\n  </label>\n  <label>\n    <input type=\"checkbox\" name=\"interests\" value=\"open source\" >\n    <span>\n      Open source\n    </span>\n  </label>\n</fieldset>",
     "cssBytes": 6332
   },
   {
@@ -1161,7 +1161,7 @@ export default [
       "Without JavaScript, all steps and the native submit button remain visible. Teardown restores this state.",
       "Replace the demo handler with your app submission and server-side validation."
     ],
-    "html": "<form class=\"rf-stack\" data-rf-step-form data-demo-form>\n  <p class=\"rf-help\" role=\"status\">Complete your project details</p>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step><legend>1. Your project</legend><label class=\"rf-field\"><span class=\"rf-label\">Project name</span><input class=\"rf-input\" name=\"project\" required autocomplete=\"off\"></label></fieldset>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step><legend>2. Your contact</legend><label class=\"rf-field\"><span class=\"rf-label\">Contact email</span><input class=\"rf-input\" type=\"email\" name=\"email\" required autocomplete=\"email\"></label></fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-step-previous hidden>Previous</button><button class=\"rf-button\" type=\"button\" data-rf-step-next hidden>Continue</button><button class=\"rf-button\" type=\"submit\" data-rf-step-submit>Finish demo</button></div>\n  <p class=\"rf-help\">Demo only. No data is submitted or stored.</p>\n</form>",
+    "html": "<form class=\"rf-stack\" data-rf-step-form data-demo-form>\n  <p class=\"rf-help\" role=\"status\">\n    Complete your project details\n  </p>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      1. Your project\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Project name\n      </span>\n      <input class=\"rf-input\" name=\"project\" required autocomplete=\"off\">\n    </label>\n  </fieldset>\n  <fieldset class=\"rf-fieldset rf-stack\" data-rf-step>\n    <legend>\n      2. Your contact\n    </legend>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Contact email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" required autocomplete=\"email\">\n    </label>\n  </fieldset>\n  <div class=\"rf-cluster\">\n    <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-step-previous hidden>\n      Previous\n    </button>\n    <button class=\"rf-button\" type=\"button\" data-rf-step-next hidden>\n      Continue\n    </button>\n    <button class=\"rf-button\" type=\"submit\" data-rf-step-submit>\n      Finish demo\n    </button>\n  </div>\n  <p class=\"rf-help\">\n    Demo only. No data is submitted or stored.\n  </p>\n</form>",
     "cssBytes": 10316
   },
   {
@@ -1180,7 +1180,7 @@ export default [
       "Clipboard requires a secure context and permission. Failure keeps the text visible for manual copying.",
       "The copied value is text. This component never executes the command."
     ],
-    "html": "<div class=\"rf-stack\"><code>git clone https://github.com/robinfrancis186/rofin-ui.git</code><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-copy=\"git clone https://github.com/robinfrancis186/rofin-ui.git\">Copy command</button><p class=\"rf-help\" role=\"status\">Clone the source to get started.</p></div>",
+    "html": "<div class=\"rf-stack\">\n  <code>\n    git clone https://github.com/robinfrancis186/rofin-ui.git\n  </code>\n  <button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-copy=\"git clone https://github.com/robinfrancis186/rofin-ui.git\">\n    Copy command\n  </button>\n  <p class=\"rf-help\" role=\"status\">\n    Clone the source to get started.\n  </p>\n</div>",
     "cssBytes": 1624
   },
   {
@@ -1198,7 +1198,7 @@ export default [
       "Pause using the checkbox. Hover and focus also pause movement. Reduced-motion mode shows a static wrapping group.",
       "The repeated group is decorative and must not contain focusable controls. Studio names are fictional."
     ],
-    "html": "<section class=\"rf-marquee\" aria-label=\"Sample studio names\"><label class=\"rf-check\"><input type=\"checkbox\"> Pause animation</label><div class=\"rf-marquee__track\"><div class=\"rf-marquee__group\"><span>Northstar</span><span>Forma</span><span>Orbit</span><span>Fieldwork</span></div><div class=\"rf-marquee__group\" aria-hidden=\"true\"><span>Northstar</span><span>Forma</span><span>Orbit</span><span>Fieldwork</span></div></div></section>",
+    "html": "<section class=\"rf-marquee\" aria-label=\"Sample studio names\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\">\n    Pause animation\n  </label>\n  <div class=\"rf-marquee__track\">\n    <div class=\"rf-marquee__group\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n    <div class=\"rf-marquee__group\" aria-hidden=\"true\">\n      <span>\n        Northstar\n      </span>\n      <span>\n        Forma\n      </span>\n      <span>\n        Orbit\n      </span>\n      <span>\n        Fieldwork\n      </span>\n    </div>\n  </div>\n</section>",
     "cssBytes": 8692
   },
   {
@@ -1216,7 +1216,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-grid-background\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-grid-background\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1234,7 +1234,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-mesh-background\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-mesh-background\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1254,7 +1254,7 @@ export default [
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
       "The native pause checkbox stops the animation without JavaScript."
     ],
-    "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\"><input type=\"checkbox\" data-rf-pause-motion> Pause animation</label>\n  <article class=\"rf-card rf-aurora\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>\n</div>",
+    "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\" data-rf-pause-motion>\n    Pause animation\n  </label>\n  <article class=\"rf-card rf-aurora\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n    <p class=\"rf-eyebrow\">\n      A little atmosphere\n    </p>\n    <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n      Make something\n      <br>\n      worth opening.\n    </h3>\n    <p class=\"rf-muted\">\n      Original CSS. Your own character.\n    </p>\n  </article>\n</div>",
     "cssBytes": 8769
   },
   {
@@ -1272,7 +1272,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-gradient-border\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-gradient-border\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1292,7 +1292,7 @@ export default [
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
       "The native pause checkbox stops the animation without JavaScript."
     ],
-    "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\"><input type=\"checkbox\" data-rf-pause-motion> Pause animation</label>\n  <article class=\"rf-card rf-border-beam\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>\n</div>",
+    "html": "<div class=\"rf-motion-control rf-stack\">\n  <label class=\"rf-check\">\n    <input type=\"checkbox\" data-rf-pause-motion>\n    Pause animation\n  </label>\n  <article class=\"rf-card rf-border-beam\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n    <p class=\"rf-eyebrow\">\n      A little atmosphere\n    </p>\n    <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n      Make something\n      <br>\n      worth opening.\n    </h3>\n    <p class=\"rf-muted\">\n      Original CSS. Your own character.\n    </p>\n  </article>\n</div>",
     "cssBytes": 8769
   },
   {
@@ -1310,7 +1310,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-glass\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-glass\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1330,7 +1330,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card \" data-rf-tilt style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card \" data-rf-tilt style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1350,7 +1350,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-glare\" data-rf-spotlight style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-glare\" data-rf-spotlight style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1368,7 +1368,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-lamp\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-lamp\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1386,7 +1386,7 @@ export default [
       "Decorative effect only. Content remains usable without JavaScript.",
       "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
     ],
-    "html": "<article class=\"rf-card rf-stars\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\"><p class=\"rf-eyebrow\">A little atmosphere</p><h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">Make something<br>worth opening.</h3><p class=\"rf-muted\">Original CSS. Your own character.</p></article>",
+    "html": "<article class=\"rf-card rf-stars\"  style=\"padding:clamp(2rem,6vw,4rem);text-align:center\">\n  <p class=\"rf-eyebrow\">\n    A little atmosphere\n  </p>\n  <h3 style=\"font-size:clamp(1.5rem,4vw,2.5rem)\">\n    Make something\n    <br>\n    worth opening.\n  </h3>\n  <p class=\"rf-muted\">\n    Original CSS. Your own character.\n  </p>\n</article>",
     "cssBytes": 6409
   },
   {
@@ -1405,7 +1405,7 @@ export default [
     "notes": [
       "Movement is bounded to five pixels in each direction. Touch and reduced-motion users receive a static button."
     ],
-    "html": "<div style=\"padding:1rem\"><button class=\"rf-button\" type=\"button\" data-rf-magnetic data-demo-toast>Make your next move →</button></div>",
+    "html": "<div style=\"padding:1rem\">\n  <button class=\"rf-button\" type=\"button\" data-rf-magnetic data-demo-toast>\n    Make your next move →\n  </button>\n</div>",
     "cssBytes": 7140
   },
   {
@@ -1421,7 +1421,7 @@ export default [
     "notes": [
       "Real mark semantics. The highlight is static and does not depend on scroll or hover."
     ],
-    "html": "<h3 style=\"font-size:clamp(1.75rem,5vw,3rem);line-height:1.25\">Small ideas.<br><mark class=\"rf-text-highlight\">Wonderful possibilities.</mark></h3>",
+    "html": "<h3 style=\"font-size:clamp(1.75rem,5vw,3rem);line-height:1.25\">\n  Small ideas.\n  <br>\n  <mark class=\"rf-text-highlight\">\n    Wonderful possibilities.\n  </mark>\n</h3>",
     "cssBytes": 5516
   },
   {
@@ -1437,7 +1437,7 @@ export default [
     "notes": [
       "Uses one real text node, with no duplicated words for assistive technology. Reduced-motion mode disables animation."
     ],
-    "html": "<h3 class=\"rf-text-entrance\" style=\"font-size:clamp(1.75rem,5vw,3rem)\">Every great thing<br>starts somewhere.</h3>",
+    "html": "<h3 class=\"rf-text-entrance\" style=\"font-size:clamp(1.75rem,5vw,3rem)\">\n  Every great thing\n  <br>\n  starts somewhere.\n</h3>",
     "cssBytes": 5516
   },
   {
@@ -1454,7 +1454,7 @@ export default [
     "notes": [
       "Focus-within receives the same emphasis as hover. Reduced-motion mode removes movement."
     ],
-    "html": "<div class=\"rf-focus-cards\"><article class=\"rf-card\"><h3>Explore</h3><p class=\"rf-muted\">Open up a new direction.</p><a href=\"#explore\">Explore explore →</a></article><article class=\"rf-card\"><h3>Build</h3><p class=\"rf-muted\">Bring your first sketch to life.</p><a href=\"#build\">Explore build →</a></article><article class=\"rf-card\"><h3>Share</h3><p class=\"rf-muted\">Invite someone into your work.</p><a href=\"#share\">Explore share →</a></article></div>",
+    "html": "<div class=\"rf-focus-cards\">\n  <article class=\"rf-card\">\n    <h3>\n      Explore\n    </h3>\n    <p class=\"rf-muted\">\n      Open up a new direction.\n    </p>\n    <a href=\"#explore\">\n      Explore explore →\n    </a>\n  </article>\n  <article class=\"rf-card\">\n    <h3>\n      Build\n    </h3>\n    <p class=\"rf-muted\">\n      Bring your first sketch to life.\n    </p>\n    <a href=\"#build\">\n      Explore build →\n    </a>\n  </article>\n  <article class=\"rf-card\">\n    <h3>\n      Share\n    </h3>\n    <p class=\"rf-muted\">\n      Invite someone into your work.\n    </p>\n    <a href=\"#share\">\n      Explore share →\n    </a>\n  </article>\n</div>",
     "cssBytes": 6409
   },
   {
@@ -1470,7 +1470,7 @@ export default [
     "notes": [
       "Fictional demonstration names, not endorsements. Replace with your real partners and accessible logos."
     ],
-    "html": "<section class=\"rf-section\"><p class=\"rf-eyebrow\" style=\"text-align:center\">A sample partner strip</p><div class=\"rf-logo-cloud\" aria-label=\"Fictional studios\"><span>Northstar</span><span>Forma</span><span>Orbit</span><span>Fieldwork</span></div></section>",
+    "html": "<section class=\"rf-section\">\n  <p class=\"rf-eyebrow\" style=\"text-align:center\">\n    A sample partner strip\n  </p>\n  <div class=\"rf-logo-cloud\" aria-label=\"Fictional studios\">\n    <span>\n      Northstar\n    </span>\n    <span>\n      Forma\n    </span>\n    <span>\n      Orbit\n    </span>\n    <span>\n      Fieldwork\n    </span>\n  </div>\n</section>",
     "cssBytes": 2302
   },
   {
@@ -1489,7 +1489,7 @@ export default [
     "notes": [
       "Replace the demo handler with your consent, email service, and server validation."
     ],
-    "html": "<section class=\"rf-section rf-card\"><h3 class=\"rf-section__heading\">Good things, occasionally.</h3><p class=\"rf-section__intro\">A little inspiration for what you make next.</p><form class=\"rf-newsletter\" data-demo-form><label class=\"rf-field\"><span class=\"rf-label\">Email address</span><input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required placeholder=\"you@example.com\"></label><button class=\"rf-button\" type=\"submit\">Subscribe</button></form><p class=\"rf-help\" style=\"margin-top:1rem\">Demo only. No subscription is created.</p></section>",
+    "html": "<section class=\"rf-section rf-card\">\n  <h3 class=\"rf-section__heading\">\n    Good things, occasionally.\n  </h3>\n  <p class=\"rf-section__intro\">\n    A little inspiration for what you make next.\n  </p>\n  <form class=\"rf-newsletter\" data-demo-form>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email address\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required placeholder=\"you@example.com\">\n    </label>\n    <button class=\"rf-button\" type=\"submit\">\n      Subscribe\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Demo only. No subscription is created.\n  </p>\n</section>",
     "cssBytes": 7179
   },
   {
@@ -1507,7 +1507,7 @@ export default [
     "notes": [
       "Demo profiles are fictional. Use meaningful alt text for standalone profile images."
     ],
-    "html": "<section class=\"rf-section\"><h3 class=\"rf-section__heading\">A few people. A shared idea.</h3><p class=\"rf-section__intro\">Fictional profiles for a sample team layout.</p><div class=\"rf-grid\"><article class=\"rf-card\"><span class=\"rf-avatar\" aria-hidden=\"true\">AM</span><h4>Alex Morgan</h4><p class=\"rf-muted\">Design</p></article><article class=\"rf-card\"><span class=\"rf-avatar\" aria-hidden=\"true\">JL</span><h4>Jamie Lee</h4><p class=\"rf-muted\">Engineering</p></article><article class=\"rf-card\"><span class=\"rf-avatar\" aria-hidden=\"true\">SC</span><h4>Sam Chen</h4><p class=\"rf-muted\">Product</p></article></div></section>",
+    "html": "<section class=\"rf-section\">\n  <h3 class=\"rf-section__heading\">\n    A few people. A shared idea.\n  </h3>\n  <p class=\"rf-section__intro\">\n    Fictional profiles for a sample team layout.\n  </p>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        AM\n      </span>\n      <h4>\n        Alex Morgan\n      </h4>\n      <p class=\"rf-muted\">\n        Design\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        JL\n      </span>\n      <h4>\n        Jamie Lee\n      </h4>\n      <p class=\"rf-muted\">\n        Engineering\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        SC\n      </span>\n      <h4>\n        Sam Chen\n      </h4>\n      <p class=\"rf-muted\">\n        Product\n      </p>\n    </article>\n  </div>\n</section>",
     "cssBytes": 3756
   },
   {
@@ -1524,7 +1524,7 @@ export default [
     "notes": [
       "Replace sample article text and fragment links with real content and destinations."
     ],
-    "html": "<section class=\"rf-section\"><h3 class=\"rf-section__heading\">Notes from the studio.</h3><p class=\"rf-section__intro\">A little reading for your next chapter.</p><div class=\"rf-grid\"><article class=\"rf-card\"><p class=\"rf-eyebrow\">Design</p><h4>Start with the essentials</h4><p class=\"rf-muted\">Leave space for what matters.</p><a href=\"#article-0\">Read article →</a></article><article class=\"rf-card\"><p class=\"rf-eyebrow\">Craft</p><h4>The details add up</h4><p class=\"rf-muted\">Make one small improvement each day.</p><a href=\"#article-1\">Read article →</a></article><article class=\"rf-card\"><p class=\"rf-eyebrow\">Ideas</p><h4>Build in the open</h4><p class=\"rf-muted\">A useful conversation starts with a small sketch.</p><a href=\"#article-2\">Read article →</a></article></div></section>",
+    "html": "<section class=\"rf-section\">\n  <h3 class=\"rf-section__heading\">\n    Notes from the studio.\n  </h3>\n  <p class=\"rf-section__intro\">\n    A little reading for your next chapter.\n  </p>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Design\n      </p>\n      <h4>\n        Start with the essentials\n      </h4>\n      <p class=\"rf-muted\">\n        Leave space for what matters.\n      </p>\n      <a href=\"#article-0\">\n        Read article →\n      </a>\n    </article>\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Craft\n      </p>\n      <h4>\n        The details add up\n      </h4>\n      <p class=\"rf-muted\">\n        Make one small improvement each day.\n      </p>\n      <a href=\"#article-1\">\n        Read article →\n      </a>\n    </article>\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Ideas\n      </p>\n      <h4>\n        Build in the open\n      </h4>\n      <p class=\"rf-muted\">\n        A useful conversation starts with a small sketch.\n      </p>\n      <a href=\"#article-2\">\n        Read article →\n      </a>\n    </article>\n  </div>\n</section>",
     "cssBytes": 3195
   },
   {
@@ -1544,7 +1544,7 @@ export default [
       "This is an interface, not authentication. Wire your own trusted authentication backend and error handling.",
       "The preview prevents submission and sends no data."
     ],
-    "html": "<section class=\"rf-card rf-auth\"><h3>Welcome back.</h3><p class=\"rf-muted\">A little closer to your next idea.</p><form data-demo-form><label class=\"rf-field\"><span class=\"rf-label\">Email</span><input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required></label><label class=\"rf-field\"><span class=\"rf-label\">Password</span><input class=\"rf-input\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required></label><button class=\"rf-button\" type=\"submit\">Sign in</button></form><p class=\"rf-help\" style=\"margin-top:1rem\">Preview only. Do not enter a real password.</p></section>",
+    "html": "<section class=\"rf-card rf-auth\">\n  <h3>\n    Welcome back.\n  </h3>\n  <p class=\"rf-muted\">\n    A little closer to your next idea.\n  </p>\n  <form data-demo-form>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required>\n    </label>\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Password\n      </span>\n      <input class=\"rf-input\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required>\n    </label>\n    <button class=\"rf-button\" type=\"submit\">\n      Sign in\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Preview only. Do not enter a real password.\n  </p>\n</section>",
     "cssBytes": 7179
   },
   {
@@ -1562,7 +1562,7 @@ export default [
     "notes": [
       "A visual diagram only. It makes no network connections or claims about integration availability."
     ],
-    "html": "<section class=\"rf-section rf-integration-map\"><h3 class=\"rf-section__heading\" style=\"margin-inline:auto\">Everything in its place.</h3><p class=\"rf-muted\">A sample view of connected tools.</p><div class=\"rf-card rf-gradient-border\"><strong>Your workspace</strong><p class=\"rf-muted\">One shared starting point</p></div><ul aria-label=\"Sample integrations\"><li>Design files</li><li>Project notes</li><li>Team calendar</li><li>Release updates</li></ul></section>",
+    "html": "<section class=\"rf-section rf-integration-map\">\n  <h3 class=\"rf-section__heading\" style=\"margin-inline:auto\">\n    Everything in its place.\n  </h3>\n  <p class=\"rf-muted\">\n    A sample view of connected tools.\n  </p>\n  <div class=\"rf-card rf-gradient-border\">\n    <strong>\n      Your workspace\n    </strong>\n    <p class=\"rf-muted\">\n      One shared starting point\n    </p>\n  </div>\n  <ul aria-label=\"Sample integrations\">\n    <li>\n      Design files\n    </li>\n    <li>\n      Project notes\n    </li>\n    <li>\n      Team calendar\n    </li>\n    <li>\n      Release updates\n    </li>\n  </ul>\n</section>",
     "cssBytes": 8711
   }
 ];
