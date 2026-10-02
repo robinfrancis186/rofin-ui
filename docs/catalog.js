@@ -789,7 +789,7 @@ export default [
       "Replace sample hash links with real destinations. The full landing example connects them to page sections."
     ],
     "html": "<header class=\"rf-site-header\">\n  <div class=\"rf-site-header__inner\">\n    <a class=\"rf-site-header__brand\" href=\"#home\">Studio<span class=\"rf-muted\"> / a place to begin</span></a>\n    <nav class=\"rf-nav rf-site-header__nav\" aria-label=\"Website\"><a href=\"#features\">Features</a><a href=\"#pricing\">Pricing</a><a href=\"#contact\">Contact</a><a class=\"rf-button\" href=\"#get-started\">Get started →</a></nav>\n    <details class=\"rf-site-menu\"><summary class=\"rf-button rf-button--outline\">Menu</summary><nav class=\"rf-nav rf-nav--vertical\" aria-label=\"Mobile website\"><a href=\"#features\">Features</a><a href=\"#pricing\">Pricing</a><a href=\"#contact\">Contact</a><a href=\"#get-started\">Get started →</a></nav></details>\n  </div>\n</header>",
-    "cssBytes": 6218
+    "cssBytes": 6251
   },
   {
     "id": "app-shell",
@@ -811,7 +811,7 @@ export default [
       "Use a main landmark for application content in a complete page; this embedded preview uses a section. Set aria-current for your actual route."
     ],
     "html": "<div class=\"rf-app-frame\"><div class=\"rf-app-shell\">\n  <details class=\"rf-app-sidebar\" open><summary>Studio workspace</summary><nav class=\"rf-nav rf-nav--vertical\" aria-label=\"Application\"><a href=\"#overview\" aria-current=\"page\">Overview</a><a href=\"#projects\">Projects</a><a href=\"#team\">Team</a><a href=\"#settings\">Settings</a></nav></details>\n  <div class=\"rf-app-content\"><header class=\"rf-app-topbar\"><strong>Your workspace</strong><div class=\"rf-cluster\"><span class=\"rf-badge\" data-variant=\"success\">All systems ready</span><span class=\"rf-avatar\" role=\"img\" aria-label=\"Robin Francis\">RF</span></div></header>\n    <section class=\"rf-app-main rf-stack\" aria-label=\"Workspace overview\"><p class=\"rf-eyebrow\">Room for your next idea</p><h3>A little progress, every day.</h3><div class=\"rf-card\"><p>Compose your cards, charts, tables, and forms in this responsive shell.</p><a class=\"rf-button\" href=\"#projects\">View projects →</a></div></section>\n  </div>\n</div></div>",
-    "cssBytes": 8470
+    "cssBytes": 8503
   },
   {
     "id": "dashboard-metrics",
@@ -830,7 +830,7 @@ export default [
       "Compute metrics and trends from your application data; never imply these figures are live."
     ],
     "html": "<section aria-label=\"Sample dashboard metrics\"><div class=\"rf-grid\" style=\"--rf-column:12rem\">\n  <article class=\"rf-card\"><dl class=\"rf-kpi\"><dt>Monthly revenue</dt><dd class=\"rf-stat\">$12,480</dd></dl><p class=\"rf-help\"><span class=\"rf-badge\" data-variant=\"success\">↑ 12%</span> vs. last month</p></article>\n  <article class=\"rf-card\"><dl class=\"rf-kpi\"><dt>Active projects</dt><dd class=\"rf-stat\">24</dd></dl><p class=\"rf-help\"><span class=\"rf-badge\">+3</span> launched this week</p></article>\n  <article class=\"rf-card\"><dl class=\"rf-kpi\"><dt>Customer retention</dt><dd class=\"rf-stat\">96.2%</dd></dl><p class=\"rf-help\"><span class=\"rf-badge\" data-variant=\"warning\">↓ 0.8 points</span> vs. last month</p></article>\n</div></section>",
-    "cssBytes": 5670
+    "cssBytes": 5703
   },
   {
     "id": "account-settings",
@@ -850,7 +850,7 @@ export default [
       "The composed dashboard saves workspace preferences locally for this session; use a server for real account updates."
     ],
     "html": "<form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\">\n  <div><h3 class=\"rf-card__title\">A workspace that feels like you.</h3><p class=\"rf-muted\">Sample account settings. Save and reset use native form controls.</p></div>\n  <div class=\"rf-grid\"><label class=\"rf-field\"><span class=\"rf-label\">Display name</span><input class=\"rf-input\" name=\"name\" value=\"Robin Francis\" autocomplete=\"name\" maxlength=\"80\" required></label><label class=\"rf-field\"><span class=\"rf-label\">Email address</span><input class=\"rf-input\" name=\"email\" type=\"email\" value=\"robin@example.com\" autocomplete=\"email\" required></label></div>\n  <label class=\"rf-field\"><span class=\"rf-label\">Time zone</span><select class=\"rf-select\" name=\"timezone\"><option value=\"Asia/Kolkata\">India · Asia/Kolkata</option><option value=\"Europe/London\">United Kingdom · Europe/London</option><option value=\"America/New_York\">United States · America/New_York</option><option value=\"UTC\">UTC</option></select></label>\n  <fieldset class=\"rf-fieldset\"><legend>Notifications</legend><div class=\"rf-stack\"><label class=\"rf-check\"><input class=\"rf-switch\" type=\"checkbox\" role=\"switch\" name=\"updates\" checked>Project updates</label><label class=\"rf-check\"><input class=\"rf-switch\" type=\"checkbox\" role=\"switch\" name=\"digest\">Weekly digest</label></div></fieldset>\n  <div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\">Save preferences</button><button class=\"rf-button rf-button--outline\" type=\"reset\">Discard changes</button></div><p class=\"rf-help\">Preview only. Connect save to your account service.</p>\n</form>",
-    "cssBytes": 8856
+    "cssBytes": 8889
   },
   {
     "id": "sign-up",
@@ -873,7 +873,7 @@ export default [
       "Replace terms and privacy links with your own published policies."
     ],
     "html": "<section class=\"rf-card rf-auth\"><h3>Your next chapter starts here.</h3><p class=\"rf-muted\">A simple account creation form.</p>\n  <form data-demo-form method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Full name</span><input class=\"rf-input\" name=\"name\" autocomplete=\"name\" required></label><label class=\"rf-field\"><span class=\"rf-label\">Email</span><input class=\"rf-input\" name=\"email\" type=\"email\" autocomplete=\"email\" required></label>\n    <div class=\"rf-field\" data-rf-password><label class=\"rf-label\" for=\"signup-password\">Create password</label><div class=\"rf-input-action\"><input class=\"rf-input\" id=\"signup-password\" name=\"password\" type=\"password\" autocomplete=\"new-password\" minlength=\"8\" aria-describedby=\"signup-help\" required><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"signup-password\" aria-pressed=\"false\" hidden>Show</button></div><p class=\"rf-help\" id=\"signup-help\">Example minimum: 8 characters. Apply your own server policy.</p></div>\n    <label class=\"rf-check\"><input type=\"checkbox\" name=\"terms\" required><span>I agree to the <a href=\"#terms\">terms</a> and <a href=\"#privacy\">privacy policy</a>.</span></label><button class=\"rf-button\" type=\"submit\">Create account</button>\n  </form><p class=\"rf-help\" style=\"margin-top:1rem\">Preview only. Do not enter a real password. Authentication requires your backend.</p>\n</section>",
-    "cssBytes": 21395
+    "cssBytes": 21428
   },
   {
     "id": "password-reset",
@@ -893,7 +893,7 @@ export default [
       "Return the same request response for known and unknown accounts; keep the actual recovery service separate from this UI."
     ],
     "html": "<section class=\"rf-card rf-auth\"><h3>A fresh start.</h3><p class=\"rf-muted\">Enter your email to request a password reset.</p><form data-demo-form method=\"dialog\"><label class=\"rf-field\"><span class=\"rf-label\">Account email</span><input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required></label><button class=\"rf-button\" type=\"submit\">Request reset link</button></form><p class=\"rf-help\" style=\"margin-top:1rem\">Preview only. No email is sent. Your server must generate, expire, and validate reset tokens; return the same response for known and unknown accounts.</p></section>",
-    "cssBytes": 8856
+    "cssBytes": 8889
   },
   {
     "id": "password-field",
@@ -1039,7 +1039,7 @@ export default [
       "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
     ],
     "html": "<section class=\"rf-stack\" data-rf-billing aria-labelledby=\"billing-title\">\n  <div><p class=\"rf-eyebrow\">A clear choice, at your pace.</p><h3 id=\"billing-title\">A little room to grow.</h3><p class=\"rf-muted\">Illustrative plans for a fictional workspace.</p></div>\n  <fieldset class=\"rf-segmented\"><legend>Billing interval</legend><label><input type=\"radio\" name=\"example-billing\" value=\"monthly\" checked><span>Monthly</span></label><label><input type=\"radio\" name=\"example-billing\" value=\"yearly\"><span>Yearly · save 20%</span></label></fieldset>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\">Personal</h4><p class=\"rf-muted\">A home for your own ideas.</p><p class=\"rf-price\"><span data-rf-monthly=\"$10\" data-rf-yearly=\"$8\">$10</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button rf-button--outline\" href=\"#personal-plan\">Choose Personal</a></article>\n    <article class=\"rf-card rf-stack rf-pricing__featured\"><span class=\"rf-badge\" data-variant=\"success\">For building together</span><h4 class=\"rf-card__title\">Studio</h4><p class=\"rf-muted\">More space for your next chapter.</p><p class=\"rf-price\"><span data-rf-monthly=\"$25\" data-rf-yearly=\"$20\">$25</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button\" href=\"#studio-plan\">Choose Studio</a></article>\n  </div>\n  <p class=\"rf-help\">A pricing interface demo. No payment is collected. Yearly examples represent $96 and $240 per year.</p>\n</section>",
-    "cssBytes": 22193
+    "cssBytes": 22226
   },
   {
     "id": "dot-grid",
@@ -1172,7 +1172,7 @@ export default [
       "Include the core stylesheet and the optional sections stylesheet."
     ],
     "html": "<section class=\"rf-section rf-container rf-hero\">\n  <div><span class=\"rf-badge\">A quieter way to build</span><h1>Less overhead.<br>More possibility.</h1><p class=\"rf-section__intro\">A thoughtful workspace for your ideas, your team, and the work that matters.</p><div class=\"rf-cluster\"><a class=\"rf-button\" href=\"#get-started\">Start building</a><a class=\"rf-button rf-button--outline\" href=\"#features\">See how it works</a></div></div>\n  <div class=\"rf-hero__visual\"><article class=\"rf-card\"><span class=\"rf-eyebrow\">Your next chapter</span><h2 class=\"rf-card__title\" style=\"margin-top:1rem\">Website launch</h2><p class=\"rf-card__description\">A little progress, every day.</p><div style=\"margin-top:1.5rem\"><label class=\"rf-help\" for=\"hero-progress\">72% complete</label><progress class=\"rf-progress\" id=\"hero-progress\" max=\"100\" value=\"72\">72%</progress></div></article></div>\n</section>",
-    "cssBytes": 7973
+    "cssBytes": 8006
   },
   {
     "id": "features",
@@ -1189,7 +1189,7 @@ export default [
       "This responsive layout uses the shared rf-grid utility."
     ],
     "html": "<section class=\"rf-section rf-container\" id=\"features\"><p class=\"rf-eyebrow\">The essentials, considered</p><h2 class=\"rf-section__heading\">Everything you need.<br>Space for what’s next.</h2><p class=\"rf-section__intro\">A foundation that gets out of your way.</p><div class=\"rf-grid\"><article class=\"rf-card\"><h3 class=\"rf-card__title\">Start with HTML</h3><p class=\"rf-card__description\">Use familiar elements and keep your content readable from the first response.</p></article><article class=\"rf-card\"><h3 class=\"rf-card__title\">Make it yours</h3><p class=\"rf-card__description\">Change a few design tokens to bring your own colors, spacing, and character.</p></article><article class=\"rf-card\"><h3 class=\"rf-card__title\">Load what you use</h3><p class=\"rf-card__description\">Pick individual components and keep optional effects separate.</p></article></div></section>",
-    "cssBytes": 4872
+    "cssBytes": 4905
   },
   {
     "id": "bento",
@@ -1209,7 +1209,7 @@ export default [
       "The reading order stays the same as the DOM order."
     ],
     "html": "<section class=\"rf-section rf-container\"><p class=\"rf-eyebrow\">Built for real work</p><h2 class=\"rf-section__heading\">Small pieces.<br>Good things together.</h2><div class=\"rf-bento\"><article class=\"rf-card\"><span class=\"rf-badge\" data-variant=\"success\">In your flow</span><h3>One place for the whole picture.</h3><p class=\"rf-muted\">Bring your projects, plans, and people into a workspace that feels natural.</p></article><article class=\"rf-card\"><p class=\"rf-eyebrow\">Momentum</p><p class=\"rf-stat\">72%</p><label class=\"rf-help\" for=\"bento-progress\">Project complete</label><progress class=\"rf-progress\" id=\"bento-progress\" max=\"100\" value=\"72\">72%</progress></article><article class=\"rf-card\"><h3>Made to adapt.</h3><p class=\"rf-muted\">A responsive foundation, from pocket to desktop.</p></article><article class=\"rf-card\"><h3>Your own character.</h3><p class=\"rf-muted\">Bring your colors and your perspective.</p></article><article class=\"rf-card\"><h3>Room to grow.</h3><p class=\"rf-muted\">Start with one component. Compose something larger.</p></article></div></section>",
-    "cssBytes": 6349
+    "cssBytes": 6382
   },
   {
     "id": "pricing",
@@ -1229,7 +1229,7 @@ export default [
       "Use real purchase or contact destinations. This section does not process payments."
     ],
     "html": "<section class=\"rf-section rf-container rf-pricing\"><p class=\"rf-eyebrow\">Simple plans</p><h2 class=\"rf-section__heading\">A good fit, at every stage.</h2><p class=\"rf-section__intro\">Illustrative plans for your own product. Rofin UI itself is free and MIT licensed.</p><div class=\"rf-grid\"><article class=\"rf-card\"><h3 class=\"rf-card__title\">Personal</h3><p class=\"rf-muted\">A place to begin.</p><p class=\"rf-price\">$0 <small>/ month</small></p><ul><li>One workspace</li><li>Personal projects</li><li>Community support</li></ul><a class=\"rf-button rf-button--outline\" href=\"#get-started\">Start free</a></article><article class=\"rf-card rf-pricing__featured\"><span class=\"rf-badge\">For growing teams</span><h3 style=\"margin-bottom:0\">Studio</h3><p class=\"rf-muted\">Space to build together.</p><p class=\"rf-price\">$19 <small>/ month</small></p><ul><li>Unlimited projects</li><li>Team collaboration</li><li>Priority support</li></ul><a class=\"rf-button\" href=\"#get-started\">Choose Studio</a></article><article class=\"rf-card\"><h3 class=\"rf-card__title\">Organization</h3><p class=\"rf-muted\">Room for the bigger picture.</p><p class=\"rf-price\">Let’s talk</p><ul><li>Multiple workspaces</li><li>Custom onboarding</li><li>Dedicated support</li></ul><a class=\"rf-button rf-button--outline\" href=\"#contact\">Contact us</a></article></div></section>",
-    "cssBytes": 7294
+    "cssBytes": 7327
   },
   {
     "id": "testimonials",
@@ -1248,7 +1248,7 @@ export default [
       "Use figure, blockquote, and figcaption for quote attribution."
     ],
     "html": "<section class=\"rf-section rf-container\"><p class=\"rf-eyebrow\">A few kind words</p><h2 class=\"rf-section__heading\">Good work feels lighter.</h2><p class=\"rf-section__intro\">Sample testimonials for layout demonstration. Replace these with permissioned customer quotes.</p><div class=\"rf-grid\"><figure class=\"rf-card rf-testimonial\" style=\"margin:0\"><blockquote>“The right foundation makes room for the work that matters.”</blockquote><figcaption><span class=\"rf-avatar\" aria-hidden=\"true\">AM</span><div><strong>Alex Morgan</strong><br><span class=\"rf-muted\">Sample designer</span></div></figcaption></figure><figure class=\"rf-card rf-testimonial\" style=\"margin:0\"><blockquote>“Small, thoughtful pieces that come together beautifully.”</blockquote><figcaption><span class=\"rf-avatar\" aria-hidden=\"true\">JL</span><div><strong>Jamie Lee</strong><br><span class=\"rf-muted\">Sample developer</span></div></figcaption></figure></div></section>",
-    "cssBytes": 5433
+    "cssBytes": 5466
   },
   {
     "id": "stats",
@@ -1265,7 +1265,7 @@ export default [
       "Numbers are sample workspace data, not measured Rofin performance claims."
     ],
     "html": "<section class=\"rf-section rf-container\" aria-label=\"Sample workspace statistics\"><p class=\"rf-eyebrow\">A little perspective</p><h2 class=\"rf-section__heading\">Your workspace, in numbers.</h2><div class=\"rf-grid\"><article class=\"rf-card\"><p class=\"rf-stat\">24</p><p class=\"rf-muted\">Active projects</p></article><article class=\"rf-card\"><p class=\"rf-stat\">8</p><p class=\"rf-muted\">Teammates</p></article><article class=\"rf-card\"><p class=\"rf-stat\">72%</p><p class=\"rf-muted\">Current milestone</p></article></div></section>",
-    "cssBytes": 4872
+    "cssBytes": 4905
   },
   {
     "id": "faq",
@@ -1282,7 +1282,7 @@ export default [
       "Built entirely from the native accordion and section styles."
     ],
     "html": "<section class=\"rf-section rf-container\"><p class=\"rf-eyebrow\">A few answers</p><h2 class=\"rf-section__heading\">Wondering about something?</h2><div class=\"rf-accordion\"><details><summary>Can I use this commercially?</summary><div class=\"rf-accordion__content\"><p>Yes. Rofin UI is MIT licensed. Retain the license and copyright notice when redistributing the code.</p></div></details><details><summary>Does it work with my stack?</summary><div class=\"rf-accordion__content\"><p>The foundation is HTML, CSS, and vanilla JavaScript. No framework is required.</p></div></details><details><summary>Can I pick just one component?</summary><div class=\"rf-accordion__content\"><p>Yes. Load the design tokens and the individual component styles or behavior you need.</p></div></details></div></section>",
-    "cssBytes": 4689
+    "cssBytes": 4722
   },
   {
     "id": "cta",
@@ -1300,7 +1300,7 @@ export default [
       "Connect the link to your product’s actual signup or contact destination."
     ],
     "html": "<section class=\"rf-section rf-container\" id=\"get-started\"><div class=\"rf-card rf-center\" style=\"padding:3rem 1.5rem\"><p class=\"rf-eyebrow\">Your next chapter</p><h2 class=\"rf-section__heading\" style=\"margin-inline:auto\">Make room for a good idea.</h2><p class=\"rf-section__intro\" style=\"margin-inline:auto\">Start small. Build something that feels like you.</p><a class=\"rf-button rf-button--large\" href=\"#contact\">Let’s get started <span aria-hidden=\"true\">→</span></a></div></section>",
-    "cssBytes": 6496
+    "cssBytes": 6529
   },
   {
     "id": "footer",
@@ -1317,7 +1317,7 @@ export default [
       "Replace the brand, year, and links with your own content."
     ],
     "html": "<footer class=\"rf-footer rf-container\"><div><strong>Studio</strong><p style=\"margin:.25rem 0\">© 2026 Your company</p></div><nav class=\"rf-nav\" aria-label=\"Footer links\"><a href=\"#about\">About</a><a href=\"#privacy\">Privacy</a><a href=\"#contact\">Contact</a></nav></footer>",
-    "cssBytes": 4594
+    "cssBytes": 4627
   },
   {
     "id": "contact",
@@ -1338,7 +1338,7 @@ export default [
       "Validate all submitted data on the server."
     ],
     "html": "<section class=\"rf-section rf-container\" id=\"contact\"><div class=\"rf-grid\"><div><p class=\"rf-eyebrow\">Start a conversation</p><h2 class=\"rf-section__heading\">Tell us what’s next.</h2><p class=\"rf-section__intro\">A sample form layout. Connect it to your own backend before publishing.</p></div><form class=\"rf-card rf-stack\" data-demo-form method=\"dialog\"><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-name\">Name</label><input class=\"rf-input\" id=\"contact-name\" name=\"name\" autocomplete=\"name\" required></div><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-email\">Email</label><input class=\"rf-input\" id=\"contact-email\" type=\"email\" name=\"email\" autocomplete=\"email\" required></div><div class=\"rf-field\"><label class=\"rf-label\" for=\"contact-message\">Message</label><textarea class=\"rf-textarea\" id=\"contact-message\" name=\"message\" required></textarea></div><button class=\"rf-button\" type=\"submit\">Send message</button></form></div></section>",
-    "cssBytes": 8856
+    "cssBytes": 8889
   },
   {
     "id": "image-compare",
@@ -1964,7 +1964,7 @@ export default [
       "Fictional demonstration names, not endorsements. Replace with your real partners and accessible logos."
     ],
     "html": "<section class=\"rf-section\">\n  <p class=\"rf-eyebrow\" style=\"text-align:center\">\n    A sample partner strip\n  </p>\n  <div class=\"rf-logo-cloud\" aria-label=\"Fictional studios\">\n    <span>\n      Northstar\n    </span>\n    <span>\n      Forma\n    </span>\n    <span>\n      Orbit\n    </span>\n    <span>\n      Fieldwork\n    </span>\n  </div>\n</section>",
-    "cssBytes": 3979
+    "cssBytes": 4012
   },
   {
     "id": "newsletter",
@@ -1983,7 +1983,7 @@ export default [
       "Replace the demo handler with your consent, email service, and server validation."
     ],
     "html": "<section class=\"rf-section rf-card\">\n  <h3 class=\"rf-section__heading\">\n    Good things, occasionally.\n  </h3>\n  <p class=\"rf-section__intro\">\n    A little inspiration for what you make next.\n  </p>\n  <form class=\"rf-newsletter\" data-demo-form method=\"dialog\">\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email address\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"email\" required placeholder=\"you@example.com\">\n    </label>\n    <button class=\"rf-button\" type=\"submit\">\n      Subscribe\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Demo only. No subscription is created.\n  </p>\n</section>",
-    "cssBytes": 8856
+    "cssBytes": 8889
   },
   {
     "id": "team",
@@ -2001,7 +2001,7 @@ export default [
       "Demo profiles are fictional. Use meaningful alt text for standalone profile images."
     ],
     "html": "<section class=\"rf-section\">\n  <h3 class=\"rf-section__heading\">\n    A few people. A shared idea.\n  </h3>\n  <p class=\"rf-section__intro\">\n    Fictional profiles for a sample team layout.\n  </p>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        AM\n      </span>\n      <h4>\n        Alex Morgan\n      </h4>\n      <p class=\"rf-muted\">\n        Design\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        JL\n      </span>\n      <h4>\n        Jamie Lee\n      </h4>\n      <p class=\"rf-muted\">\n        Engineering\n      </p>\n    </article>\n    <article class=\"rf-card\">\n      <span class=\"rf-avatar\" aria-hidden=\"true\">\n        SC\n      </span>\n      <h4>\n        Sam Chen\n      </h4>\n      <p class=\"rf-muted\">\n        Product\n      </p>\n    </article>\n  </div>\n</section>",
-    "cssBytes": 5433
+    "cssBytes": 5466
   },
   {
     "id": "blog-grid",
@@ -2018,7 +2018,7 @@ export default [
       "Replace sample article text and fragment links with real content and destinations."
     ],
     "html": "<section class=\"rf-section\">\n  <h3 class=\"rf-section__heading\">\n    Notes from the studio.\n  </h3>\n  <p class=\"rf-section__intro\">\n    A little reading for your next chapter.\n  </p>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Design\n      </p>\n      <h4>\n        Start with the essentials\n      </h4>\n      <p class=\"rf-muted\">\n        Leave space for what matters.\n      </p>\n      <a href=\"#article-0\">\n        Read article →\n      </a>\n    </article>\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Craft\n      </p>\n      <h4>\n        The details add up\n      </h4>\n      <p class=\"rf-muted\">\n        Make one small improvement each day.\n      </p>\n      <a href=\"#article-1\">\n        Read article →\n      </a>\n    </article>\n    <article class=\"rf-card\">\n      <p class=\"rf-eyebrow\">\n        Ideas\n      </p>\n      <h4>\n        Build in the open\n      </h4>\n      <p class=\"rf-muted\">\n        A useful conversation starts with a small sketch.\n      </p>\n      <a href=\"#article-2\">\n        Read article →\n      </a>\n    </article>\n  </div>\n</section>",
-    "cssBytes": 4872
+    "cssBytes": 4905
   },
   {
     "id": "sign-in",
@@ -2041,7 +2041,7 @@ export default [
       "The preview prevents submission and sends no data."
     ],
     "html": "<section class=\"rf-card rf-auth\">\n  <h3>\n    Welcome back.\n  </h3>\n  <p class=\"rf-muted\">\n    A little closer to your next idea.\n  </p>\n  <form data-demo-form method=\"dialog\">\n    <label class=\"rf-field\">\n      <span class=\"rf-label\">\n        Email\n      </span>\n      <input class=\"rf-input\" type=\"email\" name=\"email\" autocomplete=\"username\" required>\n    </label>\n    <div class=\"rf-field\" data-rf-password>\n      <label class=\"rf-label\" for=\"signin-password\">Password</label>\n      <div class=\"rf-input-action\">\n        <input class=\"rf-input\" id=\"signin-password\" type=\"password\" name=\"password\" autocomplete=\"current-password\" required>\n        <button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-password-toggle aria-label=\"Show password\" aria-controls=\"signin-password\" aria-pressed=\"false\" hidden>Show</button>\n      </div>\n    </div>\n    <button class=\"rf-button\" type=\"submit\">\n      Sign in\n    </button>\n  </form>\n  <p class=\"rf-help\" style=\"margin-top:1rem\">\n    Preview only. Do not enter a real password.\n  </p>\n</section>",
-    "cssBytes": 21395
+    "cssBytes": 21428
   },
   {
     "id": "integration-map",
@@ -2059,7 +2059,7 @@ export default [
       "A visual diagram only. It makes no network connections or claims about integration availability."
     ],
     "html": "<section class=\"rf-section rf-integration-map\">\n  <h3 class=\"rf-section__heading\" style=\"margin-inline:auto\">\n    Everything in its place.\n  </h3>\n  <p class=\"rf-muted\">\n    A sample view of connected tools.\n  </p>\n  <div class=\"rf-card rf-gradient-border\">\n    <strong>\n      Your workspace\n    </strong>\n    <p class=\"rf-muted\">\n      One shared starting point\n    </p>\n  </div>\n  <ul aria-label=\"Sample integrations\">\n    <li>\n      Design files\n    </li>\n    <li>\n      Project notes\n    </li>\n    <li>\n      Team calendar\n    </li>\n    <li>\n      Release updates\n    </li>\n  </ul>\n</section>",
-    "cssBytes": 10388
+    "cssBytes": 10421
   },
   {
     "id": "combobox",
@@ -2291,5 +2291,53 @@ export default [
     ],
     "html": "<form method=\"dialog\" class=\"rf-stack\" data-rf-upload-form>\n  <section class=\"rf-stack rf-upload-queue\" data-rf-upload-queue data-rf-max-size=\"8388608\" data-rf-max-files=\"10\" aria-label=\"Project upload queue\">\n    <div><h3>Give your files a place.</h3><p class=\"rf-muted\">Review the queue, keep what matters, and send it when you're ready.</p></div>\n    <div class=\"rf-upload\" data-rf-drop-zone>\n      <label class=\"rf-label\" for=\"queue-files\">Files to add</label>\n      <p class=\"rf-help\" id=\"queue-files-help\">Choose or drop PNG, JPEG, WebP, PDF or text files. Up to 10 files, 8 MB each.</p>\n      <input id=\"queue-files\" type=\"file\" accept=\".png,.jpg,.jpeg,.webp,.pdf,.txt\" multiple aria-describedby=\"queue-files-help\">\n    </div>\n    <p class=\"rf-help\" data-rf-upload-demo-note>Files stay on your device until you choose Upload. Transfers require your application's upload callback.</p>\n    <ol class=\"rf-upload-items\" data-rf-upload-items aria-label=\"Selected files\"></ol>\n  </section>\n  <div><button type=\"reset\" class=\"rf-button rf-button--outline rf-button--small\">Reset file queue</button></div>\n</form>",
     "cssBytes": 6563
+  },
+  {
+    "id": "workspace-switcher",
+    "title": "Workspace switcher",
+    "category": "Components",
+    "description": "Move between team, personal and experimental workspaces with native navigation and clear current context.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/workspace-switcher.html",
+    "notes": [
+      "Reuses the native popover and initDropdowns keyboard behavior, including arrows, Home/End, typeahead and Escape. Native links target application workspace URLs.",
+      "The composed dashboard switches actual sample projects, boards, inboxes, preferences, charts and team/activity views. Each workspace retains its edits until reload; selection, filters and unsaved forms clear when context changes.",
+      "Names and current-state indicators are text-safe. The public examples do not authenticate accounts or enforce membership; applications authorize workspace access on their server.",
+      "Replace the sample URLs with your own workspace routes. Disabled workspaces are skipped during keyboard navigation. Current state uses aria-current and a visible label."
+    ],
+    "html": "<div class=\"rf-workspace-switcher\" data-rf-dropdown data-demo-navigation>\n  <button class=\"rf-button rf-button--outline rf-account-trigger\" type=\"button\" popovertarget=\"workspace-menu\" aria-label=\"Switch workspace: Studio\" data-dashboard-workspace-trigger><span class=\"rf-avatar\" aria-hidden=\"true\" data-workspace-avatar>ST</span><span class=\"rf-account-label\"><span data-workspace-name>Studio</span> workspace</span><span aria-hidden=\"true\">⌄</span></button>\n  <div class=\"rf-menu rf-workspace-menu\" id=\"workspace-menu\" popover role=\"menu\" aria-label=\"Workspaces\">\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#overview\" data-dashboard-workspace=\"studio\" aria-label=\"Studio workspace\" aria-current=\"true\"><span class=\"rf-avatar\" aria-hidden=\"true\" data-workspace-option-avatar=\"studio\">ST</span><span class=\"rf-stack\"><strong data-workspace-option-name=\"studio\">Studio</strong><small class=\"rf-muted\">Team workspace · 3 members</small></span><span class=\"rf-badge\" data-workspace-current=\"studio\">Current</span></a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=personal#overview\" data-dashboard-workspace=\"personal\" aria-label=\"Personal workspace\"><span class=\"rf-avatar\" aria-hidden=\"true\" data-workspace-option-avatar=\"personal\">PE</span><span class=\"rf-stack\"><strong data-workspace-option-name=\"personal\">Personal</strong><small class=\"rf-muted\">A little room for your own ideas</small></span><span class=\"rf-badge\" data-workspace-current=\"personal\" hidden>Current</span></a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=lab#overview\" data-dashboard-workspace=\"lab\" aria-label=\"Lab workspace\"><span class=\"rf-avatar\" aria-hidden=\"true\" data-workspace-option-avatar=\"lab\">LA</span><span class=\"rf-stack\"><strong data-workspace-option-name=\"lab\">Lab</strong><small class=\"rf-muted\">Shared experiments · 2 members</small></span><span class=\"rf-badge\" data-workspace-current=\"lab\" hidden>Current</span></a>\n    <hr class=\"rf-menu__separator\" role=\"separator\">\n    <button type=\"button\" role=\"menuitem\" disabled>Archived workspace</button>\n  </div>\n</div>",
+    "cssBytes": 3865
+  },
+  {
+    "id": "account-menu",
+    "title": "Account menu",
+    "category": "Components",
+    "description": "A familiar place for your profile, workspace navigation and help, using the shared dropdown and avatar.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/account-menu.html",
+    "notes": [
+      "Profile & preferences links to the working dashboard drawer. Workspace links preserve the active workspace in the composed dashboard; documentation links reach the JavaScript API page.",
+      "The shared dropdown owns keyboard focus, typeahead, Escape and teardown. A complete account name remains in the accessible trigger label when the visible name is truncated.",
+      "Sign out is disabled in these public samples because they have no authenticated session. Enable and bind it to your actual sign-out service; the component does not create or end account sessions.",
+      "Replace sample links with your application routes and update displayed account data after confirmed profile changes."
+    ],
+    "html": "<div data-rf-dropdown data-demo-navigation>\n  <button class=\"rf-button rf-button--outline rf-account-trigger\" type=\"button\" popovertarget=\"account-menu\" aria-label=\"Account menu for Robin Francis\" data-dashboard-account-trigger><span class=\"rf-avatar\" aria-hidden=\"true\" data-profile-avatar>RF</span><span class=\"rf-account-label\" data-account-name>Robin Francis</span><span aria-hidden=\"true\">⌄</span></button>\n  <div class=\"rf-menu rf-account-menu\" id=\"account-menu\" popover role=\"menu\" aria-label=\"Account\">\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio&panel=account#overview\" data-dashboard-account-link=\"profile\">Profile & preferences</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#overview\" data-dashboard-account-link=\"overview\">Workspace overview</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#projects\" data-dashboard-account-link=\"projects\">Your projects</a>\n    <hr class=\"rf-menu__separator\" role=\"separator\">\n    <a role=\"menuitem\" href=\"https://rofin-ui.vercel.app/#api\">Documentation & help</a>\n    <button type=\"button\" role=\"menuitem\" disabled aria-describedby=\"account-session-note\">Sign out</button>\n  </div>\n  <span class=\"rf-sr-only\" id=\"account-session-note\">This public sample has no authenticated account session.</span>\n</div>",
+    "cssBytes": 3865
   }
 ];

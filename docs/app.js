@@ -142,7 +142,7 @@ function coverage() {
     ['Website navigation', ['website-header', 'navigation', 'breadcrumb', 'footer']],
     ['Marketing pages', ['hero', 'features', 'bento', 'logo-cloud', 'pricing', 'billing-switch', 'testimonials', 'faq', 'cta', 'blog-grid', 'team']],
     ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'checkbox', 'radio', 'upload', 'upload-queue']],
-    ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings']],
+    ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings', 'workspace-switcher', 'account-menu']],
     ['Dashboard structure', ['app-shell', 'dashboard-metrics', 'resizable-panels', 'layout', 'card', 'avatar', 'badge']],
     ['Charts & progress', ['line-chart', 'bar-chart', 'donut-chart', 'progress', 'meter', 'stats']],
     ['Data & filters', ['data-grid', 'data-table', 'paginated-table', 'bulk-actions', 'date-range', 'date-range-presets', 'tag-input', 'segmented-control']],
@@ -239,7 +239,7 @@ document.addEventListener('click', async event => {
     previewWidth.setAttribute('aria-pressed', String(narrow)); previewWidth.textContent = narrow ? 'Full preview' : 'Narrow preview';
   }
   const previewLink = event.target.closest('.preview a');
-  if (previewLink && !event.defaultPrevented) { event.preventDefault(); toast('Example link. Connect this to your own destination.', { duration: 3000 }); }
+  if (previewLink && !previewLink.closest('[data-demo-navigation]') && !event.defaultPrevented) { event.preventDefault(); toast('Example link. Connect this to your own destination.', { duration: 3000 }); }
   if (event.target.closest('#mobile-nav a')) document.querySelector('#mobile-menu').close();
 });
 document.addEventListener('submit', event => {

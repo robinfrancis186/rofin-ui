@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 117-example gallery covers common website and dashboard UI. Use the
+The 119-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -9,7 +9,7 @@ each example. This is a UI library, not an application backend.
 | Website navigation | Responsive header, native mobile menu, navigation, breadcrumbs, footer |
 | Marketing pages | Hero, feature grid, bento, logos, pricing and billing toggle, testimonials, FAQ, CTA, team, blog grid |
 | Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, checkboxes/radios, file input, upload queue, character counter, tags |
-| Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings |
+| Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
 | Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters and saved views |
@@ -31,8 +31,10 @@ date/status/search filters, table selection, notifications, timeline, upload,
 dialogs, settings, and a task board. Moving a card updates
 the corresponding table status. The board shows every active project regardless
 of table filters. It supports local draft creation, confirmed archiving,
-CSV download, and settings changes for the current page session. Reload restores
-the sample. Charts are explicitly fixed sample data; date filters affect projects.
+CSV download, and settings changes for three public workspaces during the current
+page session. Switching updates projects, boards, inboxes, preferences, charts,
+and team/activity data; it clears selections, filters and unsaved forms. Account
+links preserve the current workspace and session edits. Reload restores the samples. Charts are explicitly fixed sample data; date filters affect projects.
 
 Native forms preserve validation and reset behavior. Charts expose their values
 without depending on color. The inbox uses a native popover rather than menu
@@ -76,3 +78,9 @@ styles. It adds previews, file limits, explicit transfers, cancellation and
 retry. The development server receives actual binary files with native progress
 and interrupted-file cleanup; static production keeps transport disabled.
 The temporary public sample does not provide authorized durable storage.
+
+Workspace and account menus reuse the shared dropdown, avatar and button. Native
+links open real dashboard routes, including the profile preferences drawer.
+Without the application script, the menus still navigate and an explicit notice
+identifies the readable static Studio fallback. Sign out stays disabled until
+an application provides an authenticated session.

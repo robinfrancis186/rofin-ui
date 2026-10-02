@@ -1,9 +1,36 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 117 runnable entries, including the upload queue, advanced data table and
-eight form/scheduling examples. This is a component implementation checkpoint; application services,
+Current gallery: 119 runnable entries, including workspace/account menus, the upload
+queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Workspace and account menus
+
+Six focused checks pass in installed Google Chrome, Firefox and macOS WebKit.
+They verify labelled menu typeahead, disabled-entry skipping, Escape/focus
+restoration, actual dashboard navigation, profile deep links, Back/Forward,
+workspace project/board/inbox/preferences isolation and session-edit retention.
+Changing workspace clears selections, filters, file previews and unfinished
+forms. Account links retain the active workspace and edits; reload restores the
+public samples. Invalid sample IDs fall back explicitly to Studio.
+
+Both menus pass automated WCAG checks in light/dark themes at 390 and 320
+pixels, including long labels, RTL and reduced motion. A long-name layout bug
+was fixed in the shared application shell. Initial fragment navigation no
+longer takes focus out of the account drawer. Gallery links resolve to the
+actual dashboard in both source and built documentation. With scripts disabled,
+native menus still navigate and an explicit notice identifies the static
+Studio fallback; dynamic context and account panels require the application
+script. Sign out remains disabled because the public sample has no account
+session.
+
+The existing dashboard, workspace and core interaction checks also pass in
+Chromium and macOS WebKit; Firefox's other 27 checks pass and the corrected
+account-focus case passes in the focused six-test rerun. A rendered local
+390-pixel check confirmed the menu, current Lab context and profile focus.
+The shared dropdown matches accessible labels before decorative text. Core
+CSS plus auto JavaScript is now 8,161 bytes gzip, within its 14 KiB ceiling.
 
 ## Upload queue
 

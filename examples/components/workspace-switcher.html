@@ -1,0 +1,10 @@
+<div class="rf-workspace-switcher" data-rf-dropdown data-demo-navigation>
+  <button class="rf-button rf-button--outline rf-account-trigger" type="button" popovertarget="workspace-menu" aria-label="Switch workspace: Studio" data-dashboard-workspace-trigger><span class="rf-avatar" aria-hidden="true" data-workspace-avatar>ST</span><span class="rf-account-label"><span data-workspace-name>Studio</span> workspace</span><span aria-hidden="true">⌄</span></button>
+  <div class="rf-menu rf-workspace-menu" id="workspace-menu" popover role="menu" aria-label="Workspaces">
+    <a role="menuitem" href="../examples/dashboard.html?workspace=studio#overview" data-dashboard-workspace="studio" aria-label="Studio workspace" aria-current="true"><span class="rf-avatar" aria-hidden="true" data-workspace-option-avatar="studio">ST</span><span class="rf-stack"><strong data-workspace-option-name="studio">Studio</strong><small class="rf-muted">Team workspace · 3 members</small></span><span class="rf-badge" data-workspace-current="studio">Current</span></a>
+    <a role="menuitem" href="../examples/dashboard.html?workspace=personal#overview" data-dashboard-workspace="personal" aria-label="Personal workspace"><span class="rf-avatar" aria-hidden="true" data-workspace-option-avatar="personal">PE</span><span class="rf-stack"><strong data-workspace-option-name="personal">Personal</strong><small class="rf-muted">A little room for your own ideas</small></span><span class="rf-badge" data-workspace-current="personal" hidden>Current</span></a>
+    <a role="menuitem" href="../examples/dashboard.html?workspace=lab#overview" data-dashboard-workspace="lab" aria-label="Lab workspace"><span class="rf-avatar" aria-hidden="true" data-workspace-option-avatar="lab">LA</span><span class="rf-stack"><strong data-workspace-option-name="lab">Lab</strong><small class="rf-muted">Shared experiments · 2 members</small></span><span class="rf-badge" data-workspace-current="lab" hidden>Current</span></a>
+    <hr class="rf-menu__separator" role="separator">
+    <button type="button" role="menuitem" disabled>Archived workspace</button>
+  </div>
+</div>

@@ -60,7 +60,7 @@ for (const name of await readdir('docs')) {
   if (name === 'catalog.json' || name === 'reference-catalog.json') continue;
   await cp(join('docs', name), join('dist/site', name), { recursive: true });
 }
-for (const name of ['index.html', 'app.js']) {
+for (const name of ['index.html', 'app.js', 'catalog.js']) {
   const file = `dist/site/${name}`;
   await writeFile(file, (await readFile(file, 'utf8')).replaceAll('../src/', './src/').replaceAll('../examples/', './examples/').replaceAll('../sections/', './sections/').replaceAll('href="../${path}"', 'href="./${path}"').replaceAll('../dist/', './downloads/'));
 }

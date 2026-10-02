@@ -1,17 +1,17 @@
 {
-  "coreGzip": 8153,
+  "coreGzip": 8161,
   "files": {
     "rofin.css": {
       "bytes": 20498,
       "gzip": 4486
     },
     "rofin.js": {
-      "bytes": 9130,
-      "gzip": 3402
+      "bytes": 9162,
+      "gzip": 3411
     },
     "rofin.auto.js": {
-      "bytes": 9712,
-      "gzip": 3667
+      "bytes": 9744,
+      "gzip": 3675
     },
     "effects.css": {
       "bytes": 5516,
@@ -22,8 +22,8 @@
       "gzip": 776
     },
     "sections.css": {
-      "bytes": 3979,
-      "gzip": 1199
+      "bytes": 4012,
+      "gzip": 1212
     },
     "patterns.css": {
       "bytes": 12539,

@@ -2056,5 +2056,49 @@
       "The local development receiver checks file signatures and UTF-8 text, stores temporary files, and cleans interrupted transfers. It is a public localhost sample, not authorized durable storage; static production keeps transfers disabled.",
       "At most 100 files can be configured; the default is 10 files of 8 MB each, with two simultaneous uploads. Call destroy() before unmounting; getFiles() retains the selected File objects for application use."
     ]
+  },
+  {
+    "id": "workspace-switcher",
+    "title": "Workspace switcher",
+    "category": "Components",
+    "description": "Move between team, personal and experimental workspaces with native navigation and clear current context.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/workspace-switcher.html",
+    "notes": [
+      "Reuses the native popover and initDropdowns keyboard behavior, including arrows, Home/End, typeahead and Escape. Native links target application workspace URLs.",
+      "The composed dashboard switches actual sample projects, boards, inboxes, preferences, charts and team/activity views. Each workspace retains its edits until reload; selection, filters and unsaved forms clear when context changes.",
+      "Names and current-state indicators are text-safe. The public examples do not authenticate accounts or enforce membership; applications authorize workspace access on their server.",
+      "Replace the sample URLs with your own workspace routes. Disabled workspaces are skipped during keyboard navigation. Current state uses aria-current and a visible label."
+    ]
+  },
+  {
+    "id": "account-menu",
+    "title": "Account menu",
+    "category": "Components",
+    "description": "A familiar place for your profile, workspace navigation and help, using the shared dropdown and avatar.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/account-menu.html",
+    "notes": [
+      "Profile & preferences links to the working dashboard drawer. Workspace links preserve the active workspace in the composed dashboard; documentation links reach the JavaScript API page.",
+      "The shared dropdown owns keyboard focus, typeahead, Escape and teardown. A complete account name remains in the accessible trigger label when the visible name is truncated.",
+      "Sign out is disabled in these public samples because they have no authenticated session. Enable and bind it to your actual sign-out service; the component does not create or end account sessions.",
+      "Replace sample links with your application routes and update displayed account data after confirmed profile changes."
+    ]
   }
 ]

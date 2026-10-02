@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **74 component examples**, **20 optional effects**,
+The library includes **76 component examples**, **20 optional effects**,
 **23 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -73,7 +73,7 @@ reinitialization.
 | Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
-| Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, sign-up, password reset |
+| Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
 | Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
 

@@ -1,0 +1,12 @@
+<div data-rf-dropdown data-demo-navigation>
+  <button class="rf-button rf-button--outline rf-account-trigger" type="button" popovertarget="account-menu" aria-label="Account menu for Robin Francis" data-dashboard-account-trigger><span class="rf-avatar" aria-hidden="true" data-profile-avatar>RF</span><span class="rf-account-label" data-account-name>Robin Francis</span><span aria-hidden="true">⌄</span></button>
+  <div class="rf-menu rf-account-menu" id="account-menu" popover role="menu" aria-label="Account">
+    <a role="menuitem" href="../examples/dashboard.html?workspace=studio&panel=account#overview" data-dashboard-account-link="profile">Profile & preferences</a>
+    <a role="menuitem" href="../examples/dashboard.html?workspace=studio#overview" data-dashboard-account-link="overview">Workspace overview</a>
+    <a role="menuitem" href="../examples/dashboard.html?workspace=studio#projects" data-dashboard-account-link="projects">Your projects</a>
+    <hr class="rf-menu__separator" role="separator">
+    <a role="menuitem" href="https://rofin-ui.vercel.app/#api">Documentation & help</a>
+    <button type="button" role="menuitem" disabled aria-describedby="account-session-note">Sign out</button>
+  </div>
+  <span class="rf-sr-only" id="account-session-note">This public sample has no authenticated account session.</span>
+</div>
