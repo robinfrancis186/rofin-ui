@@ -46,7 +46,8 @@ documentation server. Calendar click/keyboard selection, combobox search and
 reset, multiselect selection/clear/reset, error-summary focus links, and
 scheduler create/edit/delete were checked. A calendar focus-loss bug found in
 Safari was corrected and rechecked with consecutive keyboard selections.
-Light and dark previews were visually inspected.
+Light and dark previews were visually inspected. A separate native Safari grid
+smoke check reduced the generated sample to the Atlas launch row using search.
 
 This is a manual smoke check, not the full automated suite. Safari WebDriver
 could not start because remote automation is disabled; that preference was not
@@ -75,6 +76,10 @@ contained 58 tests. GitHub run
 [37002785720](https://github.com/robinfrancis186/rofin-ui/actions/runs/37002785720)
 then passed all 58 tests in each engine on commit `4e6c71b`.
 
+GitHub run [37008506810](https://github.com/robinfrancis186/rofin-ui/actions/runs/37008506810)
+passed all 67 tests and package validation in each engine on commit `b5f321e`.
+This verifies the complete grid checkpoint in Linux Chromium, Firefox and WebKit.
+
 ## Preview forms without scripts
 
 A new regression check reproduced a sample sign-in form placing its values in
@@ -97,6 +102,14 @@ theme switching, and project creation/filtering with shared table/board state.
 At a 390-pixel viewport, the document width remained 390 pixels. The sample
 project was cleared by reloading. These checks verify the static documentation
 and sample flows; they do not establish durable application services.
+
+The 116-example deployment subsequently passed content checks for all 193 built
+files. Rendered grid checks covered filtering followed by editing, hiding and
+pinning columns, keyboard resizing, saving/restoring a view across reload,
+edit cancellation, 25-row pagination and both themes. At 390 pixels the document
+width remained 390 pixels. Reload restored sample row data while the saved view
+persisted; the temporary QA view was removed. The local-only HTTP option is
+disabled on static production.
 
 `.vercelignore` excludes local test traces, test files, dependency/build output
 and environment files from CLI uploads. The corrected deployment uploaded
