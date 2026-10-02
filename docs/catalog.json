@@ -488,6 +488,92 @@
     ]
   },
   {
+    "id": "sortable-list",
+    "title": "Sortable list",
+    "category": "Components",
+    "description": "Put the next useful thing first, with drag and native Move buttons.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/sortable-list.html",
+    "notes": [
+      "Drag above or below an item on desktop. Native Move up/down buttons provide keyboard and touch alternatives; focus stays with the moved item.",
+      "rf:sort-change emits value, zero-based from/to, values, and previousValues once per committed move. Hidden priority inputs serialize the current DOM order. No API calls are made.",
+      "Use direct list children with unique data-rf-sort-item IDs. This is a small vertical list; grids, nesting, and virtualized collections need their own implementation.",
+      "Native form reset restores the initial order. Cancelled drags make no changes. Teardown removes enhancement controls while preserving committed order; destroy and reinitialize after structural changes."
+    ]
+  },
+  {
+    "id": "kanban",
+    "title": "Kanban board",
+    "category": "Components",
+    "description": "Move good ideas from a first draft to out in the world.",
+    "css": [
+      "patterns",
+      "form",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/kanban.html",
+    "notes": [
+      "Drag a card into another column on desktop. Native Move to selects provide keyboard and touch alternatives; column counts, empty states, and a live announcement update together.",
+      "rf:kanban-change emits value, from, and to once per committed column change. The application owns saving, errors, and rollback; no API calls are made.",
+      "Use unique card IDs, direct list children, and matching column/select values. This three-column layout stacks in narrow containers. Column ordering, in-column reordering, nested boards, and virtualization are not included.",
+      "Native form reset restores the initial board. Cancelled or external drags make no changes. Teardown preserves committed moves; destroy and reinitialize after structural changes.",
+      "The composed dashboard uses this component and updates table statuses, draft creation, and archiving from the same sample rows."
+    ]
+  },
+  {
+    "id": "resizable-panels",
+    "title": "Resizable panels",
+    "category": "Components",
+    "description": "Make room for the task in front of you, with a native width slider.",
+    "css": [
+      "patterns",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/resizable-panels.html",
+    "notes": [
+      "The labelled native range adjusts the first/second panel ratio. Arrow keys, Home, End, mouse, and touch use browser behavior; a text readout and aria-valuetext describe the split.",
+      "Panels stack below 36rem of container width. The saved ratio applies again when the container grows. This is a two-panel layout; divider dragging, nested splits, and persistence are not included.",
+      "Native form reset restores the default slider and textarea. Teardown restores the original inline grid variables and slider accessible value."
+    ]
+  },
+  {
+    "id": "line-chart",
+    "title": "Line chart",
+    "category": "Components",
+    "description": "Read the trend, compare a target, and explore each month with the keyboard.",
+    "css": [
+      "patterns",
+      "card",
+      "form",
+      "table"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/line-chart.html",
+    "notes": [
+      "Original SVG sample data uses a shared linear scale including zero. Solid and dashed paths distinguish series without relying on color. Exact values are available in the native disclosure table.",
+      "The optional range selects a month with native keyboard/touch controls. Checkboxes show/hide series and update the text readout and aria-valuetext; hiding a series keeps the scale stable.",
+      "The table supplies finite numeric data and unique series keys. Use matching SVG paths and checkboxes, and update the fallback SVG labels/points when replacing data. Destroy and reinitialize after changing the data table.",
+      "Without JavaScript, the fallback chart and full data table remain available. This is a small static chart; streaming data, zoom, custom tooltips, and large datasets need application-specific work."
+    ]
+  },
+  {
     "id": "bar-chart",
     "title": "Bar chart",
     "category": "Components",

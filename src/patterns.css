@@ -1,5 +1,32 @@
 /* Optional interaction patterns. Include tokens and the core styles first. */
 @layer rf.components {
+  .rf-sort-list { display: grid; gap: .75rem; list-style: decimal inside; padding: 0; margin: 0; }
+  .rf-sort-list > li { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; background: var(--rf-surface); border: 1px solid var(--rf-border); border-radius: var(--rf-radius); }
+  .rf-sort-list > li > div:first-child { flex: 1 1 12rem; min-inline-size: 0; }
+  [data-rf-item-label] { overflow-wrap: anywhere; }
+  [draggable="true"] [data-rf-item-label] { cursor: grab; }
+  [data-rf-dragging] { opacity: .55; }
+  [data-rf-drop-target] { outline: 2px solid var(--rf-focus); outline-offset: 2px; }
+  .rf-kanban { container: rf-board / inline-size; min-inline-size: 0; }
+  .rf-kanban__columns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .rf-kanban__column { min-inline-size: 0; padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-subtle); }
+  .rf-kanban__column h3 { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin: 0 0 1rem; font-size: .9375rem; }
+  .rf-kanban__list { display: grid; gap: .75rem; min-block-size: 3rem; list-style: none; padding: 0; margin: 0; }
+  .rf-kanban__list > li { padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); box-shadow: var(--rf-shadow); }
+  .rf-kanban__list .rf-field { margin-block-start: .75rem; }
+  .rf-kanban__list .rf-select { font-size: .8125rem; }
+  .rf-kanban__column > .rf-help { padding-block: .75rem; }
+  .rf-resizable { container: rf-resize / inline-size; min-inline-size: 0; }
+  .rf-resizable__panels { display: grid; grid-template-columns: minmax(0, var(--rf-panel-first, 2fr)) minmax(0, var(--rf-panel-second, 3fr)); gap: 1rem; }
+  .rf-resizable__panels > * { min-inline-size: 0; overflow-wrap: anywhere; }
+  .rf-line-plot { display: block; inline-size: 100%; block-size: auto; margin-block: 1rem; }
+  .rf-line-plot polyline { fill: none; stroke: var(--rf-primary); stroke-width: 3; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .rf-line-plot .rf-line-target { stroke: var(--rf-text); stroke-dasharray: 6 5; }
+  .rf-line-plot line { stroke: var(--rf-border); vector-effect: non-scaling-stroke; }
+  .rf-line-plot [data-rf-line-cursor] { stroke: var(--rf-muted); stroke-dasharray: 3 3; }
+  .rf-line-plot text { fill: var(--rf-muted); font: 14px var(--rf-font); }
+  @container rf-board (max-width: 42rem) { .rf-kanban__columns { grid-template-columns: 1fr; } }
+  @container rf-resize (max-width: 36rem) { .rf-resizable__panels { grid-template-columns: 1fr; } }
   .rf-chart { margin: 0; min-inline-size: 0; }
   .rf-chart figcaption { font-weight: 650; margin-block-end: 1rem; }
   .rf-chart__bars { display: flex; align-items: end; gap: .75rem; block-size: 12rem; list-style: none; padding: 0; margin: 1.5rem 0; border-block-end: 1px solid var(--rf-border); }

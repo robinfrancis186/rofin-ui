@@ -9,11 +9,42 @@ initPatterns(document.querySelector('[data-rf-notifications]'));
 let stopTable = initPatterns(projects);
 let nextId = 7;
 let archiveValues = [];
+const board = document.querySelector('#project-board');
+const cardTemplate = board.querySelector('[data-rf-kanban-item]').cloneNode(true);
+let stopBoard = () => {};
+const renderBoard = () => {
+  stopBoard();
+  const columns = [...board.querySelectorAll('[data-rf-kanban-column]')];
+  columns.forEach(column => column.querySelector('[data-rf-kanban-list]').replaceChildren());
+  for (const row of projects.querySelectorAll('tbody tr')) {
+    const column = columns.find(column => column.dataset.rfKanbanColumn === row.dataset.rfStatus);
+    if (!column) continue;
+    const card = cardTemplate.cloneNode(true), name = row.cells[1].textContent.trim();
+    card.dataset.rfKanbanItem = row.querySelector('[data-rf-table-select]').value;
+    card.querySelector('[data-rf-item-label]').textContent = name;
+    card.querySelector('.rf-help').textContent = `${row.cells[2].textContent.trim()} · ${row.cells[4].textContent.trim()} tasks`;
+    card.querySelector('.rf-sr-only').textContent = ` for ${name}`;
+    for (const option of card.querySelectorAll('option')) option.defaultSelected = option.value === row.dataset.rfStatus;
+    column.querySelector('[data-rf-kanban-list]').append(card);
+  }
+  stopBoard = initPatterns(board);
+};
 const selectedRows = values => [...projects.querySelectorAll('tbody tr')].filter(row => values.includes(row.querySelector('[data-rf-table-select]').value));
-const mutateTable = change => {
+const mutateTable = (change, syncBoard = true) => {
   stopTable(); change(); stopTable = initPatterns(projects);
   document.querySelector('[data-project-count]').textContent = String(projects.querySelectorAll('tbody tr:not([data-rf-status="Archived"])').length);
+  if (syncBoard) renderBoard();
 };
+renderBoard();
+board.addEventListener('rf:kanban-change', event => {
+  const row = selectedRows([event.detail.value])[0];
+  if (!row) return;
+  mutateTable(() => {
+    row.dataset.rfStatus = event.detail.to;
+    const badge = row.cells[3].querySelector('.rf-badge'); badge.textContent = event.detail.to;
+    badge.dataset.variant = event.detail.to === 'Published' ? 'success' : event.detail.to === 'In progress' ? 'warning' : 'info';
+  }, false);
+});
 const period = projects.querySelector('[data-rf-table-filter="period"]');
 projects.addEventListener('submit', event => event.preventDefault());
 const applyPeriod = () => {

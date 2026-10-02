@@ -26,12 +26,12 @@
       "gzip": 1199
     },
     "patterns.css": {
-      "bytes": 10235,
-      "gzip": 2556
+      "bytes": 12539,
+      "gzip": 3007
     },
     "patterns.js": {
-      "bytes": 11959,
-      "gzip": 3970
+      "bytes": 20048,
+      "gzip": 6189
     }
   }
 }

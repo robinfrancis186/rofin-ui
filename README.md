@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **61 component examples**, **20 optional effects**,
+The library includes **65 component examples**, **20 optional effects**,
 **22 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -75,6 +75,7 @@ reinitialization.
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
+| Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart |
 
 Native HTML handles form behavior, expandable details, and modal focus
 management. JavaScript adds keyboard navigation for tabs and menus, dialog
@@ -105,7 +106,8 @@ magnetic buttons use the existing `initEffects()` initializer.
 
 Comparison sliders, carousels, command palettes, like buttons, number steppers,
 multistep forms, password reveal, tag inputs, character counters, searchable
-tables, launch checklists, billing switches, and copy buttons use a separate module. Native segmented
+tables, launch checklists, billing switches, task boards, sortable lists,
+adjustable panels, line charts, and copy buttons use a separate module. Native segmented
 controls, dates, one-time codes, timelines, docks, details cards, checklists,
 ratings, chips, and the pausable marquee share its optional stylesheet.
 These are excluded from the core bundle and the auto initializer.
@@ -123,6 +125,12 @@ These are excluded from the core bundle and the auto initializer.
 ```
 
 Initialize each patterns root once; call the returned cleanup before removal.
+List/board moves retain committed DOM state on teardown. Native form reset
+restores their initial arrangement.
+`rf:sort-change` emits `detail.value`, zero-based `from`/`to`, `values`, and
+`previousValues`; `rf:kanban-change` emits `value`, `from`, and `to` column values.
+The application owns persistence and rollback. Move buttons and native selects
+provide keyboard/touch alternatives to desktop drag operations.
 Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
 palettes emit `rf:command` with `detail.value`; tag inputs emit `rf:tags-change`
 with `detail.values`. Tables emit `rf:table-selection` with `detail.values` and

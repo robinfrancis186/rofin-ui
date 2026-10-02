@@ -16,6 +16,148 @@ export function initPatterns(root = document) {
     cleanups.push(() => clearTimeout(timer));
   };
 
+  for (const element of matches(root, '[data-rf-sortable]')) {
+    const list = element.querySelector('[data-rf-sort-list]');
+    if (!list) continue;
+    const items = () => [...list.children].filter(item => item.matches('[data-rf-sort-item]'));
+    const original = items();
+    const buttons = [...list.querySelectorAll('[data-rf-sort-move]')].map(button => ({ button, hidden: button.hidden, disabled: button.disabled }));
+    const draggable = original.map(item => item.getAttribute('draggable'));
+    const status = element.querySelector('[role="status"]');
+    let dragged;
+    const update = () => items().forEach((item, index, order) => {
+      for (const button of item.querySelectorAll('[data-rf-sort-move]')) { button.hidden = false; button.disabled = button.dataset.rfSortMove === '-1' ? index === 0 : index === order.length - 1; }
+    });
+    const clearDrag = () => { dragged = null; original.forEach(item => { item.removeAttribute('data-rf-dragging'); item.removeAttribute('data-rf-drop-target'); }); };
+    const commit = (item, order) => {
+      const previous = items(), from = previous.indexOf(item), to = order.indexOf(item);
+      if (from === to || from < 0) return;
+      const active = document.activeElement;
+      list.append(...order); update();
+      if (item.contains(active)) (active.disabled ? item.querySelector('[data-rf-sort-move]:not(:disabled)') : active)?.focus();
+      if (status) status.textContent = `${item.querySelector('[data-rf-item-label]')?.textContent || item.dataset.rfSortItem} moved to position ${to + 1} of ${order.length}.`;
+      element.dispatchEvent(new CustomEvent('rf:sort-change', { bubbles: true, detail: { value: item.dataset.rfSortItem, from, to, values: order.map(node => node.dataset.rfSortItem), previousValues: previous.map(node => node.dataset.rfSortItem) } }));
+    };
+    listen(list, 'click', event => {
+      const button = event.target.closest('[data-rf-sort-move]'), item = button?.closest('[data-rf-sort-item]');
+      if (!button || button.disabled || item?.parentElement !== list) return;
+      const order = items(), from = order.indexOf(item), to = Math.max(0, Math.min(order.length - 1, from + Number(button.dataset.rfSortMove)));
+      order.splice(from, 1); order.splice(to, 0, item); commit(item, order);
+    });
+    listen(list, 'dragstart', event => {
+      const item = event.target.closest('[data-rf-sort-item]');
+      if (item?.parentElement !== list || !event.dataTransfer) return;
+      dragged = item; item.dataset.rfDragging = ''; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.dataset.rfSortItem);
+    });
+    listen(list, 'dragover', event => {
+      const item = event.target.closest('[data-rf-sort-item]');
+      if (!dragged || item?.parentElement !== list || item === dragged) return;
+      event.preventDefault(); event.dataTransfer.dropEffect = 'move';
+      original.forEach(node => node.toggleAttribute('data-rf-drop-target', node === item));
+    });
+    listen(list, 'drop', event => {
+      const target = event.target.closest('[data-rf-sort-item]');
+      if (!dragged || target?.parentElement !== list) return;
+      event.preventDefault();
+      if (target !== dragged) {
+        const order = items().filter(item => item !== dragged), bounds = target.getBoundingClientRect();
+        order.splice(order.indexOf(target) + (event.clientY >= bounds.top + bounds.height / 2 ? 1 : 0), 0, dragged); commit(dragged, order);
+      }
+      clearDrag();
+    });
+    listen(list, 'dragend', clearDrag);
+    original.forEach(item => { item.draggable = true; }); update();
+    afterReset(element.closest('form'), () => { clearDrag(); list.append(...original); update(); if (status) status.textContent = 'Original order restored.'; });
+    cleanups.push(() => { clearDrag(); original.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); buttons.forEach(({ button, hidden, disabled }) => { button.hidden = hidden; button.disabled = disabled; }); });
+  }
+  for (const element of matches(root, '[data-rf-kanban]')) {
+    const columns = [...element.querySelectorAll('[data-rf-kanban-column]')];
+    const lists = columns.map(column => column.querySelector('[data-rf-kanban-list]'));
+    if (lists.some(list => !list) || !lists.length) continue;
+    const original = lists.map(list => [...list.children].filter(item => item.matches('[data-rf-kanban-item]')));
+    const items = original.flat(), draggable = items.map(item => item.getAttribute('draggable'));
+    const controls = [...element.querySelectorAll('[data-rf-kanban-control]')].map(control => ({ control, hidden: control.hidden }));
+    const status = element.querySelector('[role="status"]');
+    let dragged;
+    const columnOf = item => columns[lists.indexOf(item.parentElement)];
+    const update = () => columns.forEach((column, index) => {
+      const count = lists[index].querySelectorAll(':scope > [data-rf-kanban-item]').length;
+      const badge = column.querySelector('[data-rf-kanban-count]'), empty = column.querySelector('[data-rf-kanban-empty]');
+      if (badge) badge.textContent = String(count); if (empty) empty.hidden = count > 0;
+      lists[index].querySelectorAll('[data-rf-kanban-move]').forEach(select => { select.value = column.dataset.rfKanbanColumn; });
+    });
+    const clearDrag = () => { dragged = null; items.forEach(item => item.removeAttribute('data-rf-dragging')); columns.forEach(column => column.removeAttribute('data-rf-drop-target')); };
+    const move = (item, column) => {
+      const previous = columnOf(item), index = columns.indexOf(column);
+      if (!previous || index < 0 || column === previous) { update(); return; }
+      lists[index].append(item); update(); item.querySelector('[data-rf-kanban-move]')?.focus();
+      if (status) status.textContent = `Moved ${item.querySelector('[data-rf-item-label]')?.textContent || item.dataset.rfKanbanItem} to ${column.dataset.rfKanbanColumn}.`;
+      element.dispatchEvent(new CustomEvent('rf:kanban-change', { bubbles: true, detail: { value: item.dataset.rfKanbanItem, from: previous.dataset.rfKanbanColumn, to: column.dataset.rfKanbanColumn } }));
+    };
+    listen(element, 'change', event => {
+      const select = event.target.closest('[data-rf-kanban-move]');
+      const item = select?.closest('[data-rf-kanban-item]');
+      if (select && items.includes(item) && !select.disabled) move(item, columns.find(column => column.dataset.rfKanbanColumn === select.value));
+    });
+    listen(element, 'dragstart', event => {
+      const item = event.target.closest('[data-rf-kanban-item]');
+      if (!items.includes(item) || item.querySelector('[data-rf-kanban-move]')?.disabled || !event.dataTransfer) { event.preventDefault(); return; }
+      dragged = item; item.dataset.rfDragging = ''; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.dataset.rfKanbanItem);
+    });
+    listen(element, 'dragover', event => {
+      const column = event.target.closest('[data-rf-kanban-column]');
+      if (!dragged || !columns.includes(column)) return;
+      event.preventDefault(); event.dataTransfer.dropEffect = 'move'; columns.forEach(node => node.toggleAttribute('data-rf-drop-target', node === column));
+    });
+    listen(element, 'drop', event => {
+      const column = event.target.closest('[data-rf-kanban-column]');
+      if (!dragged || !columns.includes(column)) return;
+      event.preventDefault(); move(dragged, column); clearDrag();
+    });
+    listen(element, 'dragend', clearDrag);
+    items.forEach(item => { item.draggable = true; }); controls.forEach(({ control }) => { control.hidden = false; }); update();
+    afterReset(element.closest('form'), () => { clearDrag(); lists.forEach((list, index) => list.append(...original[index])); update(); if (status) status.textContent = 'Original board restored.'; });
+    // ponytail: small static boards, with native moves; add virtualization and persistence in the application when needed.
+    cleanups.push(() => { clearDrag(); items.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); controls.forEach(({ control, hidden }) => { control.hidden = hidden; }); });
+  }
+  for (const element of matches(root, '[data-rf-resizable]')) {
+    const range = element.querySelector('input[type="range"]'), panels = element.querySelector('.rf-resizable__panels'), output = element.querySelector('[data-rf-panel-size]');
+    if (!range || !panels) continue;
+    const first = panels.style.getPropertyValue('--rf-panel-first'), second = panels.style.getPropertyValue('--rf-panel-second'), valueText = range.getAttribute('aria-valuetext');
+    const update = () => {
+      const value = Math.max(0, Math.min(100, range.valueAsNumber));
+      panels.style.setProperty('--rf-panel-first', `${value}fr`); panels.style.setProperty('--rf-panel-second', `${100 - value}fr`);
+      const text = `${value}% first panel, ${100 - value}% second panel`;
+      range.setAttribute('aria-valuetext', text); if (output) output.textContent = text;
+    };
+    listen(range, 'input', update); afterReset(range.form, update); update();
+    cleanups.push(() => { for (const [name, value] of [['--rf-panel-first', first], ['--rf-panel-second', second]]) { if (value) panels.style.setProperty(name, value); else panels.style.removeProperty(name); } if (valueText === null) range.removeAttribute('aria-valuetext'); else range.setAttribute('aria-valuetext', valueText); });
+  }
+  for (const element of matches(root, '[data-rf-line-chart]')) {
+    const table = element.querySelector('table'), plot = element.querySelector('[data-rf-line-plot]'), range = element.querySelector('[data-rf-line-range]'), output = element.querySelector('[data-rf-line-readout]'), controls = element.querySelector('[data-rf-line-controls]');
+    if (!table?.tBodies[0] || !plot || !range || !output || !controls) continue;
+    const rows = [...table.tBodies[0].rows], headings = [...table.querySelectorAll('thead [data-rf-line-series]')];
+    const series = headings.map(heading => ({ name: heading.textContent.trim(), key: heading.dataset.rfLineSeries, values: rows.map(row => row.cells[heading.cellIndex]?.textContent.trim()), path: [...plot.querySelectorAll('[data-rf-line-series]')].find(path => path.dataset.rfLineSeries === heading.dataset.rfLineSeries), check: [...controls.querySelectorAll('[data-rf-line-toggle]')].find(check => check.dataset.rfLineToggle === heading.dataset.rfLineSeries) }));
+    if (!rows.length || !series.length || series.some(item => !item.path || !item.check || item.values.some(value => !value || !Number.isFinite(Number(value))))) continue;
+    const labels = rows.map(row => row.cells[0].textContent.trim()), values = series.flatMap(item => item.values.map(Number)), minimum = Math.min(0, ...values), maximum = Math.max(1, ...values);
+    const x = index => rows.length === 1 ? 280 : 32 + index / (rows.length - 1) * 496;
+    const y = value => 200 - (Number(value) - minimum) / (maximum - minimum) * 180;
+    const original = { min: range.min, max: range.max, disabled: range.disabled, hidden: controls.hidden, valueText: range.getAttribute('aria-valuetext') };
+    const paths = series.map(item => ({ points: item.path.getAttribute('points'), display: item.path.style.display }));
+    series.forEach(item => item.path.setAttribute('points', item.values.map((value, index) => `${x(index)},${y(value)}`).join(' ')));
+    const update = () => {
+      const index = Math.max(0, Math.min(rows.length - 1, Math.round(range.valueAsNumber)));
+      const visible = series.filter(item => item.check.checked);
+      series.forEach(item => { item.path.style.display = item.check.checked ? '' : 'none'; });
+      const cursor = plot.querySelector('[data-rf-line-cursor]'); if (cursor) { cursor.setAttribute('x1', x(index)); cursor.setAttribute('x2', x(index)); }
+      const text = `${labels[index]}: ${visible.length ? visible.map(item => `${item.name} ${item.values[index]}`).join('; ') : 'No series selected.'}`;
+      output.textContent = text; range.setAttribute('aria-valuetext', text);
+    };
+    range.min = '0'; range.max = String(rows.length - 1); range.disabled = original.disabled || rows.length < 2; controls.hidden = false;
+    listen(range, 'input', update); series.forEach(item => listen(item.check, 'change', update)); afterReset(element.closest('form'), update); update();
+    cleanups.push(() => { series.forEach((item, index) => { if (paths[index].points === null) item.path.removeAttribute('points'); else item.path.setAttribute('points', paths[index].points); item.path.style.display = paths[index].display; }); range.min = original.min; range.max = original.max; range.disabled = original.disabled; controls.hidden = original.hidden; if (original.valueText === null) range.removeAttribute('aria-valuetext'); else range.setAttribute('aria-valuetext', original.valueText); });
+  }
+
   for (const element of matches(root, '[data-rf-password]')) {
     const input = element.querySelector('input');
     const button = element.querySelector('[data-rf-password-toggle]');

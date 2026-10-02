@@ -53,7 +53,7 @@ for (const name of await readdir('docs')) {
 }
 for (const name of ['index.html', 'app.js']) {
   const file = `dist/site/${name}`;
-  await writeFile(file, (await readFile(file, 'utf8')).replaceAll('../src/', './src/').replaceAll('../examples/', './examples/').replaceAll('../dist/', './downloads/'));
+  await writeFile(file, (await readFile(file, 'utf8')).replaceAll('../src/', './src/').replaceAll('../examples/', './examples/').replaceAll('../sections/', './sections/').replaceAll('href="../${path}"', 'href="./${path}"').replaceAll('../dist/', './downloads/'));
 }
 await cp('src', 'dist/site/src', { recursive: true });
 await cp('examples', 'dist/site/examples', { recursive: true });
