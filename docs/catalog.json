@@ -488,6 +488,235 @@
     ]
   },
   {
+    "id": "bar-chart",
+    "title": "Bar chart",
+    "category": "Components",
+    "description": "See the trend, then open the exact values.",
+    "css": [
+      "card",
+      "patterns",
+      "table"
+    ],
+    "js": [],
+    "file": "examples/components/bar-chart.html",
+    "notes": [
+      "The decorative bars are hidden from assistive technology; a labelled native details disclosure contains the exact data table.",
+      "Set --rf-bar to value / maximum × 100%; keep the chart and table in sync. This static example has a zero baseline."
+    ]
+  },
+  {
+    "id": "donut-chart",
+    "title": "Donut chart",
+    "category": "Components",
+    "description": "A clear part-to-whole view, with a readable legend.",
+    "css": [
+      "card",
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/donut-chart.html",
+    "notes": [
+      "SVG is decorative; visible text provides every value without relying on color.",
+      "Use nonnegative parts of a whole and update the SVG dash values and legend together. No chart dependency or automatic calculations."
+    ]
+  },
+  {
+    "id": "date-range",
+    "title": "Date range",
+    "category": "Components",
+    "description": "Two native dates, with a sensible order.",
+    "css": [
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/date-range.html",
+    "notes": [
+      "The optional initializer sets the end date minimum from the start date; native validation prevents reversed ranges.",
+      "Inputs submit YYYY-MM-DD values. Your application chooses time zone, inclusive endpoints, and server validation."
+    ]
+  },
+  {
+    "id": "paginated-table",
+    "title": "Paginated table",
+    "category": "Components",
+    "description": "Find the right work with search, status filters, sorting, and paging.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "badge",
+      "patterns",
+      "empty-state"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/paginated-table.html",
+    "notes": [
+      "Local pagination uses the initial tbody rows; filtering and sorting reset to page one.",
+      "data-rf-table-filter=\"status\" matches each row’s data-rf-status exactly; other attribute keys work the same way.",
+      "Search, filters, and row selection use native inputs. Reset returns form fields and page to their defaults; sorting stays as chosen.",
+      "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
+    ]
+  },
+  {
+    "id": "bulk-actions",
+    "title": "Bulk selection",
+    "category": "Components",
+    "description": "Select this page. Keep the selection as you explore.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "badge",
+      "patterns",
+      "empty-state"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/bulk-actions.html",
+    "notes": [
+      "Select this page affects only visible enabled row checkboxes. Selection persists across paging and filtering; the count includes hidden rows.",
+      "Give every data-rf-table-select checkbox a unique value and accessible label. The header checkbox reports partial selection.",
+      "rf:table-selection exposes detail.values. rf:table-action exposes detail.action and detail.values; your app owns authorization, confirmation, and the real action."
+    ]
+  },
+  {
+    "id": "notification-center",
+    "title": "Notification center",
+    "category": "Components",
+    "description": "A small inbox for the things worth knowing.",
+    "css": [
+      "button",
+      "badge",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/notification-center.html",
+    "notes": [
+      "Native popover supports Escape and light dismissal; this is a content region, not an ARIA menu.",
+      "Mark all read changes local markup and emits rf:notifications-read with detail.values. Connect persistence yourself."
+    ]
+  },
+  {
+    "id": "website-header",
+    "title": "Responsive website header",
+    "category": "Sections",
+    "description": "Clear destinations on desktop, a native menu on mobile.",
+    "css": [
+      "sections",
+      "navigation",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/website-header.html",
+    "notes": [
+      "A container query switches to a native details menu when this header is narrow, including inside a preview.",
+      "Replace sample hash links with real destinations. The full landing example connects them to page sections."
+    ]
+  },
+  {
+    "id": "app-shell",
+    "title": "Application shell",
+    "category": "Sections",
+    "description": "A home for your sidebar, top bar, and everyday work.",
+    "css": [
+      "sections",
+      "navigation",
+      "card",
+      "button",
+      "avatar",
+      "badge"
+    ],
+    "js": [],
+    "file": "sections/app-shell.html",
+    "notes": [
+      "The shell collapses to one column when its container is narrow. Native details lets people collapse navigation without JavaScript.",
+      "Use a main landmark for application content in a complete page; this embedded preview uses a section. Set aria-current for your actual route."
+    ]
+  },
+  {
+    "id": "dashboard-metrics",
+    "title": "Dashboard metrics",
+    "category": "Sections",
+    "description": "The numbers that matter, with context for every change.",
+    "css": [
+      "sections",
+      "card",
+      "badge"
+    ],
+    "js": [],
+    "file": "sections/dashboard-metrics.html",
+    "notes": [
+      "Sample data. Labels, units, direction, and comparison period are visible without color.",
+      "Compute metrics and trends from your application data; never imply these figures are live."
+    ]
+  },
+  {
+    "id": "account-settings",
+    "title": "Account settings",
+    "category": "Sections",
+    "description": "Profile details and notification preferences, together.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/account-settings.html",
+    "notes": [
+      "Native reset discards unsaved edits. The gallery save is a form preview and sends no request.",
+      "The composed dashboard saves workspace preferences locally for this session; use a server for real account updates."
+    ]
+  },
+  {
+    "id": "sign-up",
+    "title": "Sign up",
+    "category": "Sections",
+    "description": "A considered first step into your product.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "sections/sign-up.html",
+    "notes": [
+      "Preview only; do not enter real credentials. Connect authentication, policy, rate limits, and server validation.",
+      "Replace terms and privacy links with your own published policies."
+    ]
+  },
+  {
+    "id": "password-reset",
+    "title": "Password reset",
+    "category": "Sections",
+    "description": "A simple path back to an account.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/password-reset.html",
+    "notes": [
+      "This preview sends no email. Your server must generate, expire, and validate reset tokens.",
+      "Return the same request response for known and unknown accounts; keep the actual recovery service separate from this UI."
+    ]
+  },
+  {
     "id": "password-field",
     "title": "Password reveal",
     "category": "Components",

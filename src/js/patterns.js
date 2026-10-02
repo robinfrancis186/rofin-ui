@@ -82,13 +82,53 @@ export function initPatterns(root = document) {
     const status = element.querySelector('[data-rf-table-status]');
     const body = table?.tBodies[0];
     if (!body) continue;
-    const rows = [...body.rows];
+    let rows = [...body.rows];
+    const originalRows = [...rows];
+    const filters = [...element.querySelectorAll('[data-rf-table-filter]')];
+    const size = element.querySelector('[data-rf-table-page-size]');
+    const previous = element.querySelector('[data-rf-table-previous]');
+    const next = element.querySelector('[data-rf-table-next]');
+    const selectAll = table.querySelector('[data-rf-table-select-all]');
+    const selectedStatus = element.querySelector('[data-rf-table-selected]');
+    const actions = [...element.querySelectorAll('[data-rf-table-action]')];
+    const selection = () => rows.filter(row => row.querySelector('[data-rf-table-select]')?.checked);
+    const selectable = () => rows.filter(row => !row.hidden && row.querySelector('[data-rf-table-select]:not(:disabled)'));
+    const updateSelection = (emit = false) => {
+      const selected = selection(), visible = selectable();
+      const checked = visible.filter(row => row.querySelector('[data-rf-table-select]').checked).length;
+      if (selectAll) { selectAll.checked = visible.length > 0 && checked === visible.length; selectAll.indeterminate = checked > 0 && checked < visible.length; selectAll.disabled = !visible.length; }
+      if (selectedStatus) selectedStatus.textContent = `${selected.length} selected across all pages`;
+      for (const button of actions) button.disabled = !selected.length;
+      if (emit) element.dispatchEvent(new CustomEvent('rf:table-selection', { bubbles: true, detail: { values: selected.map(row => row.querySelector('[data-rf-table-select]').value) } }));
+    };
+    let page = 0;
     const update = () => {
       const query = search?.value.trim().toLocaleLowerCase() || '';
-      for (const row of rows) row.hidden = !row.textContent.toLocaleLowerCase().includes(query);
-      if (status) status.textContent = `${rows.filter(row => !row.hidden).length} of ${rows.length} rows`;
+      const filtered = rows.filter(row => row.textContent.toLocaleLowerCase().includes(query) && filters.every(filter => !filter.value || row.getAttribute(`data-rf-${filter.dataset.rfTableFilter}`) === filter.value));
+      const pageSize = size ? Math.max(1, parseInt(size.value, 10) || rows.length || 1) : rows.length || 1;
+      const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+      page = Math.min(page, pages - 1);
+      const visible = new Set(filtered.slice(page * pageSize, (page + 1) * pageSize));
+      for (const row of rows) row.hidden = !visible.has(row);
+      if (previous) previous.disabled = page === 0;
+      if (next) next.disabled = page === pages - 1;
+      if (status) status.textContent = size ? `${filtered.length ? page * pageSize + 1 : 0}–${Math.min((page + 1) * pageSize, filtered.length)} of ${filtered.length} rows. Page ${page + 1} of ${pages}.` : `${filtered.length} of ${rows.length} rows`;
+      const empty = element.querySelector('[data-rf-table-empty]');
+      if (empty) empty.hidden = filtered.length > 0;
+      updateSelection();
     };
-    if (search) { listen(search, 'input', update); afterReset(search.form, update); }
+    const resetPage = () => { page = 0; update(); };
+    if (search) listen(search, 'input', resetPage);
+    for (const filter of filters) listen(filter, 'change', resetPage);
+    if (size) listen(size, 'change', resetPage);
+    if (previous) listen(previous, 'click', () => { page = Math.max(0, page - 1); update(); });
+    if (next) listen(next, 'click', () => { page++; update(); });
+    for (const form of new Set([search, size, ...filters, ...table.querySelectorAll('[data-rf-table-select]')].map(input => input?.form).filter(Boolean))) afterReset(form, resetPage);
+    if (selectAll) listen(selectAll, 'change', () => { for (const row of selectable()) row.querySelector('[data-rf-table-select]').checked = selectAll.checked; updateSelection(true); });
+    for (const input of table.querySelectorAll('[data-rf-table-select]')) listen(input, 'change', () => updateSelection(true));
+    for (const button of actions) listen(button, 'click', () => {
+      element.dispatchEvent(new CustomEvent('rf:table-action', { bubbles: true, detail: { action: button.dataset.rfTableAction, values: selection().map(row => row.querySelector('[data-rf-table-select]').value) } }));
+    });
     for (const button of table.querySelectorAll('[data-rf-sort]')) listen(button, 'click', () => {
       const heading = button.closest('th');
       const descending = heading.getAttribute('aria-sort') === 'ascending';
@@ -98,11 +138,41 @@ export function initPatterns(root = document) {
       const icon = button.querySelector('[data-rf-sort-icon]');
       if (icon) icon.textContent = descending ? '↓' : '↑';
       const value = row => { const cell = row.cells[heading.cellIndex]; return cell?.dataset.rfSortValue || cell?.textContent.trim() || ''; };
-      // ponytail: in-memory rows only; use server queries for large or paginated datasets.
-      body.append(...[...rows].sort((a, b) => (button.dataset.rfSort === 'number' ? Number(value(a)) - Number(value(b)) : value(a).localeCompare(value(b), undefined, { numeric: true, sensitivity: 'base' })) * (descending ? -1 : 1)));
-      if (status) status.textContent = `${rows.filter(row => !row.hidden).length} of ${rows.length} rows. Sorted by ${button.textContent.trim()}, ${descending ? 'descending' : 'ascending'}.`;
+      // ponytail: static in-memory rows only; use server queries/virtualization for large datasets.
+      rows.sort((a, b) => (button.dataset.rfSort === 'number' ? Number(value(a)) - Number(value(b)) : value(a).localeCompare(value(b), undefined, { numeric: true, sensitivity: 'base' })) * (descending ? -1 : 1));
+      body.append(...rows); resetPage();
+      if (status) status.textContent += `${status.textContent.endsWith('.') ? ' ' : '. '}Sorted by ${button.textContent.replace(/[↕↑↓]/g, '').trim()}, ${descending ? 'descending' : 'ascending'}.`;
     });
-    update(); cleanups.push(() => { rows.forEach(row => { row.hidden = false; }); });
+    update(); cleanups.push(() => {
+      originalRows.forEach(row => { row.hidden = false; }); body.append(...originalRows);
+      table.querySelectorAll('th[aria-sort]').forEach(heading => heading.removeAttribute('aria-sort'));
+      table.querySelectorAll('[data-rf-sort-icon]').forEach(icon => { icon.textContent = '↕'; });
+      if (selectAll) selectAll.indeterminate = false;
+    });
+  }
+  for (const element of matches(root, '[data-rf-date-range]')) {
+    const start = element.querySelector('[data-rf-date-start]'), end = element.querySelector('[data-rf-date-end]');
+    if (!start || !end) continue;
+    const minimum = end.getAttribute('min');
+    const update = () => { const min = [minimum, start.value].filter(Boolean).sort().at(-1); if (min) end.min = min; else end.removeAttribute('min'); };
+    listen(start, 'input', update); listen(start, 'change', update); afterReset(start.form, update); update();
+    cleanups.push(() => { if (minimum !== null) end.min = minimum; else end.removeAttribute('min'); });
+  }
+  for (const element of matches(root, '[data-rf-notifications]')) {
+    const button = element.querySelector('[data-rf-notifications-read]');
+    if (!button) continue;
+    const update = () => {
+      const unread = element.querySelectorAll('[data-rf-unread]');
+      for (const count of element.querySelectorAll('[data-rf-notifications-count]')) count.textContent = String(unread.length);
+      button.disabled = !unread.length;
+    };
+    listen(button, 'click', () => {
+      const items = [...element.querySelectorAll('[data-rf-unread]')];
+      items.forEach(item => { item.removeAttribute('data-rf-unread'); item.querySelector('[data-rf-notification-state]')?.remove(); });
+      update(); const status = element.querySelector('[role="status"]'); if (status) status.textContent = 'All notifications marked as read.';
+      element.dispatchEvent(new CustomEvent('rf:notifications-read', { bubbles: true, detail: { values: items.map(item => item.dataset.rfNotificationId) } }));
+    });
+    update();
   }
   for (const element of matches(root, '[data-rf-check-progress]')) {
     const checks = [...element.querySelectorAll('input[type="checkbox"]')];

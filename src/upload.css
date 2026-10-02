@@ -1,5 +1,5 @@
 @layer rf.components {
-  .rf-upload { display: grid; gap: .75rem; padding: 1.5rem; border: 1px dashed var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); font-family: var(--rf-font); }
+  .rf-upload { display: grid; grid-template-columns: minmax(0, 1fr); gap: .75rem; padding: 1.5rem; border: 1px dashed var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); font-family: var(--rf-font); }
   .rf-upload:focus-within { border-color: var(--rf-primary); }
   .rf-upload input[type="file"] { max-inline-size: 100%; font-size: .875rem; }
   .rf-upload input::file-selector-button { margin-inline-end: .75rem; padding: .5rem .875rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-subtle); color: var(--rf-text); font: inherit; cursor: pointer; }

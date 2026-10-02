@@ -6,8 +6,8 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **55 component examples**, **20 optional effects**,
-**16 copyable sections**, a searchable documentation gallery, and composed
+The library includes **61 component examples**, **20 optional effects**,
+**22 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
 > Pre-1.0: APIs and styles may change. The npm package has not been published
@@ -73,14 +73,18 @@ reinitialization.
 | Forms | Input, select, textarea, checkbox, radio group, switch, range, file input |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
+| Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
 
 Native HTML handles form behavior, expandable details, and modal focus
 management. JavaScript adds keyboard navigation for tabs and menus, dialog
 triggers, tooltip Escape dismissal, file-selection details, and toast APIs.
 
+The [website and dashboard checklist](docs/coverage.md) maps common product needs
+to existing examples. The documentation also includes a clickable coverage page.
+
 A file input does not upload files by itself. The optional table pattern adds
-local search and sorting; it does not include virtualization or server queries.
+local search, sorting, filters, pagination, and selection; it does not include virtualization or server queries.
 Application data, authentication, form submission, and backend integrations
 remain your application's responsibility.
 
@@ -121,7 +125,10 @@ These are excluded from the core bundle and the auto initializer.
 Initialize each patterns root once; call the returned cleanup before removal.
 Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
 palettes emit `rf:command` with `detail.value`; tag inputs emit `rf:tags-change`
-with `detail.values`. Your app owns persistence and the actual action.
+with `detail.values`. Tables emit `rf:table-selection` with `detail.values` and
+`rf:table-action` with `detail.action` plus `detail.values`. Notification read
+actions emit `rf:notifications-read` with `detail.values`. Your app owns
+persistence, authorization, and the actual action.
 Authentication, subscriptions, and integrations are interface
 examples; connect application behavior and server validation yourself.
 
@@ -163,7 +170,7 @@ Open **http://127.0.0.1:4173** for the documentation gallery, or:
 
 - `/examples/index.html` — all core component examples
 - `/examples/landing.html` — a composed landing page
-- `/examples/dashboard.html` — a dashboard with a working example filter
+- `/examples/dashboard.html` — a complete sample workspace with charts, filters, paging, selection, CSV export, project creation, archive confirmation, notifications, and settings
 
 The build outputs minified CSS, ESM and CommonJS modules, an auto-initializing
 browser script, type declarations, and a self-contained documentation site in

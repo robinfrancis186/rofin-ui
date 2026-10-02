@@ -1,5 +1,30 @@
 /* Optional interaction patterns. Include tokens and the core styles first. */
 @layer rf.components {
+  .rf-chart { margin: 0; min-inline-size: 0; }
+  .rf-chart figcaption { font-weight: 650; margin-block-end: 1rem; }
+  .rf-chart__bars { display: flex; align-items: end; gap: .75rem; block-size: 12rem; list-style: none; padding: 0; margin: 1.5rem 0; border-block-end: 1px solid var(--rf-border); }
+  .rf-chart__bars li { display: grid; flex: 1; grid-template-rows: auto minmax(0, 1fr) auto; align-items: end; justify-items: center; gap: .5rem; block-size: 100%; min-inline-size: 0; color: var(--rf-muted); font-size: .75rem; }
+  .rf-chart__bars i { display: block; inline-size: min(100%, 3rem); block-size: var(--rf-bar, 50%); background: var(--rf-primary); border-radius: .35rem .35rem 0 0; }
+  .rf-chart details > summary { cursor: pointer; min-block-size: 2.75rem; padding-block: .75rem; font-size: .875rem; }
+  .rf-chart__ring { display: grid; grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); gap: 1.5rem; align-items: center; }
+  .rf-chart__ring svg { inline-size: 100%; block-size: auto; }
+  .rf-chart__track { stroke: var(--rf-border); }
+  .rf-chart__value { stroke: var(--rf-primary); }
+  .rf-chart__ring text { fill: var(--rf-text); font: 700 1.5rem var(--rf-font); }
+  .rf-chart__legend { display: grid; gap: .75rem; list-style: none; padding: 0; }
+  .rf-chart__legend li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; }
+  .rf-table-toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; }
+  .rf-table-toolbar .rf-field { flex: 1 1 10rem; }
+  .rf-table-toolbar .rf-cluster { flex: 1 1 16rem; }
+  .rf-table .rf-check { min-block-size: 1.75rem; }
+  .rf-notifications { position: relative; }
+  .rf-notifications__panel { inline-size: min(26rem, calc(100% - 2rem)); max-block-size: min(32rem, calc(100dvh - 2rem)); overflow: auto; padding: 1.25rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: var(--rf-surface); color: var(--rf-text); box-shadow: var(--rf-shadow); }
+  .rf-notifications__panel:popover-open { display: grid; gap: 1rem; }
+  .rf-notifications__list { list-style: none; padding: 0; margin: 0; display: grid; gap: .75rem; }
+  .rf-notifications__list li { padding: .875rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); }
+  .rf-notifications__list [data-rf-unread] { border-inline-start: 3px solid var(--rf-primary); }
+  .rf-notifications__list p { margin: .25rem 0; }
+  @media (max-width: 30rem) { .rf-chart__ring { grid-template-columns: 1fr; } .rf-chart__ring svg { max-inline-size: 10rem; margin-inline: auto; } }
   .rf-input-action { display: flex; gap: .5rem; align-items: center; }
   .rf-input-action > input { min-inline-size: 0; flex: 1; }
   .rf-input-action > button { flex-shrink: 0; }

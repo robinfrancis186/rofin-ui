@@ -1,0 +1,12 @@
+<div class="rf-notifications" data-rf-notifications>
+  <button class="rf-button rf-button--outline" type="button" popovertarget="inbox-preview">Notifications <span class="rf-badge" data-rf-notifications-count>2</span><span class="rf-sr-only"> unread</span></button>
+  <section class="rf-notifications__panel" id="inbox-preview" popover aria-labelledby="inbox-title">
+    <div class="rf-cluster" style="justify-content:space-between"><h3 id="inbox-title" style="margin:0">Your inbox</h3><button class="rf-button rf-button--ghost rf-button--small" type="button" data-rf-notifications-read>Mark all read</button></div>
+    <ul class="rf-notifications__list">
+      <li data-rf-unread data-rf-notification-id="review"><strong>Ready for your review</strong> <span class="rf-badge" data-rf-notification-state>Unread</span><p class="rf-help">Jamie shared the mobile journal design.</p><time class="rf-help" datetime="2026-10-02T09:00:00+05:30">Today, 9:00 AM</time></li>
+      <li data-rf-unread data-rf-notification-id="milestone"><strong>A milestone worth sharing</strong> <span class="rf-badge" data-rf-notification-state>Unread</span><p class="rf-help">Your team completed 72 of 100 tasks.</p><time class="rf-help" datetime="2026-10-01T16:00:00+05:30">Yesterday, 4:00 PM</time></li>
+    </ul>
+    <p class="rf-help" role="status"></p>
+    <button class="rf-button rf-button--outline rf-button--small" type="button" popovertarget="inbox-preview" popovertargetaction="hide">Close inbox</button>
+  </section>
+</div>

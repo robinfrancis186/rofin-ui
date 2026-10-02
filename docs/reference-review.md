@@ -3,8 +3,8 @@
 The linked catalogs and all nine libraries in the supplied screenshot were
 visited. Their available catalog metadata was collected into
 `reference-catalog.json`, and recurring patterns were implemented as original
-HTML, CSS, and vanilla JavaScript examples. The gallery now has 91 runnable
-entries: 55 components, 20 effects, and 16 sections.
+HTML, CSS, and vanilla JavaScript examples. The gallery now has 103 runnable
+entries: 61 components, 20 effects, and 22 sections.
 
 This is a first implementation pass, not an exhaustive visual review or a
 one-to-one port of every source component. The reference browser distinguishes

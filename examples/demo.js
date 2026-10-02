@@ -12,3 +12,5 @@ document.addEventListener('submit', event => {
   if (event.defaultPrevented) return;
   if (event.target.matches('[data-demo-form]')) { event.preventDefault(); toast('Demo only. No data was sent.', { title: 'Form preview' }); }
 });
+
+document.addEventListener('rf:table-action', event => { toast(`${event.detail.values.length} sample rows selected. Connect your own action.`, { title: 'Selection preview' }); });

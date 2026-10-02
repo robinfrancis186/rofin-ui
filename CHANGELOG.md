@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- 45 original examples added: 25 UI patterns, 14 optional effects, and six page sections.
+- 57 original examples added: 31 UI patterns, 14 optional effects, and 12 page sections.
 - Opt-in patterns stylesheet, ESM initializer, cleanup API, and type declaration.
 - Keyboard comparison and command search, scroll-snap carousel, bounded native
   steppers, reversible likes, validated multistep forms, and clipboard feedback.
@@ -20,6 +20,13 @@
 - Browser-local saved collections with search and deduplicated setup copying.
 - Sign-in and dashboard examples now reuse the password and table patterns.
 - Form reset enhancements run after native reset and respect cancelled resets.
+
+- Website/dashboard coverage checklist, responsive header, application shell, KPI
+  metrics, bar/donut charts, date ranges, paginated selection tables, notification
+  inbox, account settings, sign-up, and recovery forms.
+- Composed dashboard with local project creation, confirmed archive, formula-safe
+  CSV export, date/status filters, settings, inbox, and theme controls.
+- Shared upload layout fits narrow cards; navigation preserves nested button colors.
 
 ## 0.1.0
 
