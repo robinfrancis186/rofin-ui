@@ -15,6 +15,10 @@ selection/path search, composition, read-only and disabled controls. Actual
 directory imports preserve nested paths; enumeration order varies by browser,
 so the check finds a nested file through path search before downloading it.
 
+GitHub run [37040753111](https://github.com/robinfrancis186/rofin-ui/actions/runs/37040753111)
+passes all 104 tests and the 227-file package check in each of Chromium,
+Firefox and WebKit on `e7ea380`. All three completed job logs were inspected.
+
 Imported binary bytes survive rename, moves, exact-byte downloads, recursive
 recoverable Trash and restoration. Created text files preserve Unicode contents.
 Duplicate names, traversal/control names, oversize files, excess items/bytes,
@@ -39,6 +43,16 @@ not return a download artifact, so exact-content evidence comes from completed
 Chromium, Firefox and WebKit downloads above. This bounded browser-copy store
 does not supply authorized durable storage, operating-system writes, physical
 device or screen-reader evidence. Those requirements remain A02/A03/V02/V03.
+
+The production deployment of `e7ea380` is Ready at https://rofin-ui.vercel.app.
+All 226 built website files match; the package contains 227 files. Rendered
+production checks cover tree keyboard expansion, Unicode text-file creation,
+rename, move, recoverable Trash and restore. Both gallery themes fit 390 pixels.
+The composed dashboard retains a created Studio file when switching back from
+Personal, exposes only Personal's sample file in that workspace, and clears
+selection on switching. The Files & resources link and breadcrumb agree.
+Both dashboard themes fit 390 pixels; reload restores the original samples,
+and the checked production flows report no console errors.
 
 ## Rich-text and Markdown notes
 
