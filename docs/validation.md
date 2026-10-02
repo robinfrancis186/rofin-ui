@@ -39,6 +39,12 @@ download and complete sample HTML text alternatives remain available. Local user
 media needs application-supplied captions/transcripts. This does not prove full
 native Safari, actual screen-reader or physical touch behavior (V01–V03).
 
+Installed Safari separately opened the production PDF through its native reader.
+Both PDF Page elements expose the actual brief text; the first rendered page was
+visually inspected inside the document example. The temporary test tab was closed
+and the original Start Page retained. This is a document smoke check, not the
+complete native Safari validation required by V01.
+
 The shared dialog visibility guard keeps closed dialogs hidden when the stack
 layout utility sets display:flex. File-browser mutations now emit the updated
 selection, so dashboard previews immediately use imported/renamed File objects.
@@ -68,8 +74,11 @@ and unloaded captions respectively. The test now explicitly enables the native
 caption track, consistent with [TextTrack mode](https://developer.mozilla.org/en-US/docs/Web/API/TextTrack/mode).
 Linux CI now provides a [clocked PulseAudio null sink](https://wiki.freedesktop.org/www/Software/PulseAudio/Documentation/User/Modules/#module-null-sink)
 and checks native media before the full suite. The updated playback test passes
-locally in all three engines; complete CI revalidation is pending. No decoder,
-timing or download assertion is skipped, and CI does not prove audible speakers.
+locally in all three engines. [Run 37048046059](https://github.com/robinfrancis186/rofin-ui/actions/runs/37048046059)
+on `b50e8d1` passes the media check, all 114 tests and the 245-file package check
+in Chromium, Firefox and WebKit. All three completed job logs were inspected.
+No decoder, timing or download assertion is skipped, and CI does not prove
+audible speakers. Core gzip is 8,154 bytes on Linux and 8,167 locally on macOS.
 
 ## File browser and workspace files — previous checkpoint
 
