@@ -126,7 +126,10 @@ test('error sections, recovery and native fallbacks work at narrow widths in bot
       await load(page,state); if(state==='snapshot') await expect(snapshot(page)).toBeVisible(); else await expect(error(page)).toBeVisible();
       for(const width of [320,390,1440]) {
         await page.setViewportSize({width,height:900});
-        await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),`${theme}/${state}/${width}`).toBe(false);
+        await expect.poll(()=>page.evaluate(()=> {
+          if(document.documentElement.scrollWidth<=innerWidth) return false;
+          return {width:innerWidth,scrollWidth:document.documentElement.scrollWidth,nodes:[...document.querySelectorAll('body *')].filter(node=>node.getClientRects().length && (node.getBoundingClientRect().right>innerWidth || node.scrollWidth>node.clientWidth+1)).slice(0,12).map(node=>({tag:node.tagName,id:node.id,class:node.className,width:node.getBoundingClientRect().width,right:node.getBoundingClientRect().right,client:node.clientWidth,scroll:node.scrollWidth}))};
+        }),`${theme}/${state}/${width}`).toBe(false);
       }
       expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
     }
