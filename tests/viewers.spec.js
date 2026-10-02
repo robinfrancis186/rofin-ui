@@ -101,7 +101,7 @@ test('file preview validation, cancelled reads and teardown preserve prior conte
 test('native media actually decodes, advances, seeks, loads captions, downloads and stops on teardown', async ({ page }) => {
   await page.goto(route('media-player'));const video=page.locator('video'),audio=page.locator('audio');
   expect(await video.evaluate(v=>v.controls&&!v.autoplay&&v.paused)).toBe(true);expect(await audio.evaluate(a=>a.controls&&!a.autoplay&&a.paused)).toBe(true);
-  await video.evaluate(v=>v.play());await expect.poll(()=>video.evaluate(v=>v.currentTime)).toBeGreaterThan(.15);await expect.poll(()=>video.evaluate(v=>v.videoWidth)).toBe(640);
+  await video.evaluate(v=>{v.textTracks[0].mode='showing';return v.play();});await expect.poll(()=>video.evaluate(v=>v.currentTime)).toBeGreaterThan(.15);await expect.poll(()=>video.evaluate(v=>v.videoWidth)).toBe(640);
   await expect.poll(()=>video.evaluate(v=>v.textTracks[0]?.cues?.length||0)).toBe(1);expect(await video.evaluate(v=>v.textTracks[0].cues[0].text)).toContain('golden dot');
   await audio.evaluate(a=>a.play());await expect.poll(()=>video.evaluate(v=>v.paused)).toBe(true);await expect.poll(()=>audio.evaluate(a=>a.currentTime)).toBeGreaterThan(.15);
   await video.evaluate(v=>{v.currentTime=1.5;return v.play();});await expect.poll(()=>audio.evaluate(a=>a.paused)).toBe(true);await expect.poll(()=>video.evaluate(v=>v.currentTime)).toBeGreaterThan(1.6);

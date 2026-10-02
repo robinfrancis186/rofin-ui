@@ -1,4 +1,4 @@
-# Validation evidence — 2 October 2026
+# Validation evidence — 2–3 October 2026
 
 Current gallery: 128 runnable entries, including image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
@@ -45,7 +45,31 @@ selection, so dashboard previews immediately use imported/renamed File objects.
 Core CSS plus auto JavaScript is 8,167 bytes gzip locally; optional viewer
 JavaScript and CSS add 3,058 and 598 bytes gzip outside that core. There are zero
 runtime or peer dependencies. The full 114-test Chromium suite and 245-file
-package check pass. Production release checks are pending for this checkpoint.
+package check pass.
+
+The production deployment of `592d948` is Ready at https://rofin-ui.vercel.app.
+All 243 built website files match. Original PDF, MP4/WebM, WAV and VTT assets
+have correct content types, exact bytes and verified 206 byte-range responses.
+Rendered production checks cover actual image loads, Previous/Next/Home/Escape,
+both gallery themes at 390 pixels, the complete document text alternative and
+native video playback to its real three-second end. Native audio playback starts
+through its actual browser control.
+
+A native production chooser imports a disposable text fixture into the dashboard;
+its preview shows actual contents before and after rename. Switching to Personal
+clears selection and previews only its reading-list sample; returning to Studio
+retains the renamed file. Both dashboard themes fit 390 pixels, reload restores
+samples/clears selection, and checked flows report no console errors.
+
+In [run 37046659810](https://github.com/robinfrancis186/rofin-ui/actions/runs/37046659810)
+Chromium passes all 114 tests and the 245-file package check. Firefox and WebKit
+each pass 113 tests; the remaining native media check found a stalled audio clock
+and unloaded captions respectively. The test now explicitly enables the native
+caption track, consistent with [TextTrack mode](https://developer.mozilla.org/en-US/docs/Web/API/TextTrack/mode).
+Linux CI now provides a [clocked PulseAudio null sink](https://wiki.freedesktop.org/www/Software/PulseAudio/Documentation/User/Modules/#module-null-sink)
+and checks native media before the full suite. The updated playback test passes
+locally in all three engines; complete CI revalidation is pending. No decoder,
+timing or download assertion is skipped, and CI does not prove audible speakers.
 
 ## File browser and workspace files — previous checkpoint
 
