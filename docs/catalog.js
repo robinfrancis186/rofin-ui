@@ -2264,5 +2264,32 @@ export default [
     ],
     "html": "<section class=\"rf-stack rf-data-grid\" data-rf-data-grid data-rf-grid-storage=\"rofin-project-grid-views-v1\" aria-label=\"Project explorer\">\n  <div><h3>Every project, within reach.</h3><p class=\"rf-muted\">Edit a cell, shape a view, and keep the columns you care about close.</p></div>\n  <div class=\"rf-field\" data-rf-grid-demo-source hidden><label class=\"rf-label\" for=\"grid-data-source\">Data source</label><select class=\"rf-select\" id=\"grid-data-source\" data-rf-grid-source><option value=\"browser\">Browser rows · editable</option><option value=\"http\">Local HTTP pages · read only</option></select></div>\n  <p class=\"rf-help\" data-rf-grid-note>Edits last for this page session. Saved views stay in this browser. The local HTTP example runs with the repository's development server; production applications supply their own loader and authorization.</p>\n  <div class=\"rf-grid-scroll\" data-rf-grid-scroll tabindex=\"0\" role=\"region\" aria-label=\"Scrollable project table\">\n    <table class=\"rf-table rf-grid-table\"><caption>Generated project sample.</caption><thead><tr><th scope=\"col\" data-rf-field=\"name\" data-rf-editable data-rf-width=\"260\" data-rf-max-length=\"80\">Project</th><th scope=\"col\" data-rf-field=\"owner\" data-rf-editable data-rf-width=\"180\" data-rf-max-length=\"50\">Owner</th><th scope=\"col\" data-rf-field=\"status\" data-rf-editable data-rf-width=\"180\" data-rf-options='[\"Draft\",\"In progress\",\"Published\"]'>Status</th><th scope=\"col\" data-rf-field=\"tasks\" data-rf-type=\"number\" data-rf-editable data-rf-width=\"140\" data-rf-min=\"0\" data-rf-max=\"1000\" data-rf-step=\"1\">Tasks</th><th scope=\"col\" data-rf-field=\"updated\" data-rf-type=\"date\" data-rf-editable data-rf-width=\"180\">Updated</th></tr></thead><tbody>\n      <tr data-rf-id=\"project-1\"><th scope=\"row\">Atlas launch</th><td>Robin</td><td>Draft</td><td>0</td><td>2026-09-01</td></tr>\n      <tr data-rf-id=\"project-2\"><th scope=\"row\">Mobile journal</th><td>Jamie</td><td>In progress</td><td>1</td><td>2026-09-02</td></tr>\n      <tr data-rf-id=\"project-3\"><th scope=\"row\">Brand refresh</th><td>Alex</td><td>Published</td><td>2</td><td>2026-09-03</td></tr>\n      <tr data-rf-id=\"project-4\"><th scope=\"row\">Component library</th><td>Robin</td><td>Draft</td><td>3</td><td>2026-09-04</td></tr>\n      <tr data-rf-id=\"project-5\"><th scope=\"row\">Customer portal</th><td>Jamie</td><td>In progress</td><td>4</td><td>2026-09-05</td></tr>\n      <tr data-rf-id=\"project-6\"><th scope=\"row\">Onboarding flow</th><td>Alex</td><td>Published</td><td>5</td><td>2026-09-06</td></tr>\n    </tbody></table>\n  </div>\n</section>",
     "cssBytes": 6927
+  },
+  {
+    "id": "upload-queue",
+    "title": "Upload queue",
+    "category": "Components",
+    "description": "Preview files, validate a queue, and transfer with real progress, cancellation and retry.",
+    "css": [
+      "form",
+      "upload",
+      "button",
+      "progress",
+      "upload-queue"
+    ],
+    "js": [
+      "upload-queue"
+    ],
+    "file": "examples/components/upload-queue.html",
+    "notes": [
+      "Files stay local until an explicit Upload action invokes the application callback. Native file selection remains available without scripts.",
+      "The queue validates declared file types, size and count; your server validates actual content and authorization. Image previews use revocable object URLs. Empty files are rejected.",
+      "Cancel keeps the file for an explicit Retry. Removing a row only removes it from this queue. Form reset cancels active work and clears selections; cancelled resets retain the queue.",
+      "uploadFile uses native XMLHttpRequest upload progress, with no fake timer or automatic retry. The callback receives an AbortSignal and a stable upload ID for application idempotency.",
+      "The local development receiver checks file signatures and UTF-8 text, stores temporary files, and cleans interrupted transfers. It is a public localhost sample, not authorized durable storage; static production keeps transfers disabled.",
+      "At most 100 files can be configured; the default is 10 files of 8 MB each, with two simultaneous uploads. Call destroy() before unmounting; getFiles() retains the selected File objects for application use."
+    ],
+    "html": "<form method=\"dialog\" class=\"rf-stack\" data-rf-upload-form>\n  <section class=\"rf-stack rf-upload-queue\" data-rf-upload-queue data-rf-max-size=\"8388608\" data-rf-max-files=\"10\" aria-label=\"Project upload queue\">\n    <div><h3>Give your files a place.</h3><p class=\"rf-muted\">Review the queue, keep what matters, and send it when you're ready.</p></div>\n    <div class=\"rf-upload\" data-rf-drop-zone>\n      <label class=\"rf-label\" for=\"queue-files\">Files to add</label>\n      <p class=\"rf-help\" id=\"queue-files-help\">Choose or drop PNG, JPEG, WebP, PDF or text files. Up to 10 files, 8 MB each.</p>\n      <input id=\"queue-files\" type=\"file\" accept=\".png,.jpg,.jpeg,.webp,.pdf,.txt\" multiple aria-describedby=\"queue-files-help\">\n    </div>\n    <p class=\"rf-help\" data-rf-upload-demo-note>Files stay on your device until you choose Upload. Transfers require your application's upload callback.</p>\n    <ol class=\"rf-upload-items\" data-rf-upload-items aria-label=\"Selected files\"></ol>\n  </section>\n  <div><button type=\"reset\" class=\"rf-button rf-button--outline rf-button--small\">Reset file queue</button></div>\n</form>",
+    "cssBytes": 6563
   }
 ];

@@ -2031,5 +2031,30 @@
       "The 10,000-row gallery is generated sample data. Its read-only HTTP paging option runs on the repository development server and is unavailable on the static production site. Applications supply loadPage/saveCell callbacks, server validation, authorization and durable storage.",
       "Saved views contain filters and column settings, not row data. Browser storage is optional; edits remain in the controller until the application persists them. Call destroy() before unmounting."
     ]
+  },
+  {
+    "id": "upload-queue",
+    "title": "Upload queue",
+    "category": "Components",
+    "description": "Preview files, validate a queue, and transfer with real progress, cancellation and retry.",
+    "css": [
+      "form",
+      "upload",
+      "button",
+      "progress",
+      "upload-queue"
+    ],
+    "js": [
+      "upload-queue"
+    ],
+    "file": "examples/components/upload-queue.html",
+    "notes": [
+      "Files stay local until an explicit Upload action invokes the application callback. Native file selection remains available without scripts.",
+      "The queue validates declared file types, size and count; your server validates actual content and authorization. Image previews use revocable object URLs. Empty files are rejected.",
+      "Cancel keeps the file for an explicit Retry. Removing a row only removes it from this queue. Form reset cancels active work and clears selections; cancelled resets retain the queue.",
+      "uploadFile uses native XMLHttpRequest upload progress, with no fake timer or automatic retry. The callback receives an AbortSignal and a stable upload ID for application idempotency.",
+      "The local development receiver checks file signatures and UTF-8 text, stores temporary files, and cleans interrupted transfers. It is a public localhost sample, not authorized durable storage; static production keeps transfers disabled.",
+      "At most 100 files can be configured; the default is 10 files of 8 MB each, with two simultaneous uploads. Call destroy() before unmounting; getFiles() retains the selected File objects for application use."
+    ]
   }
 ]

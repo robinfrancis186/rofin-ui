@@ -11,5 +11,6 @@ export default defineConfig({
     launchOptions: browserName === 'chromium' && process.env.RF_CHROMIUM_PATH ? { executablePath: process.env.RF_CHROMIUM_PATH } : {},
     trace: 'retain-on-failure'
   },
-  webServer: { command: 'npm run dev', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI }
+  // Apply real receiver backpressure so native transfer progress and timeout checks are reproducible.
+  webServer: { command: 'npm run dev', env: { RF_UPLOAD_DELAY_MS: '50' }, url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI }
 });

@@ -21,9 +21,12 @@ await build({ ...shared, entryPoints: ['src/js/form-patterns.js'], outfile: 'dis
 await cp('src/js/form-patterns.d.ts', 'dist/form-patterns.d.ts');
 await build({ ...shared, entryPoints: ['src/js/data-grid.js'], outfile: 'dist/data-grid.js', format: 'esm' });
 await cp('src/js/data-grid.d.ts', 'dist/data-grid.d.ts');
+await build({ ...shared, entryPoints: ['src/upload-queue.css'], outfile: 'dist/upload-queue.css' });
+await build({ ...shared, entryPoints: ['src/js/upload-queue.js'], outfile: 'dist/upload-queue.js', format: 'esm' });
+await cp('src/js/upload-queue.d.ts', 'dist/upload-queue.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);

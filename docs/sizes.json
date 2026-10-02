@@ -48,6 +48,14 @@
     "data-grid.js": {
       "bytes": 21686,
       "gzip": 8203
+    },
+    "upload-queue.css": {
+      "bytes": 1175,
+      "gzip": 483
+    },
+    "upload-queue.js": {
+      "bytes": 10857,
+      "gzip": 4359
     }
   }
 }

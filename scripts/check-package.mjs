@@ -18,6 +18,7 @@ const esm = await import('../dist/rofin.js');
 assert.equal(typeof (await import('../dist/patterns.js')).initPatterns, 'function', 'Optional patterns import is safe without a DOM');
 assert.equal(typeof (await import('../dist/form-patterns.js')).initFormPatterns, 'function', 'Optional forms import is safe without a DOM');
 assert.equal(typeof (await import('../dist/data-grid.js')).createDataGrid, 'function', 'Optional grid import is safe without a DOM');
+assert.equal(typeof (await import('../dist/upload-queue.js')).createUploadQueue, 'function', 'Optional upload queue import is safe without a DOM');
 const cjs = createRequire(import.meta.url)('../dist/rofin.cjs');
 for (const name of ['init', 'initTabs', 'initDialogs', 'initDropdowns', 'initTooltips', 'initUploads', 'toast', 'clearToasts']) {
   assert.equal(typeof esm[name], 'function', `ESM export ${name}`);

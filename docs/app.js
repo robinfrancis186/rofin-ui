@@ -5,6 +5,7 @@ import { initEffects } from '../src/js/effects.js';
 import { initPatterns } from '../src/js/patterns.js';
 import { initFormPatterns } from '../src/js/form-patterns.js';
 import { initGridExamples } from '../examples/grid-demo.js';
+import { initUploadExamples } from '../examples/upload-demo.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
@@ -16,6 +17,7 @@ let stopEffects = () => {};
 let stopPatterns = () => {};
 let stopForms = () => {};
 let stopGrids = () => {};
+let stopUploads = () => {};
 let sizeReport;
 let saved = new Set();
 try {
@@ -111,7 +113,7 @@ function referenceLibrary() {
   document.querySelector('#search-status').textContent = `${entries.length} reference entries`;
   return `<div class="page-heading"><p class="rf-eyebrow">Collected ${references.date}</p><h1>A wider world of UI.</h1><p>Explore all 11 source libraries. Related Rofin patterns are original alternatives; they do not reproduce every effect or behavior.</p></div><div class="reference-summary rf-card"><strong>${references.libraries.reduce((sum, library) => sum + library.entries.length, 0).toLocaleString()} indexed references · ${catalog.length} runnable Rofin examples</strong><p class="rf-muted">Catalog coverage is partial, especially Aura’s 2,495 free entries. Catalogued names and URLs do not mean each individual demo was reviewed or implemented.</p><a href="./reference-review.md" download>Download coverage notes →</a></div><div class="rf-cluster category-filters" aria-label="Filter reference libraries">${['All', ...references.libraries.map(library => library.name)].map(name => `<button class="rf-button rf-button--small ${libraryFilter === name ? '' : 'rf-button--outline'}" type="button" data-library="${escape(name)}" aria-pressed="${libraryFilter === name}">${escape(name)}</button>`).join('')}</div>${libraries.length === 1 ? `<p class="rf-help">${escape(libraries[0].coverage)} <a href="${libraries[0].url}" target="_blank" rel="noopener">Open source catalog ↗</a></p>` : ''}<p class="rf-help">${entries.length} matching references. Search by name or library.</p><div class="reference-list">${entries.map(item => `<article class="reference-row"><div><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.title)} ↗</a><p>${escape(item.library)} · ${escape(item.review)}</p></div>${item.related ? `<a class="reference-pattern" href="#component/${item.related}">Related: ${escape(catalog.find(entry => entry.id === item.related)?.title || item.related)} →</a>` : '<span class="rf-help">Reference only</span>'}</article>`).join('') || '<p>No references match this search.</p>'}</div>${footer()}`;
 }
-const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid' };
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue' };
 function setup(item) {
   const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
   let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
@@ -120,7 +122,7 @@ function setup(item) {
     const core = item.js.filter(name => name !== 'effects');
     if (core.length) {
       for (const name of core) code += `  import { ${functions[name]} } from './src/js/${name}.js';\n`;
-      for (const name of core.filter(name => name !== 'toast')) code += name === 'data-grid' ? "  document.querySelectorAll('[data-rf-data-grid]').forEach(element => createDataGrid(element));\n" : `  ${functions[name]}();\n`;
+      for (const name of core.filter(name => name !== 'toast')) code += name === 'upload-queue' ? "  document.querySelectorAll('[data-rf-upload-queue]').forEach(element => createUploadQueue(element));\n" : name === 'data-grid' ? "  document.querySelectorAll('[data-rf-data-grid]').forEach(element => createDataGrid(element));\n" : `  ${functions[name]}();\n`;
     }
     if (item.js.includes('effects')) code += "  import { initEffects } from './src/js/effects.js';\n  initEffects();\n";
     if (item.sampleJS) code += '\n' + item.sampleJS.split('\n').map(line => '  ' + line).join('\n') + '\n';
@@ -139,7 +141,7 @@ function coverage() {
   const groups = [
     ['Website navigation', ['website-header', 'navigation', 'breadcrumb', 'footer']],
     ['Marketing pages', ['hero', 'features', 'bento', 'logo-cloud', 'pricing', 'billing-switch', 'testimonials', 'faq', 'cta', 'blog-grid', 'team']],
-    ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'checkbox', 'radio', 'upload']],
+    ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'checkbox', 'radio', 'upload', 'upload-queue']],
     ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings']],
     ['Dashboard structure', ['app-shell', 'dashboard-metrics', 'resizable-panels', 'layout', 'card', 'avatar', 'badge']],
     ['Charts & progress', ['line-chart', 'bar-chart', 'donut-chart', 'progress', 'meter', 'stats']],
@@ -170,7 +172,7 @@ function updateSize() {
   document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = `${(sizeReport.coreGzip / 1024).toFixed(1)} KiB`; });
 }
 function render({ focus = false } = {}) {
-  stopGrids();
+  stopGrids(); stopUploads();
   stopEffects();
   stopForms();
   stopPatterns();
@@ -193,6 +195,7 @@ function render({ focus = false } = {}) {
   stopPatterns = initPatterns(main);
   stopForms = initFormPatterns(main);
   stopGrids = initGridExamples(main);
+  stopUploads = initUploadExamples(main);
   navigation(); updateSize();
   document.title = `${item?.title || ({ coverage: 'Website & dashboard checklist', start: 'Installation', theming: 'Theming', api: 'JavaScript API', principles: 'Principles', catalog: 'Gallery', saved: 'Saved collection', references: 'Reference library' }[route] || 'Beautiful components. Minimal footprint.')} — Rofin UI`;
   if (focus) { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }

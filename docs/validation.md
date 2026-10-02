@@ -1,9 +1,37 @@
 # Validation evidence — 2 October 2026
 
-Current gallery: 116 runnable entries, including the advanced data table and
+Current gallery: 117 runnable entries, including the upload queue, advanced data table and
 eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Upload queue
+
+Eight focused upload checks pass in Chrome, Firefox and macOS WebKit. They cover
+native selection/drop, local previews, safe file-name rendering, size/type/count
+limits, disabled state, cancelled reset, concurrency, explicit retry,
+late-callback rejection, active reset, teardown and preview-URL cleanup.
+Exposed errors, controls and progress pass automated WCAG checks in both themes
+at 390 pixels without widening the document.
+
+Real HTTP checks upload and download exact PNG/text bytes, verify SHA-256
+receipts and idempotency, reject mismatched signatures/invalid UTF-8, unsafe
+names, oversized files and foreign origins, and delete their own sample files.
+An 8 MB transfer reports intermediate native upload progress while the receiver
+is still reading; cancellation removes its partial file, and retry completes
+with the same ID and exact bytes. Timeout, abort and HTTP failures are checked.
+The test-owned server slows actual chunk reads by 50 ms to make backpressure
+observable; progress is never synthesized by a timer.
+
+A separate rendered browser check selected a synthetic file through the native
+chooser, started Upload with Enter and reset the queue. Its saved bytes matched
+the input; that test's temporary file was deleted. The sample receiver is public
+localhost storage that expires after 15 minutes or server shutdown. Signature
+checks do not fully decode file formats. Authorized durable uploads remain A03.
+
+Package validation passes with 198 files, zero runtime/peer dependencies and a
+DOM-safe optional queue import. The queue is separate from the core, which stays
+8,153 bytes gzip. Static production previews disable transport.
 
 ## Advanced data table
 
@@ -83,11 +111,12 @@ This verifies the complete grid checkpoint in Linux Chromium, Firefox and WebKit
 ## Preview forms without scripts
 
 A new regression check reproduced a sample sign-in form placing its values in
-the URL when JavaScript was unavailable. All 31 local preview forms now use
+the URL when JavaScript was unavailable. All 31 preview forms at that checkpoint used
 native `method="dialog"`, which preserves validation without transmitting
 values. The check passes in all three engines for sign-in, password reveal,
 autocomplete and the scheduler, with unchanged URLs and no navigation requests.
 JavaScript submit handlers continue to supply the interactive local previews.
+The new upload example follows the same contract, bringing the current total to 32.
 
 ## Production documentation
 

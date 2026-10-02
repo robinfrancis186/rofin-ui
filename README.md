@@ -70,7 +70,7 @@ reinitialization.
 | Area | Included examples |
 | --- | --- |
 | Foundations | Button, card, layout, navigation, avatar, badge |
-| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, checkbox, radio group, switch, range, file input |
+| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
 | Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, sign-up, password reset |
@@ -84,7 +84,8 @@ triggers, tooltip Escape dismissal, file-selection details, and toast APIs.
 The [website and dashboard checklist](docs/coverage.md) maps common product needs
 to existing examples. The documentation also includes a clickable coverage page.
 
-A file input does not upload files by itself. The optional table pattern adds
+A file input does not upload files by itself. The optional upload queue invokes
+an application callback only after an explicit Upload action. The optional table pattern adds
 local search, sorting, filters, pagination, and selection. The separate advanced
 data table adds virtualization and application-supplied server queries.
 Application data, authentication, form submission, and backend integrations
@@ -213,6 +214,50 @@ state/rows; cancel `rf:grid-before-edit` to stop a save.
 
 After npm publication, the optional imports are `rofin-ui/data-grid` and
 `rofin-ui/data-grid.css`.
+
+## Optional upload workflow
+
+Add `src/upload-queue.css` alongside the core styles and use the labelled input
+and list in `examples/components/upload-queue.html`:
+
+```js
+import { createUploadQueue, uploadFile } from './src/js/upload-queue.js';
+const queue = createUploadQueue(document.querySelector('[data-rf-upload-queue]'), {
+  upload: (file, { id, signal, onProgress }) => uploadFile(
+    `/api/uploads?id=${id}&name=${encodeURIComponent(file.name)}`,
+    file, { signal, onProgress, headers: { 'Content-Type': 'application/octet-stream' } }
+  )
+});
+// /api/uploads is an endpoint your application implements.
+// Call queue.destroy() before removing the component.
+```
+
+Without a callback, files stay local and upload buttons are disabled. The queue
+supports drop/native selection, image previews, size/type/count checks,
+two simultaneous transfers by default, native progress, cancel and explicit
+retry. Failed and cancelled files remain available; reset clears the queue and
+aborts active callbacks. Removing a row only changes the local queue.
+`getFiles()` returns the selected File objects, including after teardown;
+enhancement clears the native input after selection, so enhanced forms use
+this API or their upload callback rather than the input's current FileList.
+
+Callbacks honor the supplied AbortSignal and use the stable ID for server
+idempotency. `uploadFile` sends the binary body with XMLHttpRequest, reports
+actual upload events and rejects HTTP, network, timeout and abort failures.
+`rf:upload-change`, `rf:upload-complete` and `rf:upload-error` expose state,
+receipts and failures; cancel `rf:upload-before` to prevent a transfer.
+Application code owns authorization, server validation, storage and deletion.
+
+`npm run dev` provides `/api/sample-uploads`, a public localhost receiver with
+8 MB file limits, signature/UTF-8 checks, SHA-256 receipts and exact downloads.
+It holds at most 64 MB and 20 files in a temporary directory; files expire
+after 15 minutes or when the server stops. Signature checks do not fully decode
+file formats. Interrupted partial files are removed. The static production
+gallery disables transport and offers local previews only.
+
+After npm publication, optional imports are `rofin-ui/upload-queue` and
+`rofin-ui/upload-queue.css`. The module has no runtime dependencies and stays
+outside the core bundle.
 
 ## Themes
 

@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 116-example gallery covers common website and dashboard UI. Use the
+The 117-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -8,7 +8,7 @@ each example. This is a UI library, not an application backend.
 | --- | --- |
 | Website navigation | Responsive header, native mobile menu, navigation, breadcrumbs, footer |
 | Marketing pages | Hero, feature grid, bento, logos, pricing and billing toggle, testimonials, FAQ, CTA, team, blog grid |
-| Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, checkboxes/radios, upload, character counter, tags |
+| Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, checkboxes/radios, file input, upload queue, character counter, tags |
 | Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
@@ -70,3 +70,9 @@ views. Its generated 10,000-row sample uses a bounded virtual window or native
 pagination. The local development server also serves real read-only HTTP pages;
 production applications supply authorized loaders and save callbacks. These
 controls reuse Rofin form, table and button styles and stay outside the core.
+
+The optional upload queue reuses the shared upload, form, button and progress
+styles. It adds previews, file limits, explicit transfers, cancellation and
+retry. The development server receives actual binary files with native progress
+and interrupted-file cleanup; static production keeps transport disabled.
+The temporary public sample does not provide authorized durable storage.

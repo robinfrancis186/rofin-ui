@@ -41,7 +41,9 @@
     },
     "./form-patterns.css": "./dist/form-patterns.css",
     "./data-grid": { "types": "./dist/data-grid.d.ts", "import": "./dist/data-grid.js" },
-    "./data-grid.css": "./dist/data-grid.css"
+    "./data-grid.css": "./dist/data-grid.css",
+    "./upload-queue": { "types": "./dist/upload-queue.d.ts", "import": "./dist/upload-queue.js" },
+    "./upload-queue.css": "./dist/upload-queue.css"
   },
   "files": [
     "dist/*.css",
