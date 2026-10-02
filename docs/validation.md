@@ -26,11 +26,14 @@ script. Sign out remains disabled because the public sample has no account
 session.
 
 The existing dashboard, workspace and core interaction checks also pass in
-Chromium and macOS WebKit; Firefox's other 27 checks pass and the corrected
-account-focus case passes in the focused six-test rerun. A rendered local
+Chromium and macOS WebKit; the final full CI suite verifies all three engines.
+A rendered local
 390-pixel check confirmed the menu, current Lab context and profile focus.
 The shared dropdown matches accessible labels before decorative text. Core
 CSS plus auto JavaScript is now 8,161 bytes gzip, within its 14 KiB ceiling.
+Package validation passes with 201 files and zero runtime/peer dependencies.
+The branch download returns HTTP 200 and contains all 119 entries plus the new
+workspace/account examples and styles.
 
 ## Upload queue
 
@@ -141,6 +144,12 @@ passed all 75 tests and 198-file package validation in each engine on commit
 Chromium, Firefox and WebKit; the eight focused checks also passed locally in
 all three engines. Each completed job's log was inspected.
 
+GitHub run [37020029117](https://github.com/robinfrancis186/rofin-ui/actions/runs/37020029117)
+passed all 81 tests and 201-file package validation in each engine on commit
+`abf2b3d`. This verifies the full 119-example workspace/account checkpoint;
+each terminal job and its completed log were inspected. The core is 8,145
+bytes gzip on Linux and 8,161 locally on macOS, below the enforced budget.
+
 ## Preview forms without scripts
 
 A new regression check reproduced a sample sign-in form placing its values in
@@ -178,6 +187,14 @@ on production. Native file selection added a local preview while Upload/Retry
 remained disabled. Keyboard cancellation and reset worked, and both themes
 remained within 390 pixels. No console errors were reported in those checks.
 The static gallery provides no upload endpoint or durable application storage.
+
+The 119-example workspace checkpoint passed content checks for all 203 built
+files. Rendered production checks followed the gallery link to Personal,
+created a local QA project, switched to Studio and back, and confirmed separate
+rows and retained edits. Account navigation kept those edits and the profile
+drawer focused Display name. Both themes remained within 390 pixels, and no
+console errors were reported. Reload cleared the QA project. These are public
+session examples; they do not provide authenticated or durable workspaces.
 
 `.vercelignore` excludes local test traces, test files, dependency/build output
 and environment files from CLI uploads. The corrected deployment uploaded
