@@ -27,6 +27,8 @@ assert.equal(typeof (await import('../dist/team-management.js')).createTeamManag
 assert.equal(typeof (await import('../dist/editors.js')).initEditors, 'function', 'Optional editors import is safe without a DOM');
 assert.equal(typeof (await import('../dist/file-browser.js')).createFileBrowser, 'function', 'Optional file browser import is safe without a DOM');
 assert.equal(typeof (await import('../dist/viewers.js')).initViewers, 'function', 'Optional viewer import is safe without a DOM');
+assert.equal(typeof (await import('../dist/billing.js')).createBillingManager, 'function', 'Optional billing import is safe without a DOM');
+for (const path of ['examples/billing.html', 'examples/billing-demo.js', 'examples/assets/sample-invoice.txt', 'dist/billing.d.ts']) assert(packed.has(path), `Missing billing file: ${path}`);
 const cjs = createRequire(import.meta.url)('../dist/rofin.cjs');
 for (const name of ['init', 'initTabs', 'initDialogs', 'initDropdowns', 'initTooltips', 'initUploads', 'toast', 'clearToasts']) {
   assert.equal(typeof esm[name], 'function', `ESM export ${name}`);

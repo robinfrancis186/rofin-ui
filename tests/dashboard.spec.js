@@ -134,7 +134,8 @@ test('website and dashboard layouts, exposed overlays, and chart data are access
     await page.setViewportSize({ width: 1440, height: 1100 });
     await page.goto('/dist/site/examples/dashboard.html');
     if (theme === 'dark') await page.getByRole('button', { name: 'Dark theme', exact: true }).click();
-    await page.evaluate(async () => { await Promise.all(document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))); });
+    // Read live painted controls: Firefox keeps transitions inside closed details pending.
+    await page.waitForFunction(() => document.getAnimations().filter(animation => animation.effect.getTiming().iterations !== Infinity && animation.effect.target.checkVisibility({ contentVisibilityAuto: true })).every(animation => animation.playState !== 'running' && !animation.pending));
     const axe = () => new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
     expect((await axe()).violations, `Dashboard ${theme}`).toEqual([]);
     await page.getByText('View chart data', { exact: true }).click();
@@ -170,11 +171,11 @@ test('website and dashboard layouts, exposed overlays, and chart data are access
   await expect(page).toHaveURL(/#pricing$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
   await page.goto('/docs/index.html#coverage');
-  await expect(page.locator('.coverage-table tbody tr')).toHaveCount(10);
+  await expect(page.locator('.coverage-table tbody tr')).toHaveCount(11);
   await page.getByRole('link', { name: 'Paginated table', exact: true }).last().click();
   await expect(page.locator('.page-heading h1')).toHaveText('Paginated table');
   await page.setViewportSize({ width: 320, height: 900 });
-  for (const id of ['website-header', 'app-shell', 'dashboard-metrics', 'bar-chart', 'donut-chart', 'paginated-table', 'bulk-actions', 'notification-center', 'date-range', 'account-settings', 'sign-up', 'password-reset', 'upload']) {
+  for (const id of ['website-header', 'app-shell', 'dashboard-metrics', 'bar-chart', 'donut-chart', 'paginated-table', 'bulk-actions', 'notification-center', 'date-range', 'account-settings', 'sign-up', 'password-reset', 'upload', 'subscription', 'invoice-history', 'usage']) {
     await page.goto(`/docs/index.html#component/${id}`);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), `${id} at 320`).toBe(false);
   }

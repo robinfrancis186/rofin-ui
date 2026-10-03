@@ -3,6 +3,8 @@ import { mkdir, readFile, writeFile, cp, readdir, rm } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { errorPage } from './error-pages.mjs';
+import { invoiceText } from '../src/js/billing.js';
+import { sampleBilling } from '../examples/billing-demo.js';
 
 await mkdir('dist', { recursive: true });
 const shared = { bundle: true, minify: true, target: ['es2022'], logLevel: 'warning' };
@@ -37,9 +39,12 @@ await cp('src/js/file-browser.d.ts', 'dist/file-browser.d.ts');
 await build({ ...shared, entryPoints: ['src/viewers.css'], outfile: 'dist/viewers.css' });
 await build({ ...shared, entryPoints: ['src/js/viewers.js'], outfile: 'dist/viewers.js', format: 'esm' });
 await cp('src/js/viewers.d.ts', 'dist/viewers.d.ts');
+await build({ ...shared, entryPoints: ['src/billing.css'], outfile: 'dist/billing.css' });
+await build({ ...shared, entryPoints: ['src/js/billing.js'], outfile: 'dist/billing.js', format: 'esm' });
+await cp('src/js/billing.d.ts', 'dist/billing.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js', 'viewers.css', 'viewers.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js', 'viewers.css', 'viewers.js', 'billing.css', 'billing.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);
@@ -68,6 +73,13 @@ await writeFile('docs/sizes.json', JSON.stringify({ coreGzip, files: sizes }, nu
 const recovery = await readFile('examples/recovery.html', 'utf8');
 if (!recovery.includes('<!-- rf:recovery-pages:start -->') || !recovery.includes('<!-- rf:recovery-pages:end -->')) throw Error('Missing recovery template markers.');
 await writeFile('examples/recovery.html', recovery.replace(/<!-- rf:recovery-pages:start -->[\s\S]*?<!-- rf:recovery-pages:end -->/, `<!-- rf:recovery-pages:start -->\n<template id="recovery-pages">\n${catalog.filter(item => item.id.startsWith('error-')).map(item => item.html).join('\n')}\n</template>\n<!-- rf:recovery-pages:end -->`));
+const billingHTML = catalog.filter(item => ['subscription', 'invoice-history', 'usage'].includes(item.id)).map(item => item.html).join('\n');
+for (const path of ['examples/billing.html', 'examples/dashboard.html']) {
+  const html = await readFile(path, 'utf8');
+  if (!html.includes('<!-- rf:billing-pages:start -->') || !html.includes('<!-- rf:billing-pages:end -->')) throw Error('Missing billing template markers.');
+  await writeFile(path, html.replace(/<!-- rf:billing-pages:start -->[\s\S]*?<!-- rf:billing-pages:end -->/, `<!-- rf:billing-pages:start -->\n${path.includes('dashboard') ? billingHTML.replace('data-rf-usage-preview', 'data-rf-usage-preview hidden') : billingHTML}\n<!-- rf:billing-pages:end -->`));
+}
+await writeFile('examples/assets/sample-invoice.txt', invoiceText(sampleBilling(), 'studio-sep', { sample: true }));
 
 // Self-contained static documentation, ready for any static host. No deployment required.
 await rm('dist/site', { recursive: true, force: true });
@@ -82,7 +94,7 @@ for (const name of ['index.html', 'app.js', 'catalog.js']) {
 }
 await cp('src', 'dist/site/src', { recursive: true });
 await cp('examples', 'dist/site/examples', { recursive: true });
-for (const name of ['index.html', 'landing.html', 'dashboard.html', 'team-invite.html', 'recovery.html', 'recovery.js']) {
+for (const name of ['index.html', 'landing.html', 'dashboard.html', 'billing.html', 'team-invite.html', 'recovery.html', 'recovery.js']) {
   const file = `dist/site/examples/${name}`;
   await writeFile(file, (await readFile(file, 'utf8')).replaceAll('../docs/index.html', '../index.html'));
 }

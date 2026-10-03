@@ -11,6 +11,7 @@ import { initEditors } from '../src/js/editors.js';
 import { initFileBrowsers } from '../src/js/file-browser.js';
 import { initViewers } from '../src/js/viewers.js';
 import { initChartExamples } from '../examples/chart-demo.js';
+import { initBillingExamples } from '../examples/billing-demo.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
@@ -28,6 +29,7 @@ let stopEditors = () => {};
 let stopFiles = () => {};
 let stopViewers = () => {};
 let stopCharts = () => {};
+let stopBilling = () => {};
 let sizeReport;
 let saved = new Set();
 try {
@@ -123,7 +125,7 @@ function referenceLibrary() {
   document.querySelector('#search-status').textContent = `${entries.length} reference entries`;
   return `<div class="page-heading"><p class="rf-eyebrow">Collected ${references.date}</p><h1>A wider world of UI.</h1><p>Explore all 11 source libraries. Related Rofin patterns are original alternatives; they do not reproduce every effect or behavior.</p></div><div class="reference-summary rf-card"><strong>${references.libraries.reduce((sum, library) => sum + library.entries.length, 0).toLocaleString()} indexed references · ${catalog.length} runnable Rofin examples</strong><p class="rf-muted">Catalog coverage is partial, especially Aura’s 2,495 free entries. Catalogued names and URLs do not mean each individual demo was reviewed or implemented.</p><a href="./reference-review.md" download>Download coverage notes →</a></div><div class="rf-cluster category-filters" aria-label="Filter reference libraries">${['All', ...references.libraries.map(library => library.name)].map(name => `<button class="rf-button rf-button--small ${libraryFilter === name ? '' : 'rf-button--outline'}" type="button" data-library="${escape(name)}" aria-pressed="${libraryFilter === name}">${escape(name)}</button>`).join('')}</div>${libraries.length === 1 ? `<p class="rf-help">${escape(libraries[0].coverage)} <a href="${libraries[0].url}" target="_blank" rel="noopener">Open source catalog ↗</a></p>` : ''}<p class="rf-help">${entries.length} matching references. Search by name or library.</p><div class="reference-list">${entries.map(item => `<article class="reference-row"><div><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.title)} ↗</a><p>${escape(item.library)} · ${escape(item.review)}</p></div>${item.related ? `<a class="reference-pattern" href="#component/${item.related}">Related: ${escape(catalog.find(entry => entry.id === item.related)?.title || item.related)} →</a>` : '<span class="rf-help">Reference only</span>'}</article>`).join('') || '<p>No references match this search.</p>'}</div>${footer()}`;
 }
-const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager', editors: 'initEditors', 'file-browser': 'initFileBrowsers', viewers: 'initViewers' };
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager', editors: 'initEditors', 'file-browser': 'initFileBrowsers', viewers: 'initViewers', billing: 'createBillingManager' };
 function setup(item) {
   const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
   let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
@@ -132,7 +134,7 @@ function setup(item) {
     const core = item.js.filter(name => name !== 'effects');
     if (core.length) {
       for (const name of core) code += `  import { ${functions[name]} } from './src/js/${name}.js';\n`;
-      for (const name of core.filter(name => name !== 'toast')) code += name === 'team-management' ? "  // Your application supplies confirmed team/actorId and change/load callbacks.\n  // const manager = createTeamManager(document.querySelector('[data-rf-team-manager]'),\n  //   { team, actorId, change, load });\n  // manager.destroy(); // Before removing the component.\n" : name === 'upload-queue' ? "  document.querySelectorAll('[data-rf-upload-queue]').forEach(element => createUploadQueue(element));\n" : name === 'data-grid' ? "  document.querySelectorAll('[data-rf-data-grid]').forEach(element => createDataGrid(element));\n" : `  ${functions[name]}();\n`;
+      for (const name of core.filter(name => name !== 'toast')) code += name === 'billing' ? "  // Your application supplies confirmed billing state and change/load callbacks.\n  // const manager = createBillingManager(element, { snapshot, change, load });\n  // manager.destroy(); // Before removing the component.\n" : name === 'team-management' ? "  // Your application supplies confirmed team/actorId and change/load callbacks.\n  // const manager = createTeamManager(document.querySelector('[data-rf-team-manager]'),\n  //   { team, actorId, change, load });\n  // manager.destroy(); // Before removing the component.\n" : name === 'upload-queue' ? "  document.querySelectorAll('[data-rf-upload-queue]').forEach(element => createUploadQueue(element));\n" : name === 'data-grid' ? "  document.querySelectorAll('[data-rf-data-grid]').forEach(element => createDataGrid(element));\n" : `  ${functions[name]}();\n`;
     }
     if (item.js.includes('effects')) code += "  import { initEffects } from './src/js/effects.js';\n  initEffects();\n";
     if (item.sampleJS) code += '\n' + item.sampleJS.split('\n').map(line => '  ' + line).join('\n') + '\n';
@@ -153,6 +155,7 @@ function coverage() {
     ['Website navigation', ['website-header', 'navigation', 'breadcrumb', 'footer']],
     ['Marketing pages', ['hero', 'features', 'bento', 'logo-cloud', 'pricing', 'billing-switch', 'testimonials', 'faq', 'cta', 'blog-grid', 'team']],
     ['Contact & capture', ['contact', 'newsletter', 'input', 'select', 'autocomplete', 'combobox', 'multiselect', 'form-error-summary', 'textarea', 'rich-text-editor', 'markdown-editor', 'checkbox', 'radio', 'upload', 'upload-queue']],
+    ['Billing & capacity', ['subscription', 'invoice-history', 'usage']],
     ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings', 'workspace-switcher', 'account-menu', 'team-management', 'team-invitation', 'permissions-matrix']],
     ['Dashboard structure', ['app-shell', 'dashboard-metrics', 'resizable-panels', 'layout', 'card', 'avatar', 'badge']],
     ['Charts & progress', ['line-chart', 'bar-chart', 'donut-chart', 'progress', 'meter', 'stats']],
@@ -183,6 +186,7 @@ function updateSize() {
   document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = `${(sizeReport.coreGzip / 1024).toFixed(1)} KiB`; });
 }
 function render({ focus = false } = {}) {
+  stopBilling();
   stopViewers(); stopFiles(); stopEditors(); stopTeams(); stopGrids(); stopUploads();
   stopEffects();
   stopForms();
@@ -207,6 +211,7 @@ function render({ focus = false } = {}) {
   stopEffects = initEffects(main);
   stopPatterns = initPatterns(main);
   stopCharts = initChartExamples(main);
+  stopBilling = initBillingExamples(main);
   stopForms = initFormPatterns(main);
   stopGrids = initGridExamples(main);
   stopUploads = initUploadExamples(main);
@@ -258,7 +263,7 @@ document.addEventListener('click', async event => {
     previewWidth.setAttribute('aria-pressed', String(narrow)); previewWidth.textContent = narrow ? 'Full preview' : 'Narrow preview';
   }
   const previewLink = event.target.closest('.preview a');
-  if (previewLink && !previewLink.closest('[data-demo-navigation]') && !event.defaultPrevented) { event.preventDefault(); toast('Example link. Connect this to your own destination.', { duration: 3000 }); }
+  if (previewLink && !previewLink.hasAttribute('download') && !previewLink.closest('[data-demo-navigation]') && !event.defaultPrevented) { event.preventDefault(); toast('Example link. Connect this to your own destination.', { duration: 3000 }); }
   if (event.target.closest('#mobile-nav a')) document.querySelector('#mobile-menu').close();
 });
 document.addEventListener('submit', event => {

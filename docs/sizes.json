@@ -88,6 +88,14 @@
     "viewers.js": {
       "bytes": 7631,
       "gzip": 3058
+    },
+    "billing.css": {
+      "bytes": 259,
+      "gzip": 178
+    },
+    "billing.js": {
+      "bytes": 12935,
+      "gzip": 4819
     }
   }
 }

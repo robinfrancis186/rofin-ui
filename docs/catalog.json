@@ -2393,5 +2393,77 @@
       "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
       "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
     ]
+  },
+  {
+    "id": "subscription",
+    "title": "Subscription management",
+    "category": "Components",
+    "description": "Review a plan, its full billing interval and scheduled cancellation.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/subscription.html",
+    "notes": [
+      "Native plan/interval fields and a review dialog reuse Rofin form, card and button components. Sample changes and cancellation remain within the page session; no payment details or real charges are collected. Pass sample: true for fictional snapshots; production callbacks show provider-owned confirmation wording.",
+      "createBillingManager(element, { snapshot, change, load }) renders copied, validated application state. change(operation, {signal, revision}) must return a newer confirmed snapshot for the same workspace. Eight-second timeout, failed or invalid confirmations retain prior data and require an explicit refresh before another change; teardown aborts callbacks and ignores late results.",
+      "Your authorized server/provider owns prices, proration, entitlements, idempotency, invoice/payment verification and cancellation policy. Never infer a paid subscription from a checkout redirect. Configure real checkout/portal services in the application; none is connected in this example."
+    ]
+  },
+  {
+    "id": "invoice-history",
+    "title": "Invoice history",
+    "category": "Components",
+    "description": "Find invoices, reconcile exact amounts and download their records.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/invoice-history.html",
+    "notes": [
+      "Native details preserve exact line items, discounts, tax, paid and outstanding totals. Search/status fields filter the same records. Text downloads contain actual accepted invoice data; fictional samples identify themselves and do not claim to be tax documents or payment receipts.",
+      "Billing snapshots use integer minor units and an explicit currency display exponent. Safe-integer amounts and reconciled invoice totals are validated atomically. Voided records have no outstanding balance, and each invoice retains its original customer name.",
+      "One workspace currency, up to 100 invoices with 30 items each. Applications paginate larger ledgers and supply provider invoice/PDF records. The component makes no requests. Without scripts, the example still expands and downloads its included sample invoice."
+    ]
+  },
+  {
+    "id": "usage",
+    "title": "Usage and limits",
+    "category": "Components",
+    "description": "Understand exact capacity, remaining room and over-limit states.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/usage.html",
+    "notes": [
+      "Native meters and exact text show projects, seats and storage bytes with remaining, near-capacity, at-limit and over-capacity states. Unlimited and zero quotas are explicit; the displayed number is never hidden by a capped meter.",
+      "The independent gallery selector previews normal, near, over and empty sample values. Dashboard usage derives from the active workspace's actual page-session projects, team members and browser-copy File sizes; previews are hidden there.",
+      "Counts are current snapshots, not usage billing history. Applications supply authorized provider metrics and enforce entitlements on the server. No quota restriction or charge is enforced by this UI."
+    ]
   }
 ]

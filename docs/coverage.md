@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 132-example gallery covers common website and dashboard UI. Use the
+The 135-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -9,6 +9,7 @@ each example. This is a UI library, not an application backend.
 | Website navigation | Responsive header, native mobile menu, navigation, breadcrumbs, footer |
 | Marketing pages | Hero, feature grid, bento, logos, pricing and billing toggle, testimonials, FAQ, CTA, team, blog grid |
 | Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, rich-text/Markdown note editors, checkboxes/radios, file input, upload queue, character counter, tags |
+| Billing UI | Subscription review/cancellation, invoice search/status and exact records/downloads, current quota/remaining/near/over/unlimited states |
 | Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu, team management, invitation acceptance, permissions matrix |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
 | Visualization | Line chart with atomic data updates, bounded streaming, window zoom, keyboard exploration and series toggles; bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
@@ -51,7 +52,7 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
-server validation. Billing flows and advanced visuals remain in
+server validation. Provider-backed billing and advanced visuals remain in
 `completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
@@ -144,3 +145,14 @@ an unsent note and offers explicit GET retry. Cancellation, timeout and stale
 results cannot overwrite a newer read. Local permission/server fixtures are
 disabled on static production; first-visit offline needs application caching,
 and these pages do not supply durable notes or authorization.
+
+Billing pages compose the same subscription, invoice and usage source templates
+in the gallery, standalone billing example and dashboard. Confirmed application
+callbacks own plan changes, cancellation and reads; no payment requests start
+automatically. Failed/invalid/timeout confirmations retain accepted data and
+require an explicit authoritative refresh before another change. Native invoice
+disclosures and exact text downloads stay readable without component scripts.
+Current dashboard usage comes from its actual page-session projects, team and
+non-trashed file bytes. Sample paid/part-paid/void invoices are explicit fictional
+records; changes do not manufacture a payment or receipt. Authorized provider
+checkout, verified invoices and durable metering remain C09/A01/A02/A05.

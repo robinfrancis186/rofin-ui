@@ -42,7 +42,10 @@
     "./form-patterns.css": "./dist/form-patterns.css",
     "./data-grid": { "types": "./dist/data-grid.d.ts", "import": "./dist/data-grid.js" },
     "./data-grid.css": "./dist/data-grid.css",
-    "./upload-queue": { "types": "./dist/upload-queue.d.ts", "import": "./dist/upload-queue.js" },
+    "./upload-queue": {
+      "types": "./dist/upload-queue.d.ts",
+      "import": "./dist/upload-queue.js"
+    },
     "./upload-queue.css": "./dist/upload-queue.css",
     "./team-management": {
       "types": "./dist/team-management.d.ts",
@@ -57,7 +60,12 @@
     "./file-browser": { "types": "./dist/file-browser.d.ts", "import": "./dist/file-browser.js" },
     "./file-browser.css": "./dist/file-browser.css",
     "./viewers": { "types": "./dist/viewers.d.ts", "import": "./dist/viewers.js" },
-    "./viewers.css": "./dist/viewers.css"
+    "./viewers.css": "./dist/viewers.css",
+    "./billing": {
+      "types": "./dist/billing.d.ts",
+      "import": "./dist/billing.js"
+    },
+    "./billing.css": "./dist/billing.css"
   },
   "files": [
     "dist/*.css",

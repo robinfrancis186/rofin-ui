@@ -75,6 +75,7 @@ reinitialization.
 | Feedback and content | Toast, alert, table, file browser/tree, image lightbox, document/local-file viewer, native media player, progress, meter, spinner, skeleton, empty state |
 | Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
 | Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
+| Billing | Subscription review/cancellation, invoice history and exact text downloads, usage quotas and capacity states |
 | Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
 
 Native HTML handles form behavior, expandable details, and modal focus
@@ -611,3 +612,57 @@ their status-page conventions. Permissions still need server enforcement,
 first-visit offline needs an application cache, and notes remain only while the
 page is open. Before retrying a failed save or payment, reconcile its server
 state so it is not duplicated.
+
+## Optional billing views
+
+The subscription, invoice-history and usage examples reuse native forms,
+dialogs, details, tables and meters. `examples/billing.html` composes these same
+views; the dashboard uses their source templates directly. Sample plan changes
+last for the page session and never create paid invoices or collect payment
+details. Dashboard quotas use actual active project counts, team members and
+non-trashed browser-copy file bytes.
+
+```js
+import { createBillingManager } from 'rofin-ui/billing';
+
+// The application supplies initialSnapshot and these authorized server callbacks.
+const manager = createBillingManager(element, {
+  snapshot: initialSnapshot,
+  change: (operation, { signal, revision }) =>
+    saveBillingChange(operation, { signal, revision }),
+  load: ({ signal }) => loadConfirmedBilling({ signal })
+});
+manager.getSnapshot(); // A copied, accepted snapshot.
+manager.update(confirmedSnapshot); // Same workspace, non-stale revision.
+manager.destroy(); // Abort pending callbacks before removing the view.
+```
+
+Include `billing.css` plus the shared card, form, table, button and progress
+styles. [billing.d.ts](src/js/billing.d.ts) defines the snapshot and operations.
+Set `sample: true` only for fictional previews; ordinary records use the default.
+One workspace currency, up to ten plans and 100 invoices with 30 items each are
+supported. Amounts are bounded safe integer minor units; `fractionDigits`
+explicitly controls their display exponent. Normalize provider data on the
+server; see [Stripe's currency format rules](https://docs.stripe.com/currencies).
+Invoice line items, discounts, tax, totals and paid values must reconcile.
+Voided records have no outstanding balance. Each invoice retains its original
+customer name and downloads its exact text, rather than an invented PDF.
+Provider documents and tax compliance remain application responsibilities.
+
+The component starts no requests. Confirmed changes require a newer revision
+for the same workspace and emit `rf:billing-change` with a copied operation and
+snapshot. Failed, invalid or eight-second timed-out confirmations keep previous
+data, abort the callback and disable further changes until explicit refresh
+reconciles current state. Abort cannot undo a server-side write: the server owns
+idempotency, authorization and authoritative reconciliation. Late results after
+updates or teardown cannot alter the view. Read-only views keep invoice search,
+native disclosures and text downloads. Cancelled/native form reset preserves
+confirmed state; usage-only updates preserve plan drafts and expanded invoices.
+
+Real checkout, payment details, subscription timing/proration, entitlements,
+invoice verification and durable usage history are still required services.
+For a Stripe integration, use its configured [Checkout](https://docs.stripe.com/payments/checkout)
+and [customer portal](https://docs.stripe.com/customer-management). Fulfillment
+must use confirmed server events, not a redirect alone, as described in
+[Stripe's post-payment flow](https://docs.stripe.com/payments/existing-customers?platform=web&ui=stripe-hosted).
+No provider is connected to these public examples.

@@ -1,10 +1,52 @@
 # Validation evidence — 2–3 October 2026
 
-Current gallery: 132 runnable entries, including nested/grid sorting and reorderable task cards/columns, nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 135 runnable entries, including nested/grid sorting and reorderable task cards/columns, nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Billing UI checkpoint
+
+Three billing views reuse shared native form/card/table/button/meter components.
+The gallery and composed billing/dashboard pages use the same source templates.
+Integer minor-unit prices have an explicit display exponent; invoices validate
+exact line, discount, tax, total and paid values. Voided records have no balance
+due, and historical customer names survive workspace renaming. Native details
+and genuine text downloads expose accepted data. These fictional statements
+are marked as samples, not tax documents or proof of payment.
+
+Plan/interval review, scheduled cancellation and resume commit only a copied
+newer same-workspace snapshot supplied by the application. Failed, stale,
+malformed or eight-second timed-out confirmations retain prior data, abort the
+callback and require refresh before another change. Updates/teardown reject
+late results. Native/cancelled reset and usage-only updates preserve confirmed
+state, plan drafts and expanded invoice records. Gallery usage scenarios cover
+near/over/empty/unlimited/zero quotas; dashboard usage instead derives from
+actual active projects, team members and non-trashed browser-copy File bytes.
+The sample period follows monthly/yearly calendar boundaries, including end-of-
+month and leap-year clamps. Real provider timing remains application-owned.
+
+Seven focused checks pass in Chromium, Firefox and macOS WebKit, including actual invoice downloads,
+project creation, member removal and imported/trash/restored file bytes,
+workspace plan isolation, valid/invalid snapshots, failure/reconciliation,
+timeout/late callbacks, native and cancelled reset, zero/2/3 currency display
+exponents, 320/390/1440-pixel themes, reduced motion, full axe scans and actual
+scripts-off invoice disclosure/download. The gallery download guard now permits
+native download links; pricing choices navigate to the composed billing view.
+The full 150-test local Chromium suite, 11 affected billing/dashboard checks
+in each engine and the 265-file package check pass. The theme checks wait for
+live painted controls: Firefox retains pending transitions inside closed native
+details. All accessibility rules and assertions remain enabled. Installed Safari
+separately verifies annual plan review/change, the exact 2027-10-01 period end,
+cancellation dismissal and the open invoice balance of $14.00. The owned Safari
+tab was closed and its original Start Page restored. Current production and
+exact-head CI evidence are recorded in draft PR #1 after deployment.
+
+Production has no configured environment variables (`vercel env ls production`,
+3 October 2026). No payment provider, durable billing account or verified invoice
+service is configured. C09 remains partial until provider-backed evidence and
+authorized persisted data are verified; A01/A02/A05 remain outstanding.
 
 ## Shared chart updates and filtered dashboard data
 

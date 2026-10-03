@@ -1043,7 +1043,7 @@ export default [
       "Yearly examples show a monthly equivalent with the annual amount stated below. Replace all figures and policies with your own.",
       "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
     ],
-    "html": "<section class=\"rf-stack\" data-rf-billing aria-labelledby=\"billing-title\">\n  <div><p class=\"rf-eyebrow\">A clear choice, at your pace.</p><h3 id=\"billing-title\">A little room to grow.</h3><p class=\"rf-muted\">Illustrative plans for a fictional workspace.</p></div>\n  <fieldset class=\"rf-segmented\"><legend>Billing interval</legend><label><input type=\"radio\" name=\"example-billing\" value=\"monthly\" checked><span>Monthly</span></label><label><input type=\"radio\" name=\"example-billing\" value=\"yearly\"><span>Yearly · save 20%</span></label></fieldset>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\">Personal</h4><p class=\"rf-muted\">A home for your own ideas.</p><p class=\"rf-price\"><span data-rf-monthly=\"$10\" data-rf-yearly=\"$8\">$10</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button rf-button--outline\" href=\"#personal-plan\">Choose Personal</a></article>\n    <article class=\"rf-card rf-stack rf-pricing__featured\"><span class=\"rf-badge\" data-variant=\"success\">For building together</span><h4 class=\"rf-card__title\">Studio</h4><p class=\"rf-muted\">More space for your next chapter.</p><p class=\"rf-price\"><span data-rf-monthly=\"$25\" data-rf-yearly=\"$20\">$25</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button\" href=\"#studio-plan\">Choose Studio</a></article>\n  </div>\n  <p class=\"rf-help\">A pricing interface demo. No payment is collected. Yearly examples represent $96 and $240 per year.</p>\n</section>",
+    "html": "<section class=\"rf-stack\" data-rf-billing data-demo-navigation aria-labelledby=\"billing-title\">\n  <div><p class=\"rf-eyebrow\">A clear choice, at your pace.</p><h3 id=\"billing-title\">A little room to grow.</h3><p class=\"rf-muted\">Illustrative plans for a fictional workspace.</p></div>\n  <fieldset class=\"rf-segmented\"><legend>Billing interval</legend><label><input type=\"radio\" name=\"example-billing\" value=\"monthly\" checked><span>Monthly</span></label><label><input type=\"radio\" name=\"example-billing\" value=\"yearly\"><span>Yearly · save 20%</span></label></fieldset>\n  <div class=\"rf-grid\">\n    <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\">Personal</h4><p class=\"rf-muted\">A home for your own ideas.</p><p class=\"rf-price\"><span data-rf-monthly=\"$10\" data-rf-yearly=\"$8\">$10</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button rf-button--outline\" href=\"../examples/dashboard.html?workspace=personal#billing\">Choose Personal</a></article>\n    <article class=\"rf-card rf-stack rf-pricing__featured\"><span class=\"rf-badge\" data-variant=\"success\">For building together</span><h4 class=\"rf-card__title\">Studio</h4><p class=\"rf-muted\">More space for your next chapter.</p><p class=\"rf-price\"><span data-rf-monthly=\"$25\" data-rf-yearly=\"$20\">$25</span></p><p class=\"rf-help\" data-rf-billing-note>per month, billed monthly</p><a class=\"rf-button\" href=\"../examples/dashboard.html?workspace=studio#billing\">Choose Studio</a></article>\n  </div>\n  <p class=\"rf-help\">A pricing interface demo. No payment is collected. Yearly examples represent $96 and $240 per year.</p>\n</section>",
     "cssBytes": 25276
   },
   {
@@ -2342,7 +2342,7 @@ export default [
       "Sign out is disabled in these public samples because they have no authenticated session. Enable and bind it to your actual sign-out service; the component does not create or end account sessions.",
       "Replace sample links with your application routes and update displayed account data after confirmed profile changes."
     ],
-    "html": "<div data-rf-dropdown data-demo-navigation>\n  <button class=\"rf-button rf-button--outline rf-account-trigger\" type=\"button\" popovertarget=\"account-menu\" aria-label=\"Account menu for Robin Francis\" data-dashboard-account-trigger><span class=\"rf-avatar\" aria-hidden=\"true\" data-profile-avatar>RF</span><span class=\"rf-account-label\" data-account-name>Robin Francis</span><span aria-hidden=\"true\">⌄</span></button>\n  <div class=\"rf-menu rf-account-menu\" id=\"account-menu\" popover role=\"menu\" aria-label=\"Account\">\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio&panel=account#overview\" data-dashboard-account-link=\"profile\">Profile & preferences</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#overview\" data-dashboard-account-link=\"overview\">Workspace overview</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#projects\" data-dashboard-account-link=\"projects\">Your projects</a>\n    <hr class=\"rf-menu__separator\" role=\"separator\">\n    <a role=\"menuitem\" href=\"https://rofin-ui.vercel.app/#api\">Documentation & help</a>\n    <button type=\"button\" role=\"menuitem\" disabled aria-describedby=\"account-session-note\">Sign out</button>\n  </div>\n  <span class=\"rf-sr-only\" id=\"account-session-note\">This public sample has no authenticated account session.</span>\n</div>",
+    "html": "<div data-rf-dropdown data-demo-navigation>\n  <button class=\"rf-button rf-button--outline rf-account-trigger\" type=\"button\" popovertarget=\"account-menu\" aria-label=\"Account menu for Robin Francis\" data-dashboard-account-trigger><span class=\"rf-avatar\" aria-hidden=\"true\" data-profile-avatar>RF</span><span class=\"rf-account-label\" data-account-name>Robin Francis</span><span aria-hidden=\"true\">⌄</span></button>\n  <div class=\"rf-menu rf-account-menu\" id=\"account-menu\" popover role=\"menu\" aria-label=\"Account\">\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio&panel=account#overview\" data-dashboard-account-link=\"profile\">Profile & preferences</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#overview\" data-dashboard-account-link=\"overview\">Workspace overview</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#projects\" data-dashboard-account-link=\"projects\">Your projects</a>\n    <a role=\"menuitem\" href=\"../examples/dashboard.html?workspace=studio#billing\" data-dashboard-account-link=\"billing\">Billing & usage</a>\n    <hr class=\"rf-menu__separator\" role=\"separator\">\n    <a role=\"menuitem\" href=\"https://rofin-ui.vercel.app/#api\">Documentation & help</a>\n    <button type=\"button\" role=\"menuitem\" disabled aria-describedby=\"account-session-note\">Sign out</button>\n  </div>\n  <span class=\"rf-sr-only\" id=\"account-session-note\">This public sample has no authenticated account session.</span>\n</div>",
     "cssBytes": 3865
   },
   {
@@ -2658,5 +2658,83 @@ export default [
     ],
     "html": "<section class=\"rf-empty rf-error-page\" data-rf-recovery-state=\"server\">\n  <span class=\"rf-error-page__code\" aria-hidden=\"true\">500</span>\n  <h2 tabindex=\"-1\">We couldn't bring this back yet.</h2>\n  <p>The resource could not be loaded. Wait a moment, then try again. Your unsent draft stays on this page.</p>\n  <div class=\"rf-cluster\">\n    <a class=\"rf-button\" href=\"\" data-rf-recovery-reload>Try again</a>\n    <button class=\"rf-button\" type=\"button\" data-rf-recovery-retry hidden>Try again</button>\n    <a class=\"rf-button rf-button--outline\" href=\"../examples/dashboard.html\">Open dashboard</a>\n  </div>\n  <small class=\"rf-help\">Retry a read request. Before retrying a failed save or payment, confirm whether it already completed.</small>\n</section>",
     "cssBytes": 2347
+  },
+  {
+    "id": "subscription",
+    "title": "Subscription management",
+    "category": "Components",
+    "description": "Review a plan, its full billing interval and scheduled cancellation.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/subscription.html",
+    "notes": [
+      "Native plan/interval fields and a review dialog reuse Rofin form, card and button components. Sample changes and cancellation remain within the page session; no payment details or real charges are collected. Pass sample: true for fictional snapshots; production callbacks show provider-owned confirmation wording.",
+      "createBillingManager(element, { snapshot, change, load }) renders copied, validated application state. change(operation, {signal, revision}) must return a newer confirmed snapshot for the same workspace. Eight-second timeout, failed or invalid confirmations retain prior data and require an explicit refresh before another change; teardown aborts callbacks and ignores late results.",
+      "Your authorized server/provider owns prices, proration, entitlements, idempotency, invoice/payment verification and cancellation policy. Never infer a paid subscription from a checkout redirect. Configure real checkout/portal services in the application; none is connected in this example."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-billing-demo>\n  <div><p class=\"rf-eyebrow\">Room to grow, on your terms.</p><h3>Subscription management</h3><p class=\"rf-muted\" data-rf-billing-name>Studio</p><p class=\"rf-help\" data-rf-billing-sample-note>Fictional page-session sample. No charges, payment details or real subscription changes.</p></div>\n  <article class=\"rf-card rf-stack\"><h4 class=\"rf-card__title\" data-rf-subscription-current>Studio · $19.00 / month</h4><p class=\"rf-help\" data-rf-billing-period>Current period: 2026-10-01 through 2026-11-01 (end exclusive).</p><p data-rf-subscription-state>No cancellation scheduled.</p><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-billing-action=\"cancel\" disabled>Schedule cancellation</button></article>\n  <form class=\"rf-stack\" data-rf-plan-form><fieldset class=\"rf-segmented\"><legend>Plan interval</legend><label><input type=\"radio\" name=\"interval\" value=\"monthly\" checked disabled><span>Monthly</span></label><label><input type=\"radio\" name=\"interval\" value=\"yearly\" disabled><span>Yearly</span></label></fieldset><div class=\"rf-grid rf-billing-plans\" data-rf-plan-cards><article class=\"rf-card\"><h4 class=\"rf-card__title\">Personal</h4><p>$0.00 / month · 3 projects · 1 seat</p></article><article class=\"rf-card\"><h4 class=\"rf-card__title\">Studio</h4><p>$19.00 / month · 30 projects · 5 seats</p></article><article class=\"rf-card\"><h4 class=\"rf-card__title\">Organization</h4><p>$49.00 / month · unlimited projects · 20 seats</p></article></div><label class=\"rf-field\"><span class=\"rf-label\">Requested plan</span><select class=\"rf-select\" name=\"plan\" disabled><option value=\"personal\">Personal</option><option value=\"studio\" selected>Studio</option><option value=\"organization\">Organization</option></select></label><div class=\"rf-cluster\"><button class=\"rf-button\" type=\"submit\" disabled>Review plan change</button><button class=\"rf-button rf-button--outline\" type=\"reset\" disabled>Reset selection</button></div></form>\n  <p class=\"rf-alert\" data-variant=\"danger\" data-rf-billing-error role=\"alert\" hidden></p><p class=\"rf-help\" data-rf-billing-status role=\"status\"></p><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-billing-refresh disabled>Refresh billing data</button>\n  <dialog class=\"rf-dialog\" data-rf-billing-confirm aria-label=\"Review subscription change\"><h4 class=\"rf-dialog__title\">Review subscription change</h4><p data-rf-billing-review></p><p class=\"rf-help\" data-rf-billing-sample-note>This preview changes the sample only. In a real product, your billing provider confirms charges, timing and any proration before payment.</p><p class=\"rf-help\" data-rf-billing-provider-note hidden>Your billing provider must confirm any charges, effective date and proration before payment.</p><p class=\"rf-alert\" data-variant=\"danger\" data-rf-billing-error role=\"alert\" hidden></p><div class=\"rf-dialog__actions\"><button class=\"rf-button rf-button--outline\" type=\"button\" data-rf-billing-dismiss autofocus>Keep current plan</button><button class=\"rf-button\" type=\"button\" data-rf-billing-apply disabled>Apply sample change</button></div></dialog>\n</section>",
+    "cssBytes": 8009
+  },
+  {
+    "id": "invoice-history",
+    "title": "Invoice history",
+    "category": "Components",
+    "description": "Find invoices, reconcile exact amounts and download their records.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/invoice-history.html",
+    "notes": [
+      "Native details preserve exact line items, discounts, tax, paid and outstanding totals. Search/status fields filter the same records. Text downloads contain actual accepted invoice data; fictional samples identify themselves and do not claim to be tax documents or payment receipts.",
+      "Billing snapshots use integer minor units and an explicit currency display exponent. Safe-integer amounts and reconciled invoice totals are validated atomically. Voided records have no outstanding balance, and each invoice retains its original customer name.",
+      "One workspace currency, up to 100 invoices with 30 items each. Applications paginate larger ledgers and supply provider invoice/PDF records. The component makes no requests. Without scripts, the example still expands and downloads its included sample invoice."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-billing-demo>\n  <div><p class=\"rf-eyebrow\">Every amount, accounted for.</p><h3>Invoice history</h3><p class=\"rf-muted\" data-rf-billing-name>Studio</p><p class=\"rf-help\" data-rf-billing-sample-note>Fictional records. These text downloads are sample statements, not tax documents or proof of payment.</p></div>\n  <div class=\"rf-cluster\"><label class=\"rf-field\"><span class=\"rf-label\">Search invoices</span><input class=\"rf-input\" type=\"search\" maxlength=\"100\" data-rf-invoice-search disabled></label><label class=\"rf-field\"><span class=\"rf-label\">Invoice status</span><select class=\"rf-select\" data-rf-invoice-filter disabled><option value=\"\">All statuses</option><option value=\"paid\">Paid</option><option value=\"open\">Open</option><option value=\"void\">Void</option></select></label></div>\n  <div class=\"rf-table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Invoice records\"><table class=\"rf-table\"><caption>Expand an invoice for its exact line items and totals</caption><thead><tr><th scope=\"col\">Invoice</th><th scope=\"col\">Issued</th><th scope=\"col\">Total</th><th scope=\"col\">Status</th></tr></thead><tbody data-rf-invoice-rows><tr><th scope=\"row\"><details><summary>STUDIO-2026-09</summary><p>Studio plan · 1 × $19.00. Subtotal $19.00; discount $0.00; tax $1.90; total and paid $20.90; outstanding $0.00.</p><a href=\"../examples/assets/sample-invoice.txt\" download=\"sample-invoice.txt\">Download sample invoice text</a></details></th><td>2026-09-01</td><td>$20.90</td><td>paid</td></tr></tbody></table></div>\n  <p class=\"rf-help\" data-rf-invoice-empty hidden>No matching invoices.</p><p class=\"rf-alert\" data-variant=\"danger\" data-rf-billing-error role=\"alert\" hidden></p><p class=\"rf-help\" data-rf-billing-status role=\"status\"></p><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-billing-refresh disabled>Refresh billing data</button>\n</section>",
+    "cssBytes": 8009
+  },
+  {
+    "id": "usage",
+    "title": "Usage and limits",
+    "category": "Components",
+    "description": "Understand exact capacity, remaining room and over-limit states.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/usage.html",
+    "notes": [
+      "Native meters and exact text show projects, seats and storage bytes with remaining, near-capacity, at-limit and over-capacity states. Unlimited and zero quotas are explicit; the displayed number is never hidden by a capped meter.",
+      "The independent gallery selector previews normal, near, over and empty sample values. Dashboard usage derives from the active workspace's actual page-session projects, team members and browser-copy File sizes; previews are hidden there.",
+      "Counts are current snapshots, not usage billing history. Applications supply authorized provider metrics and enforce entitlements on the server. No quota restriction or charge is enforced by this UI."
+    ],
+    "html": "<section class=\"rf-stack\" data-rf-billing-demo>\n  <div><p class=\"rf-eyebrow\">Know how much room you have.</p><h3>Usage and limits</h3><p class=\"rf-muted\" data-rf-billing-name>Studio</p><p class=\"rf-help\">Exact sample values and plan capacity. Counts are a current snapshot; they do not claim metered billing history.</p></div>\n  <div class=\"rf-grid rf-billing-usage\" data-rf-usage-values><article class=\"rf-card\"><h4 class=\"rf-card__title\">Projects</h4><p>6 of 30 projects. 24 remaining.</p></article><article class=\"rf-card\"><h4 class=\"rf-card__title\">Seats</h4><p>3 of 5 seats. 2 remaining.</p></article><article class=\"rf-card\"><h4 class=\"rf-card__title\">Storage bytes</h4><p>12,000,000 of 50,000,000 bytes. 38,000,000 remaining.</p></article></div>\n  <label class=\"rf-field\" data-rf-usage-preview><span class=\"rf-label\">Try sample usage</span><select class=\"rf-select\" data-rf-usage-scenario disabled><option value=\"normal\">Normal usage</option><option value=\"near\">Near capacity</option><option value=\"over\">Over capacity</option><option value=\"empty\">No usage yet</option></select></label>\n  <p class=\"rf-alert\" data-variant=\"danger\" data-rf-billing-error role=\"alert\" hidden></p><p class=\"rf-help\" data-rf-billing-status role=\"status\"></p><button class=\"rf-button rf-button--outline rf-button--small\" type=\"button\" data-rf-billing-refresh disabled>Refresh billing data</button>\n</section>",
+    "cssBytes": 8009
   }
 ];

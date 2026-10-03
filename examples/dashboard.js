@@ -6,6 +6,8 @@ import { sampleTeam } from './team-demo.js';
 import { initEditors } from '../src/js/editors.js';
 import { createFileBrowser } from '../src/js/file-browser.js';
 import { initViewers, createFileViewer } from '../src/js/viewers.js';
+import { createBillingManager } from '../src/js/billing.js';
+import { sampleBilling, applySampleBilling } from './billing-demo.js';
 
 init();
 const projects = document.querySelector('#projects');
@@ -30,6 +32,20 @@ const workspaces = new Map([
   ['lab', { name: 'Lab', rows: [projectRow('project-1', 'Motion study', 'Alex', 'In progress', 8, '2026-09-22'), projectRow('project-2', 'Accessible map', 'Robin', 'Draft', 5, '2026-09-26'), projectRow('project-3', 'Prototype kit', 'Alex', 'Published', 12, '2026-09-29')], nextId: 4, owners: ['Robin', 'Alex'], members: ['Robin Francis', 'Alex Morgan'], notices: [notice('lab-map', 'Make room for everyone', 'The accessible map is ready for keyboard review.'), notice('lab-kit', 'A useful little toolkit', 'Alex published the prototype kit.')], revenue: '$2,160', growth: '↑ 5%', retention: '94.5%', change: '↑ 1.2 points', prefs: { timezone: 'UTC', updates: true, digest: false }, activity: [['2026-09-29', 'A prototype to share', 'Alex published the first toolkit.'], ['2026-09-26', 'An inclusive direction', 'Robin started the accessible map.']] }]
 ]);
 for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, workspace.name, workspace.members);
+for (const [id, workspace] of workspaces) workspace.billing = sampleBilling(id, workspace.name);
+let billingManager;
+function updateBillingUsage() {
+  const workspace = workspaces.get(activeWorkspace), next = structuredClone(workspace.billing);
+  next.name = workspace.name;
+  next.usage = { projects: [...projects.querySelectorAll('tbody tr')].filter(row => row.dataset.rfStatus !== 'Archived').length, seats: workspace.team.members.length, storageBytes: (workspace.files || []).filter(entry => entry.kind === 'file' && !entry.trashed).reduce((sum, entry) => sum + entry.file.size, 0) };
+  if (next.name !== workspace.billing.name || JSON.stringify(next.usage) !== JSON.stringify(workspace.billing.usage)) next.revision++;
+  workspace.billing = next; billingManager?.update(next);
+}
+function renderBilling() {
+  billingManager?.destroy(); billingManager = null; updateBillingUsage();
+  const workspace = workspaces.get(activeWorkspace);
+  billingManager = createBillingManager(document.querySelector('#billing'), { snapshot: workspace.billing, sample: true, change: async operation => workspace.billing = applySampleBilling(workspace.billing, operation), load: async () => workspace.billing });
+}
 for (const [id, workspace] of workspaces) workspace.notes = ({ studio: '### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful', personal: '### A little room of your own\n\nKeep a thought worth coming back to.', lab: '### An experiment worth trying\n\n- [ ] Test the next prototype' })[id];
 for (const [id, name, contents] of [['personal', 'Reading list.txt', 'A few good pages.\n'], ['lab', 'Experiment.txt', 'Try a new perspective.\n']]) workspaces.get(id).files = [{ id: `${id}-file`, parentId: null, kind: 'file', name, file: new File([contents], name, { type: 'text/plain' }) }];
 const filesHost = document.querySelector('[data-workspace-files-host]'), filesTemplate = filesHost.firstElementChild.cloneNode(true);
@@ -42,7 +58,7 @@ function renderFiles() {
   fileBrowser?.destroy(); const workspace = workspaces.get(activeWorkspace), browser = filesTemplate.cloneNode(true);
   filesHost.replaceChildren(browser);
   browser.addEventListener('rf:file-select', event => { selectedFile = event.detail.entry?.file || null; previewFile.disabled = !selectedFile; });
-  fileBrowser = createFileBrowser(browser, { entries: workspace.files, onChange: entries => { workspace.files = entries; } });
+  fileBrowser = createFileBrowser(browser, { entries: workspace.files, onChange: entries => { workspace.files = entries; updateBillingUsage(); } });
   workspace.files = fileBrowser.getEntries();
 }
 const notesHost = document.querySelector('[data-workspace-notes-host]'), notesTemplate = notesHost.firstElementChild.cloneNode(true);
@@ -74,7 +90,7 @@ function renderTeamMembers() {
 function initWorkspaceTeam() {
   teamManager?.destroy(); const workspace = workspaces.get(activeWorkspace);
   teamElement.querySelector('[data-rf-team-note]').textContent = 'Team changes belong to this workspace for the page session. No email, durable accounts or access to application resources is provided.';
-  teamManager = createTeamManager(teamElement, { team: workspace.team, actorId: 'robin', change: async operation => { workspace.team = applyTeamChange(workspace.team, 'robin', operation); renderTeamMembers(); updateContextLabels(); return { team: workspace.team }; }, load: async () => workspace.team });
+  teamManager = createTeamManager(teamElement, { team: workspace.team, actorId: 'robin', change: async operation => { workspace.team = applyTeamChange(workspace.team, 'robin', operation); renderTeamMembers(); updateContextLabels(); updateBillingUsage(); return { team: workspace.team }; }, load: async () => workspace.team });
 }
 const chartHost = document.querySelector('.dashboard-charts'), projectChart = chartHost.querySelector('[data-rf-line-chart]');
 initPatterns(projectChart);
@@ -128,6 +144,7 @@ const mutateTable = (change, syncBoard = true) => {
   stopTable(); change(); stopTable = initPatterns(projects);
   document.querySelector('[data-project-count]').textContent = String(projects.querySelectorAll('tbody tr:not([data-rf-status="Archived"])').length);
   if (syncBoard) renderBoard();
+  updateBillingUsage();
 };
 function updateContextLabels() {
   const current = workspaces.get(activeWorkspace);
@@ -150,7 +167,7 @@ function renderWorkspaceData() {
   const chart = document.querySelector('[data-rf-line-chart]');
   for (const check of chart.querySelectorAll('input[type="checkbox"]')) { check.checked = check.defaultChecked; check.dispatchEvent(new Event('change')); }
   chart.querySelector('[data-rf-line-range]').value = '0'; chart.querySelector('[data-rf-line-reset]').click();
-  renderTeamMembers(); renderNotes(); renderFiles(); renderViewers();
+  renderTeamMembers(); renderNotes(); renderFiles(); renderViewers(); renderBilling();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
     const item = document.createElement('li'), time = document.createElement('time'), text = document.createElement('p'), heading = document.createElement('strong'), note = document.createElement('span');
@@ -175,6 +192,7 @@ function switchWorkspace(id, navigate = false) {
   if (changed) {
     stopPanels(); stopPanels = () => {};
     teamManager?.destroy();
+    billingManager?.destroy(); billingManager = null;
     for (const dialog of document.querySelectorAll('dialog[open]')) dialog.close();
     clearToasts(); clearTimeout(refreshTimer); const refresh = document.querySelector('#refresh-dashboard'); refresh.disabled = false; refresh.querySelector('.rf-spinner').hidden = true; projects.removeAttribute('aria-busy');
     stopTable(); stopInbox(); stopOwner(); const previous = workspaces.get(activeWorkspace); previous.rows = [...projects.querySelectorAll('tbody tr')]; previous.notices = [...inbox.querySelectorAll('li')]; previous.nextId = nextId;
@@ -197,6 +215,8 @@ renderFiles();
 renderViewers();
 renderPanels();
 initWorkspaceTeam();
+renderBilling();
+window.addEventListener('pagehide', () => billingManager?.destroy(), { once: true });
 board.addEventListener('rf:kanban-change', event => {
   if (event.target !== board) return;
   workspaces.get(activeWorkspace).boardOrder = event.detail.values;
@@ -288,7 +308,7 @@ document.querySelector('#preferences').addEventListener('submit', event => {
     toast('Enter a workspace and display name.', { title: 'A little more detail', variant: 'warning' }); return;
   }
   const name = form.elements.name.value.trim();
-  const workspace = workspaces.get(activeWorkspace); workspace.name = form.elements.workspace.value.trim(); workspace.team.name = workspace.name; workspace.team.revision++; workspace.prefs = { timezone: form.elements.timezone.value, updates: form.elements.updates.checked, digest: form.elements.digest.checked }; updateContextLabels(); initWorkspaceTeam();
+  const workspace = workspaces.get(activeWorkspace); workspace.name = form.elements.workspace.value.trim(); workspace.team.name = workspace.name; workspace.team.revision++; workspace.prefs = { timezone: form.elements.timezone.value, updates: form.elements.updates.checked, digest: form.elements.digest.checked }; updateContextLabels(); initWorkspaceTeam(); updateBillingUsage();
   document.querySelector('[data-display-name]').textContent = name;
   document.querySelector('[data-account-name]').textContent = name; document.querySelector('[data-dashboard-account-trigger]').setAttribute('aria-label', `Account menu for ${name}`);
   const avatar = document.querySelector('[data-profile-avatar]'); avatar.textContent = initials(name);

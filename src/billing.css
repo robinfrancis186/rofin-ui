@@ -1,0 +1,5 @@
+@layer rf.components {
+  .rf-billing-plans,.rf-billing-usage{--rf-column:15rem}
+  .rf-billing-invoice{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;font-size:.8rem;min-inline-size:12rem;max-inline-size:36rem}
+  .rf-billing-usage .rf-meter{inline-size:100%}
+}
