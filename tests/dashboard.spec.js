@@ -139,8 +139,8 @@ test('website and dashboard layouts, exposed overlays, and chart data are access
     expect((await axe()).violations, `Dashboard ${theme}`).toEqual([]);
     await page.getByText('View chart data', { exact: true }).click();
     const heights = await page.locator('.rf-chart__bars i').evaluateAll(bars => bars.map(bar => bar.getBoundingClientRect().height));
-    expect(heights[0] / heights[5]).toBeCloseTo(18 / 60, 2);
-    await expect(page.getByRole('table', { name: 'Completed tasks, April–September', exact: true })).toBeVisible();
+    expect(heights[0] / heights[2]).toBeCloseTo(36 / 18, 2);
+    await expect(page.getByRole('table', { name: 'Tasks by current project status', exact: true })).toBeVisible();
     expect((await axe()).violations, `Chart data ${theme}`).toEqual([]);
     await page.getByText('View chart data', { exact: true }).click();
     for (const label of ['Notifications 2 unread', 'Settings', 'New project +']) {

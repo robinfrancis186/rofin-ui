@@ -113,7 +113,7 @@ test('panel ratios and chart exploration follow native range controls and preser
   await page.getByRole('checkbox', { name: 'Target · dashed', exact: true }).uncheck();
   await expect(month).toHaveAttribute('aria-valuetext', 'September: No series selected.');
   await page.getByText('View line chart data', { exact: true }).click();
-  expect(await page.getByRole('table', { name: 'Active members and targets, April–September' }).locator('tbody td:first-of-type').allTextContents()).toEqual(['24','38','31','52','48','72']);
+  expect(await page.getByRole('table', { name: 'Active members and targets' }).locator('tbody td:first-of-type').allTextContents()).toEqual(['24','38','31','52','48','72']);
   await page.goto('/dist/site/index.html#component/line-chart');
   const downloaded = page.waitForEvent('download');
   await page.getByRole('link', { name: 'examples/components/line-chart.html', exact: true }).click();

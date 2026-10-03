@@ -32,6 +32,14 @@ const server = createServer(async (request, response) => {
       if (request.method !== 'GET') { response.writeHead(405, { Allow: 'GET' }).end(JSON.stringify({ error: 'This fixture only permits reads.' })); return; }
       response.writeHead(code).end(JSON.stringify({ error: 'Read-only recovery status fixture.' })); return;
     }
+    if (url.pathname === '/api/sample-chart-stream') {
+      response.setHeader('Cache-Control', 'no-store'); response.setHeader('X-Content-Type-Options', 'nosniff');
+      if (request.method !== 'GET') { response.writeHead(405, { Allow: 'GET' }).end(); return; }
+      response.writeHead(200, { 'Content-Type': 'text/event-stream; charset=utf-8', Connection: 'keep-alive' }); response.flushHeaders();
+      let tick = 0;
+      const timer = setInterval(() => { if (response.destroyed) { clearInterval(timer); return; } if (response.writableNeedDrain) return; tick++; response.write(`data: ${JSON.stringify({ label: `Sample ${tick}`, values: { active: 55 + tick % 20, target: 60 + tick % 10 } })}\n\n`); }, 500);
+      response.on('close', () => clearInterval(timer)); return;
+    }
     if (url.pathname === '/api/sample-grid') {
       response.setHeader('Content-Type', 'application/json'); response.setHeader('Cache-Control', 'no-store'); response.setHeader('X-Content-Type-Options', 'nosniff');
       if (request.method !== 'GET') { response.writeHead(405, { Allow: 'GET' }).end(JSON.stringify({ error: 'The public sample is read only.' })); return; }

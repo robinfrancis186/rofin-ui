@@ -98,7 +98,7 @@ test('workspace project, inbox and preferences state remains isolated while sele
   await switchTo(page, 'Lab');
   await expect(page.locator('#projects tbody tr')).toHaveCount(3);
   await expect(page.locator('[data-workspace-revenue]')).toHaveText('$2,160');
-  await expect(page.locator('.rf-chart__ring text')).toHaveText('50%');
+  await expect(page.locator('.rf-chart__ring text')).toHaveText('48%');
   await expect(page.locator('[data-workspace-team] .rf-avatar')).toHaveCount(2);
   await switchTo(page, 'Orbit');
   await expect(page.locator('[data-project-count]')).toHaveText('7');

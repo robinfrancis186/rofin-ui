@@ -1,5 +1,5 @@
 import { init, toast, clearToasts } from '../src/js/index.js';
-import { initPatterns } from '../src/js/patterns.js';
+import { initPatterns, updateLineChart } from '../src/js/patterns.js';
 import { initFormPatterns } from '../src/js/form-patterns.js';
 import { createTeamManager, applyTeamChange } from '../src/js/team-management.js';
 import { sampleTeam } from './team-demo.js';
@@ -25,9 +25,9 @@ const notice = (id, title, message) => {
 };
 // ponytail: three public in-memory samples; an application supplies authorized durable workspace data.
 const workspaces = new Map([
-  ['studio', { name: 'Studio', rows: [...projects.querySelectorAll('tbody tr')], nextId: 7, owners: ['Robin', 'Jamie', 'Alex'], members: ['Robin Francis', 'Jamie Lee', 'Alex Morgan'], notices: [...inbox.querySelectorAll('li')], revenue: '$12,480', growth: '↑ 12%', retention: '96.2%', change: '↓ 0.8 points', months: [18, 30, 24, 42, 36, 60], completed: 72, total: 100, prefs: { timezone: 'Asia/Kolkata', updates: true, digest: false }, activity: [['2026-09-29', 'Studio website launched', "Robin shared the team's latest work."], ['2026-09-24', 'A fresh perspective', 'Jamie opened the mobile journal for review.'], ['2026-09-20', 'A foundation to build on', 'The component library reached its next milestone.']] }],
-  ['personal', { name: 'Personal', rows: [projectRow('project-1', 'Weekend journal', 'Robin', 'Draft', 4, '2026-09-27'), projectRow('project-2', 'Reading list', 'Robin', 'In progress', 2, '2026-09-28')], nextId: 3, owners: ['Robin'], members: ['Robin Francis'], notices: [notice('personal-draft', 'An idea worth keeping', 'Your weekend journal is ready for another look.')], revenue: '$420', growth: '↑ 8%', retention: '100%', change: '↑ 2 points', months: [2, 4, 3, 5, 4, 6], completed: 6, total: 16, prefs: { timezone: 'Asia/Kolkata', updates: false, digest: true }, activity: [['2026-09-28', 'A few good pages', 'The reading list has a new chapter.'], ['2026-09-27', 'A beginning of your own', 'The weekend journal started as a small idea.']] }],
-  ['lab', { name: 'Lab', rows: [projectRow('project-1', 'Motion study', 'Alex', 'In progress', 8, '2026-09-22'), projectRow('project-2', 'Accessible map', 'Robin', 'Draft', 5, '2026-09-26'), projectRow('project-3', 'Prototype kit', 'Alex', 'Published', 12, '2026-09-29')], nextId: 4, owners: ['Robin', 'Alex'], members: ['Robin Francis', 'Alex Morgan'], notices: [notice('lab-map', 'Make room for everyone', 'The accessible map is ready for keyboard review.'), notice('lab-kit', 'A useful little toolkit', 'Alex published the prototype kit.')], revenue: '$2,160', growth: '↑ 5%', retention: '94.5%', change: '↑ 1.2 points', months: [4, 6, 3, 8, 6, 12], completed: 24, total: 48, prefs: { timezone: 'UTC', updates: true, digest: false }, activity: [['2026-09-29', 'A prototype to share', 'Alex published the first toolkit.'], ['2026-09-26', 'An inclusive direction', 'Robin started the accessible map.']] }]
+  ['studio', { name: 'Studio', rows: [...projects.querySelectorAll('tbody tr')], nextId: 7, owners: ['Robin', 'Jamie', 'Alex'], members: ['Robin Francis', 'Jamie Lee', 'Alex Morgan'], notices: [...inbox.querySelectorAll('li')], revenue: '$12,480', growth: '↑ 12%', retention: '96.2%', change: '↓ 0.8 points', prefs: { timezone: 'Asia/Kolkata', updates: true, digest: false }, activity: [['2026-09-29', 'Studio website launched', "Robin shared the team's latest work."], ['2026-09-24', 'A fresh perspective', 'Jamie opened the mobile journal for review.'], ['2026-09-20', 'A foundation to build on', 'The component library reached its next milestone.']] }],
+  ['personal', { name: 'Personal', rows: [projectRow('project-1', 'Weekend journal', 'Robin', 'Draft', 4, '2026-09-27'), projectRow('project-2', 'Reading list', 'Robin', 'In progress', 2, '2026-09-28')], nextId: 3, owners: ['Robin'], members: ['Robin Francis'], notices: [notice('personal-draft', 'An idea worth keeping', 'Your weekend journal is ready for another look.')], revenue: '$420', growth: '↑ 8%', retention: '100%', change: '↑ 2 points', prefs: { timezone: 'Asia/Kolkata', updates: false, digest: true }, activity: [['2026-09-28', 'A few good pages', 'The reading list has a new chapter.'], ['2026-09-27', 'A beginning of your own', 'The weekend journal started as a small idea.']] }],
+  ['lab', { name: 'Lab', rows: [projectRow('project-1', 'Motion study', 'Alex', 'In progress', 8, '2026-09-22'), projectRow('project-2', 'Accessible map', 'Robin', 'Draft', 5, '2026-09-26'), projectRow('project-3', 'Prototype kit', 'Alex', 'Published', 12, '2026-09-29')], nextId: 4, owners: ['Robin', 'Alex'], members: ['Robin Francis', 'Alex Morgan'], notices: [notice('lab-map', 'Make room for everyone', 'The accessible map is ready for keyboard review.'), notice('lab-kit', 'A useful little toolkit', 'Alex published the prototype kit.')], revenue: '$2,160', growth: '↑ 5%', retention: '94.5%', change: '↑ 1.2 points', prefs: { timezone: 'UTC', updates: true, digest: false }, activity: [['2026-09-29', 'A prototype to share', 'Alex published the first toolkit.'], ['2026-09-26', 'An inclusive direction', 'Robin started the accessible map.']] }]
 ]);
 for (const [id, workspace] of workspaces) workspace.team = sampleTeam(id, workspace.name, workspace.members);
 for (const [id, workspace] of workspaces) workspace.notes = ({ studio: '### Your next chapter\n\nMake room for **a good idea**.\n\n- [x] Start small\n- [ ] Share something useful', personal: '### A little room of your own\n\nKeep a thought worth coming back to.', lab: '### An experiment worth trying\n\n- [ ] Test the next prototype' })[id];
@@ -76,6 +76,21 @@ function initWorkspaceTeam() {
   teamElement.querySelector('[data-rf-team-note]').textContent = 'Team changes belong to this workspace for the page session. No email, durable accounts or access to application resources is provided.';
   teamManager = createTeamManager(teamElement, { team: workspace.team, actorId: 'robin', change: async operation => { workspace.team = applyTeamChange(workspace.team, 'robin', operation); renderTeamMembers(); updateContextLabels(); return { team: workspace.team }; }, load: async () => workspace.team });
 }
+const chartHost = document.querySelector('.dashboard-charts'), projectChart = chartHost.querySelector('[data-rf-line-chart]');
+initPatterns(projectChart);
+function renderProjectCharts(ids) {
+  const selected = new Set(ids), rows = [...projects.querySelectorAll('tbody tr')].filter(row => selected.has(row.querySelector('[data-rf-table-select]').value));
+  const statuses = ['Draft', 'In progress', 'Published', 'Archived'], sums = statuses.map(status => rows.filter(row => row.dataset.rfStatus === status).reduce((sum, row) => sum + Number(row.cells[4].textContent), 0)), maximum = Math.max(1, ...sums), total = sums.reduce((a, b) => a + b, 0), percent = total ? Math.round(sums[2] / total * 1000) / 10 : 0, other = Math.round((100 - percent) * 10) / 10;
+  chartHost.querySelectorAll('.rf-chart__bars li').forEach((bar, index) => { bar.querySelector('strong').textContent = String(sums[index]); bar.querySelector('i').style.setProperty('--rf-bar', `${sums[index] / maximum * 100}%`); });
+  chartHost.querySelectorAll('[data-project-status-chart] tbody tr').forEach((row, index) => row.cells[1].textContent = String(sums[index]));
+  chartHost.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${other}`); chartHost.querySelector('.rf-chart__ring text').textContent = total ? `${percent}%` : '—';
+  chartHost.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => value.textContent = [`${sums[2]} tasks · ${total ? percent+'%' : 'no task total'}`, `${total - sums[2]} tasks · ${total ? other+'%' : 'no task total'}`, `${total} tasks`][index]);
+  let all = 0, published = 0;
+  const data = [...new Set(rows.map(row => row.dataset.updated))].sort().map(label => { for (const row of rows.filter(row => row.dataset.updated === label)) { all += Number(row.cells[4].textContent); if (row.dataset.rfStatus === 'Published') published += Number(row.cells[4].textContent); } return { label, values: { active: all, target: published } }; });
+  updateLineChart(projectChart, data);
+  document.querySelector('[data-project-chart-summary]').textContent = `${rows.length} matching projects across all pages · ${total} tasks. Charts follow search, status and applied dates.`;
+}
+projects.addEventListener('rf:table-view', event => { if (event.target === projects) renderProjectCharts(event.detail.values); });
 initFormPatterns(range);
 let stopOwner = initFormPatterns(createForm);
 initPatterns(range);
@@ -132,12 +147,9 @@ function renderWorkspaceData() {
   const workspace = workspaces.get(activeWorkspace);
   document.querySelector('[data-workspace-revenue]').textContent = workspace.revenue; document.querySelector('[data-workspace-growth]').textContent = workspace.growth;
   document.querySelector('[data-workspace-retention]').textContent = workspace.retention; document.querySelector('[data-workspace-retention-change]').textContent = workspace.change;
-  const maximum = Math.max(...workspace.months);
-  document.querySelectorAll('.rf-chart__bars li').forEach((bar, index) => { bar.querySelector('strong').textContent = String(workspace.months[index]); bar.querySelector('i').style.setProperty('--rf-bar', `${workspace.months[index] / maximum * 100}%`); });
-  document.querySelectorAll('.dashboard-charts table tbody tr').forEach((row, index) => { row.cells[1].textContent = String(workspace.months[index]); });
-  const percent = Math.round(workspace.completed / workspace.total * 1000) / 10, remaining = Math.round((100 - percent) * 10) / 10;
-  document.querySelector('.rf-chart__value').setAttribute('stroke-dasharray', `${percent} ${remaining}`); document.querySelector('.rf-chart__ring text').textContent = `${percent}%`;
-  document.querySelectorAll('.rf-chart__legend strong').forEach((value, index) => { value.textContent = [`${workspace.completed} tasks · ${percent}%`, `${workspace.total - workspace.completed} tasks · ${remaining}%`, `${workspace.total} tasks`][index]; });
+  const chart = document.querySelector('[data-rf-line-chart]');
+  for (const check of chart.querySelectorAll('input[type="checkbox"]')) { check.checked = check.defaultChecked; check.dispatchEvent(new Event('change')); }
+  chart.querySelector('[data-rf-line-range]').value = '0'; chart.querySelector('[data-rf-line-reset]').click();
   renderTeamMembers(); renderNotes(); renderFiles(); renderViewers();
   const activity = document.querySelector('[data-workspace-activity]'); activity.replaceChildren();
   for (const [date, title, description] of workspace.activity) {
@@ -208,13 +220,13 @@ const applyPeriod = () => {
 
 range.addEventListener('submit', event => {
   event.preventDefault(); applyPeriod();
-  document.querySelector('#report-status').textContent = `Project updates from ${range.elements.start.value} through ${range.elements.end.value}, inclusive. Charts keep their fixed sample period.`;
+  document.querySelector('#report-status').textContent = `Project updates from ${range.elements.start.value} through ${range.elements.end.value}, inclusive. Charts show the matching project snapshot.`;
 });
 range.addEventListener('reset', event => {
   setTimeout(() => {
     if (event.defaultPrevented) return;
     period.value = ''; period.dispatchEvent(new Event('change', { bubbles: true }));
-    document.querySelector('#report-status').textContent = 'All project dates shown. Charts show the fixed April–September sample.';
+    document.querySelector('#report-status').textContent = 'All project dates shown. Charts follow matching projects across all pages.';
   }, 0);
 });
 

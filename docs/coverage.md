@@ -11,7 +11,7 @@ each example. This is a UI library, not an application backend.
 | Forms and capture | Contact, newsletter, native labelled inputs/selects, autocomplete, searchable combobox/multiselect, linked error summary, textarea, rich-text/Markdown note editors, checkboxes/radios, file input, upload queue, character counter, tags |
 | Account UI | Sign in, sign up, password reset, reveal password, one-time code, account settings, workspace switcher, account menu, team management, invitation acceptance, permissions matrix |
 | Dashboard structure | Responsive app shell, sidebar, top bar, KPI cards, adjustable panels, layout, avatars, badges |
-| Visualization | Line chart with keyboard exploration and series toggles, bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
+| Visualization | Line chart with atomic data updates, bounded streaming, window zoom, keyboard exploration and series toggles; bar chart with exact data disclosure, donut chart with complete legend, progress, meter, statistics |
 | Data workflows | Searchable sortable table, status filters, date ranges/presets, row pagination/page size, bulk selection/actions, editable virtualized grid, column settings, compound filters, saved views, file browser/tree |
 | Actions and overlays | Buttons, dropdown, native dialog/drawer, tooltip, command palette, image lightbox |
 | Documents and media | PDF with full text/download alternatives, explicit local-file preview, native video/audio with captions and real downloads |
@@ -37,7 +37,11 @@ It supports local draft creation, confirmed archiving,
 CSV download, and settings changes for three public workspaces during the current
 page session. Switching updates projects, boards, inboxes, preferences, charts,
 team/activity data, saved notes and browser-copy files/Trash; it closes previews, pauses media and clears selections, filters and unsaved forms. Account
-links preserve the current workspace and session edits. Reload restores the samples. Charts are explicitly fixed sample data; date filters affect projects.
+links preserve the current workspace and session edits. Reload restores the samples.
+The shared line chart and native bar/donut charts follow matching projects across
+all table pages, including search, status, applied dates and board changes.
+The cumulative line is a current task snapshot grouped by last-update day;
+it does not claim historical task activity. Revenue/retention remain illustrative samples.
 
 Native forms preserve validation and reset behavior. Charts expose their values
 without depending on color. The inbox uses a native popover rather than menu
@@ -47,8 +51,7 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
-server validation. Billing flows, advanced visuals,
-and deeper chart interactions remain in
+server validation. Billing flows and advanced visuals remain in
 `completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
@@ -66,6 +69,10 @@ activity, notes and file-browser components, with separate layouts per workspace
 Layout-only reset preserves note drafts and file contents. Horizontal panels stack
 on narrow screens; vertical panes remain scrollable. Chart exploration uses native ranges.
 Charts provide exact table values and distinguish series using solid/dashed lines.
+The line-chart API validates atomic replacement/appends, retains at most 512
+points and supports native zoom and explicit follow-newest behavior. Optional
+gallery feeds start only on request, pause/close on hidden pages and teardown,
+and retain accepted data on failure. Its HTTP sample is localhost-only.
 The shared core remains unchanged. There are no new runtime dependencies.
 
 Chrome and Firefox suites cover keyboard interaction, narrow and desktop

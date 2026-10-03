@@ -1,5 +1,9 @@
 import { matches, onFormReset, uid } from './utils.js';
 
+const lineCharts = new WeakMap();
+/** Update an initialized chart atomically; invalid or late updates return false. */
+export function updateLineChart(element, rows, options = {}) { return lineCharts.get(element)?.(rows, options?.append === true) || false; }
+
 /** Optional patterns; initialize each root once and tear down before removing it. */
 export function initPatterns(root = document) {
   const controller = new AbortController();
@@ -231,28 +235,65 @@ export function initPatterns(root = document) {
     cleanups.push(() => { observer.disconnect(); disabledObserver.disconnect(); finish(); divider.remove(); primary.hidden = hidden[0]; secondary.hidden = hidden[1]; if (!originalId) primary.removeAttribute('id'); if (reset) reset.disabled = resetDisabled; for (const [node, name, value] of attributes) { if (value === null) node.removeAttribute(name); else node.setAttribute(name, value); } for (const [name, value] of [['--rf-panel-first', first], ['--rf-panel-second', second]]) { if (value) panels.style.setProperty(name, value); else panels.style.removeProperty(name); } });
   }
   for (const element of matches(root, '[data-rf-line-chart]')) {
-    const table = element.querySelector('table'), plot = element.querySelector('[data-rf-line-plot]'), range = element.querySelector('[data-rf-line-range]'), output = element.querySelector('[data-rf-line-readout]'), controls = element.querySelector('[data-rf-line-controls]');
+    if (lineCharts.has(element)) continue;
+    const own = selector => [...element.querySelectorAll(selector)].filter(node => node.closest('[data-rf-line-chart]') === element);
+    const table = own('table')[0], plot = own('[data-rf-line-plot]')[0], range = own('[data-rf-line-range]')[0], output = own('[data-rf-line-readout]')[0], controls = own('[data-rf-line-controls]')[0];
     if (!table?.tBodies[0] || !plot || !range || !output || !controls) continue;
-    const rows = [...table.tBodies[0].rows], headings = [...table.querySelectorAll('thead [data-rf-line-series]')];
-    const series = headings.map(heading => ({ name: heading.textContent.trim(), key: heading.dataset.rfLineSeries, values: rows.map(row => row.cells[heading.cellIndex]?.textContent.trim()), path: [...plot.querySelectorAll('[data-rf-line-series]')].find(path => path.dataset.rfLineSeries === heading.dataset.rfLineSeries), check: [...controls.querySelectorAll('[data-rf-line-toggle]')].find(check => check.dataset.rfLineToggle === heading.dataset.rfLineSeries) }));
-    if (!rows.length || !series.length || series.some(item => !item.path || !item.check || item.values.some(value => !value || !Number.isFinite(Number(value))))) continue;
-    const labels = rows.map(row => row.cells[0].textContent.trim()), values = series.flatMap(item => item.values.map(Number)), minimum = Math.min(0, ...values), maximum = Math.max(1, ...values);
-    const x = index => rows.length === 1 ? 280 : 32 + index / (rows.length - 1) * 496;
-    const y = value => 200 - (Number(value) - minimum) / (maximum - minimum) * 180;
-    const original = { min: range.min, max: range.max, disabled: range.disabled, hidden: controls.hidden, valueText: range.getAttribute('aria-valuetext') };
-    const paths = series.map(item => ({ points: item.path.getAttribute('points'), display: item.path.style.display }));
-    series.forEach(item => item.path.setAttribute('points', item.values.map((value, index) => `${x(index)},${y(value)}`).join(' ')));
-    const update = () => {
-      const index = Math.max(0, Math.min(rows.length - 1, Math.round(range.valueAsNumber)));
-      const visible = series.filter(item => item.check.checked);
-      series.forEach(item => { item.path.style.display = item.check.checked ? '' : 'none'; });
-      const cursor = plot.querySelector('[data-rf-line-cursor]'); if (cursor) { cursor.setAttribute('x1', x(index)); cursor.setAttribute('x2', x(index)); }
-      const text = `${labels[index]}: ${visible.length ? visible.map(item => `${item.name} ${item.values[index]}`).join('; ') : 'No series selected.'}`;
-      output.textContent = text; range.setAttribute('aria-valuetext', text);
+    const series = own('thead [data-rf-line-series]').map(heading => ({ name: heading.textContent.trim(), key: heading.dataset.rfLineSeries, index: heading.cellIndex, path: own('polyline[data-rf-line-series]').find(path => path.dataset.rfLineSeries === heading.dataset.rfLineSeries), check: own('[data-rf-line-toggle]').find(check => check.dataset.rfLineToggle === heading.dataset.rfLineSeries) }));
+    if (!series.length || series.length > 8 || new Set(series.map(item => item.key)).size !== series.length || series.some(item => !item.path || !item.check || !item.name || !/^[a-z][a-z0-9-]{0,39}$/.test(item.key))) continue;
+    const valid = rows => Array.isArray(rows) && rows.length <= 512 && rows.every(row => row && typeof row.label === 'string' && row.label.trim() && row.label.length <= 100 && row.values && typeof row.values === 'object' && !Array.isArray(row.values) && Object.keys(row.values).length === series.length && series.every(item => Object.hasOwn(row.values, item.key) && typeof row.values[item.key] === 'number' && Number.isFinite(row.values[item.key]) && Math.abs(row.values[item.key]) <= 1e12)) && new Set(rows.map(row => row.label.trim())).size === rows.length;
+    let data = [...table.tBodies[0].rows].map(row => ({ label: row.cells[0]?.textContent.trim() || '', values: Object.fromEntries(series.map(item => { const value = row.cells[item.index]?.textContent.trim(); return [item.key, value ? Number(value) : NaN]; })) }));
+    if (!valid(data)) continue;
+    const start = own('[data-rf-line-start]')[0], end = own('[data-rf-line-end]')[0], follow = own('[data-rf-line-follow]')[0], reset = own('[data-rf-line-reset]')[0], windowText = own('[data-rf-line-window]')[0], status = own('[data-rf-line-status]')[0], empty = own('[data-rf-line-empty]')[0];
+    if (Boolean(start) !== Boolean(end)) continue;
+    const fields = [range, start, end].filter(Boolean).map(input => ({ input, min: input.min, max: input.max, disabled: input.disabled, text: input.getAttribute('aria-valuetext') })), displays = series.map(item => item.path.style.display), hidden = controls.hidden;
+    let first = 0, last = Math.max(0, data.length - 1);
+    const group = own('[data-rf-line-labels]')[0] || document.createElementNS('http://www.w3.org/2000/svg', 'g'); group.dataset.rfLineLabels = ''; if (!group.parentElement) { plot.querySelectorAll('text').forEach(node => node.remove()); plot.append(group); }
+    const draw = () => {
+      const count = data.length, maximumIndex = Math.max(0, count - 1), index = Math.max(first, Math.min(last, Math.round(range.valueAsNumber) || 0));
+      const visible = data.slice(first, last + 1), values = visible.flatMap(row => series.map(item => row.values[item.key])), minimum = Math.min(0, ...values), maximum = Math.max(1, ...values);
+      const x = position => visible.length < 2 ? 280 : 32 + position / (visible.length - 1) * 496, y = value => 200 - (value - minimum) / (maximum - minimum) * 180;
+      series.forEach(item => { item.path.setAttribute('points', visible.map((row, position) => `${x(position)},${y(row.values[item.key])}`).join(' ')); item.path.style.display = item.check.checked ? '' : 'none'; });
+      const cursor = own('[data-rf-line-cursor]')[0]; if (cursor) { cursor.setAttribute('x1', x(index - first)); cursor.setAttribute('x2', x(index - first)); }
+      group.replaceChildren();
+      for (const position of new Set(visible.length > 2 ? [0, Math.floor((visible.length - 1) / 2), visible.length - 1] : visible.map((_, index) => index))) {
+        const label = document.createElementNS('http://www.w3.org/2000/svg', 'text'); label.setAttribute('x', x(position)); label.setAttribute('y', '228'); label.setAttribute('text-anchor', position === 0 ? 'start' : position === visible.length - 1 ? 'end' : 'middle'); label.textContent = visible[position].label; group.append(label);
+      }
+      plot.toggleAttribute('hidden', !count); if (empty) empty.hidden = count > 0;
+      const shown = series.filter(item => item.check.checked), text = count ? `${data[index].label}: ${shown.length ? shown.map(item => `${item.name} ${data[index].values[item.key]}`).join('; ') : 'No series selected.'}` : 'No data to show.';
+      output.textContent = text; range.min = String(first); range.max = String(last); range.value = String(index); range.disabled = fields[0].disabled || visible.length < 2; range.setAttribute('aria-valuetext', text);
+      if (start && end) {
+        start.min = '0'; start.max = String(last); start.value = String(first); end.min = String(first); end.max = String(maximumIndex); end.value = String(last); start.disabled = fields.find(field => field.input === start).disabled || count < 2; end.disabled = fields.find(field => field.input === end).disabled || count < 2;
+        start.setAttribute('aria-valuetext', count ? `First point: ${data[first].label}` : 'No data'); end.setAttribute('aria-valuetext', count ? `Last point: ${data[last].label}` : 'No data');
+      }
+      if (windowText) windowText.textContent = count ? `Showing ${data[first].label} through ${data[last].label}: ${visible.length} of ${count} points. Linear scale ${minimum} to ${maximum}; includes zero.` : 'No data to show.';
     };
-    range.min = '0'; range.max = String(rows.length - 1); range.disabled = original.disabled || rows.length < 2; controls.hidden = false;
-    listen(range, 'input', update); series.forEach(item => listen(item.check, 'change', update)); afterReset(element.closest('form'), update); update();
-    cleanups.push(() => { series.forEach((item, index) => { if (paths[index].points === null) item.path.removeAttribute('points'); else item.path.setAttribute('points', paths[index].points); item.path.style.display = paths[index].display; }); range.min = original.min; range.max = original.max; range.disabled = original.disabled; controls.hidden = original.hidden; if (original.valueText === null) range.removeAttribute('aria-valuetext'); else range.setAttribute('aria-valuetext', original.valueText); });
+    const fullView = () => { first = 0; last = Math.max(0, data.length - 1); draw(); };
+    const followView = (span = last - first, full = first === 0 && last === data.length - 1) => { last = Math.max(0, data.length - 1); first = full ? 0 : Math.max(0, last - span); range.min = String(first); range.max = String(last); range.value = String(last); };
+    const updateData = (rows, append) => {
+      if (!valid(rows)) { if (status) status.textContent = 'Chart data was not updated. Use unique labels and finite numeric values within the documented limits.'; return false; }
+      if (append && !rows.length || !append && rows.length === data.length && rows.every((row, index) => row.label === data[index].label && series.every(item => row.values[item.key] === data[index].values[item.key]))) { if (status) status.textContent = ''; return true; }
+      const combined = append ? [...data, ...rows] : rows, dropped = Math.max(0, combined.length - 512), next = combined.slice(dropped);
+      if (new Set(combined.map(row => row.label.trim())).size !== combined.length) { if (status) status.textContent = 'Chart data was not updated. Point labels must be unique.'; return false; }
+      const point = data[Number(range.value)]?.label, firstLabel = data[first]?.label, lastLabel = data[last]?.label, full = !data.length || first === 0 && last === data.length - 1, span = last - first, oldIndex = Number(range.value);
+      data = next.map(row => ({ label: row.label.trim(), values: Object.fromEntries(series.map(item => [item.key, row.values[item.key]])) }));
+      first = full || !data.length ? 0 : Math.max(0, data.findIndex(row => row.label === firstLabel)); last = full || !data.length ? Math.max(0, data.length - 1) : Math.max(first, data.findIndex(row => row.label === lastLabel));
+      if (follow?.checked && data.length) followView(span, full);
+      range.min = String(first); range.max = String(last); const selected = data.findIndex(row => row.label === point); range.value = String(follow?.checked ? last : selected < 0 ? Math.max(first, Math.min(last, oldIndex - (append ? dropped : 0))) : selected);
+      table.tBodies[0].replaceChildren(...data.map(row => { const tr = document.createElement('tr'), th = document.createElement('th'); th.scope = 'row'; th.textContent = row.label; tr.append(th); for (const item of series) { const td = document.createElement('td'); td.textContent = String(row.values[item.key]); tr.append(td); } return tr; }));
+      if (start && end) { start.defaultValue = '0'; end.defaultValue = String(Math.max(0, data.length - 1)); }
+      draw(); if (status) status.textContent = '';
+      element.dispatchEvent(new CustomEvent('rf:chart-change', { bubbles: true, detail: { source: append ? 'append' : 'replace', count: data.length, dropped } })); return true;
+    };
+    lineCharts.set(element, updateData); controls.hidden = false;
+    listen(range, 'input', () => { if (!range.matches(':disabled')) draw(); }); series.forEach(item => listen(item.check, 'change', draw));
+    for (const input of [start, end].filter(Boolean)) listen(input, 'input', () => { if (input.matches(':disabled')) return; first = Number(start.value); last = Number(end.value); draw(); });
+    if (follow) listen(follow, 'change', () => { if (follow.checked && !follow.matches(':disabled')) { followView(); draw(); } });
+    if (reset) listen(reset, 'click', fullView);
+    for (const input of [range, start, end, ...series.map(item => item.check)].filter(Boolean)) listen(input, 'change', () => element.dispatchEvent(new CustomEvent('rf:chart-view', { bubbles: true, detail: { from: first, to: last, selected: Number(range.value), series: series.filter(item => item.check.checked).map(item => item.key) } })));
+    afterReset(element.closest('form'), fullView); draw();
+    // ponytail: at most 512 points and eight fixed series; aggregate larger feeds before calling updateLineChart.
+    cleanups.push(() => { lineCharts.delete(element); fullView(); series.forEach((item, index) => item.path.style.display = displays[index]); controls.hidden = hidden; for (const field of fields) { field.input.min = field.min; field.input.max = field.max; field.input.disabled = field.disabled; if (field.text === null) field.input.removeAttribute('aria-valuetext'); else field.input.setAttribute('aria-valuetext', field.text); } });
   }
 
   for (const element of matches(root, '[data-rf-password]')) {
@@ -355,6 +396,7 @@ export function initPatterns(root = document) {
       const empty = element.querySelector('[data-rf-table-empty]');
       if (empty) empty.hidden = filtered.length > 0;
       updateSelection();
+      element.dispatchEvent(new CustomEvent('rf:table-view', { bubbles: true, detail: { values: filtered.map(row => row.querySelector('[data-rf-table-select]')?.value).filter(Boolean), total: filtered.length, page, pageSize } }));
     };
     const resetPage = () => { page = 0; update(); };
     if (search) listen(search, 'input', resetPage);

@@ -328,5 +328,22 @@
     "access": "Public documentation; page lists an MIT license, source artifact and access tier not verified",
     "vendorDemoInteractionTested": false,
     "implementationSourceReviewed": false
+  },
+  {
+    "library": "Arc UI",
+    "url": "https://uiarc.dev/components/line-chart",
+    "title": "Line chart",
+    "features": [
+      "Multiple stable series, exact accessible table values, native-equivalent keyboard exploration and legend visibility",
+      "Range changes, empty/loading state and controlled callbacks",
+      "Reduced-motion alternatives to curve morphs, crosshair glides and scale springs"
+    ],
+    "gap": "Original atomic data replacement, bounded append, native window zoom and filter-connected dashboard charts now implemented; vendor spring animation, pointer-on-plot scrubbing and complete vendor parity remain unverified.",
+    "reviewedAt": "2026-10-03",
+    "method": "Public documentation read through web and server-rendered HTML retrieved directly",
+    "statusCode": null,
+    "access": "Public page title labels the component free; installation source artifact, access tier and license not verified",
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
   }
 ]

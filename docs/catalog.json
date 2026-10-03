@@ -558,22 +558,24 @@
     "id": "line-chart",
     "title": "Line chart",
     "category": "Components",
-    "description": "Read the trend, compare a target, and explore each month with the keyboard.",
+    "description": "Explore exact values, zoom the visible window, and update a trend from your own data.",
     "css": [
       "patterns",
       "card",
       "form",
-      "table"
+      "table",
+      "button"
     ],
     "js": [
       "patterns"
     ],
     "file": "examples/components/line-chart.html",
     "notes": [
-      "Original SVG sample data uses a shared linear scale including zero. Solid and dashed paths distinguish series without relying on color. Exact values are available in the native disclosure table.",
-      "The optional range selects a month with native keyboard/touch controls. Checkboxes show/hide series and update the text readout and aria-valuetext; hiding a series keeps the scale stable.",
-      "The table supplies finite numeric data and unique series keys. Use matching SVG paths and checkboxes, and update the fallback SVG labels/points when replacing data. Destroy and reinitialize after changing the data table.",
-      "Without JavaScript, the fallback chart and full data table remain available. This is a small static chart; streaming data, zoom, custom tooltips, and large datasets need application-specific work."
+      "Original SVG and native data table use a shared linear scale including zero. Solid and dashed paths distinguish series without relying on color; hiding a series keeps the scale stable.",
+      "Native ranges select an exact point and zoom from the first to the last visible point. Show all points restores the full view; Follow newest point explicitly pans on updates. The table always retains every accepted point.",
+      "After initPatterns(chart), updateLineChart(chart, rows, { append: true }) accepts { label, values } records for the fixed series keys. Omit append to replace. Invalid updates return false and retain previous data. Use at most 512 unique labels (100 characters each), eight series and finite numeric values bounded by 1e12; appends keep the latest 512 points.",
+      "Table headings, matching SVG paths and checkboxes define the fixed series. Change series markup only after teardown. Native form reset restores the view of current accepted data; teardown keeps a readable plot/table and rejects late API calls. Without scripts the initial SVG and exact native table remain available.",
+      "The gallery separately uses examples/chart-demo.js for explicit illustrative browser updates and a real localhost HTTP stream. Start, Pause and Restore control its lifecycle; failure retains data, hidden pages and teardown close the feed, and static hosting disables HTTP. The library starts no requests; applications supply authorized feeds, history and aggregation for larger datasets."
     ]
   },
   {

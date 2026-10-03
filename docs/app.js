@@ -10,6 +10,7 @@ import { initTeamExamples } from '../examples/team-demo.js';
 import { initEditors } from '../src/js/editors.js';
 import { initFileBrowsers } from '../src/js/file-browser.js';
 import { initViewers } from '../src/js/viewers.js';
+import { initChartExamples } from '../examples/chart-demo.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
@@ -26,6 +27,7 @@ let stopTeams = () => {};
 let stopEditors = () => {};
 let stopFiles = () => {};
 let stopViewers = () => {};
+let stopCharts = () => {};
 let sizeReport;
 let saved = new Set();
 try {
@@ -184,6 +186,7 @@ function render({ focus = false } = {}) {
   stopViewers(); stopFiles(); stopEditors(); stopTeams(); stopGrids(); stopUploads();
   stopEffects();
   stopForms();
+  stopCharts();
   stopPatterns();
   const route = location.hash.slice(1) || 'home';
   search.setAttribute('aria-label', route === 'references' ? 'Search reference components and libraries' : 'Search components, effects, and sections');
@@ -203,6 +206,7 @@ function render({ focus = false } = {}) {
   main.innerHTML = html;
   stopEffects = initEffects(main);
   stopPatterns = initPatterns(main);
+  stopCharts = initChartExamples(main);
   stopForms = initFormPatterns(main);
   stopGrids = initGridExamples(main);
   stopUploads = initUploadExamples(main);

@@ -162,6 +162,37 @@ preference; native form reset restores all splits belonging to the form.
 `rf:panel-resize` emits committed `value`, `previousValue`, `axis`, and `source`
 (`range`, `keyboard`, `pointer`, or `reset`); cancelled drags emit no commit.
 Keep bounds, axis and pane markup fixed until teardown/reinitialization.
+Line charts use their native table as the initial source. Matching table headings,
+SVG polylines and checkboxes define up to eight fixed series. Initialize the root,
+then replace or append exact data without rebuilding it:
+
+```js
+import { initPatterns, updateLineChart } from './src/js/patterns.js';
+const chart = document.querySelector('[data-rf-line-chart]');
+const stop = initPatterns(chart);
+updateLineChart(chart, [{ label: 'October', values: { active: 91, target: 60 } }]);
+updateLineChart(chart, [{ label: 'November', values: { active: 102, target: 70 } }], { append: true });
+// Before removing this chart: stop();
+```
+
+Each batch has at most 512 points, unique nonempty labels of at most 100 characters,
+and exactly the declared series keys with finite numbers whose absolute value is
+at most 1e12. Invalid updates return `false` and retain the plot and table. Accepted
+appends keep the latest 512 points. Both `data-rf-line-start` and `data-rf-line-end`
+native ranges enable window zoom; the exploration range selects an exact point.
+The selected label and zoom remain when possible. Show all points restores the
+full view; Follow newest point explicitly pans with updates. Native form reset
+resets the view of accepted data. Teardown leaves its readable plot/table, and
+late updates return `false`. An empty dataset displays the empty state.
+`rf:chart-change` emits `{ source, count, dropped }` once per actual accepted update;
+`rf:chart-view` emits `{ from, to, selected, series }` after a native view change.
+The shared scale includes zero and remains stable when a series is hidden.
+The library starts no network requests. `examples/chart-demo.js` provides an
+explicit browser sample feed and a real localhost HTTP sample with pause,
+retry, hidden-page pause and cleanup. Static hosting disables its HTTP source.
+Production applications supply their own authorized feeds and aggregate larger
+datasets before calling the API; these examples provide no durable history.
+
 `rf:sort-change` emits `detail.value`, zero-based `from`/`to`, `values`, and
 `previousValues`; `rf:kanban-change` retains `value`, `from`, and `to` column
 values and adds zero-based `fromIndex`/`toIndex`, `values` and `previousValues`
@@ -176,6 +207,11 @@ with `detail.values`. Tables emit `rf:table-selection` with `detail.values` and
 `rf:table-action` with `detail.action` plus `detail.values`. Notification read
 actions emit `rf:notifications-read` with `detail.values`. Your app owns
 persistence, authorization, and the actual action.
+Tables also emit `rf:table-view` with matching row `values` across all pages,
+`total`, `page` and `pageSize`. The sample dashboard uses that event to update its
+shared line chart and native bar/donut charts from the same filtered project
+snapshot, including status changes, creation, archiving and workspace switching.
+Its cumulative last-update-day chart is a current snapshot, not activity history.
 Authentication, subscriptions, and integrations are interface
 examples; connect application behavior and server validation yourself.
 

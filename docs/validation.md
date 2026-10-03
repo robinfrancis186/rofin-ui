@@ -6,6 +6,64 @@ queue, advanced data table and eight form/scheduling examples. This is a compone
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
 
+## Shared chart updates and filtered dashboard data
+
+The optional line chart now exposes `updateLineChart` for atomic replacement
+and bounded append. It validates fixed series, unique trimmed labels, finite
+numeric values and documented size limits before touching accepted data. It
+copies values, keeps the latest 512 points and preserves selection/window labels
+where possible. Native start/end ranges zoom the visible window; explicit
+follow-newest pans with updates. The scale includes zero and series visibility
+does not change it. Empty data hides the SVG and disables exploration. Native
+form reset restores the view of current accepted data; teardown leaves a
+readable plot/table and rejects late updates. Per-change events expose exact
+accepted counts and view indices without a live announcement on every tick.
+
+The gallery's separate sample controller starts only on request. Its browser
+timer and real localhost EventSource feed support pause, restore and explicit
+retry. Hidden pages, pagehide and route teardown close the feed. Failed HTTP,
+malformed values and rejected duplicate labels retain accepted data. Static
+hosting disables the HTTP option. No network or new runtime dependency was
+added to the shared library.
+
+The native table emits matching row IDs across all pages. The dashboard uses
+that one filtered snapshot for its shared line chart and native bar/donut
+charts, including searches, statuses, applied dates, card moves and workspace
+changes. Six Studio projects have 65 tasks, including 18 Published tasks;
+filtering Published yields exactly two projects/18 tasks and 100 percent.
+Changing Brand refresh to Published produces 38 Published tasks; Personal
+has six tasks and no Published tasks. The cumulative line groups current tasks
+by their most recent update day; it does not claim activity history. Revenue
+and retention remain labelled illustrative samples.
+
+All seven new chart checks pass locally in Chromium, Firefox and macOS WebKit
+after the final cleanup/follow fixes. All 28 affected chart, dashboard,
+workspace and sorting checks also pass in Firefox and macOS WebKit.
+They cover exact numeric tables/SVG, invalid atomic updates, safe text labels,
+512-point rollover, selection, zoom, follow behavior, cancelled/native reset,
+cleanup/reinitialization, actual HTTP event bytes, failed/malformed feeds,
+explicit retry, pause and lifecycle closure. Both themes fit 320/390/1440 pixels,
+reduced motion reports no page errors, exposed previews pass axe and genuine
+JavaScript-disabled pages retain exact tables and native initial plots.
+Restoring an unchanged valid snapshot clears a prior error without emitting a
+duplicate data commit. Teardown restores the original series visibility with
+accepted values, and checking Follow moves to the actual newest point immediately
+while retaining the zoom span. The final focused checks cover each case.
+
+Separate installed Safari smoke checks passed native pointer zoom, browser
+updates/follow, pause/restore and real HTTP sample reception. The exact first
+HTTP point was `Sample 1`, active 56 and target 61. The owned tab was closed and
+the original Start Page restored. This is partial native Safari evidence;
+full Safari, actual screen-reader and physical-touch checks remain outstanding.
+
+The final full Chromium run passed all 143 tests and the 253-file package
+check. Core CSS/auto JavaScript remains 8,424 bytes gzip locally under the
+14 KiB budget, with zero runtime/peer dependencies. Earlier full attempts were
+intentionally stopped for cleanup/follow fixes; a replacement server-start
+timeout was resolved by starting and verifying the owned development server.
+The final run completed every assertion. Current CI and deployed-content
+evidence are recorded in draft PR #1.
+
 ## Shared sorting and workspace priorities
 
 The existing sorter now owns its direct items, controls and announcement instead
@@ -52,7 +110,13 @@ The full 136-test local Chromium suite and 252-file package check pass. The firs
 full run was intentionally interrupted to fix that announcement; its replacement
 completed with every assertion intact. No runtime/peer dependency was added, and
 the combined core remains 8,424 bytes gzip locally, below its 14 KiB budget.
-Current release/CI evidence is recorded in the draft pull request.
+GitHub run [37097344507](https://github.com/robinfrancis186/rofin-ui/actions/runs/37097344507)
+subsequently passed all 136 tests and the 252-file package check in Chromium,
+Firefox and WebKit on `abb383b`, plus native-media/narrow-recovery checks.
+Each completed job log was inspected. The corresponding production deployment
+passed exact content checks for all 254 built files; native card/column moves,
+workspace isolation and draft-preserving order reset were checked, with both
+themes fitting 320/390 pixels. Current release evidence is also in draft PR #1.
 
 ## Shared resizable workspace desk
 

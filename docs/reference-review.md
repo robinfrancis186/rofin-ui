@@ -1,4 +1,4 @@
-# Rofin UI source review — 2 October 2026
+# Rofin UI source review — 2–3 October 2026
 
 The linked catalogs and all nine libraries in the supplied screenshot were
 visited. Their available catalog metadata was collected into
@@ -42,6 +42,10 @@ optional browser-local layout preferences, composed in the dashboard. The shared
 sorter now handles independent nested roots, regular grids and Kanban columns;
 the board commits exact card positions with previous/current snapshots. The
 dashboard uses these same components for per-workspace page-session priorities.
+The shared line chart now accepts atomic data updates and bounded appends, with
+native window zoom and explicit follow-newest behavior. The dashboard uses its
+filtered project snapshot as the chart source. Optional sample feeds remain
+separate from the library and static hosting disables their localhost HTTP source.
 Exact vendor animation behavior remains unimplemented; these additions do not
 establish vendor-demo parity.
 
@@ -60,7 +64,7 @@ telemetry, or automatic API calls. The core continues to have its enforced
 
 Individual source-detail review and access-tier verification remain pending
 for most indexed entries, especially Aura. Exact shader, canvas, physics,
-streaming, media-recording, cross-root nested transfers, and complex scroll components
+vendor realtime visuals, media-recording, cross-root nested transfers, and complex scroll components
 need their own implementation and testing. Reference-only entries are not
 advertised as finished Rofin components.
 
@@ -106,3 +110,10 @@ describe nested/grid sorting, handles, disabled items, exact order snapshots,
 card/column movement and cancellation. Their footers list MIT licensing; a
 packaged source artifact and its access tier were not verified. Vendor demos
 were not manually interaction-tested, and no vendor code was imported.
+
+The [Arc Line Chart](https://uiarc.dev/components/line-chart) documentation was
+read again on 3 October. Its range changes, controlled series/crosshair callbacks,
+loading/empty states, exact table and motion fallbacks informed the original
+chart additions. The public title calls it free; its install artifact and license
+were not verified, and its vendor demo was not interaction-tested. Arc's current
+navigation counts differ from the older collected catalog and remain unreconciled.
