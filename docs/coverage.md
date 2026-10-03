@@ -16,7 +16,7 @@ each example. This is a UI library, not an application backend.
 | Actions and overlays | Buttons, dropdown, native dialog/drawer, tooltip, command palette, image lightbox |
 | Documents and media | PDF with full text/download alternatives, explicit local-file preview, native video/audio with captions and real downloads |
 | Feedback and states | Alert, toast, notification inbox, empty state, spinner, skeleton, 404/permission/offline/server-error pages and read recovery |
-| Activity and onboarding | Task board, sortable priorities, timeline, checklist/progress, multistep form, calendar, time picker, daily event scheduler, tabs |
+| Activity and onboarding | Reorderable task cards/columns, sortable priorities, grids and nested steps, timeline, checklist/progress, multistep form, calendar, time picker, daily event scheduler, tabs |
 
 Added to fill the audit gaps: responsive website header, application shell,
 dashboard metrics, account settings, sign-up, password reset, bar chart, donut
@@ -31,7 +31,9 @@ sections. `examples/dashboard.html` composes the shell, metrics, charts,
 date/status/search filters, table selection, notifications, timeline, upload,
 dialogs, settings, and a task board. Moving a card updates
 the corresponding table status. The board shows every active project regardless
-of table filters. It supports local draft creation, confirmed archiving,
+of table filters. Card and column priorities stay separate per workspace through
+creation and archiving. Its order-only reset preserves statuses and note drafts.
+It supports local draft creation, confirmed archiving,
 CSV download, and settings changes for three public workspaces during the current
 page session. Switching updates projects, boards, inboxes, preferences, charts,
 team/activity data, saved notes and browser-copy files/Trash; it closes previews, pauses media and clears selections, filters and unsaved forms. Account
@@ -46,13 +48,18 @@ reinitialization. The sample CSV export neutralizes leading spreadsheet formulas
 Application services still needed: authentication/recovery, authorization,
 database queries, email, subscriptions/payments, real uploads, persistence, and
 server validation. Billing flows, advanced visuals,
-and deeper sorting/chart interactions remain in
+and deeper chart interactions remain in
 `completion-ledger.md`.
 
 Four further gaps now have optional examples: a Kanban board, sortable list,
 resizable panels, and line chart. Desktop drag operations commit on drop;
 keyboard/touch users have native move buttons and selects. Form reset restores
-initial list/board order. Panel sizing retains native ranges and adds pointer/
+initial list/board order. Sortable roots handle regular grids, RTL reading order
+and independently nested steps. Kanban adds exact before/after card placement,
+in-column priority and column ordering through the shared sorter. Title handles
+keep column/parent dragging separate from editable fields. Native disabled
+controls and fieldsets enforce read-only moves; cancellation emits no commit.
+Panel sizing retains native ranges and adds pointer/
 keyboard dividers, nested vertical splits, cancellation and optional browser-local
 layout preferences. The dashboard composes these shared panels around its real
 activity, notes and file-browser components, with separate layouts per workspace.

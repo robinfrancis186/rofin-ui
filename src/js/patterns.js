@@ -9,108 +9,139 @@ export function initPatterns(root = document) {
   const afterReset = (form, update) => cleanups.push(onFormReset(form, update, signal));
 
   for (const element of matches(root, '[data-rf-sortable]')) {
-    const list = element.querySelector('[data-rf-sort-list]');
+    const own = selector => [...element.querySelectorAll(selector)].filter(node => node.closest('[data-rf-sortable]') === element);
+    const list = own('[data-rf-sort-list]')[0];
     if (!list) continue;
     const items = () => [...list.children].filter(item => item.matches('[data-rf-sort-item]'));
     const original = items();
-    const buttons = [...list.querySelectorAll('[data-rf-sort-move]')].map(button => ({ button, hidden: button.hidden, disabled: button.disabled }));
-    const draggable = original.map(item => item.getAttribute('draggable'));
-    const status = element.querySelector('[role="status"]');
+    if (original.some(item => !item.dataset.rfSortItem?.trim()) || new Set(original.map(item => item.dataset.rfSortItem)).size !== original.length) continue;
+    const buttons = own('[data-rf-sort-move]').filter(button => button.closest('[data-rf-sort-item]')?.parentElement === list).map(button => ({ button, hidden: button.hidden, disabled: button.disabled }));
+    const dragNodes = original.flatMap(item => { const handles = own('[data-rf-sort-handle]').filter(node => node.closest('[data-rf-sort-item]') === item); return handles.length ? handles : [item]; }), draggable = dragNodes.map(node => node.getAttribute('draggable'));
+    const status = own('[role="status"]')[0], controls = item => buttons.filter(({ button }) => button.closest('[data-rf-sort-item]') === item);
+    const blocked = item => element.dataset.rfSortDisabled === 'true' || item?.dataset.rfSortDisabled === 'true' || controls(item).length > 0 && controls(item).every(({ button }) => button.matches(':disabled'));
     let dragged;
     const update = () => items().forEach((item, index, order) => {
-      for (const button of item.querySelectorAll('[data-rf-sort-move]')) { button.hidden = false; button.disabled = button.dataset.rfSortMove === '-1' ? index === 0 : index === order.length - 1; }
+      for (const { button, disabled } of controls(item)) { const delta = Number(button.dataset.rfSortMove); button.hidden = false; button.disabled = disabled || element.dataset.rfSortDisabled === 'true' || item.dataset.rfSortDisabled === 'true' || ![-1, 1].includes(delta) || (delta === -1 ? index === 0 : index === order.length - 1); }
+      dragNodes.filter(node => node.closest('[data-rf-sort-item]') === item).forEach(node => node.draggable = !blocked(item));
     });
     const clearDrag = () => { dragged = null; original.forEach(item => { item.removeAttribute('data-rf-dragging'); item.removeAttribute('data-rf-drop-target'); }); };
     const commit = (item, order) => {
       const previous = items(), from = previous.indexOf(item), to = order.indexOf(item);
-      if (from === to || from < 0) return;
+      if (from === to || from < 0 || blocked(item)) return;
       const active = document.activeElement;
       list.append(...order); update();
-      if (item.contains(active)) (active.disabled ? item.querySelector('[data-rf-sort-move]:not(:disabled)') : active)?.focus();
-      if (status) status.textContent = `${item.querySelector('[data-rf-item-label]')?.textContent || item.dataset.rfSortItem} moved to position ${to + 1} of ${order.length}.`;
+      (item.contains(active) && !active.matches(':disabled') ? active : controls(item).find(({ button }) => !button.matches(':disabled'))?.button)?.focus();
+      if (status) status.textContent = `${own('[data-rf-item-label]').find(label => label.closest('[data-rf-sort-item]') === item)?.textContent || item.dataset.rfSortItem} moved to position ${to + 1} of ${order.length}.`;
       element.dispatchEvent(new CustomEvent('rf:sort-change', { bubbles: true, detail: { value: item.dataset.rfSortItem, from, to, values: order.map(node => node.dataset.rfSortItem), previousValues: previous.map(node => node.dataset.rfSortItem) } }));
     };
     listen(list, 'click', event => {
       const button = event.target.closest('[data-rf-sort-move]'), item = button?.closest('[data-rf-sort-item]');
-      if (!button || button.disabled || item?.parentElement !== list) return;
+      if (!button || button.matches(':disabled') || !buttons.some(entry => entry.button === button) || item?.parentElement !== list || ![-1, 1].includes(Number(button.dataset.rfSortMove))) return;
       const order = items(), from = order.indexOf(item), to = Math.max(0, Math.min(order.length - 1, from + Number(button.dataset.rfSortMove)));
       order.splice(from, 1); order.splice(to, 0, item); commit(item, order);
     });
     listen(list, 'dragstart', event => {
       const item = event.target.closest('[data-rf-sort-item]');
-      if (item?.parentElement !== list || !event.dataTransfer) return;
+      if (item?.parentElement !== list || !dragNodes.includes(event.target.closest('[draggable="true"]')) || !event.dataTransfer) return;
+      if (blocked(item)) { event.preventDefault(); return; }
       dragged = item; item.dataset.rfDragging = ''; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.dataset.rfSortItem);
     });
     listen(list, 'dragover', event => {
       const item = event.target.closest('[data-rf-sort-item]');
-      if (!dragged || item?.parentElement !== list || item === dragged) return;
+      if (!dragged || blocked(dragged) || item?.parentElement !== list || item === dragged) return;
       event.preventDefault(); event.dataTransfer.dropEffect = 'move';
       original.forEach(node => node.toggleAttribute('data-rf-drop-target', node === item));
     });
     listen(list, 'drop', event => {
       const target = event.target.closest('[data-rf-sort-item]');
-      if (!dragged || target?.parentElement !== list) return;
+      if (!dragged || blocked(dragged) || target?.parentElement !== list || dragged.parentElement !== list) { clearDrag(); return; }
       event.preventDefault();
       if (target !== dragged) {
         const order = items().filter(item => item !== dragged), bounds = target.getBoundingClientRect();
-        order.splice(order.indexOf(target) + (event.clientY >= bounds.top + bounds.height / 2 ? 1 : 0), 0, dragged); commit(dragged, order);
+        const horizontal = ['x', 'grid'].includes(element.dataset.rfSortAxis) && getComputedStyle(list).gridTemplateColumns.split(' ').length > 1;
+        const after = horizontal ? (getComputedStyle(list).direction === 'rtl' ? event.clientX < bounds.left + bounds.width / 2 : event.clientX >= bounds.left + bounds.width / 2) : event.clientY >= bounds.top + bounds.height / 2;
+        order.splice(order.indexOf(target) + (after ? 1 : 0), 0, dragged); commit(dragged, order);
       }
       clearDrag();
     });
     listen(list, 'dragend', clearDrag);
-    original.forEach(item => { item.draggable = true; }); update();
+    listen(document, 'keydown', event => { if (event.key === 'Escape') clearDrag(); }); listen(window, 'pagehide', clearDrag);
+    if (element.closest('form')) listen(element.closest('form'), 'reset', clearDrag);
+    update();
+    const observer = new MutationObserver(() => { update(); if (dragged && blocked(dragged)) clearDrag(); }); observer.observe(element, { attributes: true, subtree: true, attributeFilter: ['data-rf-sort-disabled'] }); cleanups.push(() => observer.disconnect());
+    for (let parent = element.parentElement; parent; parent = parent.parentElement) if (parent.tagName === 'FIELDSET') observer.observe(parent, { attributes: true, attributeFilter: ['disabled'] });
     afterReset(element.closest('form'), () => { clearDrag(); list.append(...original); update(); if (status) status.textContent = 'Original order restored.'; });
-    cleanups.push(() => { clearDrag(); original.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); buttons.forEach(({ button, hidden, disabled }) => { button.hidden = hidden; button.disabled = disabled; }); });
+    cleanups.push(() => { clearDrag(); dragNodes.forEach((node, index) => { if (draggable[index] === null) node.removeAttribute('draggable'); else node.setAttribute('draggable', draggable[index]); }); buttons.forEach(({ button, hidden, disabled }) => { button.hidden = hidden; button.disabled = disabled; }); });
   }
   for (const element of matches(root, '[data-rf-kanban]')) {
-    const columns = [...element.querySelectorAll('[data-rf-kanban-column]')];
+    const own = selector => [...element.querySelectorAll(selector)].filter(node => node.closest('[data-rf-kanban]') === element);
+    const columns = own('[data-rf-kanban-column]');
     const lists = columns.map(column => column.querySelector('[data-rf-kanban-list]'));
     if (lists.some(list => !list) || !lists.length) continue;
     const original = lists.map(list => [...list.children].filter(item => item.matches('[data-rf-kanban-item]')));
     const items = original.flat(), draggable = items.map(item => item.getAttribute('draggable'));
-    const controls = [...element.querySelectorAll('[data-rf-kanban-control]')].map(control => ({ control, hidden: control.hidden }));
-    const status = element.querySelector('[role="status"]');
+    if (items.some(item => !item.dataset.rfKanbanItem?.trim()) || columns.some(column => !column.dataset.rfKanbanColumn?.trim()) || new Set(items.map(item => item.dataset.rfKanbanItem)).size !== items.length || new Set(columns.map(column => column.dataset.rfKanbanColumn)).size !== columns.length) continue;
+    const controls = own('[data-rf-kanban-control]').map(control => ({ control, hidden: control.hidden }));
+    const buttons = own('[data-rf-kanban-order]').map(button => ({ button, disabled: button.disabled }));
+    const status = own('[role="status"]')[0];
     let dragged;
     const columnOf = item => columns[lists.indexOf(item.parentElement)];
+    const cards = list => [...list.children].filter(item => items.includes(item));
+    const snapshot = () => Object.fromEntries([...columns[0].parentElement.children].filter(column => columns.includes(column)).map(column => [column.dataset.rfKanbanColumn, cards(lists[columns.indexOf(column)]).map(item => item.dataset.rfKanbanItem)]));
+    const blocked = item => item?.querySelector('[data-rf-kanban-move]')?.matches(':disabled');
     const update = () => columns.forEach((column, index) => {
       const count = lists[index].querySelectorAll(':scope > [data-rf-kanban-item]').length;
       const badge = column.querySelector('[data-rf-kanban-count]'), empty = column.querySelector('[data-rf-kanban-empty]');
       if (badge) badge.textContent = String(count); if (empty) empty.hidden = count > 0;
       lists[index].querySelectorAll('[data-rf-kanban-move]').forEach(select => { select.value = column.dataset.rfKanbanColumn; });
+      cards(lists[index]).forEach((item, position, order) => { item.draggable = !blocked(item); for (const { button, disabled } of buttons.filter(entry => entry.button.closest('[data-rf-kanban-item]') === item)) { const delta = Number(button.dataset.rfKanbanOrder); button.disabled = disabled || blocked(item) || ![-1, 1].includes(delta) || (delta === -1 ? position === 0 : position === order.length - 1); } });
     });
-    const clearDrag = () => { dragged = null; items.forEach(item => item.removeAttribute('data-rf-dragging')); columns.forEach(column => column.removeAttribute('data-rf-drop-target')); };
-    const move = (item, column) => {
+    const clearDrag = () => { dragged = null; items.forEach(item => { item.removeAttribute('data-rf-dragging'); item.removeAttribute('data-rf-drop-target'); }); columns.forEach(column => column.removeAttribute('data-rf-drop-target')); };
+    const move = (item, column, position, focus) => {
       const previous = columnOf(item), index = columns.indexOf(column);
-      if (!previous || index < 0 || column === previous) { update(); return; }
-      lists[index].append(item); update(); item.querySelector('[data-rf-kanban-move]')?.focus();
-      if (status) status.textContent = `Moved ${item.querySelector('[data-rf-item-label]')?.textContent || item.dataset.rfKanbanItem} to ${column.dataset.rfKanbanColumn}.`;
-      element.dispatchEvent(new CustomEvent('rf:kanban-change', { bubbles: true, detail: { value: item.dataset.rfKanbanItem, from: previous.dataset.rfKanbanColumn, to: column.dataset.rfKanbanColumn } }));
+      if (!previous || index < 0 || blocked(item)) { update(); return; }
+      const fromIndex = cards(item.parentElement).indexOf(item), order = cards(lists[index]).filter(card => card !== item), toIndex = position === undefined ? order.length : Math.max(0, Math.min(order.length, position));
+      if (column === previous && (position === undefined || fromIndex === toIndex)) { update(); return; }
+      const previousValues = snapshot(); order.splice(toIndex, 0, item); lists[index].append(...order); update();
+      (focus && !focus.matches(':disabled') ? focus : item.querySelector('[data-rf-kanban-move]'))?.focus();
+      if (status) status.textContent = `Moved ${item.querySelector('[data-rf-item-label]')?.textContent || item.dataset.rfKanbanItem} to ${column.dataset.rfKanbanColumn}, position ${toIndex + 1} of ${order.length}.`;
+      element.dispatchEvent(new CustomEvent('rf:kanban-change', { bubbles: true, detail: { value: item.dataset.rfKanbanItem, from: previous.dataset.rfKanbanColumn, to: column.dataset.rfKanbanColumn, fromIndex, toIndex, values: snapshot(), previousValues } }));
     };
     listen(element, 'change', event => {
       const select = event.target.closest('[data-rf-kanban-move]');
       const item = select?.closest('[data-rf-kanban-item]');
-      if (select && items.includes(item) && !select.disabled) move(item, columns.find(column => column.dataset.rfKanbanColumn === select.value));
+      if (select && items.includes(item) && !select.matches(':disabled')) move(item, columns.find(column => column.dataset.rfKanbanColumn === select.value));
     });
+    listen(element, 'click', event => { const button = event.target.closest('[data-rf-kanban-order]'), item = button?.closest('[data-rf-kanban-item]'), delta = Number(button?.dataset.rfKanbanOrder); if (!button || button.matches(':disabled') || !items.includes(item) || ![-1, 1].includes(delta)) return; move(item, columnOf(item), cards(item.parentElement).indexOf(item) + delta, button); });
     listen(element, 'dragstart', event => {
       const item = event.target.closest('[data-rf-kanban-item]');
-      if (!items.includes(item) || item.querySelector('[data-rf-kanban-move]')?.disabled || !event.dataTransfer) { event.preventDefault(); return; }
+      if (!items.includes(item) || !event.dataTransfer) return;
+      if (blocked(item)) { event.preventDefault(); return; }
       dragged = item; item.dataset.rfDragging = ''; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('text/plain', item.dataset.rfKanbanItem);
     });
     listen(element, 'dragover', event => {
       const column = event.target.closest('[data-rf-kanban-column]');
-      if (!dragged || !columns.includes(column)) return;
+      if (!dragged || blocked(dragged) || !columns.includes(column)) return;
       event.preventDefault(); event.dataTransfer.dropEffect = 'move'; columns.forEach(node => node.toggleAttribute('data-rf-drop-target', node === column));
+      const target = event.target.closest('[data-rf-kanban-item]'); items.forEach(node => node.toggleAttribute('data-rf-drop-target', node === target && node !== dragged));
     });
     listen(element, 'drop', event => {
       const column = event.target.closest('[data-rf-kanban-column]');
-      if (!dragged || !columns.includes(column)) return;
-      event.preventDefault(); move(dragged, column); clearDrag();
+      if (!dragged || blocked(dragged) || !columns.includes(column)) { clearDrag(); return; }
+      event.preventDefault(); const target = event.target.closest('[data-rf-kanban-item]'), order = cards(lists[columns.indexOf(column)]).filter(item => item !== dragged);
+      const bounds = target?.getBoundingClientRect(), position = target === dragged ? cards(dragged.parentElement).indexOf(dragged) : items.includes(target) ? order.indexOf(target) + (event.clientY >= bounds.top + bounds.height / 2 ? 1 : 0) : order.length;
+      move(dragged, column, position); clearDrag();
     });
     listen(element, 'dragend', clearDrag);
-    items.forEach(item => { item.draggable = true; }); controls.forEach(({ control }) => { control.hidden = false; }); update();
+    listen(document, 'keydown', event => { if (event.key === 'Escape') clearDrag(); }); listen(window, 'pagehide', clearDrag);
+    if (element.closest('form')) listen(element.closest('form'), 'reset', clearDrag);
+    controls.forEach(({ control }) => { control.hidden = false; }); update();
+    const observer = new MutationObserver(() => { update(); if (dragged && blocked(dragged)) clearDrag(); }); own('[data-rf-kanban-move]').forEach(select => observer.observe(select, { attributes: true, attributeFilter: ['disabled'] }));
+    for (let parent = element.parentElement; parent; parent = parent.parentElement) if (parent.tagName === 'FIELDSET') observer.observe(parent, { attributes: true, attributeFilter: ['disabled'] });
+    cleanups.push(() => observer.disconnect());
     afterReset(element.closest('form'), () => { clearDrag(); lists.forEach((list, index) => list.append(...original[index])); update(); if (status) status.textContent = 'Original board restored.'; });
     // ponytail: small static boards, with native moves; add virtualization and persistence in the application when needed.
-    cleanups.push(() => { clearDrag(); items.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); controls.forEach(({ control, hidden }) => { control.hidden = hidden; }); });
+    cleanups.push(() => { clearDrag(); items.forEach((item, index) => { if (draggable[index] === null) item.removeAttribute('draggable'); else item.setAttribute('draggable', draggable[index]); }); controls.forEach(({ control, hidden }) => { control.hidden = hidden; }); buttons.forEach(({ button, disabled }) => button.disabled = disabled); });
   }
   for (const element of matches(root, '[data-rf-resizable]')) {
     const own = selector => [...element.querySelectorAll(selector)].find(node => node.closest('[data-rf-resizable]') === element);

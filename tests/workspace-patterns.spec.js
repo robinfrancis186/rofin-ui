@@ -57,7 +57,7 @@ test('task boards expose native moves, counts, empty columns, cancellation, rese
   await expect(draft.locator('[data-rf-kanban-count]')).toHaveText('0');
   await expect(draft.locator('[data-rf-kanban-empty]')).toBeVisible();
   await expect(published.locator('[data-rf-kanban-count]')).toHaveText('2');
-  expect(await page.evaluate(() => window.moves)).toEqual([{ value: 'project-3', from: 'Draft', to: 'Published' }]);
+  expect(await page.evaluate(() => window.moves)).toEqual([{ value: 'project-3', from: 'Draft', to: 'Published', fromIndex: 0, toIndex: 1, values: { Draft: [], 'In progress': ['project-2','project-4'], Published: ['project-1','project-3'] }, previousValues: { Draft: ['project-3'], 'In progress': ['project-2','project-4'], Published: ['project-1'] } }]);
   await board.locator('[data-rf-kanban-item="project-3"]').dragTo(draft.locator('h3'), { sourcePosition: { x: 20, y: 20 } });
   await expect(move).toHaveValue('Draft');
   await expect(draft.locator('[data-rf-kanban-count]')).toHaveText('1');
@@ -138,7 +138,7 @@ test('the composed board shares table state across moves, filters, creation, and
   await page.goto('/dist/site/examples/dashboard.html');
   const board = page.locator('#project-board');
   await expect(board.locator('[data-rf-kanban-item]')).toHaveCount(6);
-  await board.locator('[data-rf-kanban-item="project-3"]').dragTo(board.locator('[data-rf-kanban-column="Published"] h3'));
+  await board.locator('[data-rf-kanban-item="project-3"]').dragTo(board.locator('[data-rf-kanban-column="Published"] h3'), { sourcePosition: { x: 20, y: 20 } });
   await expect(page.locator('#projects tr:has(input[value="project-3"])')).toHaveAttribute('data-rf-status', 'Published');
   const move = board.getByRole('combobox', { name: 'Move to for Brand refresh', exact: true }); await expect(move).toBeFocused();
   await page.getByRole('combobox', { name: 'Project status', exact: true }).selectOption('Published');

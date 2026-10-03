@@ -3,8 +3,12 @@
   .rf-sort-list { display: grid; gap: .75rem; list-style: decimal inside; padding: 0; margin: 0; }
   .rf-sort-list > li { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; padding: 1rem; background: var(--rf-surface); border: 1px solid var(--rf-border); border-radius: var(--rf-radius); }
   .rf-sort-list > li > div:first-child { flex: 1 1 12rem; min-inline-size: 0; }
+  .rf-sort-list--grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+  .rf-sort-list--grid > li { align-content: start; }
+  .rf-sort-list--nested { margin-block-start: .75rem; flex: 1 1 100%; min-inline-size: 0; }
   [data-rf-item-label] { overflow-wrap: anywhere; }
   [draggable="true"] [data-rf-item-label] { cursor: grab; }
+  [data-rf-sort-handle][draggable="true"] { cursor: grab; }
   [data-rf-dragging] { opacity: .55; }
   [data-rf-drop-target] { outline: 2px solid var(--rf-focus); outline-offset: 2px; }
   .rf-kanban { container: rf-board / inline-size; min-inline-size: 0; }
@@ -15,6 +19,7 @@
   .rf-kanban__list > li { padding: 1rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); box-shadow: var(--rf-shadow); }
   .rf-kanban__list .rf-field { margin-block-start: .75rem; }
   .rf-kanban__list .rf-select { font-size: .8125rem; }
+  .rf-kanban__order { margin-block: .75rem; }
   .rf-kanban__column > .rf-help { padding-block: .75rem; }
   .rf-resizable { container: rf-resize / inline-size; min-inline-size: 0; --rf-panel-first: 2fr; --rf-panel-second: 3fr; }
   .rf-resizable__panels { display: grid; grid-template-columns: minmax(0, var(--rf-panel-first, 2fr)) minmax(0, var(--rf-panel-second, 3fr)); gap: 1rem; }

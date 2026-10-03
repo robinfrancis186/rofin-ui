@@ -21,7 +21,7 @@ it does not assert visual, interaction, or API equivalence.
 | [Obsidian UI](https://www.obsidianui.dev/components) | 7 | A pausable rail, gallery/carousel and split-layout foundations | All seven public documentation pages read. Source tiers/licenses and vendor interactions remain unverified. The original WebGL panning gallery and text effects are not implemented. |
 | [Libraries.dev](https://libraries.dev) | 7 | Border beam and native loading/avatar alternatives | All seven public documentation pages read; their versioned public npm artifacts and packaged MIT licenses inspected. Vendor interactions and implementation source remain unreviewed. Gooey, voice-reactive, and liquid-metal rendering remain reference-only. |
 | [Arc](https://uiarc.dev/components) | 141 | Command palette, native selections, stepper, copy feedback, form flows, line chart | Line Chart documentation read; public machine-readable component/block index collected. No Pro source imported. Related native patterns omit Arc's exact spring physics. |
-| [Space UI](https://www.spaceui.one/components) | 101 | Interests, rating, like, checklist, date, timeline, login, gradient borders, sortable list, task board, adjustable panels | Kanban, Sortable, and Resizable documentation read. Catalog links collected. Nested/grid sorting, exact drag/physics behavior, tournaments, and shaders remain reference-only. |
+| [Space UI](https://www.spaceui.one/components) | 101 | Interests, rating, like, checklist, date, timeline, login, gradient borders, sortable list, task board, adjustable panels | Kanban, Sortable, and Resizable documentation read. Original nested/grid sorting, card/column ordering and nested panel behavior implemented. Exact vendor drag/physics, tournaments and shaders remain reference-only. |
 | [Componentry](https://componentry.dev/docs) | 53 | Dock, card stack, annotated text, text entrance, gradient and aurora families | Full exposed component-link index collected. WebGL, particle typography, signatures, and physics are not ported. |
 | [Skecher UI](https://skecher-ui.com/docs) | 26 | Dock, carousel, native tabs/forms, card and text foundations | Documentation catalog and Dock page read. Gooey morphs, wheel physics, and shader variants remain reference-only. |
 | [Planes](https://useplanes.com/components) | 110 | Segments, stepper, date, command, OTP, carousel, marquee, email capture | Public catalog collected. It distinguishes 10 free and 100 Pro entries. Common patterns were written independently; no paid source imported. |
@@ -38,9 +38,12 @@ and accessible chart exploration. Rofin supplies original small HTML/vanilla
 patterns with native move buttons, selects, and sliders. These samples were
 read as documentation; their vendor demos were not manually interaction-tested.
 Rofin's panel component now has pointer/keyboard dividers, nested splits and
-optional browser-local layout preferences, composed in the dashboard. Nested
-sorting, reorderable columns and exact vendor animation behavior remain unimplemented;
-the panel additions do not establish vendor-demo parity.
+optional browser-local layout preferences, composed in the dashboard. The shared
+sorter now handles independent nested roots, regular grids and Kanban columns;
+the board commits exact card positions with previous/current snapshots. The
+dashboard uses these same components for per-workspace page-session priorities.
+Exact vendor animation behavior remains unimplemented; these additions do not
+establish vendor-demo parity.
 
 ## How to use the additions
 
@@ -57,7 +60,7 @@ telemetry, or automatic API calls. The core continues to have its enforced
 
 Individual source-detail review and access-tier verification remain pending
 for most indexed entries, especially Aura. Exact shader, canvas, physics,
-streaming, media-recording, advanced drag-reordering, and complex scroll components
+streaming, media-recording, cross-root nested transfers, and complex scroll components
 need their own implementation and testing. Reference-only entries are not
 advertised as finished Rofin components.
 
@@ -95,3 +98,11 @@ overlays; an original implementation is pending. A targeted
 text and metadata describing coin choice and reversed direction. That fetch
 does not prove vendor interaction or actual conversion. Bulk collection was
 rate-limited; most individual source reviews remain pending.
+
+The public [Space Sortable](https://www.spaceui.one/components/sortable) and
+[Kanban](https://www.spaceui.one/components/kanban) documentation was read again
+on 3 October. Two per-URL records bring the detail total to 18. These pages
+describe nested/grid sorting, handles, disabled items, exact order snapshots,
+card/column movement and cancellation. Their footers list MIT licensing; a
+packaged source artifact and its access tier were not verified. Vendor demos
+were not manually interaction-tested, and no vendor code was imported.

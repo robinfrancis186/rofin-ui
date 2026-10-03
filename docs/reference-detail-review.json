@@ -294,5 +294,39 @@
     "statusCode": 200,
     "access": "Public preview; source tier/license not verified",
     "vendorDemoInteractionTested": false
+  },
+  {
+    "library": "Space UI",
+    "url": "https://www.spaceui.one/components/sortable",
+    "title": "Sortable",
+    "features": [
+      "Vertical, horizontal and grid placement with nested roots",
+      "Optional drag handles, disabled items and once-per-drop previous/current order commits",
+      "Example persistence callback and rollback"
+    ],
+    "gap": "Original regular-grid/RTL and independent nested sorting now implemented; cross-root transfers, vendor animation and durable application persistence remain unverified.",
+    "reviewedAt": "2026-10-03",
+    "method": "Public server-rendered documentation read",
+    "statusCode": 200,
+    "access": "Public documentation; page lists an MIT license, source artifact and access tier not verified",
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
+  },
+  {
+    "library": "Space UI",
+    "url": "https://www.spaceui.one/components/kanban",
+    "title": "Kanban",
+    "features": [
+      "Card and column reordering with exact indices and previous/current records",
+      "Optional hover-preview/onMove behavior, drag handles and cancellation restoration",
+      "Once-per-drop alternative to live updates"
+    ],
+    "gap": "Original exact card placement and shared column ordering now implemented; live hover mutation, vendor physics and durable application persistence remain unverified.",
+    "reviewedAt": "2026-10-03",
+    "method": "Public server-rendered documentation read",
+    "statusCode": 200,
+    "access": "Public documentation; page lists an MIT license, source artifact and access tier not verified",
+    "vendorDemoInteractionTested": false,
+    "implementationSourceReviewed": false
   }
 ]

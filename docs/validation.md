@@ -1,10 +1,58 @@
 # Validation evidence — 2–3 October 2026
 
-Current gallery: 132 runnable entries, including nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 132 runnable entries, including nested/grid sorting and reorderable task cards/columns, nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Shared sorting and workspace priorities
+
+The existing sorter now owns its direct items, controls and announcement instead
+of collecting those from nested roots. Regular grids place items in reading
+order, including RTL; stacked grids use vertical placement. Optional title
+handles keep parent/column drags separate from editable fields. Native buttons
+provide the same commits and retain usable focus. Hidden form inputs serialize
+actual DOM order. Moving a parent retains its nested order and typed fields.
+
+Kanban now places cards before/after another card, within or across columns.
+Earlier/Later buttons preserve native Move-to selects. Its change event retains
+the original column-name fields and adds exact indices plus previous/current
+column-to-card records. Column ordering uses the same sorter, with a separate
+sort event. No-ops, external drops and unfinished drags emit no commit. Escape,
+pagehide, reset, disabling and teardown cancel a draft. Native disabled selects,
+buttons and ancestor fieldsets are honored; cancelled resets preserve committed
+order. Cleanup restores original controls and draggable attributes.
+
+The dashboard composes those shared components. Priorities remain separate per
+page-session workspace through project creation, archive and status changes.
+Order-only reset preserves project statuses and a typed unsaved Markdown note;
+reload restores the samples. Re-rendering a board clears stale move announcements
+from the previous workspace/model. The examples are small DOM collections, with no
+cross-root nested transfer, virtualized/masonry sorting or durable persistence.
+
+All 11 focused sorting/workspace checks pass locally in Chromium, Firefox and
+macOS WebKit. They cover real pointer drops, nested ownership and form values,
+exact snapshots, RTL/stacked grids, column title handles, keyboard focus,
+cancelled/native resets, disabled fieldsets, teardown/reinitialization, malformed
+IDs, workspace isolation, creation/archive and the order-only reset. Both themes
+fit 320/390/1440 pixels, reduced motion is checked and exposed previews pass axe.
+Genuine JavaScript-disabled pages retain readable cards, nested content and the
+native note field. Reset checks wait for the owned announcement before reading
+the final DOM; no exact-order assertions were removed or relaxed. The existing
+dashboard drag check starts on the card title rather than its native select.
+
+Installed Safari separately passed native card/column movement and order-only
+reset with the exact typed unsaved note intact. Its owned tab was closed and the
+original Start Page restored. This is partial native Safari evidence; full
+Safari, actual screen-reader and physical-touch validation remain outstanding.
+
+After the stale-announcement fix, all 11 focused checks pass again in each engine.
+The full 136-test local Chromium suite and 252-file package check pass. The first
+full run was intentionally interrupted to fix that announcement; its replacement
+completed with every assertion intact. No runtime/peer dependency was added, and
+the combined core remains 8,424 bytes gzip locally, below its 14 KiB budget.
+Current release/CI evidence is recorded in the draft pull request.
 
 ## Shared resizable workspace desk
 
@@ -70,6 +118,14 @@ editor/panel/workspace/file checks pass in macOS WebKit. The preceding 27-check
 Firefox run also passes. A sequential test-runner restart timed out before tests
 started; an explicitly owned, HTTP-200 localhost server was used for the final
 Firefox/WebKit runs. No behavior assertion, timeout or browser case was relaxed.
+
+[Run 37095247524](https://github.com/robinfrancis186/rofin-ui/actions/runs/37095247524)
+on `17e763a` then passed all 129 tests and the 252-file package check in Chromium,
+Firefox and WebKit, plus the separate native-media and narrow-recovery checks.
+All three completed logs were inspected. Its Ready production deployment matches
+all 254 static files. Public Save/Discard and workspace isolation pass at desktop,
+390-pixel Save and 320-pixel dark Discard, with installed Safari's actual public
+Save/switch/return/Discard flow also passing.
 
 ## Error pages and read recovery
 

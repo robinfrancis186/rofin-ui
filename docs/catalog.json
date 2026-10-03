@@ -491,7 +491,7 @@
     "id": "sortable-list",
     "title": "Sortable list",
     "category": "Components",
-    "description": "Put the next useful thing first, with drag and native Move buttons.",
+    "description": "Put useful things first: priorities, home-screen tiles and nested prototype steps.",
     "css": [
       "patterns",
       "form",
@@ -502,10 +502,11 @@
     ],
     "file": "examples/components/sortable-list.html",
     "notes": [
-      "Drag above or below an item on desktop. Native Move up/down buttons provide keyboard and touch alternatives; focus stays with the moved item.",
-      "rf:sort-change emits value, zero-based from/to, values, and previousValues once per committed move. Hidden priority inputs serialize the current DOM order. No API calls are made.",
-      "Use direct list children with unique data-rf-sort-item IDs. This is a small vertical list; grids, nesting, and virtualized collections need their own implementation.",
-      "Native form reset restores the initial order. Cancelled drags make no changes. Teardown removes enhancement controls while preserving committed order; destroy and reinitialize after structural changes."
+      "Drag before or after an item on desktop. Native Move buttons provide keyboard and touch alternatives; focus stays with the moved item. Optional data-rf-sort-handle titles keep dragging separate from editable fields.",
+      "rf:sort-change emits value, zero-based from/to, values, and previousValues once per committed move. Hidden inputs serialize the current DOM order. No API calls are made.",
+      "Each root owns its direct list children, controls and status. IDs must be unique within that root. Nested roots sort independently; moving a parent preserves its fields and child order. data-rf-sort-axis=\"grid\" supports regular CSS grids with RTL reading order and vertical placement when stacked.",
+      "Set data-rf-sort-disabled=\"true\" on a root/item for read-only moves. Native disabled controls and ancestor fieldsets are honored. Escape, pagehide, reset, disabling and teardown cancel unfinished drags without a commit.",
+      "Native form reset restores all initial orders and field values unless cancelled. Teardown preserves committed order and restores original attributes/controls; destroy and reinitialize after structural changes. Virtualized/masonry layouts and cross-root nested transfers remain application work."
     ]
   },
   {
@@ -516,18 +517,19 @@
     "css": [
       "patterns",
       "form",
-      "badge"
+      "badge",
+      "button"
     ],
     "js": [
       "patterns"
     ],
     "file": "examples/components/kanban.html",
     "notes": [
-      "Drag a card into another column on desktop. Native Move to selects provide keyboard and touch alternatives; column counts, empty states, and a live announcement update together.",
-      "rf:kanban-change emits value, from, and to once per committed column change. The application owns saving, errors, and rollback; no API calls are made.",
-      "Use unique card IDs, direct list children, and matching column/select values. This three-column layout stacks in narrow containers. Column ordering, in-column reordering, nested boards, and virtualization are not included.",
-      "Native form reset restores the initial board. Cancelled or external drags make no changes. Teardown preserves committed moves; destroy and reinitialize after structural changes.",
-      "The composed dashboard uses this component and updates table statuses, draft creation, and archiving from the same sample rows."
+      "Drop a card before/after another or into an empty column. Native Move-to selects and Earlier/Later buttons provide keyboard/touch alternatives. Column titles are drag handles; native column buttons work on narrow screens. Counts, empty states and an owned live announcement update together.",
+      "rf:kanban-change emits value, from/to column names, zero-based fromIndex/toIndex and values/previousValues records of column names to card IDs once per committed card move. Column ordering reuses the shared sorter and emits rf:sort-change. No-ops and cancellations emit no change; the application owns saving and rollback.",
+      "Use unique card and column IDs, direct card-list children and matching native select values. A disabled Move-to select or ancestor fieldset makes its card read-only. The regular three-column grid stacks in narrow containers. Virtualized boards and moving nested items between roots are outside this small DOM example.",
+      "Escape, pagehide, reset, disabling and teardown cancel unfinished drags. Native form reset restores initial card and column orders unless cancelled. Teardown preserves committed moves and restores controls/attributes; destroy and reinitialize after structural changes.",
+      "The composed dashboard uses this component and the shared sorter. Card/column priorities remain separate per page-session workspace through project creation and archiving. Order-only reset preserves project statuses and note drafts. Reload restores sample data; authorized durable storage is application work."
     ]
   },
   {
@@ -2390,5 +2392,4 @@
       "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
     ]
   }
-
 ]

@@ -89,6 +89,8 @@ let stopBoard = () => {};
 const renderBoard = () => {
   stopBoard();
   const columns = [...board.querySelectorAll('[data-rf-kanban-column]')];
+  const workspace = workspaces.get(activeWorkspace), columnOrder = workspace.columnOrder || ['Draft', 'In progress', 'Published'];
+  columns[0].parentElement.append(...columnOrder.map(name => columns.find(column => column.dataset.rfKanbanColumn === name)));
   columns.forEach(column => column.querySelector('[data-rf-kanban-list]').replaceChildren());
   for (const row of projects.querySelectorAll('tbody tr')) {
     const column = columns.find(column => column.dataset.rfKanbanColumn === row.dataset.rfStatus);
@@ -98,9 +100,12 @@ const renderBoard = () => {
     card.querySelector('[data-rf-item-label]').textContent = name;
     card.querySelector('.rf-help').textContent = `${row.cells[2].textContent.trim()} · ${row.cells[4].textContent.trim()} tasks`;
     card.querySelector('.rf-sr-only').textContent = ` for ${name}`;
+    for (const button of card.querySelectorAll('[data-rf-kanban-order]')) button.setAttribute('aria-label', `Move ${name} ${button.dataset.rfKanbanOrder === '-1' ? 'earlier' : 'later'}`);
     for (const option of card.querySelectorAll('option')) option.defaultSelected = option.value === row.dataset.rfStatus;
     column.querySelector('[data-rf-kanban-list]').append(card);
   }
+  for (const column of columns) { const list = column.querySelector('[data-rf-kanban-list]'), order = workspace.boardOrder?.[column.dataset.rfKanbanColumn] || [], cards = [...list.children]; list.append(...order.map(id => cards.find(card => card.dataset.rfKanbanItem === id)).filter(Boolean), ...cards.filter(card => !order.includes(card.dataset.rfKanbanItem))); }
+  board.querySelector('[role="status"]').textContent = '';
   stopBoard = initPatterns(board);
 };
 const selectedRows = values => [...projects.querySelectorAll('tbody tr')].filter(row => values.includes(row.querySelector('[data-rf-table-select]').value));
@@ -181,14 +186,19 @@ renderViewers();
 renderPanels();
 initWorkspaceTeam();
 board.addEventListener('rf:kanban-change', event => {
+  if (event.target !== board) return;
+  workspaces.get(activeWorkspace).boardOrder = event.detail.values;
   const row = selectedRows([event.detail.value])[0];
-  if (!row) return;
+  if (!row || event.detail.from === event.detail.to) return;
   mutateTable(() => {
     row.dataset.rfStatus = event.detail.to;
     const badge = row.cells[3].querySelector('.rf-badge'); badge.textContent = event.detail.to;
     badge.dataset.variant = event.detail.to === 'Published' ? 'success' : event.detail.to === 'In progress' ? 'warning' : 'info';
   }, false);
 });
+board.addEventListener('rf:sort-change', event => { if (event.target === board) workspaces.get(activeWorkspace).columnOrder = event.detail.values; });
+const resetBoard = board.querySelector('[data-board-reset]'); resetBoard.disabled = false;
+resetBoard.addEventListener('click', () => { const workspace = workspaces.get(activeWorkspace); workspace.columnOrder = null; workspace.boardOrder = null; renderBoard(); board.querySelector('[role="status"]').textContent = 'Default card and column order restored. Project statuses stay as you set them.'; resetBoard.focus(); });
 const period = projects.querySelector('[data-rf-table-filter="period"]');
 projects.addEventListener('submit', event => event.preventDefault());
 const applyPeriod = () => {

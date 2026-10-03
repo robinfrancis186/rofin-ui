@@ -129,6 +129,21 @@ These are excluded from the core bundle and the auto initializer.
 Initialize each patterns root once; call the returned cleanup before removal.
 List/board moves retain committed DOM state on teardown. Native form reset
 restores their initial arrangement.
+Sortable roots own only their direct list items, move controls and status.
+Nest independent roots to sort child steps without changing parent order; moving
+the parent keeps its fields and child order together. Give items unique
+`data-rf-sort-item` values. Optional `data-rf-sort-handle` titles keep dragging
+separate from editable fields. Use `data-rf-sort-axis="grid"` with a regular CSS
+grid for reading-order placement, including RTL; a single-column grid uses
+vertical placement. Native move buttons also work when columns stack.
+Set `data-rf-sort-disabled="true"` on a root/item for read-only sorting; native
+disabled move controls and ancestor fieldsets are honored. Kanban cards use
+their native Move-to select as the read-only control. Optional
+`data-rf-kanban-order="-1|1"` buttons move a card earlier/later in its column.
+The gallery combines Kanban with the same sortable root for column ordering.
+Escape, pagehide, disabling, reset and teardown discard an unfinished drag.
+These are small DOM collections; virtualized/masonry layouts and moving nested
+items between different roots require application behavior.
 Resizable panels retain a labelled native range. `initPatterns` adds a draggable,
 focusable separator: arrows resize, Shift uses ten steps, Home/End reach the
 range bounds, and Escape cancels an active drag. Enter collapses/restores the
@@ -148,7 +163,11 @@ preference; native form reset restores all splits belonging to the form.
 (`range`, `keyboard`, `pointer`, or `reset`); cancelled drags emit no commit.
 Keep bounds, axis and pane markup fixed until teardown/reinitialization.
 `rf:sort-change` emits `detail.value`, zero-based `from`/`to`, `values`, and
-`previousValues`; `rf:kanban-change` emits `value`, `from`, and `to` column values.
+`previousValues`; `rf:kanban-change` retains `value`, `from`, and `to` column
+values and adds zero-based `fromIndex`/`toIndex`, `values` and `previousValues`
+(records of column names to card IDs). Moves commit once on drop or native
+control activation; no-ops and cancellations emit no change. Column moves emit
+`rf:sort-change`, independently from card moves.
 The application owns persistence and rollback. Move buttons and native selects
 provide keyboard/touch alternatives to desktop drag operations.
 Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
