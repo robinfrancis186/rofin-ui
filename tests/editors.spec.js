@@ -13,7 +13,8 @@ async function selectText(locator, text) {
 test('rich-text formatting, native undo/redo and real form values agree', async ({ page }) => {
   await page.goto('/docs/index.html#component/rich-text-editor');
   const editor = page.locator(rich), surface = editor.locator(canvas), source = editor.locator(field);
-  await surface.fill('A useful idea'); await selectText(surface, 'useful');
+  // Load the document before checking native history: WebKit can group contenteditable fill with formatting.
+  await source.evaluate(element => { element.value = '<p>A useful idea</p>'; element.dispatchEvent(new Event('change', { bubbles: true })); }); await expect(surface).toHaveText('A useful idea'); await selectText(surface, 'useful');
   await editor.getByRole('button', { name: 'Bold', exact: true }).click();
   await expect(surface.locator('b, strong')).toHaveText('useful');
   await expect(source).toHaveValue(/A <strong>useful<\/strong> idea/);
@@ -99,8 +100,8 @@ test('Markdown subset, safe rendering, bounded failures and editor cleanup prese
 
 test('dashboard reuses the Markdown editor and isolates saved/unfinished notes across workspaces', async ({ page }) => {
   await page.goto('/examples/dashboard.html#workspace-notes'); const source=page.locator('#workspace-notes '+field);
-  await expect(source).toHaveValue(/Your next chapter/); await source.fill('Studio **saved**'); await page.locator('#workspace-notes').getByRole('button',{name:'Save notes'}).click(); await source.fill('Studio unfinished');
-  await page.getByRole('button',{name:'Switch workspace: Studio'}).click(); await page.getByRole('menuitem',{name:'Personal workspace',exact:true}).click(); await expect(source).toHaveValue(/A little room of your own/); await source.fill('Personal saved'); await page.locator('#workspace-notes').getByRole('button',{name:'Save notes'}).click();
+  await expect(source).toHaveValue(/Your next chapter/); await source.fill('Studio **saved**'); await page.locator('#workspace-notes').getByRole('button',{name:'Save notes'}).click(); await expect(page.locator('[data-workspace-notes-status]')).toContainText('Notes saved'); await source.fill('Studio unfinished');
+  await page.getByRole('button',{name:'Switch workspace: Studio'}).click(); await page.getByRole('menuitem',{name:'Personal workspace',exact:true}).click(); await expect(source).toHaveValue(/A little room of your own/); await source.fill('Personal saved'); await page.locator('#workspace-notes').getByRole('button',{name:'Save notes'}).click(); await expect(page.locator('[data-workspace-notes-status]')).toContainText('Notes saved');
   await page.getByRole('button',{name:'Switch workspace: Personal'}).click(); await page.getByRole('menuitem',{name:'Studio workspace',exact:true}).click(); await expect(source).toHaveValue('Studio **saved**'); await expect(page.locator('#workspace-notes [data-rf-markdown-preview] strong')).toHaveText('saved');
   await source.press('ControlOrMeta+z'); await expect(source).not.toHaveValue(/Personal|unfinished/); await source.fill('Discard me'); await page.locator('#workspace-notes').getByRole('button',{name:'Discard note changes'}).click(); await expect(source).toHaveValue('Studio **saved**'); await page.getByRole('link',{name:'Notes',exact:true}).click(); await expect(page.locator('.rf-breadcrumb [aria-current]')).toHaveText('Notes');
   await source.fill('Saved after reset'); await page.locator('#workspace-notes').getByRole('button',{name:'Save notes'}).click(); await source.fill('Discard again'); await page.locator('#workspace-notes').getByRole('button',{name:'Discard note changes'}).click(); await expect(source).toHaveValue('Saved after reset');

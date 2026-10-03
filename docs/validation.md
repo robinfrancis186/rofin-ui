@@ -48,6 +48,29 @@ physical-touch checks remain outstanding. In the earlier metadata-only CI run
 native folder import. The unchanged folder-import check passes in all three
 local engines at this panel checkpoint; no assertions were removed or relaxed.
 
+[Run 37062329171](https://github.com/robinfrancis186/rofin-ui/actions/runs/37062329171)
+on `3674053` passes all 129 tests and package validation in Chromium and Firefox.
+WebKit passes 128 tests but exposes a note-save failure in the new scrollable
+desk. An unchanged-value Markdown blur repainted the preview during the Save
+click. The shared editor now skips that redundant repaint; tracked input and
+changed-value/reset renewal remain intact. The existing save/switch/discard flow
+failed five times before this guard and passed five times after it locally in
+WebKit. Save confirmations are now asserted before switching workspaces.
+
+The repeated local rich-text history check separately found that WebKit groups
+the test's contenteditable fill and first formatting action into one undo step.
+It now loads a document through the existing source-change path before checking
+formatting history. The same Bold/Undo/Redo and exact form-value assertions pass
+five consecutive WebKit runs; the rich-text implementation is unchanged.
+
+After the shared blur fix, the full 129-test local Chromium suite and 252-file
+package check pass. With the final document-loading setup and save-confirmation
+assertions, all eight editor checks pass in Chromium and Firefox; all 27 combined
+editor/panel/workspace/file checks pass in macOS WebKit. The preceding 27-check
+Firefox run also passes. A sequential test-runner restart timed out before tests
+started; an explicitly owned, HTTP-200 localhost server was used for the final
+Firefox/WebKit runs. No behavior assertion, timeout or browser case was relaxed.
+
 ## Error pages and read recovery
 
 Four original `sections/error-*.html` examples compose the existing empty-state,
