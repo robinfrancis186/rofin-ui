@@ -1,0 +1,41 @@
+<form class="rf-stack" data-rf-step-form data-demo-form method="dialog">
+  <p class="rf-help" role="status">
+    Complete your project details
+  </p>
+  <fieldset class="rf-fieldset rf-stack" data-rf-step>
+    <legend>
+      1. Your project
+    </legend>
+    <label class="rf-field">
+      <span class="rf-label">
+        Project name
+      </span>
+      <input class="rf-input" name="project" required autocomplete="off">
+    </label>
+  </fieldset>
+  <fieldset class="rf-fieldset rf-stack" data-rf-step>
+    <legend>
+      2. Your contact
+    </legend>
+    <label class="rf-field">
+      <span class="rf-label">
+        Contact email
+      </span>
+      <input class="rf-input" type="email" name="email" required autocomplete="email">
+    </label>
+  </fieldset>
+  <div class="rf-cluster">
+    <button class="rf-button rf-button--outline" type="button" data-rf-step-previous hidden>
+      Previous
+    </button>
+    <button class="rf-button" type="button" data-rf-step-next hidden>
+      Continue
+    </button>
+    <button class="rf-button" type="submit" data-rf-step-submit>
+      Finish demo
+    </button>
+  </div>
+  <p class="rf-help">
+    Demo only. No data is submitted or stored.
+  </p>
+</form>

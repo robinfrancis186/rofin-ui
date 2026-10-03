@@ -1,0 +1,16 @@
+/* Optional upload workflows reuse core upload, form, button and progress styles. */
+@layer rf.components {
+  .rf-upload-queue { min-inline-size: 0; }
+  .rf-upload-queue [data-rf-drop-zone][data-rf-dragging] { border-color: var(--rf-primary); background: var(--rf-subtle); outline: 2px solid var(--rf-focus); }
+  .rf-upload-items { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
+  .rf-upload-item { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .75rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); padding: .75rem; background: var(--rf-surface); }
+  .rf-upload-preview { inline-size: 3rem; block-size: 3rem; border-radius: var(--rf-radius-sm); background: var(--rf-subtle); display: grid; place-items: center; overflow: hidden; font-size: .65rem; font-weight: 600; }
+  .rf-upload-preview img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .rf-upload-content { gap: .5rem; min-inline-size: 0; }
+  .rf-upload-content p { margin: 0; overflow-wrap: anywhere; }
+  .rf-upload-name { overflow-wrap: anywhere; }
+  .rf-upload-item[data-rf-upload-state="error"] { border-color: var(--rf-danger); }
+  .rf-upload-controls .rf-button, .rf-upload-item .rf-button { min-block-size: 2.75rem; }
+  .rf-upload-errors { color: var(--rf-danger); overflow-wrap: anywhere; font-size: .875rem; }
+  .rf-upload-errors ul { margin: 0; padding-inline-start: 1.25rem; }
+}

@@ -21,6 +21,11 @@
     },
     "./auto": "./src/js/auto.js",
     "./effects": "./src/js/effects.js",
+    "./patterns": {
+      "types": "./dist/patterns.d.ts",
+      "import": "./dist/patterns.js"
+    },
+    "./patterns.css": "./dist/patterns.css",
     "./style.css": "./dist/rofin.css",
     "./effects.css": "./dist/effects.css",
     "./sections.css": "./dist/sections.css",
@@ -29,7 +34,43 @@
     "./tokens.css": "./src/tokens.css",
     "./button.css": "./src/button.css",
     "./card.css": "./src/card.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./form-patterns": {
+      "types": "./dist/form-patterns.d.ts",
+      "import": "./dist/form-patterns.js"
+    },
+    "./form-patterns.css": "./dist/form-patterns.css",
+    "./data-grid": { "types": "./dist/data-grid.d.ts", "import": "./dist/data-grid.js" },
+    "./data-grid.css": "./dist/data-grid.css",
+    "./upload-queue": {
+      "types": "./dist/upload-queue.d.ts",
+      "import": "./dist/upload-queue.js"
+    },
+    "./upload-queue.css": "./dist/upload-queue.css",
+    "./team-management": {
+      "types": "./dist/team-management.d.ts",
+      "import": "./dist/team-management.js"
+    },
+    "./team-management.css": "./dist/team-management.css",
+    "./editors": {
+      "types": "./dist/editors.d.ts",
+      "import": "./dist/editors.js"
+    },
+    "./editors.css": "./dist/editors.css",
+    "./file-browser": { "types": "./dist/file-browser.d.ts", "import": "./dist/file-browser.js" },
+    "./file-browser.css": "./dist/file-browser.css",
+    "./viewers": { "types": "./dist/viewers.d.ts", "import": "./dist/viewers.js" },
+    "./viewers.css": "./dist/viewers.css",
+    "./billing": {
+      "types": "./dist/billing.d.ts",
+      "import": "./dist/billing.js"
+    },
+    "./billing.css": "./dist/billing.css",
+    "./prism": {
+      "types": "./dist/prism.d.ts",
+      "import": "./dist/prism.js"
+    },
+    "./prism.css": "./dist/prism.css"
   },
   "files": [
     "dist/*.css",

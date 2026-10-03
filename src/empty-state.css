@@ -1,6 +1,10 @@
 @layer rf.components {
   .rf-empty { display: grid; justify-items: center; gap: .75rem; padding: 3rem 1.5rem; border: 1px dashed var(--rf-border); border-radius: var(--rf-radius); text-align: center; font-family: var(--rf-font); color: var(--rf-text); }
   .rf-empty > svg { inline-size: 2.5rem; block-size: 2.5rem; color: var(--rf-muted); }
-  .rf-empty > :is(h2, h3, p) { margin: 0; }
+  .rf-empty > :is(h1, h2, h3, p) { margin: 0; }
   .rf-empty > p { max-inline-size: 30rem; color: var(--rf-muted); font-size: .875rem; }
+  .rf-error-page { border-style: solid; background: var(--rf-surface); overflow-wrap: anywhere; }
+  .rf-error-page__code { color: var(--rf-primary); font-size: clamp(3rem, 10vw, 6rem); font-weight: 750; line-height: 1; letter-spacing: -.06em; }
+  .rf-error-page > .rf-cluster { justify-content: center; }
+  .rf-error-page > .rf-help { max-inline-size: 30rem; }
 }

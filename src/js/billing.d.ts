@@ -1,0 +1,8 @@
+export interface BillingPlan { id: string; name: string; monthly: number; yearly: number; limits: { projects: number | null; seats: number | null; storageBytes: number | null } }
+export interface BillingInvoice { id: string; number: string; customer: string; issued: string; status: 'paid' | 'open' | 'void'; items: { description: string; quantity: number; unitAmount: number }[]; discount: number; tax: number; total: number; paid: number }
+export interface BillingSnapshot { id: string; name: string; revision: number; currency: string; fractionDigits: number; period: { start: string; end: string }; plans: BillingPlan[]; subscription: { planId: string; interval: 'monthly' | 'yearly'; cancelAtPeriodEnd: boolean }; usage: { projects: number; seats: number; storageBytes: number }; invoices: BillingInvoice[] }
+export type BillingOperation = { type: 'plan'; planId: string; interval: 'monthly' | 'yearly' } | { type: 'cancel' | 'resume' };
+export function validateBilling(snapshot: BillingSnapshot): BillingSnapshot;
+export function formatBillingAmount(snapshot: BillingSnapshot, amount: number): string;
+export function invoiceText(snapshot: BillingSnapshot, id: string, options?: { sample?: boolean }): string;
+export function createBillingManager(element: HTMLElement, options: { snapshot: BillingSnapshot; sample?: boolean; change?: (operation: BillingOperation, context: { signal: AbortSignal; revision: number }) => Promise<BillingSnapshot>; load?: (context: { signal: AbortSignal }) => Promise<BillingSnapshot> }): { getSnapshot(): BillingSnapshot; update(snapshot: BillingSnapshot): boolean; refresh(): Promise<void>; destroy(): void };

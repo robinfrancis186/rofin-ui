@@ -488,6 +488,460 @@
     ]
   },
   {
+    "id": "sortable-list",
+    "title": "Sortable list",
+    "category": "Components",
+    "description": "Put useful things first: priorities, home-screen tiles and nested prototype steps.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/sortable-list.html",
+    "notes": [
+      "Drag before or after an item on desktop. Native Move buttons provide keyboard and touch alternatives; focus stays with the moved item. Optional data-rf-sort-handle titles keep dragging separate from editable fields.",
+      "rf:sort-change emits value, zero-based from/to, values, and previousValues once per committed move. Hidden inputs serialize the current DOM order. No API calls are made.",
+      "Each root owns its direct list children, controls and status. IDs must be unique within that root. Nested roots sort independently; moving a parent preserves its fields and child order. data-rf-sort-axis=\"grid\" supports regular CSS grids with RTL reading order and vertical placement when stacked.",
+      "Set data-rf-sort-disabled=\"true\" on a root/item for read-only moves. Native disabled controls and ancestor fieldsets are honored. Escape, pagehide, reset, disabling and teardown cancel unfinished drags without a commit.",
+      "Native form reset restores all initial orders and field values unless cancelled. Teardown preserves committed order and restores original attributes/controls; destroy and reinitialize after structural changes. Virtualized/masonry layouts and cross-root nested transfers remain application work."
+    ]
+  },
+  {
+    "id": "kanban",
+    "title": "Kanban board",
+    "category": "Components",
+    "description": "Move good ideas from a first draft to out in the world.",
+    "css": [
+      "patterns",
+      "form",
+      "badge",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/kanban.html",
+    "notes": [
+      "Drop a card before/after another or into an empty column. Native Move-to selects and Earlier/Later buttons provide keyboard/touch alternatives. Column titles are drag handles; native column buttons work on narrow screens. Counts, empty states and an owned live announcement update together.",
+      "rf:kanban-change emits value, from/to column names, zero-based fromIndex/toIndex and values/previousValues records of column names to card IDs once per committed card move. Column ordering reuses the shared sorter and emits rf:sort-change. No-ops and cancellations emit no change; the application owns saving and rollback.",
+      "Use unique card and column IDs, direct card-list children and matching native select values. A disabled Move-to select or ancestor fieldset makes its card read-only. The regular three-column grid stacks in narrow containers. Virtualized boards and moving nested items between roots are outside this small DOM example.",
+      "Escape, pagehide, reset, disabling and teardown cancel unfinished drags. Native form reset restores initial card and column orders unless cancelled. Teardown preserves committed moves and restores controls/attributes; destroy and reinitialize after structural changes.",
+      "The composed dashboard uses this component and the shared sorter. Card/column priorities remain separate per page-session workspace through project creation and archiving. Order-only reset preserves project statuses and note drafts. Reload restores sample data; authorized durable storage is application work."
+    ]
+  },
+  {
+    "id": "resizable-panels",
+    "title": "Resizable panels",
+    "category": "Components",
+    "description": "Make room for your work with draggable dividers, native sliders and nested splits.",
+    "css": [
+      "patterns",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/resizable-panels.html",
+    "notes": [
+      "The plain HTML exposes readable panes and labelled native ranges; resizing and saving require enhancement. Enhancement adds a named separator controlling the first pane: arrows, Shift plus arrows, Home and End resize; Enter collapses/restores only when min is zero. Pointer dragging commits on release; Escape, pointer cancellation, disabling, geometry changes and teardown restore the prior split.",
+      "Each root has exactly two direct panes. Nested roots own separate sliders and dividers. data-rf-panel-axis=\"y\" creates a height split; set --rf-panel-height on its panel container. Vertical panes scroll; horizontal panes stack below 36rem and retain their ratio for wider screens. Keep bounds, axis and pane markup fixed until cleanup/reinitialization.",
+      "Optional data-rf-panel-storage saves only the numeric percentage in browser localStorage under rf-panel:<key>. Use distinct application/workspace keys. Invalid preferences are ignored; blocked storage leaves resizing usable. This does not persist notes, files or authorized application data.",
+      "The optional data-rf-panel-reset button clears only that split. Native form reset restores both sliders and the textarea, unless cancelled. rf:panel-resize emits one committed value/previousValue/axis/source change; cancelled drags emit none. Cleanup removes generated handles, IDs and attributes and restores original inline grid variables."
+    ]
+  },
+  {
+    "id": "line-chart",
+    "title": "Line chart",
+    "category": "Components",
+    "description": "Explore exact values, zoom the visible window, and update a trend from your own data.",
+    "css": [
+      "patterns",
+      "card",
+      "form",
+      "table",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/line-chart.html",
+    "notes": [
+      "Original SVG and native data table use a shared linear scale including zero. Solid and dashed paths distinguish series without relying on color; hiding a series keeps the scale stable.",
+      "Native ranges select an exact point and zoom from the first to the last visible point. Show all points restores the full view; Follow newest point explicitly pans on updates. The table always retains every accepted point.",
+      "After initPatterns(chart), updateLineChart(chart, rows, { append: true }) accepts { label, values } records for the fixed series keys. Omit append to replace. Invalid updates return false and retain previous data. Use at most 512 unique labels (100 characters each), eight series and finite numeric values bounded by 1e12; appends keep the latest 512 points.",
+      "Table headings, matching SVG paths and checkboxes define the fixed series. Change series markup only after teardown. Native form reset restores the view of current accepted data; teardown keeps a readable plot/table and rejects late API calls. Without scripts the initial SVG and exact native table remain available.",
+      "The gallery separately uses examples/chart-demo.js for explicit illustrative browser updates and a real localhost HTTP stream. Start, Pause and Restore control its lifecycle; failure retains data, hidden pages and teardown close the feed, and static hosting disables HTTP. The library starts no requests; applications supply authorized feeds, history and aggregation for larger datasets."
+    ]
+  },
+  {
+    "id": "bar-chart",
+    "title": "Bar chart",
+    "category": "Components",
+    "description": "See the trend, then open the exact values.",
+    "css": [
+      "card",
+      "patterns",
+      "table"
+    ],
+    "js": [],
+    "file": "examples/components/bar-chart.html",
+    "notes": [
+      "The decorative bars are hidden from assistive technology; a labelled native details disclosure contains the exact data table.",
+      "Set --rf-bar to value / maximum \u00d7 100%; keep the chart and table in sync. This static example has a zero baseline."
+    ]
+  },
+  {
+    "id": "donut-chart",
+    "title": "Donut chart",
+    "category": "Components",
+    "description": "A clear part-to-whole view, with a readable legend.",
+    "css": [
+      "card",
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/donut-chart.html",
+    "notes": [
+      "SVG is decorative; visible text provides every value without relying on color.",
+      "Use nonnegative parts of a whole and update the SVG dash values and legend together. No chart dependency or automatic calculations."
+    ]
+  },
+  {
+    "id": "date-range",
+    "title": "Date range",
+    "category": "Components",
+    "description": "Two native dates, with a sensible order.",
+    "css": [
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/date-range.html",
+    "notes": [
+      "The optional initializer sets the end date minimum from the start date; native validation prevents reversed ranges.",
+      "Inputs submit YYYY-MM-DD values. Your application chooses time zone, inclusive endpoints, and server validation."
+    ]
+  },
+  {
+    "id": "paginated-table",
+    "title": "Paginated table",
+    "category": "Components",
+    "description": "Find the right work with search, status filters, sorting, and paging.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "badge",
+      "patterns",
+      "empty-state"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/paginated-table.html",
+    "notes": [
+      "Local pagination uses the initial tbody rows; filtering and sorting reset to page one.",
+      "data-rf-table-filter=\"status\" matches each row\u2019s data-rf-status exactly; other attribute keys work the same way.",
+      "Search, filters, and row selection use native inputs. Reset returns form fields and page to their defaults; sorting stays as chosen.",
+      "For new or removed rows, clean up and initialize again. Use server pagination and virtualization for large datasets."
+    ]
+  },
+  {
+    "id": "bulk-actions",
+    "title": "Bulk selection",
+    "category": "Components",
+    "description": "Select this page. Keep the selection as you explore.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "badge",
+      "patterns",
+      "empty-state"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/bulk-actions.html",
+    "notes": [
+      "Select this page affects only visible enabled row checkboxes. Selection persists across paging and filtering; the count includes hidden rows.",
+      "Give every data-rf-table-select checkbox a unique value and accessible label. The header checkbox reports partial selection.",
+      "rf:table-selection exposes detail.values. rf:table-action exposes detail.action and detail.values; your app owns authorization, confirmation, and the real action."
+    ]
+  },
+  {
+    "id": "notification-center",
+    "title": "Notification center",
+    "category": "Components",
+    "description": "A small inbox for the things worth knowing.",
+    "css": [
+      "button",
+      "badge",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/notification-center.html",
+    "notes": [
+      "Native popover supports Escape and light dismissal; this is a content region, not an ARIA menu.",
+      "Mark all read changes local markup and emits rf:notifications-read with detail.values. Connect persistence yourself."
+    ]
+  },
+  {
+    "id": "website-header",
+    "title": "Responsive website header",
+    "category": "Sections",
+    "description": "Clear destinations on desktop, a native menu on mobile.",
+    "css": [
+      "sections",
+      "navigation",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/website-header.html",
+    "notes": [
+      "A container query switches to a native details menu when this header is narrow, including inside a preview.",
+      "Replace sample hash links with real destinations. The full landing example connects them to page sections."
+    ]
+  },
+  {
+    "id": "app-shell",
+    "title": "Application shell",
+    "category": "Sections",
+    "description": "A home for your sidebar, top bar, and everyday work.",
+    "css": [
+      "sections",
+      "navigation",
+      "card",
+      "button",
+      "avatar",
+      "badge"
+    ],
+    "js": [],
+    "file": "sections/app-shell.html",
+    "notes": [
+      "The shell collapses to one column when its container is narrow. Native details lets people collapse navigation without JavaScript.",
+      "Use a main landmark for application content in a complete page; this embedded preview uses a section. Set aria-current for your actual route."
+    ]
+  },
+  {
+    "id": "dashboard-metrics",
+    "title": "Dashboard metrics",
+    "category": "Sections",
+    "description": "The numbers that matter, with context for every change.",
+    "css": [
+      "sections",
+      "card",
+      "badge"
+    ],
+    "js": [],
+    "file": "sections/dashboard-metrics.html",
+    "notes": [
+      "Sample data. Labels, units, direction, and comparison period are visible without color.",
+      "Compute metrics and trends from your application data; never imply these figures are live."
+    ]
+  },
+  {
+    "id": "account-settings",
+    "title": "Account settings",
+    "category": "Sections",
+    "description": "Profile details and notification preferences, together.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/account-settings.html",
+    "notes": [
+      "Native reset discards unsaved edits. The gallery save is a form preview and sends no request.",
+      "The composed dashboard saves workspace preferences locally for this session; use a server for real account updates."
+    ]
+  },
+  {
+    "id": "sign-up",
+    "title": "Sign up",
+    "category": "Sections",
+    "description": "A considered first step into your product.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "sections/sign-up.html",
+    "notes": [
+      "Preview only; do not enter real credentials. Connect authentication, policy, rate limits, and server validation.",
+      "Replace terms and privacy links with your own published policies."
+    ]
+  },
+  {
+    "id": "password-reset",
+    "title": "Password reset",
+    "category": "Sections",
+    "description": "A simple path back to an account.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/password-reset.html",
+    "notes": [
+      "This preview sends no email. Your server must generate, expire, and validate reset tokens.",
+      "Return the same request response for known and unknown accounts; keep the actual recovery service separate from this UI."
+    ]
+  },
+  {
+    "id": "password-field",
+    "title": "Password reveal",
+    "category": "Components",
+    "description": "A native password field with an explicit reveal toggle and reset protection.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/password-field.html",
+    "notes": [
+      "Reveal is opt-in. The native password input works before JavaScript initializes.",
+      "The toggle has a stable accessible name and aria-pressed state. Reset and teardown conceal the password.",
+      "This interface is not authentication or a password-strength policy. Use sample text in the preview."
+    ]
+  },
+  {
+    "id": "character-counter",
+    "title": "Character counter",
+    "category": "Components",
+    "description": "A compact profile composer with a native limit and a live count.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/character-counter.html",
+    "notes": [
+      "The counter follows native maxlength, which counts UTF-16 code units. Some emoji use more than one unit.",
+      "The count is descriptive help rather than a live-region announcement for every keystroke.",
+      "Values remain local. Native form reset updates the count."
+    ]
+  },
+  {
+    "id": "tag-input",
+    "title": "Tag input",
+    "category": "Components",
+    "description": "Add and remove tags with keyboard entry, removable chips, and native form values.",
+    "css": [
+      "patterns",
+      "form",
+      "button",
+      "card"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/tag-input.html",
+    "notes": [
+      "Enter adds a tag without submitting the form; IME composition is preserved.",
+      "Duplicate tags are compared without case. The example allows five tags of 32 characters.",
+      "Hidden inputs submit repeated values under data-rf-tags-name. Read them with FormData.getAll().",
+      "Emits rf:tags-change with detail.values when adding or removing. Reset restores the initial tags. Validate values again on your server."
+    ]
+  },
+  {
+    "id": "data-table",
+    "title": "Searchable table",
+    "category": "Components",
+    "description": "Find the right row, sort by name or number, and keep native table semantics.",
+    "css": [
+      "patterns",
+      "table",
+      "form",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/data-table.html",
+    "notes": [
+      "Column buttons toggle ascending and descending order; aria-sort belongs to the active header.",
+      "Set data-rf-sort to number for numeric columns. A cell may provide data-rf-sort-value for formatted values.",
+      "Filters and sorting run on the current in-memory rows. Reinitialize after structural changes; use server queries for large or paginated datasets.",
+      "The table remains readable without JavaScript. The scrollable region supports narrow screens.",
+      "Accessibility reference: https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/"
+    ]
+  },
+  {
+    "id": "launch-checklist",
+    "title": "Launch checklist",
+    "category": "Components",
+    "description": "Turn onboarding into a clear path with native checkboxes and honest progress.",
+    "css": [
+      "patterns",
+      "form",
+      "progress",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/launch-checklist.html",
+    "notes": [
+      "Checkbox state stays in the current page and is not persisted by the library.",
+      "The native progress element and status update together. Reset restores the original checklist.",
+      "Works with keyboard and touch; no motion is required to understand completion."
+    ]
+  },
+  {
+    "id": "billing-switch",
+    "title": "Billing switch",
+    "category": "Components",
+    "description": "A monthly/yearly plan comparison that keeps rates and billing language together.",
+    "css": [
+      "patterns",
+      "sections",
+      "form",
+      "card",
+      "button",
+      "badge"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/billing-switch.html",
+    "notes": [
+      "Prices are supplied as display strings in data-rf-monthly and data-rf-yearly. The component performs no currency conversion or calculations.",
+      "Yearly examples show a monthly equivalent with the annual amount stated below. Replace all figures and policies with your own.",
+      "Native radios control the enhanced comparison. This is a pricing interface, not a checkout or subscription backend."
+    ]
+  },
+  {
     "id": "dot-grid",
     "title": "Dot grid",
     "category": "Effects",
@@ -752,6 +1206,1288 @@
       "The gallery intercepts submissions and sends no data.",
       "Replace data-demo-form with your own action, method, and handler.",
       "Validate all submitted data on the server."
+    ]
+  },
+  {
+    "id": "image-compare",
+    "title": "Image comparison",
+    "category": "Components",
+    "description": "Slide between two versions with a keyboard-accessible native range.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/image-compare.html",
+    "notes": [
+      "Replace the two panels with your own images and useful alt text. Both images stay visible side by side at the initial split without JavaScript.",
+      "The native range supports arrows, Home/End, touch, and keyboard."
+    ]
+  },
+  {
+    "id": "carousel",
+    "title": "Scroll-snap carousel",
+    "category": "Components",
+    "description": "Swipe, scroll, or use buttons to browse a native horizontal rail.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/carousel.html",
+    "notes": [
+      "Scrolling and CSS snapping work without JavaScript. Optional buttons scroll one card at a time.",
+      "No autoplay or hidden slides. Respects reduced motion and right-to-left direction."
+    ]
+  },
+  {
+    "id": "command-palette",
+    "title": "Command palette",
+    "category": "Components",
+    "description": "A searchable command list inside a native modal.",
+    "css": [
+      "patterns",
+      "dialog",
+      "button",
+      "form"
+    ],
+    "js": [
+      "dialog",
+      "patterns"
+    ],
+    "file": "examples/components/command-palette.html",
+    "notes": [
+      "Uses native dialog focus management. Arrow keys browse the filtered list; Enter selects.",
+      "Listen for rf:command; detail.value contains the chosen command. Connect that event to application behavior.",
+      "The preview reports the choice locally and performs no application action."
+    ]
+  },
+  {
+    "id": "like-button",
+    "title": "Like button",
+    "category": "Components",
+    "description": "A reversible pressed state with an optional local count.",
+    "css": [
+      "button",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/like-button.html",
+    "notes": [
+      "aria-pressed communicates the toggle state. The label remains stable.",
+      "Counts are demo data in memory. Your app owns persistence and authorization."
+    ]
+  },
+  {
+    "id": "number-stepper",
+    "title": "Number stepper",
+    "category": "Components",
+    "description": "Native number validation, with convenient plus and minus buttons.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/number-stepper.html",
+    "notes": [
+      "Uses native stepUp/stepDown, min, max, and step. The number input stays usable without JavaScript.",
+      "Emits ordinary input and change events. Disabled and read-only inputs are not changed."
+    ]
+  },
+  {
+    "id": "segmented-control",
+    "title": "Segmented control",
+    "category": "Components",
+    "description": "A pill selector powered by a native radio group.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/segmented-control.html",
+    "notes": [
+      "A native radio group supports arrow keys and form submission. No JavaScript is needed."
+    ]
+  },
+  {
+    "id": "date-picker",
+    "title": "Date picker",
+    "category": "Components",
+    "description": "A styled native date field, with browser-owned calendar and validation.",
+    "css": [
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/date-picker.html",
+    "notes": [
+      "Native browser calendar, locale, touch behavior, and validation are retained.",
+      "Use min/max for date limits. Validate submitted dates on the server."
+    ]
+  },
+  {
+    "id": "one-time-code",
+    "title": "One-time code",
+    "category": "Components",
+    "description": "One labelled field with paste, autofill, and native six-digit validation.",
+    "css": [
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/one-time-code.html",
+    "notes": [
+      "One input avoids fragmented paste and screen-reader navigation. Leading zeroes are retained.",
+      "Your server must check expiry, attempt limits, and validity. This component does not authenticate."
+    ]
+  },
+  {
+    "id": "timeline",
+    "title": "Timeline",
+    "category": "Components",
+    "description": "A readable sequence with real dates and a quiet connecting line.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/timeline.html",
+    "notes": [
+      "DOM order remains the reading order. Dates are sample content."
+    ]
+  },
+  {
+    "id": "dock",
+    "title": "Floating dock",
+    "category": "Components",
+    "description": "A compact set of real navigation links, with hover and focus feedback.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/dock.html",
+    "notes": [
+      "Replace fragment destinations with your real routes. Labels are always visible.",
+      "CSS handles focus and hover. Movement is disabled for reduced motion. Position the dock in your app as needed."
+    ]
+  },
+  {
+    "id": "expandable-card",
+    "title": "Expandable card",
+    "category": "Components",
+    "description": "A content card that opens with native details.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/expandable-card.html",
+    "notes": [
+      "Native details supports keyboard toggling and stays useful without JavaScript.",
+      "Place links and buttons in the expanded content, outside summary."
+    ]
+  },
+  {
+    "id": "image-accordion",
+    "title": "Image accordion",
+    "category": "Components",
+    "description": "An expanding content rail using native details, without hover-only access.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/image-accordion.html",
+    "notes": [
+      "Replace decorative art with your own images. Multiple panels may remain open.",
+      "Keyboard and touch users can expand each panel. Content remains accessible without hover or JavaScript."
+    ]
+  },
+  {
+    "id": "card-stack",
+    "title": "Card stack",
+    "category": "Components",
+    "description": "Layered decorative depth around one readable content card.",
+    "css": [
+      "patterns",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/card-stack.html",
+    "notes": [
+      "The backing layers are decorative CSS. One real card remains in the accessibility tree.",
+      "This is a static stack, not a swipe deck or auto-rotating carousel."
+    ]
+  },
+  {
+    "id": "checklist",
+    "title": "Checklist",
+    "category": "Components",
+    "description": "Real checkboxes for a clear, satisfying sequence of tasks.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/checklist.html",
+    "notes": [
+      "Native checkbox state and submission. Persistence belongs to your application.",
+      "The checked treatment retains the task label and text contrast."
+    ]
+  },
+  {
+    "id": "rating",
+    "title": "Rating",
+    "category": "Components",
+    "description": "A five-choice rating with visible numbers and native radio semantics.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/rating.html",
+    "notes": [
+      "Arrow keys move between values. Numeric labels communicate meaning without relying on star color."
+    ]
+  },
+  {
+    "id": "interest-picker",
+    "title": "Interest picker",
+    "category": "Components",
+    "description": "A wrapping set of selectable chips using native checkboxes.",
+    "css": [
+      "patterns"
+    ],
+    "js": [],
+    "file": "examples/components/interest-picker.html",
+    "notes": [
+      "Each chip is a labelled checkbox. Works with keyboard, touch, and forms without JavaScript."
+    ]
+  },
+  {
+    "id": "multi-step-form",
+    "title": "Multistep form",
+    "category": "Components",
+    "description": "A short, validated sequence that stays a complete form without JavaScript.",
+    "css": [
+      "patterns",
+      "form",
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/multi-step-form.html",
+    "notes": [
+      "Next validates the current step. Final submission validates every step and reveals invalid fields.",
+      "Without JavaScript, all steps and the native submit button remain visible. Teardown restores this state.",
+      "Replace the demo handler with your app submission and server-side validation."
+    ]
+  },
+  {
+    "id": "copy-button",
+    "title": "Copy button",
+    "category": "Components",
+    "description": "Copy a text value with persistent success or failure feedback.",
+    "css": [
+      "button"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "examples/components/copy-button.html",
+    "notes": [
+      "Clipboard requires a secure context and permission. Failure keeps the text visible for manual copying.",
+      "The copied value is text. This component never executes the command."
+    ]
+  },
+  {
+    "id": "marquee",
+    "title": "Pausable marquee",
+    "category": "Components",
+    "description": "A CSS content loop with an always-visible pause control.",
+    "css": [
+      "patterns",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/marquee.html",
+    "notes": [
+      "Pause using the checkbox. Hover and focus also pause movement. Reduced-motion mode shows a static wrapping group.",
+      "The repeated group is decorative and must not contain focusable controls. Studio names are fictional."
+    ]
+  },
+  {
+    "id": "grid-background",
+    "title": "Grid background",
+    "category": "Effects",
+    "description": "A crisp repeating line grid, drawn in CSS.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/grid-background.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "mesh-background",
+    "title": "Mesh background",
+    "category": "Effects",
+    "description": "Two soft color fields using theme-aware gradients.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/mesh-background.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "aurora",
+    "title": "Aurora background",
+    "category": "Effects",
+    "description": "A slowly moving wash of color behind readable content.",
+    "css": [
+      "effects",
+      "card",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/aurora.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
+      "The native pause checkbox stops the animation without JavaScript."
+    ]
+  },
+  {
+    "id": "gradient-border",
+    "title": "Gradient border",
+    "category": "Effects",
+    "description": "A two-color border around a solid, readable surface.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/gradient-border.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "border-beam",
+    "title": "Border beam",
+    "category": "Effects",
+    "description": "A moving accent that follows the edge of a card.",
+    "css": [
+      "effects",
+      "card",
+      "form"
+    ],
+    "js": [],
+    "file": "examples/components/border-beam.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize.",
+      "The native pause checkbox stops the animation without JavaScript."
+    ]
+  },
+  {
+    "id": "glass-card",
+    "title": "Glass card",
+    "category": "Effects",
+    "description": "A translucent surface with a solid-color fallback.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/glass-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "tilt-card",
+    "title": "Tilt card",
+    "category": "Effects",
+    "description": "A restrained perspective tilt that follows a mouse pointer.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/tilt-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "glare-card",
+    "title": "Glare card",
+    "category": "Effects",
+    "description": "A pointer-following sheen over a readable card.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/glare-card.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "lamp",
+    "title": "Lamp highlight",
+    "category": "Effects",
+    "description": "A soft cone of light above a headline, using one gradient.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/lamp.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "stars",
+    "title": "Star field",
+    "category": "Effects",
+    "description": "A static decorative star texture, with no particle loop.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/stars.html",
+    "notes": [
+      "Decorative effect only. Content remains usable without JavaScript.",
+      "Animations and pointer motion honor prefers-reduced-motion. Override theme tokens locally to customize."
+    ]
+  },
+  {
+    "id": "magnetic-button",
+    "title": "Magnetic button",
+    "category": "Effects",
+    "description": "A small pointer attraction with an unchanged keyboard target.",
+    "css": [
+      "effects",
+      "button"
+    ],
+    "js": [
+      "effects"
+    ],
+    "file": "examples/components/magnetic-button.html",
+    "notes": [
+      "Movement is bounded to five pixels in each direction. Touch and reduced-motion users receive a static button."
+    ]
+  },
+  {
+    "id": "text-highlight",
+    "title": "Text highlight",
+    "category": "Effects",
+    "description": "A theme-aware mark that wraps naturally across lines.",
+    "css": [
+      "effects"
+    ],
+    "js": [],
+    "file": "examples/components/text-highlight.html",
+    "notes": [
+      "Real mark semantics. The highlight is static and does not depend on scroll or hover."
+    ]
+  },
+  {
+    "id": "text-entrance",
+    "title": "Text entrance",
+    "category": "Effects",
+    "description": "A single gentle entrance for a complete, readable heading.",
+    "css": [
+      "effects"
+    ],
+    "js": [],
+    "file": "examples/components/text-entrance.html",
+    "notes": [
+      "Uses one real text node, with no duplicated words for assistive technology. Reduced-motion mode disables animation."
+    ]
+  },
+  {
+    "id": "focus-cards",
+    "title": "Focus cards",
+    "category": "Effects",
+    "description": "A subtle group emphasis on pointer hover or keyboard focus.",
+    "css": [
+      "effects",
+      "card"
+    ],
+    "js": [],
+    "file": "examples/components/focus-cards.html",
+    "notes": [
+      "Focus-within receives the same emphasis as hover. Reduced-motion mode removes movement."
+    ]
+  },
+  {
+    "id": "logo-cloud",
+    "title": "Logo cloud",
+    "category": "Sections",
+    "description": "A responsive strip of sample brand names.",
+    "css": [
+      "sections"
+    ],
+    "js": [],
+    "file": "sections/logo-cloud.html",
+    "notes": [
+      "Fictional demonstration names, not endorsements. Replace with your real partners and accessible logos."
+    ]
+  },
+  {
+    "id": "newsletter",
+    "title": "Newsletter",
+    "category": "Sections",
+    "description": "An inline email capture layout with native validation.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/newsletter.html",
+    "notes": [
+      "Replace the demo handler with your consent, email service, and server validation."
+    ]
+  },
+  {
+    "id": "team",
+    "title": "Team grid",
+    "category": "Sections",
+    "description": "People and roles on simple, responsive profile cards.",
+    "css": [
+      "sections",
+      "card",
+      "avatar"
+    ],
+    "js": [],
+    "file": "sections/team.html",
+    "notes": [
+      "Demo profiles are fictional. Use meaningful alt text for standalone profile images."
+    ]
+  },
+  {
+    "id": "blog-grid",
+    "title": "Article grid",
+    "category": "Sections",
+    "description": "A responsive editorial collection with real links.",
+    "css": [
+      "sections",
+      "card"
+    ],
+    "js": [],
+    "file": "sections/blog-grid.html",
+    "notes": [
+      "Replace sample article text and fragment links with real content and destinations."
+    ]
+  },
+  {
+    "id": "sign-in",
+    "title": "Sign-in form",
+    "category": "Sections",
+    "description": "A focussed account form with native autocomplete and validation.",
+    "css": [
+      "sections",
+      "card",
+      "form",
+      "button",
+      "patterns"
+    ],
+    "js": [
+      "patterns"
+    ],
+    "file": "sections/sign-in.html",
+    "notes": [
+      "This is an interface, not authentication. Wire your own trusted authentication backend and error handling.",
+      "The preview prevents submission and sends no data."
+    ]
+  },
+  {
+    "id": "integration-map",
+    "title": "Integration map",
+    "category": "Sections",
+    "description": "A semantic hub-and-spoke layout for connected tools.",
+    "css": [
+      "sections",
+      "card",
+      "effects"
+    ],
+    "js": [],
+    "file": "sections/integration-map.html",
+    "notes": [
+      "A visual diagram only. It makes no network connections or claims about integration availability."
+    ]
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "category": "Components",
+    "description": "Search a fixed set of choices with a labelled, keyboard-friendly combobox.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/combobox.html",
+    "notes": [
+      "The native select supplies form values and remains usable without JavaScript.",
+      "Arrow keys skip disabled choices; Enter commits and Escape restores the previous choice.",
+      "Exact typed labels are accepted. Other text is invalid. Reinitialize when changing the option structure."
+    ]
+  },
+  {
+    "id": "autocomplete",
+    "title": "Autocomplete",
+    "category": "Components",
+    "description": "Native suggestions with room to enter a topic of your own.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/autocomplete.html",
+    "notes": [
+      "Uses input with datalist, without JavaScript. Browser suggestion appearance and assistive-technology support vary.",
+      "Suggestions are optional; free text remains valid. Use Combobox when selection must match a fixed option."
+    ]
+  },
+  {
+    "id": "multiselect",
+    "title": "Multiselect",
+    "category": "Components",
+    "description": "Search choices, select several, and remove them with accessible chips.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/multiselect.html",
+    "notes": [
+      "The native multiple select owns repeated form values. Checkbox and search controls have no duplicate names.",
+      "Clear preserves disabled selections. Required fields need at least one selection.",
+      "Reinitialize when changing the option structure. Without JavaScript, use the native multiple select."
+    ]
+  },
+  {
+    "id": "form-error-summary",
+    "title": "Form error summary",
+    "category": "Components",
+    "description": "A focused summary links each native validation error to its field.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/form-error-summary.html",
+    "notes": [
+      "Enhanced forms show a linked summary and inline native validation messages.",
+      "Original aria-describedby and aria-invalid values are restored on correction, reset, and teardown.",
+      "Honor defaultPrevented in submission handlers. Server validation is still required."
+    ]
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "category": "Components",
+    "description": "Navigate a month with arrow keys and keep a native date field in sync.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "examples/components/calendar.html",
+    "notes": [
+      "Arrows move by day/week, Home/End within the week, Page Up/Down by month. Enter or Space selects.",
+      "Uses local calendar dates without UTC conversion. Native min/max bounds disable unavailable days.",
+      "The date input remains usable without JavaScript. Calendar labels follow data-rf-locale; weekday order starts Monday."
+    ]
+  },
+  {
+    "id": "time-picker",
+    "title": "Time picker",
+    "category": "Components",
+    "description": "A native time control with working-hour bounds and quarter-hour steps.",
+    "css": [
+      "form",
+      "card",
+      "button"
+    ],
+    "js": [],
+    "file": "examples/components/time-picker.html",
+    "notes": [
+      "Uses native type=time, min/max and step. Appearance follows the browser and operating system.",
+      "Times do not contain a time zone. The application supplies the workspace zone and resolves daylight-saving ambiguity."
+    ]
+  },
+  {
+    "id": "date-range-presets",
+    "title": "Date-range presets",
+    "category": "Components",
+    "description": "Choose an inclusive reporting period using practical date shortcuts.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "form-patterns"
+    ],
+    "js": [
+      "patterns",
+      "form-patterns"
+    ],
+    "file": "examples/components/date-range-presets.html",
+    "notes": [
+      "Last 7 days includes today. Previous month handles month and year boundaries.",
+      "Remove data-rf-today to use the current local date; this example fixes it for predictable sample data.",
+      "Shortcuts outside native min/max bounds preserve the prior range and announce the restriction. Reset restores native values."
+    ]
+  },
+  {
+    "id": "event-scheduler",
+    "title": "Event scheduler",
+    "category": "Sections",
+    "description": "Create, edit, and remove events with native dates, times, and clear validation.",
+    "css": [
+      "form",
+      "card",
+      "button",
+      "alert",
+      "form-patterns"
+    ],
+    "js": [
+      "form-patterns"
+    ],
+    "file": "sections/event-scheduler.html",
+    "notes": [
+      "Events are ordered by date and time. End time must be after start time; events stay within one calendar day.",
+      "rf:schedule-change supplies a copied event array for your application to persist. The example stores changes only in the page session.",
+      "Titles are rendered as text. Times require your workspace time zone; overnight events need a separate end date."
+    ]
+  },
+  {
+    "id": "data-grid",
+    "title": "Advanced data table",
+    "category": "Components",
+    "description": "Edit cells, pin and resize columns, save filtered views, and explore a virtual window of 10,000 projects.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "data-grid"
+    ],
+    "js": [
+      "data-grid"
+    ],
+    "file": "examples/components/data-grid.html",
+    "notes": [
+      "Native cells remain readable without JavaScript. createDataGrid enhances a fallback table; your application supplies rows and stable IDs.",
+      "Column settings include visibility, sticky pinning, pointer/keyboard resizing and saved browser views. Compound filters support all/any matching. Edits validate native text, numeric, date and select controls; Enter saves and Escape cancels.",
+      "Virtual scrolling keeps a bounded row window with aria-rowcount/index. Turn it off for native paginated reading. Client filtering/sorting runs in memory; loadPage supplies server pages for larger datasets.",
+      "The 10,000-row gallery is generated sample data. Its read-only HTTP paging option runs on the repository development server and is unavailable on the static production site. Applications supply loadPage/saveCell callbacks, server validation, authorization and durable storage.",
+      "Saved views contain filters and column settings, not row data. Browser storage is optional; edits remain in the controller until the application persists them. Call destroy() before unmounting."
+    ]
+  },
+  {
+    "id": "upload-queue",
+    "title": "Upload queue",
+    "category": "Components",
+    "description": "Preview files, validate a queue, and transfer with real progress, cancellation and retry.",
+    "css": [
+      "form",
+      "upload",
+      "button",
+      "progress",
+      "upload-queue"
+    ],
+    "js": [
+      "upload-queue"
+    ],
+    "file": "examples/components/upload-queue.html",
+    "notes": [
+      "Files stay local until an explicit Upload action invokes the application callback. Native file selection remains available without scripts.",
+      "The queue validates declared file types, size and count; your server validates actual content and authorization. Image previews use revocable object URLs. Empty files are rejected.",
+      "Cancel keeps the file for an explicit Retry. Removing a row only removes it from this queue. Form reset cancels active work and clears selections; cancelled resets retain the queue.",
+      "uploadFile uses native XMLHttpRequest upload progress, with no fake timer or automatic retry. The callback receives an AbortSignal and a stable upload ID for application idempotency.",
+      "The local development receiver checks file signatures and UTF-8 text, stores temporary files, and cleans interrupted transfers. It is a public localhost sample, not authorized durable storage; static production keeps transfers disabled.",
+      "At most 100 files can be configured; the default is 10 files of 8 MB each, with two simultaneous uploads. Call destroy() before unmounting; getFiles() retains the selected File objects for application use."
+    ]
+  },
+  {
+    "id": "workspace-switcher",
+    "title": "Workspace switcher",
+    "category": "Components",
+    "description": "Move between team, personal and experimental workspaces with native navigation and clear current context.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/workspace-switcher.html",
+    "notes": [
+      "Reuses the native popover and initDropdowns keyboard behavior, including arrows, Home/End, typeahead and Escape. Native links target application workspace URLs.",
+      "The composed dashboard switches actual sample projects, boards, inboxes, preferences, charts and team/activity views. Each workspace retains its edits until reload; selection, filters and unsaved forms clear when context changes.",
+      "Names and current-state indicators are text-safe. The public examples do not authenticate accounts or enforce membership; applications authorize workspace access on their server.",
+      "Replace the sample URLs with your own workspace routes. Disabled workspaces are skipped during keyboard navigation. Current state uses aria-current and a visible label."
+    ]
+  },
+  {
+    "id": "account-menu",
+    "title": "Account menu",
+    "category": "Components",
+    "description": "A familiar place for your profile, workspace navigation and help, using the shared dropdown and avatar.",
+    "css": [
+      "button",
+      "avatar",
+      "dropdown",
+      "account-menu"
+    ],
+    "js": [
+      "dropdown"
+    ],
+    "file": "examples/components/account-menu.html",
+    "notes": [
+      "Profile & preferences links to the working dashboard drawer. Workspace links preserve the active workspace in the composed dashboard; documentation links reach the JavaScript API page.",
+      "The shared dropdown owns keyboard focus, typeahead, Escape and teardown. A complete account name remains in the accessible trigger label when the visible name is truncated.",
+      "Sign out is disabled in these public samples because they have no authenticated session. Enable and bind it to your actual sign-out service; the component does not create or end account sessions.",
+      "Replace sample links with your application routes and update displayed account data after confirmed profile changes."
+    ]
+  },
+  {
+    "id": "team-management",
+    "title": "Team management",
+    "category": "Components",
+    "description": "Invite collaborators, edit roles and revoke invitations with explicit application callbacks.",
+    "css": [
+      "form",
+      "button",
+      "table",
+      "dialog",
+      "alert",
+      "team-management"
+    ],
+    "js": [
+      "team-management"
+    ],
+    "file": "examples/components/team-management.html",
+    "notes": [
+      "Native labelled forms and a readable table remain available without scripts. The optional controller renders text safely and waits for confirmed changes before committing.",
+      "Owners manage all roles; admins manage editors and viewers. The shared server policy prevents removal or demotion of the last owner. Project, file and billing permissions are enforced by your application separately.",
+      "Change and load callbacks receive AbortSignals; mutations receive an expected workspace revision. Failed or stale changes preserve the current snapshot and unsaved role selection. Call destroy before unmounting.",
+      "The default gallery and composed dashboard use isolated page-session state. The explicit localhost option creates a private sample with server-issued access tokens, one-use invitation links, role checks and revision conflicts.",
+      "Local links grant their holder the configured role; they do not verify the recipient email. Private samples expire after 15 minutes or server stop. Real accounts, durable storage and email delivery remain application services.",
+      "Snapshots are bounded to 50 members and 20 pending invitations. Larger teams require application paging and an appropriate server policy; the sample is not an unbounded directory."
+    ]
+  },
+  {
+    "id": "team-invitation",
+    "title": "Team invitation",
+    "category": "Components",
+    "description": "Accept a workspace invitation with native validation and clear access context.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/team-invitation.html",
+    "notes": [
+      "The gallery previews accepting a page-session invitation. Native name validation and reset remain available; no account or email is created.",
+      "Invitations issued by the isolated localhost service open a dedicated acceptance page. The server validates the token, expiry and latest role, consumes the link once, and issues access bound to the new membership.",
+      "A local invitation grants access to its holder, not a verified email identity. The dedicated page keeps its access token in memory and disables production acceptance until an application service is configured.",
+      "Bind the native form to your application acceptance callback. The optional team policy runs on the server after verifying the invitation; it does not submit this form automatically."
+    ]
+  },
+  {
+    "id": "permissions-matrix",
+    "title": "Permissions matrix",
+    "category": "Components",
+    "description": "Explain owner, admin, editor and viewer access in a readable native table.",
+    "css": [
+      "table",
+      "alert"
+    ],
+    "js": [],
+    "file": "examples/components/permissions-matrix.html",
+    "notes": [
+      "Column and row headers expose exact permissions without color or icons. The surrounding region scrolls independently on narrow screens.",
+      "These rules cover team management. Applications authorize project, file and billing actions on their own server.",
+      "Disabled controls help explain a role. The localhost team service separately checks current membership, privilege changes and last-owner protection for direct HTTP requests."
+    ]
+  },
+  {
+    "id": "rich-text-editor",
+    "title": "Rich-text editor",
+    "category": "Components",
+    "description": "A native note editor with formatting, validated links, safe paste and a real HTML form value.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "editors"
+    ],
+    "js": [
+      "editors"
+    ],
+    "file": "examples/components/rich-text-editor.html",
+    "notes": [
+      "Native browser editing commands preserve the undo history. execCommand is deprecated and browser behavior varies; unsupported toolbar actions are disabled. Native keyboard undo/redo remains available. Without the module the named HTML textarea stays usable.",
+      "The restricted renderer reconstructs paragraphs, headings, lists, quotes, code, links and emphasis. Pasted scripts, images/media, forms, foreign namespaces, event attributes and arbitrary styles are removed. Links allow absolute HTTP, HTTPS and mailto URLs without controls or credentials.",
+      "The form submits sanitized HTML, not the visible editing surface. Limits are 50,000 HTML and 20,000 text characters, 10,000 traversed nodes and 30 nested levels. Required validation focuses the visible editor. Reset follows native defaults and honors cancellation; input waits for IME composition to finish.",
+      "Run initEditors(root) once and call its returned cleanup before removing the root. Dispatch change after assigning the source textarea programmatically. The application handles submit, authorization, persistence and server-side sanitization; this module sends no requests."
+    ]
+  },
+  {
+    "id": "markdown-editor",
+    "title": "Markdown editor",
+    "category": "Components",
+    "description": "Write a note with keyboard formatting and a safe, readable Markdown preview.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "table",
+      "editors"
+    ],
+    "js": [
+      "editors"
+    ],
+    "file": "examples/components/markdown-editor.html",
+    "notes": [
+      "The named native textarea is the form value. Toolbar actions wrap the selection or prefix whole lines; Ctrl/Cmd B, I and K apply bold, italic and a validated link. Native insertion preserves undo where supported; the selection replacement fallback cannot promise undo history.",
+      "The explicit subset supports headings, paragraphs, emphasis, strike, inline/fenced code, absolute safe links, quotes, flat lists/task markers, rules and pipe tables. It does not claim CommonMark/GFM compatibility, nested lists or syntax highlighting. Raw HTML and image syntax remain text; preview never loads an image.",
+      "Preview is built from DOM text and allowlisted elements, not Markdown-derived HTML. Links open a new tab with noopener/noreferrer. Limits are 20,000 source characters, 10,000 inline tokens and 12 inline nesting levels; a failed render retains the previous preview.",
+      "Reset and external value changes replace the native textarea to discard previous undo history. Read the current named field with FormData/form.elements and delegate listeners to the root or rf:editor-change. Read-only/disabled fields, composition and cleanup are supported. The dashboard keeps separate page-session notes; saving and server validation belong to the application. Scripts-off keeps a usable textarea."
+    ]
+  },
+  {
+    "id": "file-browser",
+    "title": "File browser",
+    "category": "Components",
+    "description": "Find a file, organize a folder, and keep the bytes intact.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "upload",
+      "file-browser"
+    ],
+    "js": [
+      "file-browser"
+    ],
+    "file": "examples/components/file-browser.html",
+    "notes": [
+      "Arrow keys explore the single-select tree. Right opens a folder or enters its children; Left closes it or returns to its parent. Home/End and typeahead find visible items. Focus selects an item without downloading it; Enter toggles a folder. Folder icons, native selects and buttons provide pointer/touch alternatives.",
+      "Import actual files or a folder where the native directory chooser is supported. Paths are preserved. New text files, rename, move, exact-byte downloads and recoverable Trash act on browser copies; original disk files are untouched. Names remain reserved while in Trash. Search includes matching paths and their ancestors.",
+      "Limits include recoverable Trash: 200 items, 8 MB per file, 32 MB total, 12 levels and 120 characters per name. Imports are atomic; invalid paths, cycles, duplicate names and oversized files leave existing entries intact. New text files allow 20,000 characters. Files are never rendered as HTML or loaded automatically.",
+      "createFileBrowser(root, { entries, onChange }) accepts actual File objects. onChange receives copied next entries, an operation and an AbortSignal before a change commits; rejection keeps the current entries and dialog draft. Cancel or teardown aborts pending callbacks and ignores late completion. Your server owns validation, authorization and durable storage; this module sends no requests.",
+      "getEntries() includes recoverable Trash and actual Files; retain it before destroy() or unmounting. rf:file-change emits copied entries and the operation; rf:file-select emits the selected entry. data-rf-readonly blocks mutations, aria-disabled blocks all actions. Initialize once; teardown restores the original readable details/download fallback, not later session data.",
+      "The composed dashboard uses this exact component with separate page-session files for each public workspace. Reload restores samples. The scripts-off sample keeps native expandable folders and plain-text downloads; custom application data requires supplied File entries."
+    ]
+  },
+  {
+    "id": "image-lightbox",
+    "title": "Image lightbox",
+    "category": "Components",
+    "description": "Open a full image, explore its neighbors and return to where you started.",
+    "css": [
+      "button",
+      "dialog",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/image-lightbox.html",
+    "assets": [
+      "examples/assets/dawn.svg",
+      "examples/assets/orbit.svg",
+      "examples/assets/studio.svg"
+    ],
+    "notes": [
+      "Native image links remain useful without scripts. The optional lightbox uses a labelled native dialog, Left/Right, Home/End, Previous/Next and Escape; focus returns to the opening link. Navigation stops at the first/last image and never autoplays.",
+      "Use 1\u2013100 links with meaningful image alt text and captions. Normal opens accept HTTP/HTTPS URLs without credentials or control characters; explicit image opens load the original. Failed images show an original-file link and useful feedback. Modified clicks retain native link behavior.",
+      "Call initViewers(root) once and its returned cleanup before unmounting. createLightbox(root) reuses an existing instance; destroy closes and clears the viewer. aria-disabled on the root blocks new opens/navigation. rf:lightbox-change exposes the zero-based index and URL.",
+      "Copy the original sample assets and adjust their relative paths for your application. These simple SVG illustrations are original Rofin assets under MIT, with no external image service."
+    ]
+  },
+  {
+    "id": "document-viewer",
+    "title": "Document viewer",
+    "category": "Components",
+    "description": "Read a project brief, download the PDF or preview a local file.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "dialog",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/document-viewer.html",
+    "assets": [
+      "examples/assets/project-brief.pdf"
+    ],
+    "notes": [
+      "The native PDF object uses the browser\u2019s own reader where available. Page/zoom controls and plugin support vary; a PDF download and complete HTML text alternative stay available without scripts. This is not a PDF rendering/editor engine.",
+      "The optional local-file chooser previews supported raster images, PDF, plain text and native audio/video in a dialog. File bytes never leave the browser. Active HTML/SVG documents are rejected, PDF headers are checked, names are bounded and files are limited to 8 MB. Actual decoding still belongs to the browser.",
+      "createFileViewer(root).open(file) accepts an actual File and returns a promise resolving to whether it opened. Plain text is rendered through textContent, with a 64 KB preview limit; Download preserves the complete original bytes. Declared supported formats that fail decoding retain the download.",
+      "Close/Escape and destroy pause media, release blob URLs and discard stale reads. Reinitialization restores the chooser. The local-media preview has no supplied captions/transcript; applications provide their content alternatives, as the separate media example demonstrates.",
+      "The dashboard uses the same viewer for its selected browser-copy files. Workspace changes close previews, pause sample media and clear the selected file. Sample documents/images/media are shared references, not workspace data or authorized storage."
+    ]
+  },
+  {
+    "id": "media-player",
+    "title": "Media player",
+    "category": "Components",
+    "description": "Native video and audio controls, captions, text alternatives and real downloads.",
+    "css": [
+      "card",
+      "button",
+      "viewers"
+    ],
+    "js": [
+      "viewers"
+    ],
+    "file": "examples/components/media-player.html",
+    "assets": [
+      "examples/assets/small-momentum.mp4",
+      "examples/assets/small-momentum.webm",
+      "examples/assets/small-momentum.vtt",
+      "examples/assets/three-notes.wav"
+    ],
+    "notes": [
+      "Playback uses native audio/video controls and starts only when the person chooses it. The original three-second clip offers MP4 and WebM sources; codec support varies, and download/text alternatives remain available.",
+      "The video has a native WebVTT description track and a visible description. The audio has a complete text alternative. Caption control labels, seeking and fullscreen behavior are owned by the browser; no custom fake playback timer is used.",
+      "With initViewers(root), starting one sample player pauses the other, decoder failures expose feedback, and teardown pauses media. With scripts disabled, native playback and downloadable files still work.",
+      "Copy the original local assets and replace the descriptions/captions when supplying your own media. No remote media service, autoplay, analytics or runtime dependency is required."
+    ]
+  },
+  {
+    "id": "error-404",
+    "title": "404 page",
+    "category": "Sections",
+    "description": "A useful next step when a page or resource cannot be found.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-404.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-permission",
+    "title": "Permission page",
+    "category": "Sections",
+    "description": "Clear access guidance with a real team destination and a read-only retry.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-permission.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-offline",
+    "title": "Offline page",
+    "category": "Sections",
+    "description": "Keep an unsent draft in place while a resource reconnects.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-offline.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "error-server",
+    "title": "Server-error page",
+    "category": "Sections",
+    "description": "A calm recovery page with a safe read-request retry.",
+    "css": [
+      "empty-state",
+      "button"
+    ],
+    "js": [],
+    "file": "sections/error-server.html",
+    "notes": [
+      "This section composes Rofin empty-state, button and layout styles. Native links stay usable without JavaScript. Customize account/team links for your application; the public dashboard has no authenticated account.",
+      "The composed examples/recovery.html page uses these exact sections after actual HTTP or offline failures. Its retry buttons reload only a GET resource; requests are abortable, bounded to eight seconds, and late results are ignored. The native note stays in the page, not in durable storage.",
+      "HTML alone cannot enforce permissions, cache an offline shell, or confirm whether a failed write completed. Your server owns authorization and error status codes. Use a safe read to reconcile before retrying mutations.",
+      "The static build emits native 404.html, 403.html, offline.html and 500.html pages. Vercel serves the custom 404 for missing static paths; an unknown documentation hash also uses the same 404 section. A first visit offline needs application caching; this sample does not install a service worker."
+    ]
+  },
+  {
+    "id": "subscription",
+    "title": "Subscription management",
+    "category": "Components",
+    "description": "Review a plan, its full billing interval and scheduled cancellation.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/subscription.html",
+    "notes": [
+      "Native plan/interval fields and a review dialog reuse Rofin form, card and button components. Sample changes and cancellation remain within the page session; no payment details or real charges are collected. Pass sample: true for fictional snapshots; production callbacks show provider-owned confirmation wording.",
+      "createBillingManager(element, { snapshot, change, load }) renders copied, validated application state. change(operation, {signal, revision}) must return a newer confirmed snapshot for the same workspace. Eight-second timeout, failed or invalid confirmations retain prior data and require an explicit refresh before another change; teardown aborts callbacks and ignores late results.",
+      "Your authorized server/provider owns prices, proration, entitlements, idempotency, invoice/payment verification and cancellation policy. Never infer a paid subscription from a checkout redirect. Configure real checkout/portal services in the application; none is connected in this example."
+    ]
+  },
+  {
+    "id": "invoice-history",
+    "title": "Invoice history",
+    "category": "Components",
+    "description": "Find invoices, reconcile exact amounts and download their records.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/invoice-history.html",
+    "notes": [
+      "Native details preserve exact line items, discounts, tax, paid and outstanding totals. Search/status fields filter the same records. Text downloads contain actual accepted invoice data; fictional samples identify themselves and do not claim to be tax documents or payment receipts.",
+      "Billing snapshots use integer minor units and an explicit currency display exponent. Safe-integer amounts and reconciled invoice totals are validated atomically. Voided records have no outstanding balance, and each invoice retains its original customer name.",
+      "One workspace currency, up to 100 invoices with 30 items each. Applications paginate larger ledgers and supply provider invoice/PDF records. The component makes no requests. Without scripts, the example still expands and downloads its included sample invoice."
+    ]
+  },
+  {
+    "id": "usage",
+    "title": "Usage and limits",
+    "category": "Components",
+    "description": "Understand exact capacity, remaining room and over-limit states.",
+    "css": [
+      "billing",
+      "card",
+      "form",
+      "button",
+      "table",
+      "progress",
+      "badge"
+    ],
+    "js": [
+      "billing"
+    ],
+    "file": "examples/components/usage.html",
+    "notes": [
+      "Native meters and exact text show projects, seats and storage bytes with remaining, near-capacity, at-limit and over-capacity states. Unlimited and zero quotas are explicit; the displayed number is never hidden by a capped meter.",
+      "The independent gallery selector previews normal, near, over and empty sample values. Dashboard usage derives from the active workspace's actual page-session projects, team members and browser-copy File sizes; previews are hidden there.",
+      "Counts are current snapshots, not usage billing history. Applications supply authorized provider metrics and enforce entitlements on the server. No quota restriction or charge is enforced by this UI."
+    ]
+  },
+  {
+    "id": "prism-lab",
+    "title": "Prism lab",
+    "category": "Effects",
+    "description": "Aim light through an original 3D prism, explore refraction and read exact ray data.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "table",
+      "prism"
+    ],
+    "js": [
+      "prism"
+    ],
+    "file": "examples/components/prism-lab.html",
+    "notes": [
+      "Original generated geometry and WebGL shaders; no vendor code, remote assets or runtime dependencies. The bounded illustrative model uses seven wavelengths and up to eight internal reflections. It is not a calibrated material measurement.",
+      "Native ranges adjust beam height/angle, refractive index, dispersion and scene turn/tilt. Canvas dragging adjusts beam height/angle; the native controls provide the same model changes without dragging. Spin starts only on request and any manual adjustment pauses it.",
+      "Reduced motion disables spin. Forced colors or unavailable WebGL retain the static illustration and readable ray table; model controls still update the table when scripts work. Without scripts, exact default values and native disclosure remain available.",
+      "Use initPrisms(root), then call its returned cleanup before removing the root. Cleanup releases GPU resources and pointer capture, cancels motion and leaves the last ray table readable. Reinitialization retains current native values. Offscreen/hidden/pagehide pauses never auto-resume; restored WebGL contexts restart paused.",
+      "Opt-in spin targets 30 frames per second; manual changes redraw immediately. The backing buffer is limited to a 1.5 device-pixel ratio and 262144 pixels. Manual settings are finite and bounded; tracePrism(settings) returns copied model rays for application use. The illustrative index formula is index + dispersion * ((550 / wavelength) ** 2 - 1), using nanometers."
     ]
   }
 ]

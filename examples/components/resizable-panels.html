@@ -1,0 +1,17 @@
+<form class="rf-stack rf-resizable" data-rf-resizable data-rf-panel-storage="rofin-demo-panels" data-demo-form aria-labelledby="panels-title" method="dialog">
+  <div><h3 id="panels-title">A workspace that fits your focus.</h3><p class="rf-help" id="panels-help">Drag a divider, use its arrow keys, or adjust a slider. Home and End reach the limits; Escape cancels a drag. Width panels stack on small screens. Layouts are saved in this browser.</p></div>
+  <label class="rf-field"><span class="rf-label">First panel width</span><input class="rf-range" type="range" min="25" max="75" value="40" step="1" aria-controls="workspace-panels" aria-describedby="panels-help"><output class="rf-help" data-rf-panel-size>40% first panel, 60% second panel</output></label>
+  <div class="rf-resizable__panels" id="workspace-panels">
+    <aside class="rf-card rf-stack" aria-label="Project notes"><strong>Give the idea a shape.</strong><p class="rf-muted">A few notes, a clear direction, a little room to explore.</p><ul><li>Make it useful.</li><li>Keep it simple.</li><li>Invite a fresh perspective.</li></ul></aside>
+    <article class="rf-stack rf-resizable" data-rf-resizable data-rf-panel-axis="y" data-rf-panel-storage="rofin-demo-panels-editor" aria-label="Prototype workspace">
+      <label class="rf-field"><span class="rf-label">Preview panel height</span><input class="rf-range" type="range" min="20" max="80" value="35" step="1" aria-controls="prototype-panels"><output class="rf-help" data-rf-panel-size>35% first panel, 65% second panel</output></label>
+      <div class="rf-resizable__panels" id="prototype-panels" data-rf-panel-axis="y" style="--rf-panel-first:35fr;--rf-panel-second:65fr;--rf-panel-height:26rem">
+        <section class="rf-card rf-stack" aria-label="Prototype preview" tabindex="0"><h4 style="margin:0">Make something tangible.</h4><p>Build the smallest thing that helps someone. Give the preview or your next step more room.</p></section>
+        <label class="rf-card rf-field"><span class="rf-label">Your next step</span><textarea class="rf-textarea" name="notes" rows="6">Prepare the first prototype for review.</textarea></label>
+      </div>
+      <p class="rf-help" role="status" data-rf-panel-status></p>
+    </article>
+  </div>
+  <p class="rf-help" role="status" data-rf-panel-status></p>
+  <div class="rf-cluster"><button class="rf-button rf-button--outline" type="button" data-rf-panel-reset>Reset panel width</button><button class="rf-button rf-button--outline" type="reset">Reset workspace</button></div>
+</form>

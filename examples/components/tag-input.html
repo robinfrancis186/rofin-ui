@@ -1,0 +1,17 @@
+<form class="rf-card rf-stack" data-demo-form style="max-width:34rem" method="dialog">
+  <p class="rf-eyebrow">A few words. A clearer picture.</p>
+  <h3 class="rf-card__title">What are you making?</h3>
+  <div class="rf-stack" data-rf-tags data-rf-tags-name="topics" data-rf-tags-max="5">
+    <div class="rf-field">
+      <label class="rf-label" for="project-tag">Project topics</label>
+      <div class="rf-input-action"><input class="rf-input" id="project-tag" data-rf-tag-input maxlength="32" placeholder="Add a topic…" aria-describedby="tags-help"><button class="rf-button rf-button--outline" type="button" data-rf-tag-add>Add tag</button></div>
+      <p class="rf-help" id="tags-help">Press Enter or Add tag. Choose up to five topics, 32 characters each.</p>
+    </div>
+    <ul class="rf-tag-list" data-rf-tag-list aria-label="Selected topics">
+      <li class="rf-tag"><span>Design</span><input type="hidden" name="topics" value="Design"></li>
+      <li class="rf-tag"><span>Accessibility</span><input type="hidden" name="topics" value="Accessibility"></li>
+    </ul>
+    <p class="rf-help" role="status"></p>
+  </div>
+  <div class="rf-cluster"><button class="rf-button" type="submit">Preview topics</button><button class="rf-button rf-button--ghost" type="reset">Reset topics</button></div>
+</form>

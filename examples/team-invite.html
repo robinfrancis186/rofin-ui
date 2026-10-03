@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-rf-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Team invitation — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/team-management.css"><style>body{margin:0}main{max-inline-size:60rem;margin-inline:auto;padding:clamp(1rem,4vw,3rem);overflow-wrap:anywhere}</style></head><body class="rf-scope"><main class="rf-stack"><h1>A place on the team.</h1><noscript><p class="rf-alert">The local invitation service requires JavaScript. No account has been created.</p></noscript><section class="rf-card rf-stack" data-rf-team-accept aria-labelledby="team-invitation-title">
+  <div><p class="rf-eyebrow">Good work starts together.</p><h3 id="team-invitation-title">Join <span data-rf-invite-team>Studio</span></h3><p class="rf-muted">You were invited as <strong data-rf-invite-role>Viewer</strong>.</p></div>
+  <form class="rf-stack" method="dialog" data-rf-invite-accept-form>
+    <label class="rf-field"><span class="rf-label">Invited email</span><input class="rf-input" type="email" name="email" value="avery@example.com" readonly></label>
+    <label class="rf-field"><span class="rf-label">Your display name</span><input class="rf-input" name="name" maxlength="80" autocomplete="name" required></label>
+    <p class="rf-alert" data-variant="danger" role="alert" data-rf-invite-error hidden></p>
+    <button class="rf-button" type="submit" data-rf-invite-join>Join sample workspace</button><button class="rf-button rf-button--ghost" type="reset">Clear display name</button>
+  </form>
+  <p class="rf-help" role="status" data-rf-invite-status></p><p class="rf-help" data-rf-invite-note>This gallery previews joining a page-session sample. No account is created. Real invitation links must be validated by your application server.</p>
+</section>
+<div data-rf-invite-joined hidden><section class="rf-stack" data-rf-team-manager data-demo-navigation aria-labelledby="team-manager-title">
+  <div><p class="rf-eyebrow">A shared idea, with clear access.</p><h3 id="team-manager-title"><span data-rf-team-name>Studio</span> team</h3><p class="rf-muted"><span data-rf-team-count>3</span> members · Your role: <strong data-rf-team-current-role>Owner</strong></p></div>
+  <p class="rf-help" data-rf-team-note>Page-session sample. Invitations create pending rows; no email or account access is provided.</p>
+  <div class="rf-cluster"><button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-team-local hidden>Start isolated local team</button><button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-team-page hidden>Return to page sample</button><button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-team-refresh disabled>Refresh team</button></div>
+  <form class="rf-team-toolbar" data-rf-team-invite-form method="dialog">
+    <label class="rf-field"><span class="rf-label">Invitation email</span><input class="rf-input" type="email" name="email" maxlength="254" autocomplete="off" required disabled></label>
+    <label class="rf-field"><span class="rf-label">Invitation role</span><select class="rf-select" name="role" disabled><option value="viewer" selected>Viewer</option><option value="editor">Editor</option><option value="admin">Admin</option><option value="owner">Owner</option></select></label>
+    <button class="rf-button" type="submit" disabled>Create invitation</button><button class="rf-button rf-button--ghost" type="reset">Clear invitation form</button>
+  </form>
+  <p class="rf-alert" data-variant="danger" role="alert" data-rf-team-error hidden></p><p class="rf-help" role="status" data-rf-team-status></p>
+  <label class="rf-field"><span class="rf-label">Search team members</span><input class="rf-input" type="search" data-rf-team-search maxlength="200"></label>
+  <div class="rf-table-wrap" tabindex="0" role="region" aria-label="Team members"><table class="rf-table rf-team-members"><caption>Members and their workspace access. At least one owner must remain.</caption><thead><tr><th scope="col">Member</th><th scope="col">Role</th><th scope="col">Actions</th></tr></thead><tbody data-rf-team-members>
+    <tr><th scope="row">Robin Francis<p class="rf-help">robin@example.com</p></th><td>Owner</td><td>Last owner protected</td></tr><tr><th scope="row">Jamie Lee<p class="rf-help">jamie@example.com</p></th><td>Editor</td><td>Application controls required</td></tr><tr><th scope="row">Alex Morgan<p class="rf-help">alex@example.com</p></th><td>Viewer</td><td>Application controls required</td></tr>
+  </tbody></table></div>
+  <p class="rf-help" data-rf-team-empty hidden>No members match this search.</p>
+  <div><h4>Pending invitations</h4><ul class="rf-team-invitations" data-rf-team-invitations><li class="rf-help">No pending invitations.</li></ul></div>
+  <p class="rf-help">Owners manage all roles. Admins manage editors and viewers. Editors and viewers cannot manage other members. Everyone can leave unless they are the last owner. <a href="https://rofin-ui.vercel.app/#component/permissions-matrix">View the role permissions →</a></p>
+  <dialog class="rf-dialog" data-rf-team-confirm><h3 class="rf-dialog__title">Confirm access change</h3><p data-rf-team-confirm-text></p><p class="rf-alert" data-variant="danger" role="alert" data-rf-team-confirm-error hidden></p><form method="dialog" class="rf-dialog__actions"><button class="rf-button rf-button--outline" type="button" data-rf-team-cancel>Keep current access</button><button class="rf-button" type="submit">Confirm change</button></form></dialog>
+</section>
+</div><a href="../docs/index.html#component/team-management">Back to team management →</a></main><script type="module">import { initLiveInvitation } from './team-demo.js'; initLiveInvitation(document.querySelector('main'));</script></body></html>

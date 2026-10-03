@@ -59,7 +59,7 @@ export const dropdowns = enhancer('[data-rf-dropdown]', (element, signal) => {
       clearTimeout(queryTimer);
       queryTimer = setTimeout(() => { query = ''; }, 600);
       const ordered = [...options.slice(current + 1), ...options.slice(0, current + 1)];
-      next = ordered.find(item => item.textContent.trim().toLocaleLowerCase().startsWith(query));
+      next = ordered.find(item => (item.getAttribute('aria-label') || item.textContent).trim().toLocaleLowerCase().startsWith(query));
     }
     if (next) { event.preventDefault(); next.focus(); }
   }, { signal });

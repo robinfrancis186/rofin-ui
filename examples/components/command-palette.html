@@ -1,0 +1,47 @@
+<button class="rf-button rf-button--outline" type="button" data-rf-dialog-open="example-command">
+  Open commands
+  <kbd>
+    ↓
+  </kbd>
+</button>
+<dialog class="rf-dialog rf-command" id="example-command" aria-labelledby="command-title" data-rf-command>
+  <div class="rf-cluster" style="justify-content:space-between">
+    <h2 id="command-title">
+      What would you like to do?
+    </h2>
+    <button class="rf-button rf-button--ghost" type="button" data-rf-dialog-close aria-label="Close commands">
+      ×
+    </button>
+  </div>
+  <label class="rf-field">
+    <span class="rf-label">
+      Search commands
+    </span>
+    <input class="rf-input" type="search" placeholder="Try settings…" autofocus>
+  </label>
+  <div class="rf-command__list">
+    <button class="rf-button rf-button--ghost" type="button" data-rf-command-item="new-project">
+      Create project
+      <span aria-hidden="true">
+        ↗
+      </span>
+    </button>
+    <button class="rf-button rf-button--ghost" type="button" data-rf-command-item="settings">
+      Open settings
+      <span aria-hidden="true">
+        ↗
+      </span>
+    </button>
+    <button class="rf-button rf-button--ghost" type="button" data-rf-command-item="help">
+      Get help
+      <span aria-hidden="true">
+        ↗
+      </span>
+    </button>
+  </div>
+  <p class="rf-help" role="status">
+  </p>
+  <p class="rf-help">
+    Arrow keys to browse. Enter to choose. Escape to close.
+  </p>
+</dialog>

@@ -1,0 +1,15 @@
+SAMPLE INVOICE — no payment collected; not a tax document
+Customer: Studio
+Invoice: STUDIO-2026-09
+Issued: 2026-09-01
+Status: paid
+Currency: USD; minor-unit exponent: 2
+
+Studio plan | 1 × $19.00 = $19.00
+
+Subtotal: $19.00
+Discount: $0.00
+Tax: $1.90
+Total: $20.90
+Paid: $20.90
+Outstanding: $0.00

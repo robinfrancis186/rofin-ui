@@ -1,0 +1,12 @@
+<section class="rf-stack" aria-labelledby="permissions-title">
+  <div><p class="rf-eyebrow">Clear roles. Fewer surprises.</p><h3 id="permissions-title">Who can do what?</h3><p class="rf-muted">These team rules are shared by the optional UI and the local server policy. Applications enforce their project, file and billing permissions separately.</p></div>
+  <div class="rf-table-wrap" tabindex="0" role="region" aria-label="Role permissions"><table class="rf-table"><caption>Team management permissions by role</caption><thead><tr><th scope="col">Action</th><th scope="col">Owner</th><th scope="col">Admin</th><th scope="col">Editor</th><th scope="col">Viewer</th></tr></thead><tbody>
+    <tr><th scope="row">Read the member list</th><td>Allowed</td><td>Allowed</td><td>Allowed</td><td>Allowed</td></tr>
+    <tr><th scope="row">Invite editors and viewers</th><td>Allowed</td><td>Allowed</td><td>Not allowed</td><td>Not allowed</td></tr>
+    <tr><th scope="row">Change or remove editors/viewers</th><td>Allowed</td><td>Allowed</td><td>Not allowed</td><td>Not allowed</td></tr>
+    <tr><th scope="row">Manage owners and admins</th><td>Allowed</td><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td></tr>
+    <tr><th scope="row">Leave your own membership</th><td>Another owner required</td><td>Allowed</td><td>Allowed</td><td>Allowed</td></tr>
+    <tr><th scope="row">Remove or demote the last owner</th><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td><td>Not allowed</td></tr>
+  </tbody></table></div>
+  <div class="rf-alert" data-variant="info"><div><strong>Enforce access on the server.</strong><p>Disabled buttons explain permissions; the server checks the caller's current membership, requested role and workspace revision. An invitation link grants its configured access to its holder. Real accounts and email verification belong to the application.</p></div></div>
+</section>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-rf-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Loading & recovery — Rofin UI</title><link rel="stylesheet" href="../src/rofin.css"><link rel="stylesheet" href="../src/sections.css"></head>
+<body class="rf-scope"><a class="rf-skip-link" href="#main">Skip to content</a>
+<header class="rf-site-header"><div class="rf-container rf-site-header__inner"><a class="rf-site-header__brand" href="../docs/index.html">Rofin UI</a><button class="rf-button rf-button--outline rf-button--small" type="button" id="recovery-theme" hidden aria-pressed="false">Dark theme</button></div></header>
+<main class="rf-container rf-section rf-stack" id="main" style="max-inline-size:52rem;--rf-gap:1.5rem">
+  <div><p class="rf-eyebrow">A way forward.</p><h1>Keep a little momentum.</h1><p class="rf-muted">Read a project snapshot, keep an unsent note, and recover without losing your place.</p></div>
+  <form id="resource-form" class="rf-card rf-card__body rf-stack" hidden>
+    <label class="rf-field"><span class="rf-label">Read-only resource</span><select class="rf-select" name="resource"><option value="snapshot">Project snapshot</option><option value="missing">Missing snapshot</option><option value="permission" data-local-only disabled>Restricted snapshot · localhost fixture</option><option value="server" data-local-only disabled>Unavailable snapshot · localhost fixture</option></select></label>
+    <p class="rf-help" id="resource-note">The public snapshot is an actual JSON file. Missing files return HTTP 404. Localhost fixtures return HTTP 403/500; they do not represent a signed-in account.</p>
+    <div class="rf-cluster"><button class="rf-button" type="submit">Load resource</button><button class="rf-button rf-button--outline" type="button" id="cancel-load" disabled>Cancel load</button></div>
+  </form>
+  <p class="rf-help" role="status" id="load-status"></p>
+  <div id="resource-output" class="rf-stack">
+    <section class="rf-card rf-card__body rf-stack" id="snapshot"><h2 tabindex="-1">A useful little library</h2><p>Original components, native foundations, and room for your own ideas.</p><label class="rf-field"><span class="rf-label">Completed tasks <span id="snapshot-count">72 / 100</span></span><progress class="rf-progress" max="100" value="72">72 / 100</progress></label></section>
+    <div id="resource-error" hidden></div>
+  </div>
+  <label class="rf-field"><span class="rf-label">Your unsent note</span><textarea class="rf-textarea" id="recovery-draft" maxlength="20000" rows="4" placeholder="Keep a thought while the resource reconnects." aria-describedby="draft-note"></textarea><span class="rf-help" id="draft-note">Kept only while this page stays open. Copy it before leaving or reloading. No note is sent or saved.</span></label>
+  <details class="rf-accordion"><summary>Try a real connection interruption</summary><div>Let the page load, disconnect your network, then choose Load resource. Reconnect and choose Try again. The note stays in place; failed requests hide the previous snapshot. A first visit while offline still needs your application to cache its page shell.</div></details>
+  <div class="rf-cluster"><a class="rf-button rf-button--outline" href="assets/project-snapshot.json" download>Download the snapshot JSON</a><a class="rf-button rf-button--ghost" href="../examples/dashboard.html">Open dashboard</a><a class="rf-button rf-button--ghost" href="../docs/index.html#coverage">Component checklist</a></div>
+  <noscript><p class="rf-alert">The sample snapshot and download stay readable. Request recovery needs JavaScript; the native note is still usable.</p></noscript>
+<!-- rf:recovery-pages:start -->
+<template id="recovery-pages">
+<section class="rf-empty rf-error-page" data-rf-recovery-state="missing">
+  <span class="rf-error-page__code" aria-hidden="true">404</span>
+  <h2 tabindex="-1">This page took a different path.</h2>
+  <p>The page or resource could not be found. Check the address, or find something useful in the component gallery.</p>
+  <div class="rf-cluster">
+    <a class="rf-button" href="../docs/index.html#catalog">Explore components</a>
+    <a class="rf-button rf-button--outline" href="../examples/dashboard.html">Open dashboard</a>
+    <button class="rf-button rf-button--outline" type="button" data-rf-recovery-retry hidden>Try again</button>
+  </div>
+</section>
+<section class="rf-empty rf-error-page" data-rf-recovery-state="permission">
+  <span class="rf-error-page__code" aria-hidden="true">403</span>
+  <h2 tabindex="-1">A little permission is needed.</h2>
+  <p>This resource is unavailable to your current account. Ask its owner for access, then try again. Your draft can stay right here.</p>
+  <div class="rf-cluster">
+    <a class="rf-button" href="../examples/dashboard.html#team">Open workspace team</a>
+    <a class="rf-button rf-button--outline" href="" data-rf-recovery-reload>Check access again</a>
+    <button class="rf-button rf-button--outline" type="button" data-rf-recovery-retry hidden>Check access again</button>
+  </div>
+  <small class="rf-help">Access is decided by your application's server. Switching pages does not grant permission.</small>
+</section>
+<section class="rf-empty rf-error-page" data-rf-recovery-state="offline">
+  <span class="rf-error-page__code" aria-hidden="true">↗</span>
+  <h2 tabindex="-1">A pause in the connection.</h2>
+  <p>Reconnect, then try loading this resource again. Leave this page open to keep your unsent draft.</p>
+  <div class="rf-cluster">
+    <a class="rf-button" href="" data-rf-recovery-reload>Try again</a>
+    <button class="rf-button" type="button" data-rf-recovery-retry hidden>Try again</button>
+    <a class="rf-button rf-button--outline" href="../docs/index.html#catalog">Explore components</a>
+  </div>
+  <small class="rf-help">Only content already loaded by your application is available offline.</small>
+</section>
+<section class="rf-empty rf-error-page" data-rf-recovery-state="server">
+  <span class="rf-error-page__code" aria-hidden="true">500</span>
+  <h2 tabindex="-1">We couldn't bring this back yet.</h2>
+  <p>The resource could not be loaded. Wait a moment, then try again. Your unsent draft stays on this page.</p>
+  <div class="rf-cluster">
+    <a class="rf-button" href="" data-rf-recovery-reload>Try again</a>
+    <button class="rf-button" type="button" data-rf-recovery-retry hidden>Try again</button>
+    <a class="rf-button rf-button--outline" href="../examples/dashboard.html">Open dashboard</a>
+  </div>
+  <small class="rf-help">Retry a read request. Before retrying a failed save or payment, confirm whether it already completed.</small>
+</section>
+</template>
+<!-- rf:recovery-pages:end -->
+</main><script type="module" src="recovery.js"></script></body></html>

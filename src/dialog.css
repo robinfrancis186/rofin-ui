@@ -1,4 +1,5 @@
 @layer rf.components {
+  .rf-dialog:not([open]) { display: none !important; }
   .rf-dialog { box-sizing: border-box; inline-size: min(32rem, calc(100% - 2rem)); max-block-size: calc(100dvh - 2rem); margin: auto; padding: 1.5rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-lg); background: var(--rf-surface); color: var(--rf-text); box-shadow: var(--rf-shadow); font-family: var(--rf-font); overflow: auto; }
   .rf-dialog::backdrop { background: rgb(15 12 30 / .55); }
   .rf-dialog__title { margin-block: 0 .5rem; font-size: 1.375rem; }

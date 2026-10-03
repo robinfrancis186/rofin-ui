@@ -1,0 +1,11 @@
+/* Workspace and account compositions reuse the native dropdown behavior. */
+@layer rf.components {
+  .rf-workspace-switcher { min-inline-size: 0; inline-size: min(100%, 20rem); }
+  .rf-account-trigger { max-inline-size: 100%; min-inline-size: 0; }
+  .rf-workspace-switcher > .rf-account-trigger { inline-size: 100%; justify-content: flex-start; }
+  .rf-account-trigger .rf-avatar, .rf-workspace-menu .rf-avatar { inline-size: 2rem; block-size: 2rem; flex-shrink: 0; }
+  .rf-account-label { min-inline-size: 0; max-inline-size: 12rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rf-workspace-menu [role="menuitem"], .rf-account-menu [role="menuitem"] { min-block-size: 2.75rem; }
+  .rf-workspace-menu [aria-current="true"] { background: var(--rf-subtle); }
+  .rf-workspace-menu .rf-stack { gap: .125rem; overflow-wrap: anywhere; }
+}

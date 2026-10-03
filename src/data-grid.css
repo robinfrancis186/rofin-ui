@@ -1,0 +1,26 @@
+/* Optional model-backed tables. Include the core form, button and table styles. */
+@layer rf.components {
+  .rf-data-grid { min-inline-size: 0; }
+  .rf-grid-toolbar, .rf-grid-column-setting, .rf-grid-filter { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+  .rf-grid-toolbar .rf-field, .rf-grid-filter .rf-field { flex: 1 1 10rem; }
+  .rf-grid-column-setting .rf-field { flex: 1 1 8rem; }
+  .rf-grid-toolbar input[type="checkbox"], .rf-grid-column-setting input[type="checkbox"] { inline-size: 1.25rem; block-size: 1.25rem; margin-block: .75rem; accent-color: var(--rf-primary); }
+  .rf-grid-settings { border: 1px solid var(--rf-border); border-radius: var(--rf-radius); padding: .75rem; }
+  .rf-grid-settings > summary { cursor: pointer; font-weight: 600; padding-block: .25rem; }
+  .rf-grid-settings > div { margin-block-start: 1rem; }
+  .rf-grid-scroll { max-block-size: 24rem; overflow: auto; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); overscroll-behavior: contain; }
+  .rf-grid-scroll:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 3px; }
+  .rf-grid-table { table-layout: fixed; border-collapse: separate; border-spacing: 0; max-inline-size: none; }
+  .rf-grid-table th, .rf-grid-table td { position: relative; box-sizing: border-box; block-size: 56px; padding: .5rem .75rem; white-space: nowrap; overflow: hidden; }
+  .rf-grid-table thead th { position: sticky; inset-block-start: 0; z-index: 2; background: var(--rf-surface); }
+  .rf-grid-table [data-rf-grid-pinned] { position: sticky; inset-inline-start: var(--rf-grid-pin-offset); z-index: 1; background: var(--rf-surface); box-shadow: 1px 0 var(--rf-border); }
+  .rf-grid-table thead [data-rf-grid-pinned] { z-index: 3; }
+  .rf-grid-table [data-rf-grid-spacer] > td { padding: 0; border: 0; block-size: auto; }
+  .rf-grid-cell, .rf-grid-editor { display: flex; gap: .35rem; align-items: center; min-inline-size: 0; }
+  .rf-grid-cell__value { overflow: hidden; text-overflow: ellipsis; min-inline-size: 0; flex: 1; }
+  .rf-grid-cell .rf-button, .rf-grid-editor .rf-button { flex-shrink: 0; min-block-size: 2rem; padding: .2rem .4rem; }
+  .rf-grid-editor > input { min-inline-size: 0; inline-size: 100%; padding: .3rem; min-block-size: 2rem; }
+  .rf-grid-resizer { position: absolute; inset-inline-end: 0; inset-block: 0; inline-size: .75rem; cursor: col-resize; touch-action: none; border-inline-end: 2px solid var(--rf-border); }
+  .rf-grid-resizer:focus-visible { outline: 3px solid var(--rf-focus); outline-offset: -3px; }
+  .rf-grid-table thead .rf-button { max-inline-size: calc(100% - .5rem); overflow: hidden; text-overflow: ellipsis; }
+}

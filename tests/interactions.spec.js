@@ -95,18 +95,22 @@ test('menu positioning stays within a narrow viewport', async ({ page }) => {
   expect(box.y + box.height).toBeLessThanOrEqual(640);
 });
 
-test('native dialog traps focus, closes on Escape, and restores the trigger', async ({ page }) => {
+test('native dialog traps focus, closes on Escape, and restores the trigger', async ({ page, browserName }) => {
+  // Safari on macOS uses Option-Tab for all controls with default keyboard preferences.
+  const tab = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
   const trigger = page.getByRole('button', { name: 'Open modal' });
-  await trigger.click();
+  await trigger.focus(); await trigger.press('Enter');
   await expect(page.getByRole('dialog')).toBeVisible();
   await expect(page.getByRole('textbox', { name: 'Name' })).toBeFocused();
-  await page.keyboard.press('Tab');
+  await page.keyboard.press(tab);
   await expect(page.getByRole('button', { name: 'Close modal' })).toBeFocused();
-  await page.keyboard.press('Tab');
+  await page.keyboard.press(tab);
   // Native modal tab order may pass through browser chrome, but never background controls.
   const stayedModal = await page.evaluate(() => document.activeElement === document.body || document.querySelector('#test-dialog').contains(document.activeElement));
   expect(stayedModal).toBe(true);
-  if (!await page.getByRole('textbox', { name: 'Name' }).evaluate(element => element === document.activeElement)) await page.keyboard.press('Tab');
+  // Firefox can include several browser-chrome stops. Check reverse traversal inside the dialog separately.
+  await page.getByRole('button', { name: 'Close modal' }).focus();
+  await page.keyboard.press(`Shift+${tab}`);
   await expect(page.getByRole('textbox', { name: 'Name' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -149,7 +153,8 @@ test('notifications escape content, persist when requested, and clean up', async
   });
   await expect(page.locator('.rf-toast')).toContainText('<img src=x onerror=alert(1)>');
   await expect(page.locator('.rf-toast img')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Dismiss notification' }).click();
+  await page.getByRole('button', { name: 'Dismiss notification' }).focus();
+  await page.getByRole('button', { name: 'Dismiss notification' }).press('Enter');
   await expect(page.locator('.rf-toast-region')).toHaveCount(0);
   await expect(page.locator('#toast-trigger')).toBeFocused();
 });
@@ -183,12 +188,15 @@ test('reduced-motion effects stay visible and avoid pointer tracking', async ({ 
   await page.evaluate(async () => {
     const node = document.createElement('div');
     node.id = 'effect-test'; node.className = 'rf-card'; node.dataset.rfReveal = ''; node.dataset.rfSpotlight = ''; node.textContent = 'Visible content';
+    node.dataset.rfTilt = ''; node.dataset.rfMagnetic = '';
     document.body.append(node);
     const { initEffects } = await import('/src/js/effects.js'); window.stopEffects = initEffects(node);
   });
   await expect(page.locator('#effect-test')).toHaveCSS('opacity', '1');
   await page.locator('#effect-test').hover();
   expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-pointer-x'))).toBe('');
+  expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-tilt-x'))).toBe('');
+  expect(await page.locator('#effect-test').evaluate(element => element.style.getPropertyValue('--rf-magnetic-x'))).toBe('');
   await page.evaluate(() => window.stopEffects());
   await expect(page.locator('#effect-test')).toBeVisible();
 });

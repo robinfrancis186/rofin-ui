@@ -1,0 +1,22 @@
+<section class="rf-card rf-stack rf-prism" data-rf-prism>
+  <div><p class="rf-eyebrow">A little light. A different perspective.</p><h3>Prism lab</h3><p class="rf-muted">Aim a beam through a 3D prism. Seven wavelengths bend by different amounts; some angles reflect internally. This is an illustrative dispersion model, not a calibrated material measurement.</p></div>
+  <figure><div class="rf-prism-stage"><svg viewBox="0 0 600 300" aria-hidden="true" data-rf-prism-fallback><path d="M20 165H255M330 150L580 90M330 150L580 115M330 150L580 140M330 150L580 165M330 150L580 190M330 150L580 215M330 150L580 240" fill="none" stroke="#a483db" stroke-width="3"/><polygon points="300,45 220,215 380,215" fill="#d9c9f2" fill-opacity=".7" stroke="#6b49a4" stroke-width="2"/><polygon points="300,45 330,30 410,200 380,215" fill="#a98fd1" fill-opacity=".6" stroke="#6b49a4" stroke-width="2"/></svg><canvas aria-hidden="true" hidden></canvas></div><figcaption class="rf-help">A triangular prism with seven modeled wavelengths. The static illustration is approximate; the table shows exact model outcomes. Drag to aim, or use the controls below. Exact model data is available as text.</figcaption></figure>
+  <form class="rf-stack"><div class="rf-cluster"><button class="rf-button" type="button" data-rf-prism-play disabled>Start prism spin</button><button class="rf-button rf-button--outline" type="reset" disabled>Reset prism</button></div><div class="rf-grid">
+    <label class="rf-field"><span class="rf-label">Beam height · <output aria-live="off" data-rf-prism-value="height">0</output></span><input class="rf-range" type="range" name="height" min="-0.8" max="0.8" step="0.01" value="0" aria-label="Beam height" disabled></label>
+    <label class="rf-field"><span class="rf-label">Beam angle · <output aria-live="off" data-rf-prism-value="angle">0</output>°</span><input class="rf-range" type="range" name="angle" min="-35" max="35" step="0.1" value="0" aria-label="Beam angle" disabled></label>
+    <label class="rf-field"><span class="rf-label">Refractive index · <output aria-live="off" data-rf-prism-value="index">1.45</output></span><input class="rf-range" type="range" name="index" min="1.2" max="2.2" step="0.01" value="1.45" aria-label="Refractive index" disabled></label>
+    <label class="rf-field"><span class="rf-label">Dispersion · <output aria-live="off" data-rf-prism-value="dispersion">0.12</output></span><input class="rf-range" type="range" name="dispersion" min="0" max="0.3" step="0.01" value="0.12" aria-label="Dispersion" disabled></label>
+    <label class="rf-field"><span class="rf-label">Scene turn · <output aria-live="off" data-rf-prism-value="turn">25</output>°</span><input class="rf-range" type="range" name="turn" min="-180" max="180" step="0.1" value="25" aria-label="Scene turn" disabled></label>
+    <label class="rf-field"><span class="rf-label">Scene tilt · <output aria-live="off" data-rf-prism-value="tilt">-15</output>°</span><input class="rf-range" type="range" name="tilt" min="-60" max="60" step="1" value="-15" aria-label="Scene tilt" disabled></label>
+  </div></form>
+  <p class="rf-help" role="status" data-rf-prism-status>Static illustration. Controls become available with JavaScript; exact default ray data remains readable.</p>
+  <details><summary>Read beam data</summary><div class="rf-table-wrap" tabindex="0" role="region" aria-label="Prism ray data"><table class="rf-table"><caption>Seven model wavelengths. Indices are unitless; exit angles are relative to the scene's positive horizontal axis.</caption><thead><tr><th scope="col">Wavelength (nm)</th><th scope="col">Index</th><th scope="col">Outcome</th><th scope="col">Internal reflections</th><th scope="col">Exit angle</th></tr></thead><tbody data-rf-prism-rays><!-- rf:prism-rays:start -->
+<tr><td>700</td><td>1.4041</td><td>exited</td><td>0</td><td>-32.41°</td></tr>
+<tr><td>650</td><td>1.4159</td><td>exited</td><td>0</td><td>-33.80°</td></tr>
+<tr><td>600</td><td>1.4308</td><td>exited</td><td>0</td><td>-35.65°</td></tr>
+<tr><td>550</td><td>1.4500</td><td>exited</td><td>0</td><td>-38.24°</td></tr>
+<tr><td>500</td><td>1.4752</td><td>exited</td><td>0</td><td>-42.16°</td></tr>
+<tr><td>450</td><td>1.5093</td><td>exited</td><td>0</td><td>-49.50°</td></tr>
+<tr><td>400</td><td>1.5569</td><td>exited</td><td>1</td><td>-120.00°</td></tr>
+<!-- rf:prism-rays:end --></tbody></table></div></details>
+</section>

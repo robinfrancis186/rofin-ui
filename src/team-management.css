@@ -1,0 +1,11 @@
+@layer rf.components {
+  .rf-team-toolbar { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; }
+  .rf-team-toolbar .rf-field { flex: 1 1 12rem; min-inline-size: 0; }
+  .rf-team-members { min-inline-size: 40rem; }
+  .rf-team-members :is(th,td) { vertical-align: top; }
+  .rf-team-members th { min-inline-size: 12rem; overflow-wrap: anywhere; }
+  .rf-team-members .rf-field { min-inline-size: 8rem; }
+  .rf-team-invitation { display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between; gap: 1rem; padding-block: 1rem; border-block-end: 1px solid var(--rf-border); overflow-wrap: anywhere; }
+  .rf-team-invitation > .rf-stack { flex: 1 1 18rem; min-inline-size: 0; }
+  .rf-team-invitations { list-style: none; margin: 0; padding: 0; }
+}

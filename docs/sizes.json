@@ -1,29 +1,109 @@
 {
-  "coreGzip": 8121,
+  "coreGzip": 8424,
   "files": {
     "rofin.css": {
-      "bytes": 20390,
-      "gzip": 4456
+      "bytes": 21591,
+      "gzip": 4749
     },
     "rofin.js": {
-      "bytes": 9130,
-      "gzip": 3391
+      "bytes": 9162,
+      "gzip": 3411
     },
     "rofin.auto.js": {
-      "bytes": 9712,
-      "gzip": 3665
+      "bytes": 9744,
+      "gzip": 3675
     },
     "effects.css": {
-      "bytes": 1633,
-      "gzip": 676
+      "bytes": 5516,
+      "gzip": 1605
     },
     "effects.js": {
-      "bytes": 1333,
-      "gzip": 643
+      "bytes": 1771,
+      "gzip": 776
     },
     "sections.css": {
-      "bytes": 1646,
-      "gzip": 650
+      "bytes": 4012,
+      "gzip": 1212
+    },
+    "patterns.css": {
+      "bytes": 14856,
+      "gzip": 3413
+    },
+    "patterns.js": {
+      "bytes": 33594,
+      "gzip": 10529
+    },
+    "form-patterns.css": {
+      "bytes": 2197,
+      "gzip": 771
+    },
+    "form-patterns.js": {
+      "bytes": 17048,
+      "gzip": 5527
+    },
+    "data-grid.css": {
+      "bytes": 2280,
+      "gzip": 808
+    },
+    "data-grid.js": {
+      "bytes": 21686,
+      "gzip": 8203
+    },
+    "upload-queue.css": {
+      "bytes": 1175,
+      "gzip": 483
+    },
+    "upload-queue.js": {
+      "bytes": 10857,
+      "gzip": 4359
+    },
+    "team-management.css": {
+      "bytes": 662,
+      "gzip": 315
+    },
+    "team-management.js": {
+      "bytes": 13301,
+      "gzip": 4784
+    },
+    "editors.css": {
+      "bytes": 1252,
+      "gzip": 497
+    },
+    "editors.js": {
+      "bytes": 14131,
+      "gzip": 5376
+    },
+    "file-browser.css": {
+      "bytes": 1500,
+      "gzip": 571
+    },
+    "file-browser.js": {
+      "bytes": 15294,
+      "gzip": 5984
+    },
+    "viewers.css": {
+      "bytes": 1522,
+      "gzip": 598
+    },
+    "viewers.js": {
+      "bytes": 7631,
+      "gzip": 3058
+    },
+    "billing.css": {
+      "bytes": 259,
+      "gzip": 178
+    },
+    "billing.js": {
+      "bytes": 12935,
+      "gzip": 4819
+    },
+    "prism.css": {
+      "bytes": 661,
+      "gzip": 356
+    },
+    "prism.js": {
+      "bytes": 9743,
+      "gzip": 4387
     }
   }
 }

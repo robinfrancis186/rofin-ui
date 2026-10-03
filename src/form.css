@@ -1,8 +1,11 @@
 @layer rf.components {
   .rf-field { display: grid; gap: .45rem; min-inline-size: 0; font-family: var(--rf-font); }
   .rf-label { color: var(--rf-text); font-size: .875rem; font-weight: 600; }
-  .rf-input, .rf-select, .rf-textarea { box-sizing: border-box; inline-size: 100%; min-block-size: 2.75rem; padding: .65rem .85rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); color: var(--rf-text); font: 400 .9375rem/1.5 var(--rf-font); }
+  .rf-input, .rf-select, .rf-textarea { box-sizing: border-box; inline-size: 100%; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem; padding: .65rem .85rem; border: 1px solid var(--rf-border); border-radius: var(--rf-radius-sm); background: var(--rf-surface); color: var(--rf-text); font: 400 .9375rem/1.5 var(--rf-font); }
   .rf-input::placeholder, .rf-textarea::placeholder { color: var(--rf-muted); opacity: 1; }
+  .rf-select { overflow: hidden; text-overflow: ellipsis; }
+  .rf-select:not([multiple]):not([size]) { appearance: none; padding-inline-end: 2.5rem; background-image: linear-gradient(45deg, transparent 50%, var(--rf-muted) 50%), linear-gradient(135deg, var(--rf-muted) 50%, transparent 50%); background-position: calc(100% - 1.2rem) 50%, calc(100% - .9rem) 50%; background-size: .3rem .3rem; background-repeat: no-repeat; }
+  .rf-select:not([multiple]):not([size]):dir(rtl) { background-position: .9rem 50%, 1.2rem 50%; }
   .rf-textarea { min-block-size: 7rem; resize: vertical; }
   :is(.rf-input, .rf-select, .rf-textarea):focus-visible { outline: 3px solid var(--rf-focus); outline-offset: 2px; }
   :is(.rf-input, .rf-select, .rf-textarea)[aria-invalid="true"] { border-color: var(--rf-danger); }
@@ -19,7 +22,10 @@
   .rf-switch:checked { background: var(--rf-primary); border-color: var(--rf-primary); }
   .rf-switch:checked::before { inset-inline-start: 1.4375rem; background: var(--rf-on-primary); }
   .rf-switch:disabled { opacity: .5; cursor: not-allowed; }
-  .rf-range { inline-size: 100%; min-block-size: 2.75rem; accent-color: var(--rf-primary); }
-  @media (forced-colors: active) { .rf-switch:checked { border: 2px solid Highlight; } .rf-switch::before { background: CanvasText; } }
+  .rf-range { inline-size: 100%; min-inline-size: 0; max-inline-size: 100%; min-block-size: 2.75rem; accent-color: var(--rf-primary); }
+  @media (forced-colors: active) {
+    .rf-select:not([multiple]):not([size]) { --rf-muted: CanvasText; background-color: Canvas; color: CanvasText; border-color: CanvasText; outline-color: Highlight; forced-color-adjust: none; }
+    .rf-switch:checked { border: 2px solid Highlight; } .rf-switch::before { background: CanvasText; }
+  }
   @media (prefers-reduced-motion: reduce) { .rf-switch::before { transition: none; } }
 }

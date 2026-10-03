@@ -1,0 +1,27 @@
+<section class="rf-card rf-stack rf-editor" data-rf-markdown-editor data-demo-navigation>
+  <div><h3>A good thought, kept simple.</h3><p class="rf-muted">Write Markdown and see your note take shape.</p></div>
+  <form class="rf-stack" method="dialog" data-demo-form>
+    <div class="rf-editor-toolbar" data-rf-editor-toolbar role="group" aria-label="Markdown formatting" hidden>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="bold">Bold</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="italic">Italic</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="heading">Heading</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="list">Bullet list</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="quote">Quote</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="code">Inline code</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="fence">Code block</button>
+      <button class="rf-button rf-button--outline rf-button--small" type="button" data-rf-markdown-action="link">Add link</button>
+    </div>
+    <label class="rf-field"><span class="rf-label">Markdown note</span><textarea class="rf-textarea rf-editor-source" name="notes" data-rf-editor-source maxlength="20000" required rows="9">### Your next chapter
+
+Make room for **a good idea**.
+
+- [x] Start small
+- [ ] Share something useful
+
+[Explore Rofin](https://rofin-ui.vercel.app/)</textarea></label>
+    <p class="rf-help" data-rf-editor-count></p><p class="rf-error" data-rf-editor-error role="alert" hidden></p>
+    <div><h4>Preview</h4><div class="rf-editor-content" data-rf-markdown-preview><p class="rf-help">A live preview appears when the editor is enabled.</p></div></div>
+    <div class="rf-cluster"><button class="rf-button" type="submit">Preview note</button><button class="rf-button rf-button--outline" type="reset">Reset note</button></div>
+  </form>
+  <dialog class="rf-dialog" data-rf-editor-link-dialog><h4 class="rf-dialog__title">Add a useful link.</h4><form class="rf-stack" method="dialog"><label class="rf-field"><span class="rf-label">Link URL</span><input class="rf-input" name="url" type="text" inputmode="url" maxlength="2048" placeholder="https://example.com" required></label><p class="rf-error" data-rf-editor-link-error role="alert" hidden></p><div class="rf-dialog__actions"><button class="rf-button rf-button--outline" type="button" data-rf-editor-link-cancel>Cancel link</button><button class="rf-button" type="submit">Insert link</button></div></form></dialog>
+</section>

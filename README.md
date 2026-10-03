@@ -6,8 +6,8 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The first release includes **30 component examples**, **6 optional effects**,
-**10 copyable sections**, a searchable documentation gallery, and composed
+The library includes **88 component examples**, **21 optional effects**,
+**27 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
 > Pre-1.0: APIs and styles may change. The npm package has not been published
@@ -70,17 +70,27 @@ reinitialization.
 | Area | Included examples |
 | --- | --- |
 | Foundations | Button, card, layout, navigation, avatar, badge |
-| Forms | Input, select, textarea, checkbox, radio group, switch, range, file input |
+| Forms | Input, select, autocomplete, combobox, multiselect, error summary, calendar, time picker, textarea, rich-text/Markdown editors, checkbox, radio group, switch, range, file input and upload queue |
 | Navigation and overlays | Accordion, tabs, dropdown menu, dialog, drawer, tooltip, breadcrumb, pagination |
-| Feedback and content | Toast, alert, table, progress, meter, spinner, skeleton, empty state |
+| Feedback and content | Toast, alert, table, file browser/tree, image lightbox, document/local-file viewer, native media player, progress, meter, spinner, skeleton, empty state |
+| Website & dashboard | Responsive header, app shell, KPI metrics, bar/donut charts, date ranges, paginated tables, bulk selection, notification inbox, settings, workspace switcher, account menu, sign-up, password reset |
+| Product patterns | Password reveal, tag input, character counter, searchable table, launch checklist, billing switch |
+| Billing | Subscription review/cancellation, invoice history and exact text downloads, usage quotas and capacity states |
+| Workspace patterns | Kanban, sortable list, adjustable panels, interactive line chart, event scheduler, date presets |
 
 Native HTML handles form behavior, expandable details, and modal focus
 management. JavaScript adds keyboard navigation for tabs and menus, dialog
 triggers, tooltip Escape dismissal, file-selection details, and toast APIs.
 
-A file input does not upload files by itself. Tables do not include sorting,
-filtering, or virtualization. Application data, authentication, form submission,
-and backend integrations remain your application's responsibility.
+The [website and dashboard checklist](docs/coverage.md) maps common product needs
+to existing examples. The documentation also includes a clickable coverage page.
+
+A file input does not upload files by itself. The optional upload queue invokes
+an application callback only after an explicit Upload action. The optional table pattern adds
+local search, sorting, filters, pagination, and selection. The separate advanced
+data table adds virtualization and application-supplied server queries.
+Application data, authentication, form submission, and backend integrations
+remain your application's responsibility.
 
 ## Optional effects and sections
 
@@ -90,10 +100,346 @@ spotlight and reveal also use `initEffects()` from `src/js/effects.js`.
 Reduced-motion preferences are respected, and content remains visible without
 JavaScript.
 
+The optional effects collection also includes grid and mesh backgrounds,
+aurora, gradient borders, border beams, glass, tilt, glare, a lamp highlight,
+stars, magnetic buttons, text treatments, and focus cards. Tilt, glare, and
+magnetic buttons use the existing `initEffects()` initializer.
+
+## Optional interaction patterns
+
+Comparison sliders, carousels, command palettes, like buttons, number steppers,
+multistep forms, password reveal, tag inputs, character counters, searchable
+tables, launch checklists, billing switches, task boards, sortable lists,
+adjustable panels, line charts, and copy buttons use a separate module. Native segmented
+controls, dates, one-time codes, timelines, docks, details cards, checklists,
+ratings, chips, and the pausable marquee share its optional stylesheet.
+These are excluded from the core bundle and the auto initializer.
+
+```html
+<link rel="stylesheet" href="./src/rofin.css">
+<link rel="stylesheet" href="./src/patterns.css">
+<script type="module">
+  import { init } from './src/js/index.js';
+  import { initPatterns } from './src/js/patterns.js';
+  const stopCore = init();
+  const stopPatterns = initPatterns();
+  // Before removing this app root: stopPatterns(); stopCore();
+</script>
+```
+
+Initialize each patterns root once; call the returned cleanup before removal.
+List/board moves retain committed DOM state on teardown. Native form reset
+restores their initial arrangement.
+Sortable roots own only their direct list items, move controls and status.
+Nest independent roots to sort child steps without changing parent order; moving
+the parent keeps its fields and child order together. Give items unique
+`data-rf-sort-item` values. Optional `data-rf-sort-handle` titles keep dragging
+separate from editable fields. Use `data-rf-sort-axis="grid"` with a regular CSS
+grid for reading-order placement, including RTL; a single-column grid uses
+vertical placement. Native move buttons also work when columns stack.
+Set `data-rf-sort-disabled="true"` on a root/item for read-only sorting; native
+disabled move controls and ancestor fieldsets are honored. Kanban cards use
+their native Move-to select as the read-only control. Optional
+`data-rf-kanban-order="-1|1"` buttons move a card earlier/later in its column.
+The gallery combines Kanban with the same sortable root for column ordering.
+Escape, pagehide, disabling, reset and teardown discard an unfinished drag.
+These are small DOM collections; virtualized/masonry layouts and moving nested
+items between different roots require application behavior.
+Resizable panels retain a labelled native range. `initPatterns` adds a draggable,
+focusable separator: arrows resize, Shift uses ten steps, Home/End reach the
+range bounds, and Escape cancels an active drag. Enter collapses/restores the
+first pane only when the range minimum is zero. Use `data-rf-panel-axis="y"`
+for a vertical split, set `--rf-panel-height` on its `.rf-resizable__panels`,
+and nest independent `data-rf-resizable` roots for another split. Horizontal
+panels stack below 36rem; vertical panes remain scrollable.
+Resizing and saving require enhancement; the plain HTML still exposes the content and sliders.
+Give a scrollable pane without interactive content `tabindex="0"` and an accessible name.
+An optional `data-rf-panel-storage="unique-layout-key"` saves only the percentage
+under `rf-panel:unique-layout-key` in localStorage. Scope keys by account/workspace
+in an application; this is a browser preference, not authorization or data storage.
+Invalid preferences are ignored and unavailable storage leaves resizing usable.
+An optional `data-rf-panel-reset` button restores only that split and clears its
+preference; native form reset restores all splits belonging to the form.
+`rf:panel-resize` emits committed `value`, `previousValue`, `axis`, and `source`
+(`range`, `keyboard`, `pointer`, or `reset`); cancelled drags emit no commit.
+Keep bounds, axis and pane markup fixed until teardown/reinitialization.
+Line charts use their native table as the initial source. Matching table headings,
+SVG polylines and checkboxes define up to eight fixed series. Initialize the root,
+then replace or append exact data without rebuilding it:
+
+```js
+import { initPatterns, updateLineChart } from './src/js/patterns.js';
+const chart = document.querySelector('[data-rf-line-chart]');
+const stop = initPatterns(chart);
+updateLineChart(chart, [{ label: 'October', values: { active: 91, target: 60 } }]);
+updateLineChart(chart, [{ label: 'November', values: { active: 102, target: 70 } }], { append: true });
+// Before removing this chart: stop();
+```
+
+Each batch has at most 512 points, unique nonempty labels of at most 100 characters,
+and exactly the declared series keys with finite numbers whose absolute value is
+at most 1e12. Invalid updates return `false` and retain the plot and table. Accepted
+appends keep the latest 512 points. Both `data-rf-line-start` and `data-rf-line-end`
+native ranges enable window zoom; the exploration range selects an exact point.
+The selected label and zoom remain when possible. Show all points restores the
+full view; Follow newest point explicitly pans with updates. Native form reset
+resets the view of accepted data. Teardown leaves its readable plot/table, and
+late updates return `false`. An empty dataset displays the empty state.
+`rf:chart-change` emits `{ source, count, dropped }` once per actual accepted update;
+`rf:chart-view` emits `{ from, to, selected, series }` after a native view change.
+The shared scale includes zero and remains stable when a series is hidden.
+The library starts no network requests. `examples/chart-demo.js` provides an
+explicit browser sample feed and a real localhost HTTP sample with pause,
+retry, hidden-page pause and cleanup. Static hosting disables its HTTP source.
+Production applications supply their own authorized feeds and aggregate larger
+datasets before calling the API; these examples provide no durable history.
+
+`rf:sort-change` emits `detail.value`, zero-based `from`/`to`, `values`, and
+`previousValues`; `rf:kanban-change` retains `value`, `from`, and `to` column
+values and adds zero-based `fromIndex`/`toIndex`, `values` and `previousValues`
+(records of column names to card IDs). Moves commit once on drop or native
+control activation; no-ops and cancellations emit no change. Column moves emit
+`rf:sort-change`, independently from card moves.
+The application owns persistence and rollback. Move buttons and native selects
+provide keyboard/touch alternatives to desktop drag operations.
+Call `initPatterns(newRoot)` for newly inserted pattern markup. Command
+palettes emit `rf:command` with `detail.value`; tag inputs emit `rf:tags-change`
+with `detail.values`. Tables emit `rf:table-selection` with `detail.values` and
+`rf:table-action` with `detail.action` plus `detail.values`. Notification read
+actions emit `rf:notifications-read` with `detail.values`. Your app owns
+persistence, authorization, and the actual action.
+Tables also emit `rf:table-view` with matching row `values` across all pages,
+`total`, `page` and `pageSize`. The sample dashboard uses that event to update its
+shared line chart and native bar/donut charts from the same filtered project
+snapshot, including status changes, creation, archiving and workspace switching.
+Its cumulative last-update-day chart is a current snapshot, not activity history.
+Authentication, subscriptions, and integrations are interface
+examples; connect application behavior and server validation yourself.
+
+The documentation's **Reference library** indexes 11 source catalogs with
+related original Rofin patterns and explicit coverage notes. Catalog metadata
+is not proof of individual demo review or feature parity. See
+[the source review](docs/reference-review.md).
+
 Include `src/sections.css` for the hero, feature grid, bento layout, pricing,
 testimonials, statistics, FAQ, call to action, footer, and contact sections.
 Copy their HTML from `sections/`. Product copy, prices, statistics, and quotes
 are illustrative; replace them before publishing.
+
+## Optional form workflows
+
+Add `src/form-patterns.css` and initialize `initFormPatterns` from
+`src/js/form-patterns.js` for searchable comboboxes, multiselects, validation
+summaries, calendars, date shortcuts, and daily event scheduling. Native
+selects, dates, times, and datalist suggestions remain available without scripts.
+The module is separate from the core and has no runtime dependencies.
+
+```js
+import { initFormPatterns } from 'rofin-ui/form-patterns';
+const stopForms = initFormPatterns(document.querySelector('#my-form'));
+// Call stopForms() before removing or changing the control structure.
+```
+
+Use the repository path until npm publication. `rf:combobox-change` supplies
+`detail.value` and `detail.label`; `rf:multiselect-change` supplies
+`detail.values`; `rf:date-change` supplies `detail.value`;
+`rf:date-range-change` supplies `detail.start` and `detail.end`;
+`rf:schedule-change` supplies a copied `detail.events` array. The application
+persists changes and supplies its time zone. Honor `event.defaultPrevented`
+in form submission handlers so validation can stop invalid submissions.
+
+Preview forms use `method="dialog"` to retain native validation without sending
+sample values when JavaScript is unavailable. When connecting an application,
+replace it with your server's form method/action or your own submit handler.
+
+## Optional advanced data table
+
+Add `src/data-grid.css` alongside the core styles and enhance the native table
+in `examples/components/data-grid.html`:
+
+```js
+import { createDataGrid } from './src/js/data-grid.js';
+const grid = createDataGrid(document.querySelector('[data-rf-data-grid]'));
+// Call grid.destroy() before removing or changing the table structure.
+```
+
+The table supports typed inline edits, sorting, compound all/any filters,
+visible/resizable/pinned columns, and named views. Set `storageKey` or
+`data-rf-grid-storage` to save views in this browser; unavailable storage falls
+back to the current page. Edits remain in memory unless an application supplies
+`saveCell(edit, { signal })`, which returns the validated saved row. A failed
+save retains the draft for retry. IDs must stay stable and cannot be edited.
+
+Pass `rows` and optional `columns` to use application data. `loadPage(query,
+{ signal })` returns `{ rows, total, page? }` for server paging; stale requests
+cannot replace newer results. `queryGridRows` supplies shared query semantics
+for the included read-only HTTP sample at `/api/sample-grid` when running
+`npm run dev`. The static production gallery uses browser data. Applications
+own transport, authorization, durable storage and edit-conflict handling.
+The module makes no automatic network calls and stays outside the core.
+
+Virtual scrolling uses fixed 56-pixel rows and truncated cell text. Turn it off
+for native paginated reading. Client queries scan at most 100,000 rows; use a
+server loader for larger data or expensive queries. `getState()` and `getRows()`
+return copies; `getRows()` returns browser rows, not a remote dataset. `refresh`,
+`setRows` and `setLoader` update data. Destroying restores the first 25 browser
+rows with committed values. `rf:grid-change` and `rf:grid-edit` report copied
+state/rows; cancel `rf:grid-before-edit` to stop a save.
+
+After npm publication, the optional imports are `rofin-ui/data-grid` and
+`rofin-ui/data-grid.css`.
+
+## Optional upload workflow
+
+Add `src/upload-queue.css` alongside the core styles and use the labelled input
+and list in `examples/components/upload-queue.html`:
+
+```js
+import { createUploadQueue, uploadFile } from './src/js/upload-queue.js';
+const queue = createUploadQueue(document.querySelector('[data-rf-upload-queue]'), {
+  upload: (file, { id, signal, onProgress }) => uploadFile(
+    `/api/uploads?id=${id}&name=${encodeURIComponent(file.name)}`,
+    file, { signal, onProgress, headers: { 'Content-Type': 'application/octet-stream' } }
+  )
+});
+// /api/uploads is an endpoint your application implements.
+// Call queue.destroy() before removing the component.
+```
+
+Without a callback, files stay local and upload buttons are disabled. The queue
+supports drop/native selection, image previews, size/type/count checks,
+two simultaneous transfers by default, native progress, cancel and explicit
+retry. Failed and cancelled files remain available; reset clears the queue and
+aborts active callbacks. Removing a row only changes the local queue.
+`getFiles()` returns the selected File objects, including after teardown;
+enhancement clears the native input after selection, so enhanced forms use
+this API or their upload callback rather than the input's current FileList.
+
+Callbacks honor the supplied AbortSignal and use the stable ID for server
+idempotency. `uploadFile` sends the binary body with XMLHttpRequest, reports
+actual upload events and rejects HTTP, network, timeout and abort failures.
+`rf:upload-change`, `rf:upload-complete` and `rf:upload-error` expose state,
+receipts and failures; cancel `rf:upload-before` to prevent a transfer.
+Application code owns authorization, server validation, storage and deletion.
+
+`npm run dev` provides `/api/sample-uploads`, a public localhost receiver with
+8 MB file limits, signature/UTF-8 checks, SHA-256 receipts and exact downloads.
+It holds at most 64 MB and 20 files in a temporary directory; files expire
+after 15 minutes or when the server stops. Signature checks do not fully decode
+file formats. Interrupted partial files are removed. The static production
+gallery disables transport and offers local previews only.
+
+After npm publication, optional imports are `rofin-ui/upload-queue` and
+`rofin-ui/upload-queue.css`. The module has no runtime dependencies and stays
+outside the core bundle.
+
+## Team management
+
+Add `src/team-management.css` and use the native form/table in
+`examples/components/team-management.html` with the optional controller:
+
+```js
+import { createTeamManager } from './src/js/team-management.js';
+const manager = createTeamManager(document.querySelector('[data-rf-team-manager]'), {
+  team, actorId,
+  change: (operation, { signal, revision }) => application.changeTeam(operation, { signal, revision }),
+  load: ({ signal }) => application.loadTeam({ signal })
+});
+// change confirms { team } or explicitly { team: null } after access ends.
+// Call manager.destroy() before removing the component.
+```
+
+The application supplies confirmed snapshots, safe sessions, email and storage.
+Snapshots support at most 50 members and 20 pending invitations; larger
+directories require application paging and a corresponding server policy.
+`applyTeamChange` and `acceptTeamInvitation` expose the same small policy used by
+the localhost service: owners manage all roles, admins manage editors/viewers,
+and at least one owner remains. A server derives the actor from its verified
+session and checks the expected revision before applying a change.
+
+The default examples keep changes in the page session. **Start isolated local
+team** explicitly creates a temporary private sandbox with server-issued access
+tokens and one-use invitation links. Those links grant their holder the selected
+role; they do not verify email identity or create durable accounts. Samples
+expire after 15 minutes or server stop. No email is sent. Production applications
+supply their own backend. After npm publication, optional imports will be
+`rofin-ui/team-management` and `rofin-ui/team-management.css`.
+
+## Optional note editors
+
+Include `src/editors.css` alongside the core styles and copy the labelled markup
+from `examples/components/rich-text-editor.html` or `markdown-editor.html`:
+
+```js
+import { initEditors } from './src/js/editors.js';
+const stop = initEditors(document.querySelector('#my-notes'));
+// stop(); // Before removing the root.
+```
+
+The rich editor writes restricted HTML into its named textarea. Pasted HTML is
+reconstructed from allowed paragraphs, headings, emphasis, lists, quotes, code
+and safe absolute links. Images/media, foreign namespaces, scripts, forms,
+event handlers and arbitrary styles are removed. Limits are 50,000 HTML and
+20,000 text characters, 10,000 nodes and 30 nested levels. Validate persisted
+HTML on your server separately; this is a bounded note renderer.
+
+Formatting uses native [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand)
+to preserve browser undo. That API is deprecated and behavior varies;
+unsupported commands are disabled. Scripts-off keeps the native HTML textarea.
+Required validation focuses the visible editor; reset honors cancellation.
+
+Markdown keeps a native textarea and renders allowlisted DOM nodes. The explicit
+subset covers headings, emphasis/strike, code, safe absolute links, quotes, flat
+lists/task markers, rules and pipe tables. Raw HTML and image syntax remain text.
+It does not claim CommonMark/GFM compatibility, nested lists or highlighting.
+The source limit is 20,000 characters with 10,000 inline tokens and 12 nested
+inline levels. Toolbar selection changes use native insertion where available;
+the selection replacement fallback cannot promise undo history.
+
+Dispatch `change` after assigning a source value programmatically. Markdown reset
+and external value changes replace the textarea to discard previous native undo
+history. Read its current value with `FormData`/`form.elements` and delegate
+listeners to the root or use `rf:editor-change`. Composition,
+disabled/read-only fields, teardown and native/cancelled reset are supported.
+The dashboard reuses this editor for separate page-session workspace notes;
+saving updates the reset default, switching clears unfinished notes, and reload
+restores samples. The module sends no requests. Applications handle submit,
+authorization, durable storage and server validation. After npm publication,
+optional imports are `rofin-ui/editors` and `rofin-ui/editors.css`.
+
+## Optional image, document and media viewers
+
+Include `src/viewers.css` alongside the core styles and copy the labelled markup
+from `examples/components/image-lightbox.html`, `document-viewer.html` or
+`media-player.html`. Copy their `examples/assets` files and adjust relative URLs.
+
+```js
+import { initViewers, createFileViewer } from './src/js/viewers.js';
+const stop = initViewers(document.querySelector('#resources'));
+const preview = createFileViewer(document.querySelector('[data-rf-file-viewer]'));
+// await preview.open(file); // An actual File, such as a selected browser copy.
+// stop(); // Before removing the root; closes previews and pauses media.
+```
+
+The image lightbox enhances native image links with a native dialog, captions,
+bounded Previous/Next and arrow/Home/End navigation. Escape returns focus to its
+opening link. Links remain usable without scripts; large images load on open.
+`rf:lightbox-change` supplies the zero-based index and resolved original URL.
+
+The document example includes an original two-page PDF, its complete HTML text
+alternative and a real download. Embedded PDF controls depend on the browser.
+The optional chooser previews explicit local raster images, PDF, plain text,
+audio and video of at most 8 MB; text previews show at most 64 KB while downloads
+keep every byte. HTML/SVG and unsupported formats are rejected. Close and teardown
+release owned blob URLs. The viewer does not upload files or write to disk.
+
+Original three-second MP4/WebM video and WAV audio use native controls, caption
+and text alternatives, with downloads if playback is unavailable. No autoplay;
+starting one sample player pauses the other. Local user files need their own
+captions/transcripts. The dashboard reuses these examples and previews actual
+selected workspace File objects, including after import or rename. Workspace
+switching closes previews and stops playback. After npm publication, optional
+imports will be `rofin-ui/viewers` and `rofin-ui/viewers.css`.
 
 ## Themes
 
@@ -123,11 +469,17 @@ Open **http://127.0.0.1:4173** for the documentation gallery, or:
 
 - `/examples/index.html` — all core component examples
 - `/examples/landing.html` — a composed landing page
-- `/examples/dashboard.html` — a dashboard with a working example filter
+- `/examples/dashboard.html` — a complete sample workspace with charts, filters, paging, selection, CSV export, project creation, archive confirmation, notifications, and settings
 
 The build outputs minified CSS, ESM and CommonJS modules, an auto-initializing
 browser script, type declarations, and a self-contained documentation site in
 `dist/site`. Build tools are development dependencies only.
+
+The documentation website is composed from Rofin's own cards, inputs, buttons,
+navigation, badges, grids, statistics, empty states, dialogs, and footer.
+`docs/style.css` handles the site layout, branding, and decorative thumbnails.
+Star components to build a saved collection, search it, and copy a deduplicated
+setup snippet. Collections persist in this browser when local storage is available.
 
 ```html
 <link rel="stylesheet" href="./dist/rofin.css">
@@ -153,12 +505,13 @@ Target current Chrome/Edge, Firefox, and Safari. Dropdowns require native
 Popover support: Chrome/Edge 114+, Firefox 125+, or Safari 17+. CSS layers and
 other modern CSS features are used; no legacy polyfills are bundled.
 
-The automated suite currently runs in Chromium and covers keyboard behavior,
+The automated suite supports Chromium, Firefox and WebKit and covers keyboard behavior,
 dynamic lifecycle, responsive layouts, no-JavaScript fallbacks, packaging,
 and WCAG-tagged accessibility checks across gallery examples in both themes.
-Firefox/Safari, real touch hardware, and screen-reader testing remain
-follow-ups. Automated checks do not certify accessibility of every use case
-or of your customizations.
+Chrome and Firefox suites pass locally. Installed Safari has manual smoke
+checks; WebKit is recorded separately. Physical touch hardware and screen-reader
+testing remain outstanding. See [validation evidence](docs/validation.md).
+Automated checks do not certify accessibility of every use case or customization.
 
 ```sh
 npx playwright install chromium
@@ -183,7 +536,169 @@ reserve the npm name. The domain is intentionally deferred.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md).
 
-Inspired by Oat's minimal approach. This repository contains original code;
-it does not include source code from Oat, Aura, or Aceternity.
+Inspired by Oat's minimal approach and the pattern families in the linked
+catalogs. This repository contains original component code; it does not
+include source code from the referenced libraries. Reference names and URLs
+are a dated research snapshot, separate from the runnable Rofin gallery.
 
 MIT — Copyright © 2026 Robin Francis.
+
+## Optional file browser
+
+Include `src/file-browser.css` with the shared styles listed in the example and
+use `initFileBrowsers(root)` for the copyable plain-text sample. For application
+files, provide actual File objects to `createFileBrowser(root, { entries, onChange })`.
+The component sends no requests and never modifies original disk files.
+
+```js
+import { createFileBrowser } from 'rofin-ui/file-browser';
+const browser = createFileBrowser(document.querySelector('[data-rf-file-browser]'), {
+  entries: [{ id: 'brief', parentId: null, kind: 'file', name: file.name, file }],
+  onChange: async (nextEntries, { operation, signal }) => {
+    // Your application confirms authorized persistence here; throw to retain the draft.
+  }
+});
+// Before unmounting: retain browser.getEntries(), then browser.destroy().
+```
+
+The tree uses the [WAI-ARIA single-select keyboard pattern](https://www.w3.org/WAI/ARIA/apg/patterns/treeview/)
+with selection following focus, arrow navigation, Home/End and typeahead.
+Folder controls and native fields provide pointer/touch alternatives. Search
+shows matching paths and ancestors; clearing it restores the expansion state.
+Imports preserve directory paths where the native folder chooser is supported.
+Create plain-text files, rename, move, download exact bytes, or move items into
+recoverable Trash. Names are normalized to NFC and compared in lowercase for
+duplicates, and stay reserved while in Trash; Restore trash returns all
+of them without collisions. There is no permanent-delete control.
+
+Limits include Trash: 200 entries, 8 MB per file, 32 MB total, 12 folder levels
+and 120 characters per name. New text files allow 20,000 characters. Entries
+have unique IDs, a folder parent or null, kind/name, optional `trashed`, and an
+actual File for file entries. Imports and mutations validate before calling
+`onChange`; failed callbacks preserve existing entries and dialog drafts.
+Cancel/Escape, Cancel pending file change and teardown abort pending callbacks
+and ignore late completion. Applications must honor the signal in their service
+and authorize/validate every server operation. Client cancellation cannot undo
+a server operation that already committed.
+
+`rf:file-change` emits copied next entries and the operation; `rf:file-select`
+emits a copied selected entry. `getEntries()` returns entry copies; File bytes
+are immutable. `data-rf-readonly` blocks new mutations; `aria-disabled="true"`
+blocks all interaction. Call `destroy()` before unmounting, retaining entries
+first: teardown restores the original details/download fallback, not subsequent
+session data. The dashboard retains separate browser files/Trash for each public
+workspace during the page session. Reload restores samples. These examples do
+not supply durable storage, multi-user authorization or operating-system writes.
+
+## Error pages and read recovery
+
+Copy `sections/error-404.html`, `error-permission.html`, `error-offline.html` or
+`error-server.html` with the core stylesheet. They compose the same empty-state,
+button and layout components used by the documentation and HTTP error pages.
+Native links work without JavaScript; supply your own account/team destinations.
+
+Open `examples/recovery.html` for actual JSON loading, cancellation and read-only
+retry. It hides stale content on failure, preserves an unsent native note and
+focuses the result heading. Requests time out after eight seconds; cancelled or
+superseded requests cannot commit late results. Missing files return real 404s.
+Two explicit localhost fixtures return 403/500; they are disabled on production
+and do not represent an authenticated account. `navigator.onLine` is only a
+hint: other network failures use the general retry page. Reconnection never
+automatically repeats a request or sends the note.
+
+The static build emits `404.html`, `403.html`, `offline.html` and `500.html`; the
+deployed site's missing routes use its custom 404. Configure other hosts using
+their status-page conventions. Permissions still need server enforcement,
+first-visit offline needs an application cache, and notes remain only while the
+page is open. Before retrying a failed save or payment, reconcile its server
+state so it is not duplicated.
+
+## Optional billing views
+
+The subscription, invoice-history and usage examples reuse native forms,
+dialogs, details, tables and meters. `examples/billing.html` composes these same
+views; the dashboard uses their source templates directly. Sample plan changes
+last for the page session and never create paid invoices or collect payment
+details. Dashboard quotas use actual active project counts, team members and
+non-trashed browser-copy file bytes.
+
+```js
+import { createBillingManager } from 'rofin-ui/billing';
+
+// The application supplies initialSnapshot and these authorized server callbacks.
+const manager = createBillingManager(element, {
+  snapshot: initialSnapshot,
+  change: (operation, { signal, revision }) =>
+    saveBillingChange(operation, { signal, revision }),
+  load: ({ signal }) => loadConfirmedBilling({ signal })
+});
+manager.getSnapshot(); // A copied, accepted snapshot.
+manager.update(confirmedSnapshot); // Same workspace, non-stale revision.
+manager.destroy(); // Abort pending callbacks before removing the view.
+```
+
+Include `billing.css` plus the shared card, form, table, button and progress
+styles. [billing.d.ts](src/js/billing.d.ts) defines the snapshot and operations.
+Set `sample: true` only for fictional previews; ordinary records use the default.
+One workspace currency, up to ten plans and 100 invoices with 30 items each are
+supported. Amounts are bounded safe integer minor units; `fractionDigits`
+explicitly controls their display exponent. Normalize provider data on the
+server; see [Stripe's currency format rules](https://docs.stripe.com/currencies).
+Invoice line items, discounts, tax, totals and paid values must reconcile.
+Voided records have no outstanding balance. Each invoice retains its original
+customer name and downloads its exact text, rather than an invented PDF.
+Provider documents and tax compliance remain application responsibilities.
+
+The component starts no requests. Confirmed changes require a newer revision
+for the same workspace and emit `rf:billing-change` with a copied operation and
+snapshot. Failed, invalid or eight-second timed-out confirmations keep previous
+data, abort the callback and disable further changes until explicit refresh
+reconciles current state. Abort cannot undo a server-side write: the server owns
+idempotency, authorization and authoritative reconciliation. Late results after
+updates or teardown cannot alter the view. Read-only views keep invoice search,
+native disclosures and text downloads. Cancelled/native form reset preserves
+confirmed state; usage-only updates preserve plan drafts and expanded invoices.
+
+Real checkout, payment details, subscription timing/proration, entitlements,
+invoice verification and durable usage history are still required services.
+For a Stripe integration, use its configured [Checkout](https://docs.stripe.com/payments/checkout)
+and [customer portal](https://docs.stripe.com/customer-management). Fulfillment
+must use confirmed server events, not a redirect alone, as described in
+[Stripe's post-payment flow](https://docs.stripe.com/payments/existing-customers?platform=web&ui=stripe-hosted).
+No provider is connected to these public examples.
+
+
+## Optional Prism Lab
+
+The gallery and `examples/landing.html#prism` reuse
+`examples/components/prism-lab.html`, including its generated default ray table.
+Load the shared card/form/button/table styles and `src/prism.css`, then initialize:
+
+```js
+import { initPrisms, tracePrism } from './src/js/prism.js';
+const destroy = initPrisms(root);
+const rays = tracePrism({ height: 0, angle: 0, index: 1.45, dispersion: 0.12 });
+// Call destroy() before removing the root.
+```
+
+Optional package exports are `rofin-ui/prism` and `rofin-ui/prism.css` after a
+local build; npm publication remains pending. The module stays outside the core.
+Its original generated triangular mesh and shaders require no external assets.
+Native controls adjust beam height/angle, refractive index, dispersion and scene
+turn/tilt; captured pointer aiming has the same model alternatives on the ranges.
+Spin starts only on request, pauses on manual adjustments, offscreen/hidden pages
+and pagehide, and never resumes automatically. Reduced motion disables spin.
+Forced colors or missing WebGL retain a static illustration; model controls still
+update the exact table. With scripts off, native disclosure shows default data.
+Teardown cancels motion, releases pointer capture and generated GPU resources,
+and retains readable data; reinitialization starts paused at current native values.
+
+`tracePrism` returns copied seven-wavelength rays (700–400 nm), including points,
+index, exit angle, internal reflection count and exited/missed/trapped outcome.
+Finite bounds are height −0.8…0.8, angle −35…35 degrees, index 1.2…2.2 and
+dispersion 0…0.3. The illustrative index formula is
+`index + dispersion * ((550 / wavelength) ** 2 - 1)`; at most eight internal
+reflections are traced. This is not a calibrated material measurement or a port
+of a vendor's scene. Opt-in spin targets 30 frames per second; manual changes redraw immediately.
+The backing buffer is capped at 1.5 device-pixel ratio and 262,144 pixels. Device performance and the
+remaining shader, physics and scroll families still need their own evidence.
