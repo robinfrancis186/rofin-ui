@@ -12,6 +12,7 @@ import { initFileBrowsers } from '../src/js/file-browser.js';
 import { initViewers } from '../src/js/viewers.js';
 import { initChartExamples } from '../examples/chart-demo.js';
 import { initBillingExamples } from '../examples/billing-demo.js';
+import { initPrisms } from '../src/js/prism.js';
 
 const main = document.querySelector('#main');
 const search = document.querySelector('#docs-search');
@@ -30,6 +31,7 @@ let stopFiles = () => {};
 let stopViewers = () => {};
 let stopCharts = () => {};
 let stopBilling = () => {};
+let stopPrisms = () => {};
 let sizeReport;
 let saved = new Set();
 try {
@@ -125,7 +127,7 @@ function referenceLibrary() {
   document.querySelector('#search-status').textContent = `${entries.length} reference entries`;
   return `<div class="page-heading"><p class="rf-eyebrow">Collected ${references.date}</p><h1>A wider world of UI.</h1><p>Explore all 11 source libraries. Related Rofin patterns are original alternatives; they do not reproduce every effect or behavior.</p></div><div class="reference-summary rf-card"><strong>${references.libraries.reduce((sum, library) => sum + library.entries.length, 0).toLocaleString()} indexed references · ${catalog.length} runnable Rofin examples</strong><p class="rf-muted">Catalog coverage is partial, especially Aura’s 2,495 free entries. Catalogued names and URLs do not mean each individual demo was reviewed or implemented.</p><a href="./reference-review.md" download>Download coverage notes →</a></div><div class="rf-cluster category-filters" aria-label="Filter reference libraries">${['All', ...references.libraries.map(library => library.name)].map(name => `<button class="rf-button rf-button--small ${libraryFilter === name ? '' : 'rf-button--outline'}" type="button" data-library="${escape(name)}" aria-pressed="${libraryFilter === name}">${escape(name)}</button>`).join('')}</div>${libraries.length === 1 ? `<p class="rf-help">${escape(libraries[0].coverage)} <a href="${libraries[0].url}" target="_blank" rel="noopener">Open source catalog ↗</a></p>` : ''}<p class="rf-help">${entries.length} matching references. Search by name or library.</p><div class="reference-list">${entries.map(item => `<article class="reference-row"><div><a href="${escape(item.url)}" target="_blank" rel="noopener">${escape(item.title)} ↗</a><p>${escape(item.library)} · ${escape(item.review)}</p></div>${item.related ? `<a class="reference-pattern" href="#component/${item.related}">Related: ${escape(catalog.find(entry => entry.id === item.related)?.title || item.related)} →</a>` : '<span class="rf-help">Reference only</span>'}</article>`).join('') || '<p>No references match this search.</p>'}</div>${footer()}`;
 }
-const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager', editors: 'initEditors', 'file-browser': 'initFileBrowsers', viewers: 'initViewers', billing: 'createBillingManager' };
+const functions = { tabs: 'initTabs', dropdown: 'initDropdowns', dialog: 'initDialogs', tooltip: 'initTooltips', upload: 'initUploads', toast: 'toast', patterns: 'initPatterns', 'form-patterns': 'initFormPatterns', 'data-grid': 'createDataGrid', 'upload-queue': 'createUploadQueue', 'team-management': 'createTeamManager', editors: 'initEditors', 'file-browser': 'initFileBrowsers', viewers: 'initViewers', billing: 'createBillingManager', prism: 'initPrisms' };
 function setup(item) {
   const css = [...new Set(['tokens', 'base', 'layout', ...item.css])];
   let code = css.map(name => `<link rel="stylesheet" href="./src/${name}.css">`).join('\n');
@@ -159,6 +161,7 @@ function coverage() {
     ['Account flows', ['sign-in', 'sign-up', 'password-reset', 'password-field', 'one-time-code', 'account-settings', 'workspace-switcher', 'account-menu', 'team-management', 'team-invitation', 'permissions-matrix']],
     ['Dashboard structure', ['app-shell', 'dashboard-metrics', 'resizable-panels', 'layout', 'card', 'avatar', 'badge']],
     ['Charts & progress', ['line-chart', 'bar-chart', 'donut-chart', 'progress', 'meter', 'stats']],
+    ['Interactive visuals', ['prism-lab', 'tilt-card', 'glare-card', 'spotlight', 'reveal']],
     ['Data & filters', ['data-grid', 'data-table', 'paginated-table', 'bulk-actions', 'date-range', 'date-range-presets', 'tag-input', 'segmented-control', 'file-browser']],
     ['Actions & overlays', ['button', 'dropdown', 'dialog', 'drawer', 'tooltip', 'command-palette', 'image-lightbox', 'document-viewer', 'media-player']],
     ['Feedback & states', ['alert', 'toast', 'empty-state', 'spinner', 'skeleton', 'notification-center', 'error-404', 'error-permission', 'error-offline', 'error-server']],
@@ -186,6 +189,7 @@ function updateSize() {
   document.querySelectorAll('[data-core-size]').forEach(element => { element.textContent = `${(sizeReport.coreGzip / 1024).toFixed(1)} KiB`; });
 }
 function render({ focus = false } = {}) {
+  stopPrisms();
   stopBilling();
   stopViewers(); stopFiles(); stopEditors(); stopTeams(); stopGrids(); stopUploads();
   stopEffects();
@@ -212,6 +216,7 @@ function render({ focus = false } = {}) {
   stopPatterns = initPatterns(main);
   stopCharts = initChartExamples(main);
   stopBilling = initBillingExamples(main);
+  stopPrisms = initPrisms(main);
   stopForms = initFormPatterns(main);
   stopGrids = initGridExamples(main);
   stopUploads = initUploadExamples(main);

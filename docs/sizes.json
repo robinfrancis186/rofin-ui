@@ -96,6 +96,14 @@
     "billing.js": {
       "bytes": 12935,
       "gzip": 4819
+    },
+    "prism.css": {
+      "bytes": 661,
+      "gzip": 356
+    },
+    "prism.js": {
+      "bytes": 9743,
+      "gzip": 4387
     }
   }
 }

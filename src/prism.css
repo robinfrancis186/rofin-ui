@@ -1,0 +1,8 @@
+@layer rf.effects {
+  .rf-prism figure { margin: 0; }
+  .rf-prism-stage { position: relative; block-size: 18rem; overflow: hidden; border: 1px solid var(--rf-border); border-radius: var(--rf-radius); background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--rf-primary) 14%, var(--rf-surface)), var(--rf-surface)); }
+  .rf-prism-stage canvas, .rf-prism-stage svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+  .rf-prism-stage canvas { touch-action: none; }
+  .rf-prism output { font-variant-numeric: tabular-nums; }
+  @media (forced-colors: active) { .rf-prism-stage { background: Canvas; } .rf-prism-stage svg polygon { fill: Canvas; stroke: CanvasText; } .rf-prism-stage svg path { stroke: CanvasText; } }
+}

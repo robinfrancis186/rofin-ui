@@ -2465,5 +2465,29 @@
       "The independent gallery selector previews normal, near, over and empty sample values. Dashboard usage derives from the active workspace's actual page-session projects, team members and browser-copy File sizes; previews are hidden there.",
       "Counts are current snapshots, not usage billing history. Applications supply authorized provider metrics and enforce entitlements on the server. No quota restriction or charge is enforced by this UI."
     ]
+  },
+  {
+    "id": "prism-lab",
+    "title": "Prism lab",
+    "category": "Effects",
+    "description": "Aim light through an original 3D prism, explore refraction and read exact ray data.",
+    "css": [
+      "card",
+      "form",
+      "button",
+      "table",
+      "prism"
+    ],
+    "js": [
+      "prism"
+    ],
+    "file": "examples/components/prism-lab.html",
+    "notes": [
+      "Original generated geometry and WebGL shaders; no vendor code, remote assets or runtime dependencies. The bounded illustrative model uses seven wavelengths and up to eight internal reflections. It is not a calibrated material measurement.",
+      "Native ranges adjust beam height/angle, refractive index, dispersion and scene turn/tilt. Canvas dragging adjusts beam height/angle; the native controls provide the same model changes without dragging. Spin starts only on request and any manual adjustment pauses it.",
+      "Reduced motion disables spin. Forced colors or unavailable WebGL retain the static illustration and readable ray table; model controls still update the table when scripts work. Without scripts, exact default values and native disclosure remain available.",
+      "Use initPrisms(root), then call its returned cleanup before removing the root. Cleanup releases GPU resources and pointer capture, cancels motion and leaves the last ray table readable. Reinitialization retains current native values. Offscreen/hidden/pagehide pauses never auto-resume; restored WebGL contexts restart paused.",
+      "Opt-in spin targets 30 frames per second; manual changes redraw immediately. The backing buffer is limited to a 1.5 device-pixel ratio and 262144 pixels. Manual settings are finite and bounded; tracePrism(settings) returns copied model rays for application use. The illustrative index formula is index + dispersion * ((550 / wavelength) ** 2 - 1), using nanometers."
+    ]
   }
 ]

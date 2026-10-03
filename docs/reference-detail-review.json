@@ -8,9 +8,9 @@
       "Tunable light, emission, glass material and scene colors",
       "Reduced-motion behavior; reflection setting unsupported by the published component"
     ],
-    "gap": "Original 3D/shader prism example remains unimplemented.",
-    "reviewedAt": "2026-10-02",
-    "method": "Public documentation read through Firecrawl",
+    "gap": "Original Prism Lab now supplies generated 3D geometry/shaders, adjustable beam/dispersion and exact ray data. Vendor appearance, interactions, source license/assets and calibrated material equivalence remain unverified.",
+    "reviewedAt": "2026-10-03",
+    "method": "Public documentation reread through web tooling; original Rofin implementation reviewed separately",
     "statusCode": 200,
     "access": "Public documentation; source tier and license not verified",
     "vendorDemoInteractionTested": false

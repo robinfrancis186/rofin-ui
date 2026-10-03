@@ -6,7 +6,7 @@ A modular HTML, CSS, and vanilla JavaScript library by Robin Francis. Zero
 runtime dependencies, no required framework, and no required build step for
 using the source files.
 
-The library includes **85 component examples**, **20 optional effects**,
+The library includes **88 component examples**, **21 optional effects**,
 **27 copyable sections**, a searchable documentation gallery, and composed
 landing-page and dashboard examples.
 
@@ -666,3 +666,39 @@ and [customer portal](https://docs.stripe.com/customer-management). Fulfillment
 must use confirmed server events, not a redirect alone, as described in
 [Stripe's post-payment flow](https://docs.stripe.com/payments/existing-customers?platform=web&ui=stripe-hosted).
 No provider is connected to these public examples.
+
+
+## Optional Prism Lab
+
+The gallery and `examples/landing.html#prism` reuse
+`examples/components/prism-lab.html`, including its generated default ray table.
+Load the shared card/form/button/table styles and `src/prism.css`, then initialize:
+
+```js
+import { initPrisms, tracePrism } from './src/js/prism.js';
+const destroy = initPrisms(root);
+const rays = tracePrism({ height: 0, angle: 0, index: 1.45, dispersion: 0.12 });
+// Call destroy() before removing the root.
+```
+
+Optional package exports are `rofin-ui/prism` and `rofin-ui/prism.css` after a
+local build; npm publication remains pending. The module stays outside the core.
+Its original generated triangular mesh and shaders require no external assets.
+Native controls adjust beam height/angle, refractive index, dispersion and scene
+turn/tilt; captured pointer aiming has the same model alternatives on the ranges.
+Spin starts only on request, pauses on manual adjustments, offscreen/hidden pages
+and pagehide, and never resumes automatically. Reduced motion disables spin.
+Forced colors or missing WebGL retain a static illustration; model controls still
+update the exact table. With scripts off, native disclosure shows default data.
+Teardown cancels motion, releases pointer capture and generated GPU resources,
+and retains readable data; reinitialization starts paused at current native values.
+
+`tracePrism` returns copied seven-wavelength rays (700–400 nm), including points,
+index, exit angle, internal reflection count and exited/missed/trapped outcome.
+Finite bounds are height −0.8…0.8, angle −35…35 degrees, index 1.2…2.2 and
+dispersion 0…0.3. The illustrative index formula is
+`index + dispersion * ((550 / wavelength) ** 2 - 1)`; at most eight internal
+reflections are traced. This is not a calibrated material measurement or a port
+of a vendor's scene. Opt-in spin targets 30 frames per second; manual changes redraw immediately.
+The backing buffer is capped at 1.5 device-pixel ratio and 262,144 pixels. Device performance and the
+remaining shader, physics and scroll families still need their own evidence.

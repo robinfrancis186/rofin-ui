@@ -65,7 +65,12 @@
       "types": "./dist/billing.d.ts",
       "import": "./dist/billing.js"
     },
-    "./billing.css": "./dist/billing.css"
+    "./billing.css": "./dist/billing.css",
+    "./prism": {
+      "types": "./dist/prism.d.ts",
+      "import": "./dist/prism.js"
+    },
+    "./prism.css": "./dist/prism.css"
   },
   "files": [
     "dist/*.css",

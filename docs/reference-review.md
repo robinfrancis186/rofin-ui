@@ -3,8 +3,8 @@
 The linked catalogs and all nine libraries in the supplied screenshot were
 visited. Their available catalog metadata was collected into
 `reference-catalog.json`, and recurring patterns were implemented as original
-HTML, CSS, and vanilla JavaScript examples. The current gallery has 132 runnable
-entries: 85 components, 20 effects, and 27 sections.
+HTML, CSS, and vanilla JavaScript examples. The current gallery has 136 runnable
+entries: 88 components, 21 effects, and 27 sections.
 
 This is a first implementation pass, not an exhaustive visual review or a
 one-to-one port of every source component. The reference browser distinguishes
@@ -18,7 +18,7 @@ it does not assert visual, interaction, or API equivalence.
 | [Aura](https://www.aura.build/components?componentType=free) | 1,034 | Gradient CTA treatments, glass surfaces, team/article/newsletter layouts, hero and pricing foundations | Free gallery and its popular previews viewed. It reports 2,495 free entries. The additional search-index URLs mix access tiers and include missing titles; individual free-component coverage remains partial. |
 | [Aceternity](https://ui.aceternity.com/components) | 112 | Compare, carousel, expandable cards, dock, tilt, glare, aurora, beam, highlight, timeline | Catalog reviewed; Compare documentation sampled. Complex shaders, 3D scenes, and exact scroll choreography remain reference-only. |
 | [Bencho](https://bencho.dev) | 47 | Comparison, likes, stepper, checklist, image accordion, command search, marquee | Available block links collected. The site advertises 48 blocks; one entry was not exposed as a block link in the snapshot. |
-| [Obsidian UI](https://www.obsidianui.dev/components) | 7 | A pausable rail, gallery/carousel and split-layout foundations | All seven public documentation pages read. Source tiers/licenses and vendor interactions remain unverified. The original WebGL panning gallery and text effects are not implemented. |
+| [Obsidian UI](https://www.obsidianui.dev/components) | 7 | Original Prism Lab plus pausable rail, gallery/carousel and split-layout foundations | All seven public documentation pages read. Source tiers/licenses and vendor interactions remain unverified. The original WebGL panning gallery and text effects are not implemented. |
 | [Libraries.dev](https://libraries.dev) | 7 | Border beam and native loading/avatar alternatives | All seven public documentation pages read; their versioned public npm artifacts and packaged MIT licenses inspected. Vendor interactions and implementation source remain unreviewed. Gooey, voice-reactive, and liquid-metal rendering remain reference-only. |
 | [Arc](https://uiarc.dev/components) | 141 | Command palette, native selections, stepper, copy feedback, form flows, line chart | Line Chart documentation read; public machine-readable component/block index collected. No Pro source imported. Related native patterns omit Arc's exact spring physics. |
 | [Space UI](https://www.spaceui.one/components) | 101 | Interests, rating, like, checklist, date, timeline, login, gradient borders, sortable list, task board, adjustable panels | Kanban, Sortable, and Resizable documentation read. Original nested/grid sorting, card/column ordering and nested panel behavior implemented. Exact vendor drag/physics, tournaments and shaders remain reference-only. |
@@ -85,7 +85,7 @@ Public documentation for [V Prism](https://www.obsidianui.dev/docs/v-prism),
 The pages describe prism lighting, text momentum, character rotation,
 draggable rails, expanding partner cards, a WebGL gallery and pointer-following
 images. Their source tiers/licenses and vendor demo interactions were not
-verified. These visual families remain unimplemented; the per-URL findings
+verified. Prism Lab now supplies an original generated 3D/shader scene with native model controls and exact ray data. The other visual families remain unimplemented; the per-URL findings
 are in `reference-detail-review.json`.
 
 The seven [Libraries.dev](https://libraries.dev) documentation pages were also
@@ -117,3 +117,11 @@ loading/empty states, exact table and motion fallbacks informed the original
 chart additions. The public title calls it free; its install artifact and license
 were not verified, and its vendor demo was not interaction-tested. Arc's current
 navigation counts differ from the older collected catalog and remain unreconciled.
+
+
+The V Prism public documentation was reread on 3 October. Its movable-beam
+and scene concepts informed the original optional Prism Lab, whose generated
+geometry, shaders and bounded illustrative dispersion model are independent.
+No vendor code/assets were imported; vendor demo behavior, source licensing,
+material calibration and visual equivalence remain unverified. This addition
+does not complete the remaining shader, 3D gallery, physics or scroll families.

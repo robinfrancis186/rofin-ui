@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { errorPage } from './error-pages.mjs';
 import { invoiceText } from '../src/js/billing.js';
 import { sampleBilling } from '../examples/billing-demo.js';
+import { tracePrism } from '../src/js/prism.js';
 
 await mkdir('dist', { recursive: true });
 const shared = { bundle: true, minify: true, target: ['es2022'], logLevel: 'warning' };
@@ -42,9 +43,12 @@ await cp('src/js/viewers.d.ts', 'dist/viewers.d.ts');
 await build({ ...shared, entryPoints: ['src/billing.css'], outfile: 'dist/billing.css' });
 await build({ ...shared, entryPoints: ['src/js/billing.js'], outfile: 'dist/billing.js', format: 'esm' });
 await cp('src/js/billing.d.ts', 'dist/billing.d.ts');
+await build({ ...shared, entryPoints: ['src/prism.css'], outfile: 'dist/prism.css' });
+await build({ ...shared, entryPoints: ['src/js/prism.js'], outfile: 'dist/prism.js', format: 'esm' });
+await cp('src/js/prism.d.ts', 'dist/prism.d.ts');
 await cp('src/index.d.ts', 'dist/index.d.ts');
 
-const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js', 'viewers.css', 'viewers.js', 'billing.css', 'billing.js'];
+const names = ['rofin.css', 'rofin.js', 'rofin.auto.js', 'effects.css', 'effects.js', 'sections.css', 'patterns.css', 'patterns.js', 'form-patterns.css', 'form-patterns.js', 'data-grid.css', 'data-grid.js', 'upload-queue.css', 'upload-queue.js', 'team-management.css', 'team-management.js', 'editors.css', 'editors.js', 'file-browser.css', 'file-browser.js', 'viewers.css', 'viewers.js', 'billing.css', 'billing.js', 'prism.css', 'prism.js'];
 const sizes = {};
 for (const name of names) {
   const content = await readFile(`dist/${name}`);
@@ -53,6 +57,12 @@ for (const name of names) {
 const coreGzip = sizes['rofin.css'].gzip + sizes['rofin.auto.js'].gzip;
 if (coreGzip > 14 * 1024) throw new Error(`Core exceeds the 14 KiB gzip ceiling: ${coreGzip} bytes`);
 await writeFile('dist/sizes.json', JSON.stringify({ coreGzip, files: sizes }, null, 2) + '\n');
+
+const prismPath = 'examples/components/prism-lab.html';
+const prismSource = await readFile(prismPath, 'utf8');
+if (!prismSource.includes('<!-- rf:prism-rays:start -->') || !prismSource.includes('<!-- rf:prism-rays:end -->')) throw Error('Missing prism data markers.');
+const prismRows = tracePrism().map(ray => `<tr>${[ray.wavelength, ray.index.toFixed(4), ray.state, ray.reflections, ray.exitAngle === null ? '—' : `${ray.exitAngle.toFixed(2)}°`].map(value => `<td>${value}</td>`).join('')}</tr>`).join('\n');
+await writeFile(prismPath, prismSource.replace(/<!-- rf:prism-rays:start -->[\s\S]*?<!-- rf:prism-rays:end -->/, `<!-- rf:prism-rays:start -->\n${prismRows}\n<!-- rf:prism-rays:end -->`));
 
 const metadata = JSON.parse(await readFile('docs/catalog.json', 'utf8'));
 const catalog = [];
@@ -79,6 +89,9 @@ for (const path of ['examples/billing.html', 'examples/dashboard.html']) {
   if (!html.includes('<!-- rf:billing-pages:start -->') || !html.includes('<!-- rf:billing-pages:end -->')) throw Error('Missing billing template markers.');
   await writeFile(path, html.replace(/<!-- rf:billing-pages:start -->[\s\S]*?<!-- rf:billing-pages:end -->/, `<!-- rf:billing-pages:start -->\n${path.includes('dashboard') ? billingHTML.replace('data-rf-usage-preview', 'data-rf-usage-preview hidden') : billingHTML}\n<!-- rf:billing-pages:end -->`));
 }
+const landing = await readFile('examples/landing.html', 'utf8');
+if (!landing.includes('<!-- rf:prism-example:start -->') || !landing.includes('<!-- rf:prism-example:end -->')) throw Error('Missing landing prism markers.');
+await writeFile('examples/landing.html', landing.replace(/<!-- rf:prism-example:start -->[\s\S]*?<!-- rf:prism-example:end -->/, `<!-- rf:prism-example:start -->\n${catalog.find(item => item.id === 'prism-lab').html}\n<!-- rf:prism-example:end -->`));
 await writeFile('examples/assets/sample-invoice.txt', invoiceText(sampleBilling(), 'studio-sep', { sample: true }));
 
 // Self-contained static documentation, ready for any static host. No deployment required.

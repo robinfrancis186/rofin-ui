@@ -2,10 +2,12 @@ import { init, toast } from '../src/js/index.js';
 import { initEffects } from '../src/js/effects.js';
 import { initPatterns } from '../src/js/patterns.js';
 import { initFormPatterns } from '../src/js/form-patterns.js';
+import { initPrisms } from '../src/js/prism.js';
 init();
 initEffects();
 initPatterns();
 initFormPatterns();
+initPrisms();
 document.addEventListener('click', event => {
   if (event.target.closest('[data-demo-toast]')) toast('Your changes are saved.', { title: 'All set', variant: 'success' });
   if (!event.defaultPrevented && event.target.closest('.demo-stage a')) { event.preventDefault(); toast('Example link. Connect it to your own destination.', { duration: 3000 }); }

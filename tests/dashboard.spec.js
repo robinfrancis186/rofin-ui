@@ -171,7 +171,8 @@ test('website and dashboard layouts, exposed overlays, and chart data are access
   await expect(page).toHaveURL(/#pricing$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
   await page.goto('/docs/index.html#coverage');
-  await expect(page.locator('.coverage-table tbody tr')).toHaveCount(11);
+  await expect(page.locator('.coverage-table tbody tr')).toHaveCount(12);
+  await expect(page.locator('.coverage-table').getByRole('link', { name: 'Prism lab', exact: true })).toHaveAttribute('href', '#component/prism-lab');
   await page.getByRole('link', { name: 'Paginated table', exact: true }).last().click();
   await expect(page.locator('.page-heading h1')).toHaveText('Paginated table');
   await page.setViewportSize({ width: 320, height: 900 });

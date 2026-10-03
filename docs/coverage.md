@@ -1,6 +1,6 @@
 # Website and dashboard coverage
 
-The 135-example gallery covers common website and dashboard UI. Use the
+The 136-example gallery covers common website and dashboard UI. Use the
 interactive **Website & dashboard checklist** in the documentation to open
 each example. This is a UI library, not an application backend.
 
@@ -156,3 +156,12 @@ Current dashboard usage comes from its actual page-session projects, team and
 non-trashed file bytes. Sample paid/part-paid/void invoices are explicit fictional
 records; changes do not manufacture a payment or receipt. Authorized provider
 checkout, verified invoices and durable metering remain C09/A01/A02/A05.
+
+
+The original optional Prism Lab adds a generated 3D triangular mesh, WebGL
+shaders, adjustable beam/refraction/dispersion, manual scene controls and explicit
+spin. The gallery and landing page compose the same source template. A native
+ray table preserves exact illustrative outcomes, including internal reflection
+and missed beams, with scripts-off data and no-WebGL/forced-color alternatives.
+Reduced motion and lifecycle pauses keep decorative animation opt-in. This is
+one advanced visual family; remaining 3D, shader, physics and scroll work stays R02.

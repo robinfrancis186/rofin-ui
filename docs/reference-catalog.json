@@ -1221,7 +1221,7 @@
       "coverage": "Public catalog links collected; individual demos are not all visually reviewed.",
       "entries": [
         {"title": "Draggable Marquee", "url": "https://www.obsidianui.dev/docs/draggable-marquee", "related": "marquee", "review": "Documentation read; repeating image rail with dragging and momentum; source tier/license and vendor interaction unverified"},
-        {"title": "V Prism", "url": "https://www.obsidianui.dev/docs/v-prism", "related": null, "review": "Documentation read; movable Three.js prism and reduced motion; source tier/license and vendor interaction unverified"},
+        {"title": "V Prism", "url": "https://www.obsidianui.dev/docs/v-prism", "related": "prism-lab", "review": "Documentation read; movable Three.js prism and reduced motion; source tier/license and vendor interaction unverified"},
         {"title": "Split Showcase", "url": "https://www.obsidianui.dev/docs/split-showcase", "related": "hero", "review": "Documentation read; two partner cards separated by a dotted divider; source tier/license and vendor interaction unverified"},
         {"title": "Art Gallery", "url": "https://www.obsidianui.dev/docs/art-gallery", "related": "carousel", "review": "Documentation read; pannable repeating photo grid with lens distortion; source tier/license and vendor interaction unverified"},
         {"title": "Text Stream", "url": "https://www.obsidianui.dev/docs/text-stream", "related": null, "review": "Documentation read; scroll-driven vertical text; source tier/license and vendor interaction unverified"},

@@ -29,6 +29,10 @@ assert.equal(typeof (await import('../dist/file-browser.js')).createFileBrowser,
 assert.equal(typeof (await import('../dist/viewers.js')).initViewers, 'function', 'Optional viewer import is safe without a DOM');
 assert.equal(typeof (await import('../dist/billing.js')).createBillingManager, 'function', 'Optional billing import is safe without a DOM');
 for (const path of ['examples/billing.html', 'examples/billing-demo.js', 'examples/assets/sample-invoice.txt', 'dist/billing.d.ts']) assert(packed.has(path), `Missing billing file: ${path}`);
+const prism = await import('../dist/prism.js');
+assert.equal(typeof prism.initPrisms, 'function', 'Optional prism import is safe without a DOM');
+assert.equal(prism.tracePrism().length, 7, 'Published prism model returns seven wavelengths');
+for (const path of ['examples/components/prism-lab.html', 'dist/prism.d.ts']) assert(packed.has(path), `Missing prism file: ${path}`);
 const cjs = createRequire(import.meta.url)('../dist/rofin.cjs');
 for (const name of ['init', 'initTabs', 'initDialogs', 'initDropdowns', 'initTooltips', 'initUploads', 'toast', 'clearToasts']) {
   assert.equal(typeof esm[name], 'function', `ESM export ${name}`);

@@ -1,10 +1,44 @@
 # Validation evidence — 2–3 October 2026
 
-Current gallery: 135 runnable entries, including nested/grid sorting and reorderable task cards/columns, nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
+Current gallery: 136 runnable entries, including nested/grid sorting and reorderable task cards/columns, nested adjustable dashboard panels, error/recovery pages, image/document/media viewers, the file browser, rich-text/Markdown notes, team management, invitation and
 permission examples, workspace/account menus, the upload
 queue, advanced data table and eight form/scheduling examples. This is a component implementation checkpoint; application services,
 complete reference review and npm publication remain outstanding in
 `completion-ledger.md`.
+
+## Prism Lab 3D checkpoint
+
+The original optional module generates its triangular 3D mesh and WebGL shaders
+without external assets or runtime dependencies. The gallery and composed
+landing page share one source template, including generated scripts-off data.
+Native ranges reuse the shared form/range component; buttons, fields and exact
+ray tables reuse existing styles. The illustrative seven-wavelength model uses
+finite settings, bounded internal reflections and copied output; it does not
+claim calibrated materials or vendor scene equivalence.
+
+Six focused checks cover Snell refraction across the bounded settings, actual
+painted pixels and rotation/beam changes, keyboard controls and pointer capture,
+explicit spin/manual pause, offscreen/visibility/pagehide and reduced motion,
+context loss/restoration, cancelled/native reset, teardown/reinitialization,
+forced colors and unavailable WebGL, scripts-off data, both themes at
+320/390/1440 pixels and automated accessibility. Actual WebGL pixels were read
+locally in Chromium, Firefox and macOS WebKit. Static SVG visibility is checked
+separately so the fallback cannot mask a missing generated scene. Cleanup
+releases generated resources and shrinks the canvas; it preserves a reusable
+context for fresh enhancement. Spin updates do not create live announcements.
+
+Installed Safari separately rendered the scene, changed dispersion, started
+and paused spin, reset scene turn to 25 degrees and disclosed all seven exact
+default rays (700 nm −32.41 degrees; 400 nm one reflection, −120 degrees).
+Its owned tab was closed and the original Start Page restored. This remains
+partial native Safari evidence; screen readers and physical devices remain
+outstanding. Opt-in spin targets 30 frames/second; manual changes redraw immediately.
+The backing buffer is bounded to 1.5 device-pixel ratio and 262144 pixels; these ceilings do not establish physical-device
+performance. The core remains 8424 bytes gzip and the package contains 272
+files. Current full-suite CI and production evidence are recorded in draft PR #1.
+The website checklist now has twelve groups and explicitly links Prism Lab;
+the existing coverage assertion was updated to verify that addition. Further
+shader, 3D gallery, physics and complex scroll families remain R02.
 
 ## Billing UI checkpoint
 
